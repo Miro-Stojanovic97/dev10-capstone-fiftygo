@@ -59,19 +59,15 @@ Capstone project by Operation Alkemi in Dev10 Cohort-27
 ---
 
 ## Elevator pitch / core concept
-* The problem
-  * Not having a good way to organize/plan your travels
-* Attention-getter
-  * Want to say you've been to all 50 states? FiftyGO will help you get there.
-* Why your app is needed
-  * America is beautiful, and more people need to go out and experience it. 
-* What your app does
-  * Allows users to keep track of and plan their national travels while also tracking the activities they did on their trip.
-* Restate original problem
-  * 
-* How your app solves it
-  * 
+  * A problem a lot of travelers have is not being able to keep track of their planned travels.
+If someone has multiple trips planned, it would be convenient to see all of their trips in one place.
+FiftyGO can help you keep track of your plans while encouraging you to travel more with our "map view" of your trips.
+America is beautiful and more people should go out and experience all it has to offer. 
+FiftyGO allows users to keep track of and plan their national travels while also tracking the activities they have planed for their trip.
+Without an organized place to view your planned trips and activities, your trips can get hectic and overwhelming trying to fit everything in.
+FiftyGO is here to supply a safe place for your plans so you can spend your trip enjoying the beauty instead of worrying about if you can see it.
 
+    
 # TODO Manager w/ Security
 
 ## TODO Data Model
