@@ -72,8 +72,9 @@ Capstone project by Operation Alkemi in Dev10 Cohort-27
 * How your app solves it
   * 
 
-# TODO Manager w/ Security
+---
 
+# TODO Manager w/ Security
 ## TODO Data Model
 
 ### Activity
@@ -155,12 +156,15 @@ Capstone project by Operation Alkemi in Dev10 Cohort-27
 * [ ] As a Premium User, I should be able to edit _my own_ trips and activities.
 * [ ] As a Premium User, I should not be able to edit other's trips or activities.
 ---
-* [ ] As an Admin, I should be able to see all trips and activities.
-* [ ] As an Admin, I should be able to create a trip or activity.
-* [ ] As an Admin, I should be able to remove any/all trips and activities.
-* [ ] As an Admin, I should be able to create a city.
+
+* [ ] As an Admin, I should be able to view all users.
 * [ ] As an Admin, I should be able to promote a User to Premium User.
 * [ ] As an Admin, I should be able to remove Users and Premium Users.
+* [ ] As an Admin, I should be able to add Admin role to any other Users.
+* [ ] (stretch goal) As an Admin, I should be able to see all trips and activities.
+* [ ] (stretch goal) As an Admin, I should be able to create a trip or activity.
+* [ ] (stretch goal) As an Admin, I should be able to remove any/all trips and activities.
+* [ ] (stretch goal) As an Admin, I should be able to create a city.
 ---
 
 ## Tasks
