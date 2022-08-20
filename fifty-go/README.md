@@ -191,37 +191,37 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
    * [x] spring.datasource.url=jdbc:mysql://localhost:3306/fifty-go_prod
    * [x] spring.datasource.username=root
    * [x] spring.datasource.password=top-secret-password
-   * [ ] Create models package
-     * [ ] Create AppUser class
-         * [ ] Extend from the User (org.springframework.security.core.userdetails)
-         * [ ] Add Set&lt;String&gt; roles field variable
-         * [ ] Add Integer userId field variable
-         * [ ] Generate getters/setters
-         * [ ] Generate hashCode/equals
-         * [ ] Add constructor which takes Integer userId, String username, String password, and Set&lt;String&gt; roles
-             * [ ] call super(username, password, roles.stream().map( r -> new SimpleGrantedAuthority( "ROLE_" + r )).collect( Collectors.toList() ) )
-             * [ ] assign to this.userId
-             * [ ] assign to this.roles
-     * [ ] Create Activity class
-         * [ ] (See model fields in top of document)
-         * [ ] Generate getters/setters
-         * [ ] Generate hashCode/equals
-     * [ ] Create Trip class
-         * [ ] (See model fields in top of document)
-         * [ ] Generate getters/setters
-         * [ ] Generate hashCode/equals
-     * [ ] Create TripType class
-         * [ ] (See model fields in top of document)
-         * [ ] Generate getters/setters
-         * [ ] Generate hashCode/equals
-     * [ ] Create City class
-         * [ ] (See model fields in top of document)
-         * [ ] Generate getters/setters
-         * [ ] Generate hashCode/equals
-     * [ ] Create User class
-         * [ ] (See model fields in top of document)
-         * [ ] Generate getters/setters
-         * [ ] Generate hashCode/equals
+   * [x] Create models package
+     * [x] Create AppUser class
+         * [x] Extend from the User (org.springframework.security.core.userdetails)
+         * [x] Add Set&lt;String&gt; roles field variable
+         * [x] Add Integer userId field variable
+         * [x] Generate getters/setters
+         * [x] Generate hashCode/equals
+         * [x] Add constructor which takes Integer userId, String username, String password, and Set&lt;String&gt; roles
+             * [x] call super(username, password, roles.stream().map( r -> new SimpleGrantedAuthority( "ROLE_" + r )).collect( Collectors.toList() ) )
+             * [x] assign to this.userId
+             * [x] assign to this.roles
+     * [x] Create Activity class
+         * [x] (See model fields in top of document)
+         * [x] Generate getters/setters
+         * [x] Generate hashCode/equals
+     * [x] Create Trip class
+         * [x] (See model fields in top of document)
+         * [x] Generate getters/setters
+         * [x] Generate hashCode/equals
+     * [x] Create TripType class
+         * [x] (See model fields in top of document)
+         * [x] Generate getters/setters
+         * [x] Generate hashCode/equals
+     * [x] Create City class
+         * [x] (See model fields in top of document)
+         * [x] Generate getters/setters
+         * [x] Generate hashCode/equals
+     * [x] Create AppUser class
+         * [x] (See model fields in top of document)
+         * [x] Generate getters/setters
+         * [x] Generate hashCode/equals
        
    * [ ] Create data package
      * [ ] Create Trip interface
