@@ -183,15 +183,15 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
         * [x] spring-boot-starter-web
         * [x] spring-boot-starter-validation
       
-* [ ] Create base package (fifty-go)
-   * [ ] Create App class
-       * [ ] @SpringBootApplication
-       * [ ] main
-           * [ ] SpringApplication.run( App.class, args );
-   * [ ] Create application.properties file
-   * [ ] spring.datasource.url=jdbc:mysql://localhost:3306/fifty-go_prod
-   * [ ] spring.datasource.username=root
-   * [ ] spring.datasource.password=top-secret-password
+* [x] Create base package (fifty-go)
+   * [x] Create App class
+       * [x] @SpringBootApplication
+       * [x] main
+           * [x] SpringApplication.run( App.class, args );
+   * [x] Create application.properties file
+   * [x] spring.datasource.url=jdbc:mysql://localhost:3306/fifty-go_prod
+   * [x] spring.datasource.username=root
+   * [x] spring.datasource.password=top-secret-password
    * [ ] Create models package
      * [ ] Create AppUser class
          * [ ] Extend from the User (org.springframework.security.core.userdetails)
