@@ -113,6 +113,7 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
     3. lastName     - String
     4. username     - String
     5. passwordHash - hashed password
+    6. disabled     - boolean
 
 ## Roles
     (no Model in Java Server, only table in SQL db)
@@ -509,64 +510,77 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
            * [ ] userId        int primary key auto_increment
            * [ ] username      varchar(300) not null unique
            * [ ] password      varchar(2048) not null,
-       
-       * [ ] create table todos
-           * [ ] todoId        int primary key auto_increment
-           * [ ] todoText      text not null
-           * [ ] authorId      int not null
-           * [ ] isPublic      bit(1) not null
-           * [ ] createDate    date not null
-           * [ ] constraint fk_todos_users foreign key (authorId) references users(userId)
-     
-       * [ ] create table todos
-           * [ ] todoId        int primary key auto_increment
-           * [ ] todoText      text not null
-           * [ ] authorId      int not null
-           * [ ] isPublic      bit(1) not null
-           * [ ] createDate    date not null
+
+       * [ ] create table user
+           * [ ] user_id        int primary key auto_increment
+           * [ ] first_name     varchar(50) not null
+           * [ ] last_name      varchar(50) not null
+           * [ ] username       varchar(50) not null unique
+           * [ ] password_hash  varchar(2048) not null
+           * [ ] disabled       bit not null default (0)
            * [ ] constraint fk_todos_users foreign key (authorId) references users(userId)
 
-       * [ ] create table todos
-           * [ ] todoId        int primary key auto_increment
-           * [ ] todoText      text not null
-           * [ ] authorId      int not null
-           * [ ] isPublic      bit(1) not null
-           * [ ] createDate    date not null
-           * [ ] constraint fk_todos_users foreign key (authorId) references users(userId)
-
-       * [ ] create table todos
-           * [ ] todoId        int primary key auto_increment
-           * [ ] todoText      text not null
-           * [ ] authorId      int not null
-           * [ ] isPublic      bit(1) not null
-           * [ ] createDate    date not null
-           * [ ] constraint fk_todos_users foreign key (authorId) references users(userId)
+       * [ ] create table pin (formerly known as activity)
+           * [ ] pin_id             int primary key auto_increment
+           * [ ] pin_description    text not null
+           * [ ] pin_date           date
+           * [ ] pin_priority       int not null
+           * [ ] pin_did_it         bit not null
+           * [ ] user_id            int not null 
+           * [ ] constraint fk_pin_user_id foreign key (user_id) references user(user_id)
      
-       * [ ] create table roles
-          * [ ] roleId        int primay key auto_increment
-          * [ ] roleName      varchar(20) not null unique
+           * [ ] create table trip
+               * [ ] trip_id            int primary key auto_increment
+               * [ ] trip_description   text not null
+               * [ ] trip_start_date    date
+               * [ ] trip_end_date      date
+               * [ ] transporation      text
+               * [ ] trip_priority      int not null
+               * [ ] trip_did_it        bit not null
+               * [ ] user_id            int not null
+               * [ ] constraint fk_trip_user_id foreign key (user_id) references user(user_id)
+
+           * [ ] create table todos
+               * [ ] todoId        int primary key auto_increment
+               * [ ] todoText      text not null
+               * [ ] authorId      int not null
+               * [ ] isPublic      bit(1) not null
+               * [ ] createDate    date not null
+               * [ ] constraint fk_todos_users foreign key (authorId) references users(userId)
+
+           * [ ] create table todos
+               * [ ] todoId        int primary key auto_increment
+               * [ ] todoText      text not null
+               * [ ] authorId      int not null
+               * [ ] isPublic      bit(1) not null
+               * [ ] createDate    date not null
+               * [ ] constraint fk_todos_users foreign key (authorId) references users(userId)
+     
+           * [ ] create table roles
+              * [ ] roleId        int primay key auto_increment
+              * [ ] roleName      varchar(20) not null unique
        
-       * [ ] create table userroles
-           * [ ] userId        int not null,
-           * [ ] roleId        int not null,
-           * [ ] constraint pk_userroles (userId, roleId),
-           * [ ] constraint fk_users_userroles foreign key (userId) references users(userId)
-           * [ ] constraint fk_roles_userroles foreign key (roleId) references roles(roleId)
-           * [ ] insert into users (username, password) values ('bob', '$2a$12$HqaU3VlN09ufZ60R8VrLHuIX8H6b1iFDA9AG./vzThpIzhxEIF8nC');   -- pw is password
-           * [ ] insert into users (username, password) values ('june', '$2a$12$k2TB.cQ1TLHLOYn.pbbiTuQ5HoUxozWkl.ZgFZ.9eioAeMxndT5AS');  -- pw is admin-password
-           * [ ] insert into roles (roleName) VALUES ('AUTHOR'), ('ADMIN');
-           * [ ] insert into userroles (userId, roleId) VALUES (1,1), (2,2);
-           * [ ] insert into todos (todoText, authorId, isPublic, createDate) values ('this is a private todo', 1, 0, '2020-04-06'), ('this is a public todo', 2, 1, '2020-04-05');
-           * [ ] generate reset stored procedure in db (set_known_good_state)
-               * [ ] delete from userroles;
-               * [ ] delete from users;
-               * [ ] alter table users auto_increment = 1;
-               * [ ] delete from roles;
-               * [ ] alter table roles auto_increment = 1;
-               * [ ] delete from todos;
-               * [ ] alter table todos auto_increment = 1;
-               * [ ] (copy all inserts from prod)
-           * [ ] at end of test schema call set_known_good_state();
+           * [ ] create table userroles
+               * [ ] userId        int not null,
+               * [ ] roleId        int not null,
+               * [ ] constraint pk_userroles (userId, roleId),
+               * [ ] constraint fk_users_userroles foreign key (userId) references users(userId)
+               * [ ] constraint fk_roles_userroles foreign key (roleId) references roles(roleId)
+               * [ ] insert into users (username, password) values ('bob', '$2a$12$HqaU3VlN09ufZ60R8VrLHuIX8H6b1iFDA9AG./vzThpIzhxEIF8nC');   -- pw is password
+               * [ ] insert into users (username, password) values ('june', '$2a$12$k2TB.cQ1TLHLOYn.pbbiTuQ5HoUxozWkl.ZgFZ.9eioAeMxndT5AS');  -- pw is admin-password
+               * [ ] insert into roles (roleName) VALUES ('AUTHOR'), ('ADMIN');
+               * [ ] insert into userroles (userId, roleId) VALUES (1,1), (2,2);
+               * [ ] insert into todos (todoText, authorId, isPublic, createDate) values ('this is a private todo', 1, 0, '2020-04-06'), ('this is a public todo', 2, 1, '2020-04-05');
+               * [ ] generate reset stored procedure in db (set_known_good_state)
+                   * [ ] delete from userroles;
+                   * [ ] delete from users;
+                   * [ ] alter table users auto_increment = 1;
+                   * [ ] delete from roles;
+                   * [ ] alter table roles auto_increment = 1;
+                   * [ ] delete from todos;
+                   * [ ] alter table todos auto_increment = 1;
+                   * [ ] (copy all inserts from prod)
+               * [ ] at end of test schema call set_known_good_state();
 
    * [ ] Create React Front-End
        * [ ] From the terminal, inside of your Java application
