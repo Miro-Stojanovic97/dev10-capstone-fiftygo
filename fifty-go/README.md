@@ -81,9 +81,9 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
     1. pinId               - int
     2. pinDescription      - String
     3. pinDate             - LocalDate
-    4. pinPriority         - LocalDate
+    4. pinPriority         - int [1-5]
     5. pinDidIt            - boolean
-    6. userId                   - int [1-5]
+    6. userId              - int
 
 ### Trip
     1. tripId           - int
@@ -561,16 +561,20 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
          * [ ] insert into pin_city (pin_id, city_id) values (...);
          * [ ] insert into pin_trip (pin_id, trip_id) values (...);
          * [ ] generate reset stored procedure in db (set_known_good_state)
+             * [ ] delete from pin_trip;
+             * [ ] delete from pin_city;
+             * [ ] delete from pin_type;
+             * [ ] delete from type;
+             * [ ] alter table type auto_increment = 1;
+             * [ ] delete from trip;
+             * [ ] alter table type auto_increment = 1;
+             * [ ] delete from pin;
+             * [ ] alter table type auto_increment = 1;
              * [ ] delete from user_role;
              * [ ] delete from user;
              * [ ] alter table user auto_increment = 1;
              * [ ] delete from role;
              * [ ] alter table role auto_increment = 1;
-             * [ ] delete from todos;
-             * [ ] alter table todos auto_increment = 1;
-             * [ ] delete from todos;
-             * [ ] 
-             * [ ] alter table todos auto_increment = 1;
              * [ ] (copy all inserts from prod)
          * [ ] at end of test schema call set_known_good_state();
 
