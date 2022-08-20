@@ -77,12 +77,12 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
 # FiftyGO Manager w/ Security
 ## FiftyGO Data Models
 
-### Activity
-    1. activityId               - int
-    2. activityDescription      - String
-    3. activityDate             - LocalDate
-    4. activityPriority         - LocalDate
-    5. ActivityDidIt            - boolean
+### Pin (formerly known as activity)
+    1. pinId               - int
+    2. pinDescription      - String
+    3. pinDate             - LocalDate
+    4. pinPriority         - LocalDate
+    5. pinDidIt            - boolean
     6. userId                   - int [1-5]
 
 ### Trip
@@ -506,10 +506,6 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
        * [ ] drop database if exists fiftygo_X
        * [ ] create database fiftygo_X
        * [ ] use fiftygo_X
-       * [ ] create table users
-           * [ ] userId        int primary key auto_increment
-           * [ ] username      varchar(300) not null unique
-           * [ ] password      varchar(2048) not null,
 
        * [ ] create table user
            * [ ] user_id        int primary key auto_increment
@@ -518,8 +514,7 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
            * [ ] username       varchar(50) not null unique
            * [ ] password_hash  varchar(2048) not null
            * [ ] disabled       bit not null default (0)
-           * [ ] constraint fk_todos_users foreign key (authorId) references users(userId)
-
+         
        * [ ] create table pin (formerly known as activity)
            * [ ] pin_id             int primary key auto_increment
            * [ ] pin_description    text not null
@@ -529,58 +524,55 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
            * [ ] user_id            int not null 
            * [ ] constraint fk_pin_user_id foreign key (user_id) references user(user_id)
      
-           * [ ] create table trip
-               * [ ] trip_id            int primary key auto_increment
-               * [ ] trip_description   text not null
-               * [ ] trip_start_date    date
-               * [ ] trip_end_date      date
-               * [ ] transporation      text
-               * [ ] trip_priority      int not null
-               * [ ] trip_did_it        bit not null
-               * [ ] user_id            int not null
-               * [ ] constraint fk_trip_user_id foreign key (user_id) references user(user_id)
+       * [ ] create table trip
+           * [ ] trip_id            int primary key auto_increment
+           * [ ] trip_description   text not null
+           * [ ] trip_start_date    date
+           * [ ] trip_end_date      date
+           * [ ] transportation     text
+           * [ ] trip_priority      int not null
+           * [ ] trip_did_it        bit not null
+           * [ ] user_id            int not null
+           * [ ] constraint fk_trip_user_id foreign key (user_id) references user(user_id)
 
-           * [ ] create table todos
-               * [ ] todoId        int primary key auto_increment
-               * [ ] todoText      text not null
-               * [ ] authorId      int not null
-               * [ ] isPublic      bit(1) not null
-               * [ ] createDate    date not null
-               * [ ] constraint fk_todos_users foreign key (authorId) references users(userId)
+       * [ ] create table type
+           * [ ] type_id        int primary key auto_increment
+           * [ ] type_name      text not null
 
-           * [ ] create table todos
-               * [ ] todoId        int primary key auto_increment
-               * [ ] todoText      text not null
-               * [ ] authorId      int not null
-               * [ ] isPublic      bit(1) not null
-               * [ ] createDate    date not null
-               * [ ] constraint fk_todos_users foreign key (authorId) references users(userId)
-     
-           * [ ] create table roles
-              * [ ] roleId        int primay key auto_increment
-              * [ ] roleName      varchar(20) not null unique
+       * [ ] create table roles
+           * [ ] role_id        int primary key auto_increment
+           * [ ] role_name      varchar(20) not null unique
        
-           * [ ] create table userroles
-               * [ ] userId        int not null,
-               * [ ] roleId        int not null,
-               * [ ] constraint pk_userroles (userId, roleId),
-               * [ ] constraint fk_users_userroles foreign key (userId) references users(userId)
-               * [ ] constraint fk_roles_userroles foreign key (roleId) references roles(roleId)
-               * [ ] insert into users (username, password) values ('bob', '$2a$12$HqaU3VlN09ufZ60R8VrLHuIX8H6b1iFDA9AG./vzThpIzhxEIF8nC');   -- pw is password
-               * [ ] insert into users (username, password) values ('june', '$2a$12$k2TB.cQ1TLHLOYn.pbbiTuQ5HoUxozWkl.ZgFZ.9eioAeMxndT5AS');  -- pw is admin-password
-               * [ ] insert into roles (roleName) VALUES ('AUTHOR'), ('ADMIN');
-               * [ ] insert into userroles (userId, roleId) VALUES (1,1), (2,2);
-               * [ ] insert into todos (todoText, authorId, isPublic, createDate) values ('this is a private todo', 1, 0, '2020-04-06'), ('this is a public todo', 2, 1, '2020-04-05');
-               * [ ] generate reset stored procedure in db (set_known_good_state)
-                   * [ ] delete from userroles;
-                   * [ ] delete from users;
-                   * [ ] alter table users auto_increment = 1;
-                   * [ ] delete from roles;
-                   * [ ] alter table roles auto_increment = 1;
-                   * [ ] delete from todos;
-                   * [ ] alter table todos auto_increment = 1;
-                   * [ ] (copy all inserts from prod)
-               * [ ] at end of test schema call set_known_good_state();
+       * [ ] create table user_roles
+           * [ ] userId        int not null,
+           * [ ] roleId        int not null,
+           * [ ] constraint pk_userroles (userId, roleId),
+           * [ ] constraint fk_users_userroles foreign key (userId) references users(userId)
+           * [ ] constraint fk_roles_userroles foreign key (roleId) references roles(roleId)
+         
+       * [ ] insert data into tables for test db:
+         * [ ] insert into users (first_name, last_name, username, password, disabled) values ('bob', '$2a$12$HqaU3VlN09ufZ60R8VrLHuIX8H6b1iFDA9AG./vzThpIzhxEIF8nC');   -- pw is password
+         * [ ] insert into roles (role_name) VALUES ('USER'), ('PREMIUM'), ('ADMIN');
+         * [ ] insert into user_role (userId, roleId) VALUES (1,1), (2,2);
+         * [ ] insert into pin (pin_description, pin_date, pin_priority, pin_did_it, user_id) values (...);
+         * [ ] insert into trip (trip_description, trip_start_date, trip_end_date, transportation, trip_priority, trip_did_it, user_id) values (...);
+         * [ ] insert into type (type_name) values (...);
+         * [ ] insert into pin_type (pin_id, type_id) values (...);
+         * [ ] insert into pin_city (pin_id, city_id) values (...);
+         * [ ] insert into pin_trip (pin_id, trip_id) values (...);
+         * [ ] generate reset stored procedure in db (set_known_good_state)
+             * [ ] delete from user_role;
+             * [ ] delete from user;
+             * [ ] alter table user auto_increment = 1;
+             * [ ] delete from role;
+             * [ ] alter table role auto_increment = 1;
+             * [ ] delete from todos;
+             * [ ] alter table todos auto_increment = 1;
+             * [ ] delete from todos;
+             * [ ] 
+             * [ ] alter table todos auto_increment = 1;
+             * [ ] (copy all inserts from prod)
+         * [ ] at end of test schema call set_known_good_state();
 
    * [ ] Create React Front-End
        * [ ] From the terminal, inside of your Java application
