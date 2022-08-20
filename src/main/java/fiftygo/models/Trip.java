@@ -13,8 +13,11 @@ public class Trip {
     private int tripPriority;
     private boolean tripDidIt;
     private int userId;
+    private City city;
+    private Type type;
+    private Activity activity;
 
-    public Trip(int tripId, String tripDescription, LocalDate tripStartDate, LocalDate tripEndDate, String transportation, int tripPriority, boolean tripDidIt, int userId) {
+    public Trip(int tripId, String tripDescription, LocalDate tripStartDate, LocalDate tripEndDate, String transportation, int tripPriority, boolean tripDidIt, int userId, City city, Type type, Activity activity) {
         this.tripId = tripId;
         this.tripDescription = tripDescription;
         this.tripStartDate = tripStartDate;
@@ -23,6 +26,9 @@ public class Trip {
         this.tripPriority = tripPriority;
         this.tripDidIt = tripDidIt;
         this.userId = userId;
+        this.city = city;
+        this.type = type;
+        this.activity = activity;
     }
 
     public int getTripId() {
@@ -87,6 +93,30 @@ public class Trip {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
     @Override
