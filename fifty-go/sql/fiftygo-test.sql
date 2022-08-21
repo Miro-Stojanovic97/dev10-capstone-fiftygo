@@ -109,5 +109,3 @@ CREATE TABLE pin_trip (
         references trip(trip_id)
 );
 
-
-
