@@ -1,8 +1,17 @@
+USE fiftygo_test;
+
 INSERT INTO `user` (first_name, last_name, username, password_hash, disabled)
 	values
     ('John', 'Smith', 'jsmith1', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0),
 	('Jane', 'Smith', 'jsmith2', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0),
     ('Judy', 'Smith', 'jsmith3', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0);
+    
+INSERT INTO `role` (role_name)
+	values
+    ('GUEST'),
+	('USER'),
+	('PREMIUM'),
+	('ADMIN');
 
 INSERT INTO city (city_id, city_name, state_short, state_long, city_latitude, city_longitude)
 	values
@@ -400,9 +409,96 @@ INSERT INTO trip (trip_description, trip_start_date, trip_end_date, transportati
     
 INSERT INTO `type` (type_name)
 	values
-    ();
+    ('bike'),
+	('hike'),
+	('kayak'),
+	('walk'),
+	('visit a museum'),
+	('go swimming'),
+	('go climbing'),
+	('go shopping'),
+	('wing it'),
+	('adventure'),
+	('sing'),
+	('skate'),
+	('ice skate'),
+	('barhop'),
+	('eat'),
+	('watch a sport'),
+	('camp'),
+	('go to an amusement park'),
+	('go to a spa'),
+	('find shells'),
+	('find fossils'),
+	('find rocks'),
+	('take a class'),
+	('dance'),
+	('bowl'),
+	('ski'),
+	('snowboard'),
+	('go tubing'),
+	('visit a theme park'),
+	('see some sights'),
+	('visit a national park'),
+	('visit a state park'),
+	('visit a county park'),
+	('stargaze');
     
-INSERT INTO `role` (role_name)
+insert into pin_type (pin_id, type_id)
 	values
-    ();
+    (3, 4),
+	(25, 5),
+	(27, 10),
+	(3, 14),
+	(30, 23),
+	(29, 8),
+	(6, 6),
+	(22, 23),
+	(15, 13),
+	(10, 1);
     
+insert into pin_city (pin_id, city_id)
+	values
+    (22, 1840021024),
+	(22, 1840000572),
+	(8, 1840019570),
+	(6, 1840003798),
+	(16, 1840019865),
+	(16, 1840021830),
+	(23, 1840020925),
+	(6, 1840033833),
+	(29, 1840021117),
+	(11, 1840009241),
+	(23, 1840002791),
+	(26, 1840020230),
+	(13, 1840021873),
+	(4, 1840001626),
+	(10, 1840020296),
+	(11, 1840007081),
+	(9, 1840036155),
+	(17, 1840005710),
+	(24, 1840003046),
+	(11, 1840013730);
+    
+insert into pin_trip (pin_id, trip_id)
+	values
+    (12, 2),
+	(30, 1),
+	(29, 4),
+	(13, 6),
+	(14, 3),
+	(4, 3),
+	(12, 1),
+	(15, 2),
+	(6, 3),
+	(10, 5),
+	(24, 4),
+	(21, 6),
+	(22, 4),
+	(1, 1),
+	(24, 1),
+	(11, 4),
+	(16, 4),
+	(27, 5),
+	(25, 3),
+	(11, 2);

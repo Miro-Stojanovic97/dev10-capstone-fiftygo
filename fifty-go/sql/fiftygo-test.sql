@@ -13,12 +13,12 @@ CREATE TABLE `user` (
 );
 
 CREATE TABLE city (
-	city_id int not null,
+	city_id int primary key,
     city_name varchar(50) not null,
     state_short char(2) not null,
     state_long varchar(50) not null,
-    city_latitude decimal(10, 8) not null,
-    city_longitude decimal(10, 8) not null
+    city_latitude decimal(7, 4) not null,
+    city_longitude decimal(7, 4) not null
 );
 
 CREATE TABLE pin (
@@ -48,12 +48,12 @@ CREATE TABLE trip (
 );
 
 CREATE TABLE `type` (
-	type_id int not null,
+	type_id int primary key auto_increment,
     type_name varchar(50) not null
 );
 
 CREATE TABLE `role` (
-	role_id int not null,
+	role_id int primary key auto_increment,
     role_name varchar(20) not null
 );
 
@@ -108,4 +108,12 @@ CREATE TABLE pin_trip (
 		foreign key (trip_id)
         references trip(trip_id)
 );
+
+
+delimiter //
+create procedure set_known_good_state()
+begin
+
+end //
+delimiter ;
 
