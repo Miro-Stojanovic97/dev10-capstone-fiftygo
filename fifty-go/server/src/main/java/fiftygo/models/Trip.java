@@ -17,6 +17,10 @@ public class Trip {
     private TripType type;
     private Activity activity;
 
+    public Trip() {
+
+    }
+
     public Trip(int tripId, String tripDescription, LocalDate tripStartDate, LocalDate tripEndDate, String transportation, int tripPriority, boolean tripDidIt, int userId, City city, TripType type, Activity activity) {
         this.tripId = tripId;
         this.tripDescription = tripDescription;
