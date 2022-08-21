@@ -500,55 +500,55 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
                  * [ ] return ResponseEntity.ok().build();
                      
    * [ ] Create mysql schemas (test/prod)
-       * [ ] create sql folder in project folder
-       * [ ] create fiftygo-test.sql
-       * [ ] create fiftygo-prod.sql
-       * [ ] drop database if exists fiftygo_X
-       * [ ] create database fiftygo_X
-       * [ ] use fiftygo_X
+       * [x] create sql folder in project folder
+       * [x] create fiftygo-test.sql
+       * [x] create fiftygo-prod.sql
+       * [x] drop database if exists fiftygo_X
+       * [x] create database fiftygo_X
+       * [x] use fiftygo_X
 
-       * [ ] create table user
-           * [ ] user_id        int primary key auto_increment
-           * [ ] first_name     varchar(50) not null
-           * [ ] last_name      varchar(50) not null
-           * [ ] username       varchar(50) not null unique
-           * [ ] password_hash  varchar(2048) not null
-           * [ ] disabled       bit not null default (0)
+       * [x] create table user
+           * [x] user_id        int primary key auto_increment
+           * [x] first_name     varchar(50) not null
+           * [x] last_name      varchar(50) not null
+           * [x] username       varchar(50) not null unique
+           * [x] password_hash  varchar(2048) not null
+           * [x] disabled       bit not null default (0)
          
-       * [ ] create table pin (formerly known as activity)
-           * [ ] pin_id             int primary key auto_increment
-           * [ ] pin_description    text not null
-           * [ ] pin_date           date
-           * [ ] pin_priority       int not null
-           * [ ] pin_did_it         bit not null
-           * [ ] user_id            int not null 
-           * [ ] constraint fk_pin_user_id foreign key (user_id) references user(user_id)
+       * [x] create table pin (formerly known as activity)
+           * [x] pin_id             int primary key auto_increment
+           * [x] pin_description    varchar(300) not null
+           * [x] pin_date           date null
+           * [x] pin_priority       int not null
+           * [x] pin_did_it         bit not null
+           * [x] user_id            int not null 
+           * [x] constraint fk_pin_user_id foreign key (user_id) references user(user_id)
      
-       * [ ] create table trip
-           * [ ] trip_id            int primary key auto_increment
-           * [ ] trip_description   text not null
-           * [ ] trip_start_date    date
-           * [ ] trip_end_date      date
-           * [ ] transportation     text
-           * [ ] trip_priority      int not null
-           * [ ] trip_did_it        bit not null
-           * [ ] user_id            int not null
-           * [ ] constraint fk_trip_user_id foreign key (user_id) references user(user_id)
+       * [x] create table trip
+           * [x] trip_id            int primary key auto_increment
+           * [x] trip_description   varchar(300) not null
+           * [x] trip_start_date    date null
+           * [x] trip_end_date      date null
+           * [x] transportation     varchar(50) not null
+           * [x] trip_priority      int not null
+           * [x] trip_did_it        bit not null
+           * [x] user_id            int not null
+           * [x] constraint fk_trip_user_id foreign key (user_id) references user(user_id)
 
-       * [ ] create table type
-           * [ ] type_id        int primary key auto_increment
-           * [ ] type_name      text not null
+       * [x] create table type
+           * [x] type_id        int primary key auto_increment
+           * [x] type_name      varchar(50) not null
 
-       * [ ] create table roles
-           * [ ] role_id        int primary key auto_increment
-           * [ ] role_name      varchar(20) not null unique
+       * [x] create table role
+           * [x] role_id        int primary key auto_increment
+           * [x] role_name      varchar(20) not null unique
        
-       * [ ] create table user_roles
-           * [ ] userId        int not null,
-           * [ ] roleId        int not null,
-           * [ ] constraint pk_userroles (userId, roleId),
-           * [ ] constraint fk_users_userroles foreign key (userId) references users(userId)
-           * [ ] constraint fk_roles_userroles foreign key (roleId) references roles(roleId)
+       * [x] create table user_role
+           * [x] user_id        int not null,
+           * [x] role_id        int not null,
+           * [x] constraint pk_user_role (userId, roleId),
+           * [x] constraint fk_user_role_user_id foreign key (userId) references user(userId)
+           * [x] constraint fk_user_role_role_id foreign key (roleId) references roles(roleId)
          
        * [ ] insert data into tables for test db:
          * [ ] insert into users (first_name, last_name, username, password, disabled) values ('bob', '$2a$12$HqaU3VlN09ufZ60R8VrLHuIX8H6b1iFDA9AG./vzThpIzhxEIF8nC');   -- pw is password
