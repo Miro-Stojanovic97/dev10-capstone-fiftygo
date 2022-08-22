@@ -642,4 +642,6 @@ insert into pin_trip (pin_id, trip_id)
 end //
 delimiter ;
 
-call set_known_good_state;
+SET SQL_SAFE_UPDATES = 0;
+call set_known_good_state();
+SET SQL_SAFE_UPDATES = 1;
