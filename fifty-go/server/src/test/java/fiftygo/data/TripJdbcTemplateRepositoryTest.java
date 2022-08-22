@@ -40,10 +40,13 @@ class TripJdbcTemplateRepositoryTest {
 
     @Test
     void shouldNotFindByUsername() {
+        List<Trip> jsmith4 = repository.findByUsername("jsmith4");
+        //assertEquals(0, );
     }
 
     @Test
     void shouldFindById() {
+        Trip idTwo = repository.findById(2);
     }
 
     @Test
