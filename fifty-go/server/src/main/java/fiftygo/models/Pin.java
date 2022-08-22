@@ -23,18 +23,25 @@ public class Pin {
     @NotNull(message = "pinDidIt is required.")
     private boolean pinDidIt;
 
+    @NotNull(message = "City is required.")
+    private int cityId;
+
+    private int typeId;
+
     @NotNull(message = "userId is required.")
     private int userId;
 
     public Pin() {
     }
 
-    public Pin(int pinId, String pinDescription, LocalDate pinDate, int pinPriority, boolean pinDidIt, int userId) {
+    public Pin(int pinId, String pinDescription, LocalDate pinDate, int pinPriority, boolean pinDidIt, int cityId, int typeId, int userId) {
         this.pinId = pinId;
         this.pinDescription = pinDescription;
         this.pinDate = pinDate;
         this.pinPriority = pinPriority;
         this.pinDidIt = pinDidIt;
+        this.cityId = cityId;
+        this.typeId = typeId;
         this.userId = userId;
     }
 
@@ -76,6 +83,22 @@ public class Pin {
 
     public void setPinDidIt(boolean pinDidIt) {
         this.pinDidIt = pinDidIt;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
     }
 
     public int getUserId() {
