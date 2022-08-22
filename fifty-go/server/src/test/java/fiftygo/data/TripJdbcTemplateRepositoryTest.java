@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class TripJdbcTemplateRepositoryTest {
 
     @Autowired
@@ -34,31 +34,47 @@ class TripJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindTwoTripsByUsername() {
-        List<Trip> jsmith1 = repository.findByUsername("jsmith1");
-        //assertEquals(2, jsmith1.);
+        List<Trip> trips = repository.findByUsername("jsmith1");
+        assertEquals(2, trips.size());
     }
 
     @Test
     void shouldNotFindByUsername() {
-        List<Trip> jsmith4 = repository.findByUsername("jsmith4");
-        //assertEquals(0, );
+        List<Trip> trips = repository.findByUsername("jsmith4");
+        assertEquals(0, trips.size());
     }
 
     @Test
     void shouldFindById() {
         Trip idTwo = repository.findById(2);
+        assertEquals("In congue.", idTwo.getTripDescription());
+        assertEquals("2022-07-16", idTwo.getTripStartDate());
+        assertEquals("2022-07-20", idTwo.getTripEndDate());
+        assertEquals("rental car", idTwo.getTransportation());
+        assertEquals(1, idTwo.getTripPriority());
+        assertEquals(1, idTwo.isTripDidIt());
+        assertEquals(3, idTwo.getUserId());
     }
 
     @Test
     void shouldNotFindById() {
+        Trip idTen = repository.findById(10);
+        assertEquals(null, idTen.getTripDescription());
     }
 
     @Test
     void shouldAdd() {
+        Trip newTrip = new Trip();
+        newTrip.setTripDescription("test description");
+//        newTrip.setTripStartDate(2023-09-15);
+//        newTrip.setTripEndDate(2023-09-20);
+//    repository.add("test description", "2023-09-15", "2023-09-20", "bus", 1, 0, 1);
     }
 
     @Test
     void shouldNotAdd() {
+        Trip invalidTrip = new Trip();
+        invalidTrip.setTripDescription(null);
     }
 
     @Test
