@@ -14,14 +14,14 @@ public class Trip {
     private boolean tripDidIt;
     private int userId;
     private City city;
-    private TripType type;
+    private Type type;
     private Pin pin;
 
     public Trip() {
 
     }
 
-    public Trip(int tripId, String tripDescription, LocalDate tripStartDate, LocalDate tripEndDate, String transportation, int tripPriority, boolean tripDidIt, int userId, City city, TripType type, Pin pin) {
+    public Trip(int tripId, String tripDescription, LocalDate tripStartDate, LocalDate tripEndDate, String transportation, int tripPriority, boolean tripDidIt, int userId, City city, Type type, Pin pin) {
         this.tripId = tripId;
         this.tripDescription = tripDescription;
         this.tripStartDate = tripStartDate;
@@ -107,11 +107,11 @@ public class Trip {
         this.city = city;
     }
 
-    public TripType getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(TripType type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
