@@ -65,11 +65,21 @@ public class TypeJdbcTemplateRepository implements TypeRepository{
 
     @Override
     public boolean update(Type type) {
-        return false;
+        final String sql = "update trip set trip_description = ?," +
+                " trip_start_date = ?, trip_end_date = ?, transportation = ?," +
+                " trip_priority = ?, trip_did_it = ?;";
+
+        return jdbcTemplate.update(sql,
+                trip.getTripDescription(),
+                trip.getTripStartDate(),
+                trip.getTripEndDate(),
+                trip.getTransportation(),
+                trip.getTripPriority(),
+                trip.getTripDidIt()) > 0;
     }
 
     @Override
     public boolean deleteById(int typeId) {
-        return false;
+        return jdbcTemplate.update("delete from trip where trip_id = ?;", tripId) > 0;
     }
 }
