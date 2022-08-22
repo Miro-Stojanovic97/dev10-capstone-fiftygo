@@ -12,6 +12,12 @@ INSERT INTO `role` (role_name)
 	('USER'),
 	('PREMIUM'),
 	('ADMIN');
+    
+INSERT INTO user_role (user_id, role_id)
+	values
+    (1, 4),
+    (2, 3),
+    (3, 2);
 
 INSERT INTO city (city_id, city_name, state_short, state_long, city_latitude, city_longitude)
 	values
