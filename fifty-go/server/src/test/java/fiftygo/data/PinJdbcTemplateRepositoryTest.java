@@ -29,6 +29,6 @@ class PinJdbcTemplateRepositoryTest {
         List<Pin> pins = repository.findAll();
         assertNotNull(pins);
 
-        assertTrue(pins.size() == 30);
+        assertEquals(30, pins.size());
     }
 }

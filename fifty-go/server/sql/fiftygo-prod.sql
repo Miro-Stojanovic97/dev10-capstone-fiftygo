@@ -15,8 +15,8 @@ CREATE TABLE `user` (
 CREATE TABLE city (
 	city_id int primary key,
     city_name varchar(50) not null,
-    state_short char(2) not null,
-    state_long varchar(50) not null,
+    state_abr char(2) not null,
+    state_name varchar(50) not null,
     city_latitude decimal(7, 4) not null,
     city_longitude decimal(7, 4) not null
 );
@@ -112,7 +112,7 @@ INSERT INTO user_role (user_id, role_id)
     (2, 3),
     (3, 2);
 
-INSERT INTO city (city_id, city_name, state_short, state_long, city_latitude, city_longitude)
+INSERT INTO city (city_id, city_name, state_abr, state_name, city_latitude, city_longitude)
 	values
 	(1840034016, 'New York', 'NY', 'New York', 40.6943, -73.9249),
 	(1840020491, 'Los Angeles', 'CA', 'California', 34.1141, -118.4068),
