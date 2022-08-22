@@ -23,7 +23,7 @@ Capstone project by Operation Alkemi in Dev10 Cohort-27
 * By Tuesday 8/23: 
   * finish data layer and start testing (Alli)
   * finish security package, help with testing? (Kelie)
-  * implement table view for activities with filters (Miro)
+  * implement table view for pins with filters (Miro)
 * By Wednesday 8/24: 
   * finish data testing and start domain layer (Alli)
   * Work on testing, help finish domain layer, tag team it up (Kelie)
@@ -581,41 +581,41 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
 
    * [ ] Create React Front-End
        * [ ] From the terminal, inside of your Java application
-           * [ ] `npx create-react-app client`
-           * [ ] `cd client`
-           * [ ] `code .` [optional - open in VSCode]
+           * [x] `npx create-react-app client`
+           * [x] `cd client`
+           * [x] `code .` [optional - open in VSCode]
        * [ ] Delete cruft
-           * [ ] ./public/favicon.ico
-           * [ ] ./public/logo192.png
-           * [ ] ./public/logo512.png
-           * [ ] ./public/manifest.json
-           * [ ] ./public/robots.txt
-           * [ ] ./src/App.css
-           * [ ] ./src/App.test.js
-           * [ ] ./src/logo.svg
-           * [ ] ./src/reportWebVitals.js
-           * [ ] ./src/setupTests.js
-           * [ ] Update ./public/index.html
-               * [ ] From default file, delete:
-                   * [ ] Lines 4-26
-                   * [ ] Change Title to `FiftyGO`
-                   * [ ] Delete any additional comments here
-           * [ ] Update ./src/App.js
-               * [ ] From default file, delete:
-                   * [ ] Lines 7-20
-                   * [ ] Lines 1-2
-           * [ ] Update ./src/index.css\
-               * [ ] Trashcan it all
-           * [ ] Update ./src/index.js
-           * [ ] From default file, delete:
-               * [ ] Lines 14-17
-               * [ ] Lines 5
-       * [ ] Add additional dependencies
-           * [ ] `npm i react-router-dom `
+           * [x] ./public/favicon.ico
+           * [x] ./public/logo192.png
+           * [x] ./public/logo512.png
+           * [x] ./public/manifest.json
+           * [x] ./public/robots.txt
+           * [x] ./src/App.css
+           * [x] ./src/App.test.js
+           * [x] ./src/logo.svg
+           * [x] ./src/reportWebVitals.js
+           * [x] ./src/setupTests.js
+           * [x] Update ./public/index.html
+               * [x] From default file, delete:
+                   * [x] Lines 4-26
+                   * [x] Change Title to `FiftyGO`
+                   * [x] Delete any additional comments here
+           * [x] Update ./src/App.js
+               * [x] From default file, delete:
+                   * [x] Lines 7-20
+                   * [x] Lines 1-2
+           * [x] Update ./src/index.css\
+               * [x] Trashcan it all
+           * [x] Update ./src/index.js
+           * [x] From default file, delete:
+               * [x] Lines 14-17
+               * [x] Lines 5
+       * [x] Add additional dependencies
+           * [x] `npm i react-router-dom `
        * [ ] Create components (indents below indicate parent-child relations)
-           * [ ] Nav Component
-           * [ ] Login Component
-           * [ ] Home Component - welcoming and showing all pub todos
+           * [x] Nav Component
+           * [x] Login Component
+           * [x] Home Component - welcoming and showing all pub todos
                * [ ] Welcome Component - nested inside Home
                * [ ] Todos (container) Component
                    * [ ] Todo Component
