@@ -7,9 +7,11 @@ import fiftygo.models.City;
 import fiftygo.models.Pin;
 import fiftygo.models.Type;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class PinJdbcTemplateRepository implements PinRepository{
 
     private final JdbcTemplate jdbcTemplate;
@@ -20,8 +22,11 @@ public class PinJdbcTemplateRepository implements PinRepository{
 
     @Override
     public List<Pin> findAll() {
-        final String sql = "";
-        return jdbcTemplate.query(sql, new PinMapper());
+        final String sql = "select pin_id, pin_description, pin_date, pin_priority, pin_did_it,user_id from pin;";
+        List<Pin> pins = jdbcTemplate.query(sql, new PinMapper());
+        pins.forEach(this::addCity);
+        pins.forEach(this::addType);
+        return pins;
     }
 
     @Override
@@ -29,7 +34,10 @@ public class PinJdbcTemplateRepository implements PinRepository{
         final String sql = "select pin_id, pin_description, pin_date, pin_priority, pin_did_it, user_id " +
                 "from pin " +
                 "where user_id = ?;";
-        return jdbcTemplate.query(sql, new PinMapper(), userId);
+        List<Pin> pins = jdbcTemplate.query(sql, new PinMapper(), userId);
+        pins.forEach(this::addCity);
+        pins.forEach(this::addType);
+        return pins;
     }
 
     @Override
