@@ -124,6 +124,7 @@ begin
 	DELETE FROM pin;
 	ALTER TABLE pin AUTO_INCREMENT = 1;
 	DELETE FROM city;
+    DELETE FROM user_role;
 	DELETE FROM `role`;
 	ALTER TABLE `role` AUTO_INCREMENT = 1;
 	DELETE FROM `user`;
@@ -141,6 +142,12 @@ INSERT INTO `role` (role_name)
 	('USER'),
 	('PREMIUM'),
 	('ADMIN');
+    
+INSERT INTO user_role (user_id, role_id)
+	values
+    (1, 4),
+    (2, 3),
+    (3, 2);
 
 INSERT INTO city (city_id, city_name, state_short, state_long, city_latitude, city_longitude)
 	values
@@ -635,3 +642,6 @@ insert into pin_trip (pin_id, trip_id)
 end //
 delimiter ;
 
+SET SQL_SAFE_UPDATES = 0;
+call set_known_good_state();
+SET SQL_SAFE_UPDATES = 1;

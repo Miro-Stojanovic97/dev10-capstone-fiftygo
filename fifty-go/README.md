@@ -551,32 +551,33 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
            * [x] constraint fk_user_role_role_id foreign key (roleId) references roles(roleId)
          
        * [ ] insert data into tables for test db:
-         * [ ] insert into users (first_name, last_name, username, password, disabled) values ('bob', '$2a$12$HqaU3VlN09ufZ60R8VrLHuIX8H6b1iFDA9AG./vzThpIzhxEIF8nC');   -- pw is password
-         * [ ] insert into roles (role_name) VALUES ('USER'), ('PREMIUM'), ('ADMIN');
-         * [ ] insert into user_role (userId, roleId) VALUES (1,1), (2,2);
-         * [ ] insert into pin (pin_description, pin_date, pin_priority, pin_did_it, user_id) values (...);
-         * [ ] insert into trip (trip_description, trip_start_date, trip_end_date, transportation, trip_priority, trip_did_it, user_id) values (...);
-         * [ ] insert into type (type_name) values (...);
-         * [ ] insert into pin_type (pin_id, type_id) values (...);
-         * [ ] insert into pin_city (pin_id, city_id) values (...);
-         * [ ] insert into pin_trip (pin_id, trip_id) values (...);
-         * [ ] generate reset stored procedure in db (set_known_good_state)
-             * [ ] delete from pin_trip;
-             * [ ] delete from pin_city;
-             * [ ] delete from pin_type;
-             * [ ] delete from type;
-             * [ ] alter table type auto_increment = 1;
-             * [ ] delete from trip;
-             * [ ] alter table type auto_increment = 1;
-             * [ ] delete from pin;
-             * [ ] alter table type auto_increment = 1;
-             * [ ] delete from user_role;
-             * [ ] delete from user;
-             * [ ] alter table user auto_increment = 1;
-             * [ ] delete from role;
-             * [ ] alter table role auto_increment = 1;
-             * [ ] (copy all inserts from prod)
-         * [ ] at end of test schema call set_known_good_state();
+         * [x] insert into user (first_name, last_name, username, password, disabled) values ('bob', '$2a$12$HqaU3VlN09ufZ60R8VrLHuIX8H6b1iFDA9AG./vzThpIzhxEIF8nC');   -- pw is password
+         * [x] insert into role (role_name) VALUES ('USER'), ('PREMIUM'), ('ADMIN');
+         * [x] insert into user_role (userId, roleId) VALUES (1,1), (2,2);
+         * [x] insert into city (city_id, city_name, state_short, state_long, city_latitude, city_longitude)
+         * [x] insert into pin (pin_description, pin_date, pin_priority, pin_did_it, user_id) values (...);
+         * [x] insert into trip (trip_description, trip_start_date, trip_end_date, transportation, trip_priority, trip_did_it, user_id) values (...);
+         * [x] insert into type (type_name) values (...);
+         * [x] insert into pin_type (pin_id, type_id) values (...);
+         * [x] insert into pin_city (pin_id, city_id) values (...);
+         * [x] insert into pin_trip (pin_id, trip_id) values (...);
+         * [x] generate reset stored procedure in db (set_known_good_state)
+             * [x] delete from pin_trip;
+             * [x] delete from pin_city;
+             * [x] delete from pin_type;
+             * [x] delete from type;
+             * [x] alter table type auto_increment = 1;
+             * [x] delete from trip;
+             * [x] alter table type auto_increment = 1;
+             * [x] delete from pin;
+             * [x] alter table type auto_increment = 1;
+             * [x] delete from user_role;
+             * [x] delete from user;
+             * [x] alter table user auto_increment = 1;
+             * [x] delete from role;
+             * [x] alter table role auto_increment = 1;
+             * [x] (copy all inserts from prod)
+         * [x] at end of test schema call set_known_good_state();
 
    * [ ] Create React Front-End
        * [ ] From the terminal, inside of your Java application

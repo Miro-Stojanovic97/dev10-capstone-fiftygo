@@ -14,14 +14,14 @@ public class Trip {
     private boolean tripDidIt;
     private int userId;
     private City city;
-    private TripType type;
-    private Activity activity;
+    private Type type;
+    private Pin pin;
 
     public Trip() {
 
     }
 
-    public Trip(int tripId, String tripDescription, LocalDate tripStartDate, LocalDate tripEndDate, String transportation, int tripPriority, boolean tripDidIt, int userId, City city, TripType type, Activity activity) {
+    public Trip(int tripId, String tripDescription, LocalDate tripStartDate, LocalDate tripEndDate, String transportation, int tripPriority, boolean tripDidIt, int userId, City city, Type type, Pin pin) {
         this.tripId = tripId;
         this.tripDescription = tripDescription;
         this.tripStartDate = tripStartDate;
@@ -32,7 +32,7 @@ public class Trip {
         this.userId = userId;
         this.city = city;
         this.type = type;
-        this.activity = activity;
+        this.pin = pin;
     }
 
     public int getTripId() {
@@ -107,20 +107,20 @@ public class Trip {
         this.city = city;
     }
 
-    public TripType getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(TripType type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
-    public Activity getActivity() {
-        return activity;
+    public Pin getPin() {
+        return pin;
     }
 
-    public void setActivity(Activity activity) {
-        this.activity = activity;
+    public void setPin(Pin pin) {
+        this.pin = pin;
     }
 
     @Override

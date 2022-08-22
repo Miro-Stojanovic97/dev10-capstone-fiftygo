@@ -1,11 +1,11 @@
 package fiftygo.models;
 
-public class TripType {
+public class Type {
 
     private int typeId;
     private String typeName;
 
-    public TripType(int typeId, String typeName) {
+    public Type(int typeId, String typeName) {
         this.typeId = typeId;
         this.typeName = typeName;
     }
