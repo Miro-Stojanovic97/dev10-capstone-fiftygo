@@ -1,5 +1,6 @@
 package fiftygo.data;
 
+import fiftygo.data.mappers.PinMapper;
 import fiftygo.models.Pin;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -15,7 +16,9 @@ public class PinJdbcTemplateRepository implements PinRepository{
 
     @Override
     public List<Pin> findAll() {
-        return null;
+        final String sql = "select pin_id, pin_description, pin_date, pin_priority, pin_did_it, user_id from pin;";
+
+        return jdbcTemplate.query(sql, new PinMapper());
     }
 
     @Override
