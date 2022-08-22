@@ -2,8 +2,10 @@ package fiftygo.data;
 
 import fiftygo.data.mappers.CityMapper;
 import fiftygo.data.mappers.PinMapper;
+import fiftygo.data.mappers.TypeMapper;
 import fiftygo.models.City;
 import fiftygo.models.Pin;
+import fiftygo.models.Type;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
@@ -54,9 +56,21 @@ public class PinJdbcTemplateRepository implements PinRepository{
     }
 
     private void addCity(Pin pin) {
-        final String sql = "";
+        final String sql = "select " +
+                "city.city_id, city.city_name, city.state_abr, city.state_name, city.city_latitude, city.city_longitude " +
+                "from city " +
+                "inner join pin on city.city_id = pin.city_id where pin_id = ?;";
         City city = jdbcTemplate.queryForObject(sql, new CityMapper(), pin.getPinId());
         pin.setCity(city);
+    }
+
+    private void addType(Pin pin) {
+        final String sql = "select " +
+                "`type`.type_id, `type`.type_name " +
+                "from `type` " +
+                "inner join pin on `type`.type_id = pin.type_id where pin_id = ?;";
+        Type type = jdbcTemplate.queryForObject(sql, new TypeMapper(), pin.getPinId());
+        pin.setType(type);
     }
 }
 
