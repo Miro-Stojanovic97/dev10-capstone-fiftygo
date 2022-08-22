@@ -11,6 +11,9 @@ public class City {
     private BigDecimal latitude;
     private BigDecimal longitude;
 
+    public City() {
+    }
+
     public City(int cityId, String cityName, String stateAbr, String stateName, BigDecimal latitude, BigDecimal longitude) {
         this.cityId = cityId;
         this.cityName = cityName;
