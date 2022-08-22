@@ -33,14 +33,14 @@ class TripJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindTwoTripsByUsername() {
-        List<Trip> trips = repository.findByUsername("jsmith1");
+    void shouldFindTwoTripsByUserId() {
+        List<Trip> trips = repository.findByUserId(1);
         assertEquals(2, trips.size());
     }
 
     @Test
     void shouldNotFindByUsername() {
-        List<Trip> trips = repository.findByUsername("jsmith4");
+        List<Trip> trips = repository.findByUserId(4);
         assertEquals(0, trips.size());
     }
 

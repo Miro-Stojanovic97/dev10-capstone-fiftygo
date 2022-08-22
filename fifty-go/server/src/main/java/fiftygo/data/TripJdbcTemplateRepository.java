@@ -32,7 +32,7 @@ public class TripJdbcTemplateRepository implements TripRepository{
     }
 
     @Override
-    public List<Trip> findByUsername(String username) {
+    public List<Trip> findByUserId(int userId) {
         final String sql = "select trip_id, trip_description, trip_start_date," +
                 " trip_end_date, transportation, trip_priority, trip_did_it, user_id" +
                 " from trip" +
