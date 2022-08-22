@@ -9,7 +9,7 @@ public interface PinRepository {
 
     List<Pin> findAll();
 
-    List<Pin> findByUsername(String username);
+    List<Pin> findByUserId(int userId);
 
     Pin findById(int pinId);
 
