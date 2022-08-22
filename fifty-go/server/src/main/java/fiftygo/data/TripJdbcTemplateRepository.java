@@ -99,5 +99,7 @@ public class TripJdbcTemplateRepository implements TripRepository{
     }
 
 
-    //add pins
+    private void addPins(Trip trip){
+        final String sql = "select t.trip_id, p.pin_id from pin_trip;";
+    }
 }
