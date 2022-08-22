@@ -33,7 +33,11 @@ public class TripJdbcTemplateRepository implements TripRepository{
 
     @Override
     public List<Trip> findByUsername(String username) {
-        return null;
+        final String sql = "select trip_id, trip_description, trip_start_date," +
+                " trip_end_date, transportation, trip_priority, trip_did_it, user_id" +
+                " from trip" +
+                " where user_id = ?;";
+        return jdbcTemplate.query(sql, new TripMapper());
     }
 
     @Override
@@ -94,7 +98,6 @@ public class TripJdbcTemplateRepository implements TripRepository{
         return jdbcTemplate.update("delete from trip where trip_id = ?;", tripId) > 0;
     }
 
-    //add type
+
     //add pins
-    //add cities
 }
