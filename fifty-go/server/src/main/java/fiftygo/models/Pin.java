@@ -1,15 +1,33 @@
 package fiftygo.models;
 
+
+
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 public class Pin {
 
     private int pinId;
+
+    @NotBlank(message = "A description is required.")
     private String pinDescription;
+
+    //ok if date is null, they might not know or care which day this happens.
     private LocalDate pinDate;
+
+    @NotNull(message = "Please prioritize your Pin.")
+    @Min(value = 1, message = "Priority must be between 1 and 5.")
+    @Max(value = 5, message = "Priority must be between 1 and 5.")
     private int pinPriority;
+
+    @NotNull(message = "pinDidIt is required.")
     private boolean pinDidIt;
+
+    @NotNull(message = "userId is required.")
     private int userId;
+
+    public Pin() {
+    }
 
     public Pin(int pinId, String pinDescription, LocalDate pinDate, int pinPriority, boolean pinDidIt, int userId) {
         this.pinId = pinId;
