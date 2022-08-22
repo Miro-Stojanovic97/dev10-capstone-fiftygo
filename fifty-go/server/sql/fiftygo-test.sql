@@ -21,18 +21,6 @@ CREATE TABLE city (
     city_longitude decimal(7, 4) not null
 );
 
-CREATE TABLE pin (
-	pin_id int primary key auto_increment,
-	pin_description varchar(300) not null,
-    pin_date date null,
-    pin_priority int not null,
-    pin_did_it bit not null,
-    user_id int not null,
-    constraint fk_pin_user_id
-		foreign key (user_id)
-        references `user`(user_id)
-);
-
 CREATE TABLE trip (
 	trip_id int primary key auto_increment,
     trip_description varchar(300) not null,
@@ -50,6 +38,26 @@ CREATE TABLE trip (
 CREATE TABLE `type` (
 	type_id int primary key auto_increment,
     type_name varchar(50) not null
+);
+
+CREATE TABLE pin (
+	pin_id int primary key auto_increment,
+	pin_description varchar(300) not null,
+    pin_date date null,
+    pin_priority int not null,
+    pin_did_it bit not null,
+    type_id int null,
+    city_id int not null default 0,
+    user_id int not null,
+    constraint fk_pin_user_id
+		foreign key (user_id)
+        references `user`(user_id),
+	constraint fk_pin_type_id
+		foreign key (type_id)
+        references `type`(type_id),
+	constraint fk_pin_city_id
+		foreign key (city_id)
+        references city(city_id)
 );
 
 CREATE TABLE `role` (
@@ -70,32 +78,6 @@ CREATE TABLE user_role (
         references `role`(role_id)
 );
 
-CREATE TABLE pin_type (
-	pin_id int not null,
-    type_id int not null,
-    constraint pk_pin_type
-		primary key (pin_id, type_id),
-    constraint fk_pin_type_pin_id
-		foreign key (pin_id)
-        references pin(pin_id),
-	constraint fk_pin_type_type_id
-		foreign key (type_id)
-        references `type`(type_id)
-);
-
-CREATE TABLE pin_city (
-	pin_id int not null,
-    city_id int not null,
-    constraint pk_pin_city
-		primary key (pin_id, city_id),
-	constraint fk_pin_city_pin_id
-		foreign key (pin_id)
-        references pin(pin_id),
-	constraint fk_pin_city_city_id
-		foreign key (city_id)
-        references city(city_id)
-);
-
 CREATE TABLE pin_trip (
 	pin_id int not null,
     trip_id int not null,
@@ -109,20 +91,17 @@ CREATE TABLE pin_trip (
         references trip(trip_id)
 );
 
-
 delimiter //
 create procedure set_known_good_state()
 begin
 
 	DELETE FROM pin_trip;
-	DELETE FROM pin_city;
-	DELETE FROM pin_type;
-	DELETE FROM `type`;
-	ALTER TABLE `type` AUTO_INCREMENT = 1;
-	DELETE FROM trip;
-	ALTER TABLE trip AUTO_INCREMENT = 1;
 	DELETE FROM pin;
 	ALTER TABLE pin AUTO_INCREMENT = 1;
+	DELETE FROM trip;
+	ALTER TABLE trip AUTO_INCREMENT = 1;
+	DELETE FROM `type`;
+	ALTER TABLE `type` AUTO_INCREMENT = 1;
 	DELETE FROM city;
     DELETE FROM user_role;
 	DELETE FROM `role`;
@@ -501,48 +480,6 @@ INSERT INTO city (city_id, city_name, state_short, state_long, city_latitude, ci
 	(1840018424, 'Kent', 'WA', 'Washington', 47.3887, -122.2128),
 	(1840018346, 'Bellingham', 'WA', 'Washington', 48.7548, -122.469);
 
-INSERT INTO pin (pin_description, pin_date, pin_priority, pin_did_it, user_id)
-	values
-    ('Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', '2023-11-18', 5, 0, 1),
-	('Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt.', '2022-11-27', 5, 0, 3),
-	('Suspendisse potenti.', '2023-08-03', 5, 0, 2),
-	('Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', '2022-05-16', 2, 1, 2),
-	('In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo. Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros.', '2023-12-08', 2, 0, 1),
-	('Nulla nisl. Nunc nisl.', '2024-03-23', 2, 0, 3),
-	('Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh.', '2022-02-02', 4, 1, 2),
-	('Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', '2023-11-26', 2, 0, 3),
-	('Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat.', '2022-04-04', 3, 1, 1),
-	('Nulla justo. Aliquam quis turpis eget elit sodales scelerisque.', '2021-11-19', 5, 1, 2),
-	('Curabitur gravida nisi at nibh.', '2022-04-20', 5, 1, 1),
-	('Integer a nibh. In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', '2023-06-25', 3, 0, 3),
-	('Nunc rhoncus dui vel sem. Sed sagittis.', '2021-11-16', 1, 1, 3),
-	('Fusce consequat. Nulla nisl. Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.', '2024-03-21', 2, 0, 2),
-	('Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo.', '2023-03-22', 3, 0, 1),
-	('Etiam justo. Etiam pretium iaculis justo. In hac habitasse platea dictumst.', '2023-07-29', 4, 0, 3),
-	('Curabitur gravida nisi at nibh. In hac habitasse platea dictumst.', '2023-04-24', 1, 0, 1),
-	('Duis at velit eu est congue elementum.', '2023-06-12', 2, 0, 1),
-	('Maecenas pulvinar lobortis est. Phasellus sit amet erat.', '2024-01-20', 5, 0, 3),
-	('Etiam justo. Etiam pretium iaculis justo.', '2024-05-24', 4, 0, 2),
-	('In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', '2023-06-25', 4, 0, 3),
-	('Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', '2023-03-16', 1, 0, 2),
-	('Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat.', '2022-01-17', 5, 1, 2),
-	('Etiam pretium iaculis justo. In hac habitasse platea dictumst.', '2021-12-14', 1, 1, 3),
-	('Etiam pretium iaculis justo. In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus. Nulla ut erat id mauris vulputate elementum.', '2022-03-30', 1, 1, 2),
-	('Aenean auctor gravida sem.', '2022-04-14', 4, 1, 3),
-	('Etiam faucibus cursus urna. Ut tellus.', '2022-07-15', 4, 1, 3),
-	('Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum.', '2022-11-23', 1, 0, 2),
-	('In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', '2024-08-11', 2, 0, 2),
-	('Ut at dolor quis odio consequat varius. Integer ac leo.', '2021-10-23', 3, 1, 3);
-    
-INSERT INTO trip (trip_description, trip_start_date, trip_end_date, transportation, trip_priority, trip_did_it, user_id)
-	values
-    ('Quisque arcu libero.', '2022-12-12', '2023-01-08', 'car', 4, 0, 2),
-	('In congue.', '2022-07-16', '2022-07-20', 'rental car', 1, 1, 3),
-	('In blandit ultrices enim.', '2022-05-17', '2022-05-30', 'bus', 4, 1, 1),
-	('Integer non velit.', '2023-02-04', '2023-02-18', 'trains', 3, 0, 1),
-	('Lorem ipsum dolor sit amet.', '2021-04-03', '2021-04-12', 'hiking', 1, 1, 3),
-	('Ut tellus.', '2022-07-07', '2022-08-11', 'null', 5, 1, 3);
-    
 INSERT INTO `type` (type_name)
 	values
     ('bike'),
@@ -579,42 +516,48 @@ INSERT INTO `type` (type_name)
 	('visit a state park'),
 	('visit a county park'),
 	('stargaze');
-    
-insert into pin_type (pin_id, type_id)
+
+INSERT INTO pin (pin_description, pin_date, pin_priority, pin_did_it, type_id, city_id, user_id)
 	values
-    (3, 4),
-	(25, 5),
-	(27, 10),
-	(3, 14),
-	(30, 23),
-	(29, 8),
-	(6, 6),
-	(22, 23),
-	(15, 13),
-	(10, 1);
+    ('Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', '2023-11-18', 5, 0, 5, 1840019325, 1),
+	('Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt.', '2022-11-27', 5, 0, 32, 1840020361, 3),
+	('Suspendisse potenti.', '2023-08-03', 5, 0, 11, 1840014730, 2),
+	('Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', '2022-05-16', 2, 1, 31, 1840021731, 2),
+	('In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo. Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros.', '2023-12-08', 2, 0, 3, 1840001383, 1),
+	('Nulla nisl. Nunc nisl.', '2024-03-23', 2, 0, 34, 1840003837, 3),
+	('Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh.', '2022-02-02', 4, 1, 32, 1840021990, 2),
+	('Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', '2023-11-26', 2, 0, 18, 1840021573, 3),
+	('Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat.', '2022-04-04', 3, 1, 7, 1840019743, 1),
+	('Nulla justo. Aliquam quis turpis eget elit sodales scelerisque.', '2021-11-19', 5, 1, 17, 1840015120, 2),
+	('Curabitur gravida nisi at nibh.', '2022-04-20', 5, 1, 5, 1840000373, 1),
+	('Integer a nibh. In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', '2023-06-25', 3, 0, 26, 1840020662, 3),
+	('Nunc rhoncus dui vel sem. Sed sagittis.', '2021-11-16', 1, 1, 24, 1840018903, 3),
+	('Fusce consequat. Nulla nisl. Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.', '2024-03-21', 2, 0, 15, 1840015083, 2),
+	('Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo.', '2023-03-22', 3, 0, 18, 1840000460, 1),
+	('Etiam justo. Etiam pretium iaculis justo. In hac habitasse platea dictumst.', '2023-07-29', 4, 0, 30, 1840000673, 3),
+	('Curabitur gravida nisi at nibh. In hac habitasse platea dictumst.', '2023-04-24', 1, 0, 18, 1840020925, 1),
+	('Duis at velit eu est congue elementum.', '2023-06-12', 2, 0, 25, 1840018905, 1),
+	('Maecenas pulvinar lobortis est. Phasellus sit amet erat.', '2024-01-20', 5, 0, 26, 1840034030, 3),
+	('Etiam justo. Etiam pretium iaculis justo.', '2024-05-24', 4, 0, 6, 1840002493, 2),
+	('In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', '2023-06-25', 4, 0, 18, 1840001839, 3),
+	('Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', '2023-03-16', 1, 0, 34, 1840043455, 2),
+	('Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat.', '2022-01-17', 5, 1, 24, 1840003845, 2),
+	('Etiam pretium iaculis justo. In hac habitasse platea dictumst.', '2021-12-14', 1, 1, 32, 1840022220, 3),
+	('Etiam pretium iaculis justo. In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus. Nulla ut erat id mauris vulputate elementum.', '2022-03-30', 1, 1, 14, 1840019438, 2),
+	('Aenean auctor gravida sem.', '2022-04-14', 4, 1, 25, 1840002493, 3),
+	('Etiam faucibus cursus urna. Ut tellus.', '2022-07-15', 4, 1, 28, 1840020709, 3),
+	('Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum.', '2022-11-23', 1, 0, 29, 1840018789, 2),
+	('In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', '2024-08-11', 2, 0, 29, 1840014887, 2),
+	('Ut at dolor quis odio consequat varius. Integer ac leo.', '2021-10-23', 3, 1, 20, 1840021728, 3);
     
-insert into pin_city (pin_id, city_id)
+INSERT INTO trip (trip_description, trip_start_date, trip_end_date, transportation, trip_priority, trip_did_it, user_id)
 	values
-    (22, 1840021024),
-	(22, 1840000572),
-	(8, 1840019570),
-	(6, 1840003798),
-	(16, 1840019865),
-	(16, 1840021830),
-	(23, 1840020925),
-	(6, 1840033833),
-	(29, 1840021117),
-	(11, 1840009241),
-	(23, 1840002791),
-	(26, 1840020230),
-	(13, 1840021873),
-	(4, 1840001626),
-	(10, 1840020296),
-	(11, 1840007081),
-	(9, 1840036155),
-	(17, 1840005710),
-	(24, 1840003046),
-	(11, 1840013730);
+    ('Quisque arcu libero.', '2022-12-12', '2023-01-08', 'car', 4, 0, 2),
+	('In congue.', '2022-07-16', '2022-07-20', 'rental car', 1, 1, 3),
+	('In blandit ultrices enim.', '2022-05-17', '2022-05-30', 'bus', 4, 1, 1),
+	('Integer non velit.', '2023-02-04', '2023-02-18', 'trains', 3, 0, 1),
+	('Lorem ipsum dolor sit amet.', '2021-04-03', '2021-04-12', 'hiking', 1, 1, 3),
+	('Ut tellus.', '2022-07-07', '2022-08-11', 'null', 5, 1, 3);
     
 insert into pin_trip (pin_id, trip_id)
 	values

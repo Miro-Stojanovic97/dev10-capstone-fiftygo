@@ -21,18 +21,6 @@ CREATE TABLE city (
     city_longitude decimal(7, 4) not null
 );
 
-CREATE TABLE pin (
-	pin_id int primary key auto_increment,
-	pin_description varchar(300) not null,
-    pin_date date null,
-    pin_priority int not null,
-    pin_did_it bit not null,
-    user_id int not null,
-    constraint fk_pin_user_id
-		foreign key (user_id)
-        references `user`(user_id)
-);
-
 CREATE TABLE trip (
 	trip_id int primary key auto_increment,
     trip_description varchar(300) not null,
@@ -52,6 +40,26 @@ CREATE TABLE `type` (
     type_name varchar(50) not null
 );
 
+CREATE TABLE pin (
+	pin_id int primary key auto_increment,
+	pin_description varchar(300) not null,
+    pin_date date null,
+    pin_priority int not null,
+    pin_did_it bit not null,
+    type_id int null,
+    city_id int not null default 0,
+    user_id int not null,
+    constraint fk_pin_user_id
+		foreign key (user_id)
+        references `user`(user_id),
+	constraint fk_pin_type_id
+		foreign key (type_id)
+        references `type`(type_id),
+	constraint fk_pin_city_id
+		foreign key (city_id)
+        references city(city_id)
+);
+
 CREATE TABLE `role` (
 	role_id int primary key auto_increment,
     role_name varchar(20) not null
@@ -68,32 +76,6 @@ CREATE TABLE user_role (
 	constraint fk_user_role_role_id
 		foreign key (role_id)
         references `role`(role_id)
-);
-
-CREATE TABLE pin_type (
-	pin_id int not null,
-    type_id int not null,
-    constraint pk_pin_type
-		primary key (pin_id, type_id),
-    constraint fk_pin_type_pin_id
-		foreign key (pin_id)
-        references pin(pin_id),
-	constraint fk_pin_type_type_id
-		foreign key (type_id)
-        references `type`(type_id)
-);
-
-CREATE TABLE pin_city (
-	pin_id int not null,
-    city_id int not null,
-    constraint pk_pin_city
-		primary key (pin_id, city_id),
-	constraint fk_pin_city_pin_id
-		foreign key (pin_id)
-        references pin(pin_id),
-	constraint fk_pin_city_city_id
-		foreign key (city_id)
-        references city(city_id)
 );
 
 CREATE TABLE pin_trip (
