@@ -10,6 +10,10 @@ public class Type {
         this.typeName = typeName;
     }
 
+    public Type() {
+
+    }
+
     public int getTypeId() {
         return typeId;
     }
