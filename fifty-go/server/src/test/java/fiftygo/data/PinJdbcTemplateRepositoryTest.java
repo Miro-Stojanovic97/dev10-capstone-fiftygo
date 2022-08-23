@@ -106,7 +106,6 @@ class PinJdbcTemplateRepositoryTest {
         City city = new City(1840014730, "Columbia", "SC", "South Carolina",new BigDecimal("34.0378"),	new BigDecimal("-80.9036"));
         Type type = new Type(11, "sing");
         Pin pin = new Pin();
-<<<<<<< HEAD
         pin.setPinDescription("Testing Pin.");
         pin.setPinDate(LocalDate.of(2023, 8,3));
         pin.setPinPriority(5);
@@ -115,7 +114,6 @@ class PinJdbcTemplateRepositoryTest {
         pin.setType(type);
         pin.setUserId(3);
         return pin;
-=======
             pin.setPinDescription("Testing Pin.");
             pin.setPinDate(LocalDate.of(2023, 8,3));
             pin.setPinPriority(5);
@@ -124,6 +122,5 @@ class PinJdbcTemplateRepositoryTest {
             pin.setType(type);
             pin.setUserId(3);
             return pin;
->>>>>>> 13ffb00247e4db89891ed76b46078eabed7cffeb
     }
 }

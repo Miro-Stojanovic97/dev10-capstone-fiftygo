@@ -5,6 +5,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public class Trip {
@@ -12,9 +13,7 @@ public class Trip {
     private int tripId;
     @NotBlank(message = "A description is required.")
     private String tripDescription;
-    @NotNull(message = "Please enter a start date.")
     private LocalDate tripStartDate;
-    @NotNull(message = "Please enter an end date.")
     private LocalDate tripEndDate;
     private String transportation;
     @NotNull(message = "Please prioritize your Trip.")
@@ -28,6 +27,8 @@ public class Trip {
     private City city;
     private Type type;
     private Pin pin;
+
+    private List<Pin> pins;
 
     public Trip() {
 
@@ -135,16 +136,30 @@ public class Trip {
         this.pin = pin;
     }
 
-    @Override
+    public List<Pin> getPins() {
+        return pins;
+    }
+
+    public void setPins(List<Pin> pins) {
+        this.pins = pins;
+    }
+
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Trip)) return false;
+        if (this ==o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Trip trip = (Trip) o;
-        return getTripId() == trip.getTripId() && getTripPriority() == trip.getTripPriority() && isTripDidIt() == trip.isTripDidIt() && getUserId() == trip.getUserId() && Objects.equals(getTripDescription(), trip.getTripDescription()) && getTripStartDate().equals(trip.getTripStartDate()) && getTripEndDate().equals(trip.getTripEndDate()) && Objects.equals(getTransportation(), trip.getTransportation());
+        return tripId == trip.tripId &&
+                tripDescription.equalsIgnoreCase(trip.tripDescription) &&
+                tripStartDate.equals(trip.tripStartDate) &&
+                tripEndDate.equals(trip.tripEndDate) &&
+                transportation.equalsIgnoreCase(trip.transportation) &&
+                tripPriority == trip.tripPriority &&
+                tripDidIt == trip.tripDidIt &&
+                pin.equals(trip.pin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTripId(), getTripDescription(), getTripStartDate(), getTripEndDate(), getTransportation(), getTripPriority(), isTripDidIt(), getUserId());
+        return Objects.hash(tripId, tripDescription, tripStartDate, tripEndDate, transportation, tripPriority, tripDidIt, userId);
     }
 }

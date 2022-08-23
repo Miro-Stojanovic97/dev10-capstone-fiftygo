@@ -1,12 +1,13 @@
 package fiftygo.data;
 
+import fiftygo.data.mappers.PinMapper;
 import fiftygo.data.mappers.TripMapper;
+import fiftygo.models.Pin;
 import fiftygo.models.Trip;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -18,44 +19,53 @@ public class TripJdbcTemplateRepository implements TripRepository{
 
     private final JdbcTemplate jdbcTemplate;
 
-    public TripJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    private final PinJdbcTemplateRepository pinJdbcTemplateRepository;
 
+    public TripJdbcTemplateRepository(JdbcTemplate jdbcTemplate, PinJdbcTemplateRepository pinJdbcTemplateRepository) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.pinJdbcTemplateRepository = pinJdbcTemplateRepository;
+    }
 
     @Override
     public List<Trip> findAll() {
-        final String sql = "select trip_id, trip_description, trip_start_date," +
-                " trip_end_date, transportation, trip_priority, trip_did_it, user_id" +
-                " from trip;";
-        return jdbcTemplate.query(sql, new TripMapper());
+        final String sql = "select trip_id, trip_description, trip_start_date, " +
+                "trip_end_date, transportation, trip_priority, trip_did_it, user_id " +
+                "from trip;";
+        List<Trip> trips = jdbcTemplate.query(sql, new TripMapper());
+        trips.forEach(this::addPins);
+        return trips;
     }
 
     @Override
     public List<Trip> findByUserId(int userId) {
-        final String sql = "select trip_id, trip_description, trip_start_date," +
-                " trip_end_date, transportation, trip_priority, trip_did_it, user_id" +
-                " from trip" +
-                " where user_id = ?;";
-        return jdbcTemplate.query(sql, new TripMapper());
+        final String sql = "select trip_id, trip_description, trip_start_date, " +
+                "trip_end_date, transportation, trip_priority, trip_did_it, user_id " +
+                "from trip " +
+                "where user_id = ?;";
+        List<Trip> trips = jdbcTemplate.query(sql, new TripMapper(), userId);
+        trips.forEach(this::addPins);
+        return trips;
     }
 
     @Override
     public Trip findById(int tripId) {
-        final String sql = "select trip_id, trip_description, trip_start_date," +
-                " trip_end_date, transportation, trip_priority, trip_did_it, user_id" +
-                " from trip" +
-                " where trip_id = ?;";
+        final String sql = "select trip_id, trip_description, trip_start_date, " +
+                "trip_end_date, transportation, trip_priority, trip_did_it, user_id " +
+                "from trip " +
+                "where trip_id = ?;";
         Trip trip = jdbcTemplate.query(sql, new TripMapper(), tripId).stream()
                 .findFirst().orElse(null);
 
+        if (trip != null) {
+            addPins(trip);
+        }
         return trip;
     }
 
     @Override
     public Trip add(Trip trip) {
-        final String sql = "insert into trip (trip_id, trip_description, trip_start_date, trip_end_date, transportation, trip_priority, trip_did_it)" +
-                " values (?,?,?,?,?,?,?);";
+        final String sql = "insert into trip (trip_id, trip_description, trip_start_date, trip_end_date, transportation, trip_priority, trip_did_it) " +
+                "values (?,?,?,?,?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -63,9 +73,18 @@ public class TripJdbcTemplateRepository implements TripRepository{
             ps.setString(1, trip.getTripDescription());
             ps.setDate(2, trip.getTripStartDate() == null ? null : Date.valueOf(trip.getTripStartDate()));
             ps.setDate(3, trip.getTripEndDate() == null ? null : Date.valueOf(trip.getTripEndDate()));
-            ps.setString(4, trip.getTransportation());
+            if (trip.getTransportation() != null) {
+                ps.setString(4, trip.getTransportation());
+            } else {
+                ps.setString(4, null);
+            }
             ps.setInt(5, trip.getTripPriority());
             ps.setBoolean(6, trip.isTripDidIt());
+            if (trip.getPin() != null) {
+                ps.setInt(7, trip.getPin().getPinId());
+            } else {
+                ps.setInt(7, 0);
+            }
             return ps;
         }, keyHolder);
 
@@ -79,9 +98,9 @@ public class TripJdbcTemplateRepository implements TripRepository{
 
     @Override
     public boolean update(Trip trip) {
-        final String sql = "update trip set trip_description = ?," +
-                " trip_start_date = ?, trip_end_date = ?, transportation = ?," +
-                " trip_priority = ?, trip_did_it = ?;";
+        final String sql = "update trip set trip_description = ?, " +
+                "trip_start_date = ?, trip_end_date = ?, transportation = ?, " +
+                "trip_priority = ?, trip_did_it = ?;";
 
         return jdbcTemplate.update(sql,
                 trip.getTripDescription(),
@@ -93,13 +112,20 @@ public class TripJdbcTemplateRepository implements TripRepository{
     }
 
     @Override
-    @Transactional
     public boolean deleteById(int tripId) {
         return jdbcTemplate.update("delete from trip where trip_id = ?;", tripId) > 0;
     }
 
 
     private void addPins(Trip trip){
-        final String sql = "select t.trip_id, p.pin_id from pin_trip;";
+        final String sql = "select p.pin_id, p.pin_description, p.pin_date, p.pin_priority, p.pin_did_it " +
+                "from pin p " +
+                "inner join pin_trip on p.pin_id = pin_trip.pin_id " +
+                "inner join trip on pin_trip.trip_id = trip.trip_id " +
+                "where trip.trip_id = ?;";
+        List<Pin> pins = jdbcTemplate.query(sql, new PinMapper(), trip.getTripId());
+        pins.forEach(pinJdbcTemplateRepository::addCity);
+        pins.forEach(pinJdbcTemplateRepository::addType);
+        trip.setPins(pins);
     }
 }
