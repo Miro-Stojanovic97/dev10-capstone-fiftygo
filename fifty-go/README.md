@@ -18,7 +18,7 @@ Capstone project by Operation Alkemi in Dev10 Cohort-27
   * Have a home page with navbar (Miro)
 * By Monday 8/22: 
   * work on data layer(Alli)
-  * lay out security package in java (Kelie)
+  * work on data layer, troubleshoot db connectivity issue, afterhours: finish Pin and City repos and testing (Kelie)
   * implement map view (Miro)
 * By Tuesday 8/23: 
   * finish data layer and start testing (Alli)

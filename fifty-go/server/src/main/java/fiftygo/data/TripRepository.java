@@ -10,7 +10,7 @@ public interface TripRepository {
 
     List<Trip> findAll();
 
-    List<Trip> findByUsername(String username);
+    List<Trip> findByUserId(int userId);
 
     Trip findById(int tripId);
 

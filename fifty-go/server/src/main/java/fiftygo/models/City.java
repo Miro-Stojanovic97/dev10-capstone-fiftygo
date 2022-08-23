@@ -1,6 +1,7 @@
 package fiftygo.models;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class City {
 
@@ -69,5 +70,23 @@ public class City {
 
     public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        City city = (City) o;
+        return  cityId == city.cityId &&
+                cityName.equalsIgnoreCase(city.cityName) &&
+                stateAbr.equalsIgnoreCase(city.stateAbr) &&
+                stateName.equalsIgnoreCase(city.stateName) &&
+                latitude.equals(city.latitude) &&
+                longitude.equals(city.longitude);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cityId, cityName, stateAbr, stateName, latitude, longitude);
     }
 }

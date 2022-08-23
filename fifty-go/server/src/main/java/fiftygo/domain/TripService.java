@@ -19,8 +19,8 @@ public class TripService {
         return repository.findAll();
     }
 
-    public List<Trip> findByUsername(String username) {
-        return repository.findByUsername(username);
+    public List<Trip> findByUsername(int userId) {
+        return repository.findByUserId(userId);
     }
 
     public Trip findById(int tripId) {
