@@ -1,5 +1,7 @@
 package fiftygo.models;
 
+import java.util.Objects;
+
 public class Type {
 
     private int typeId;
@@ -28,5 +30,19 @@ public class Type {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Type type = (Type) o;
+        return  typeId == type.typeId &&
+                typeName.equalsIgnoreCase(type.typeName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(typeId, typeName);
     }
 }
