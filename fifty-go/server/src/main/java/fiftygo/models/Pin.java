@@ -11,17 +11,17 @@ public class Pin {
     private int pinId;
 
     @NotBlank(message = "A description is required.")
+    @Size(max = 300, message = "Pin's description cannot be greater than 300 characters.")
     private String pinDescription;
 
     //ok if date is null, they might not know or care which day this happens.
     private LocalDate pinDate;
 
-    @NotNull(message = "Please prioritize your Pin.")
     @Min(value = 1, message = "Priority must be between 1 and 5.")
     @Max(value = 5, message = "Priority must be between 1 and 5.")
     private int pinPriority;
 
-    @NotNull(message = "pinDidIt is required.")
+    //defaults to false, so no worry about being null
     private boolean pinDidIt;
 
     @NotNull(message = "City is required.")
@@ -29,7 +29,7 @@ public class Pin {
 
     private Type type;
 
-    @NotNull(message = "userId is required.")
+    @Min(value = 1, message = "userId must be greater than 0.")
     private int userId;
 
     public Pin() {
