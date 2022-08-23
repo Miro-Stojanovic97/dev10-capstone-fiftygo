@@ -1,18 +1,30 @@
 package fiftygo.models;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class Trip {
 
     private int tripId;
+    @NotBlank(message = "A description is required.")
     private String tripDescription;
+    @NotNull(message = "Please enter a start date.")
     private LocalDate tripStartDate;
+    @NotNull(message = "Please enter an end date.")
     private LocalDate tripEndDate;
     private String transportation;
+    @NotNull(message = "Please prioritize your Trip.")
+    @Min(value = 1, message = "Priority must be between 1 and 5.")
+    @Max(value = 5, message = "Priority must be between 1 and 5.")
     private int tripPriority;
+    @NotNull(message = "Please mark if this trip is completed or not.")
     private boolean tripDidIt;
     private int userId;
+    @NotNull(message = "City is required.")
     private City city;
     private Type type;
     private Pin pin;

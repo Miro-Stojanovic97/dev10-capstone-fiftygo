@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +23,18 @@ class TripJdbcTemplateRepositoryTest {
     @BeforeEach
     void setup(){
         knownGoodState.set();
+    }
+
+    private Trip makeTrip() {
+        Trip newTrip = new Trip();
+        newTrip.setTripDescription("test description");
+        newTrip.setTripStartDate(LocalDate.of(2023,9,15));
+        newTrip.setTripEndDate(LocalDate.of(2023,9,20));
+        newTrip.setTransportation("bus");
+        newTrip.setTripPriority(1);
+        newTrip.setTripDidIt(false);
+        newTrip.setUserId(1);
+        return newTrip;
     }
 
     @Test
@@ -64,11 +77,8 @@ class TripJdbcTemplateRepositoryTest {
 
     @Test
     void shouldAdd() {
-        Trip newTrip = new Trip();
-        newTrip.setTripDescription("test description");
-//        newTrip.setTripStartDate(2023-09-15);
-//        newTrip.setTripEndDate(2023-09-20);
-//    repository.add("test description", "2023-09-15", "2023-09-20", "bus", 1, 0, 1);
+        Trip newTrip = makeTrip();
+        repository.add(newTrip);
     }
 
     @Test
@@ -79,17 +89,27 @@ class TripJdbcTemplateRepositoryTest {
 
     @Test
     void shouldUpdate() {
+        Trip updatedTrip = makeTrip();
+        updatedTrip.setTripDescription("updated description");
+        updatedTrip.setTripStartDate(LocalDate.of(2023,10,15));
+        updatedTrip.setTripEndDate(LocalDate.of(2023,10,20));
+        assertTrue(repository.update(updatedTrip));
     }
 
     @Test
     void shouldNotUpdate() {
+        Trip notUpdatedTrip = makeTrip();
+        notUpdatedTrip.setTripDescription(null);
+        assertFalse(repository.update(notUpdatedTrip));
     }
 
     @Test
     void deleteById() {
+        assertTrue(repository.deleteById(3));
     }
 
     @Test
     void shouldNotDelete() {
+        assertFalse(repository.deleteById(7));
     }
 }
