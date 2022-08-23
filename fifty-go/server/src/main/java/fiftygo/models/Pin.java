@@ -78,7 +78,7 @@ public class Pin {
         this.pinPriority = pinPriority;
     }
 
-    public boolean isPinDidIt() {
+    public boolean getPinDidIt() {
         return pinDidIt;
     }
 
