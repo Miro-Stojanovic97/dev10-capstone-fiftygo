@@ -62,8 +62,8 @@ class TripJdbcTemplateRepositoryTest {
 
     @Test
     void shouldNotFindById() {
-        Trip idTen = repository.findById(10);
-        assertEquals(null, idTen.getTripDescription());
+        Trip result = repository.findById(10);
+        assertNull(result);
     }
 
     @Test
@@ -72,6 +72,14 @@ class TripJdbcTemplateRepositoryTest {
         Trip actual = repository.add(newTrip);
         assertNotNull(actual);
         assertEquals(NEXT_ID, actual.getTripId());
+
+        newTrip = makeTrip();
+        newTrip.setTripStartDate(null);
+        newTrip.setTripEndDate(null);
+        actual = repository.add(newTrip);
+        assertNotNull(actual);
+        assertEquals(NEXT_ID, actual.getTripId());
+
     }
 
     @Test
