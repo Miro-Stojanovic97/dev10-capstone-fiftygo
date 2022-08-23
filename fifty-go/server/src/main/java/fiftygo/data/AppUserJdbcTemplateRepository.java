@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,7 +22,9 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
 
     @Override
     public List<AppUser> findAll() {
-        return null;
+        List<String> roles = new ArrayList<>();
+        final String sql = "select user_id, first_name, last_name, username, password_hash, disabled from `user`;";
+        return jdbcTemplate.query(sql, new AppUserMapper(roles));
     }
 
     @Override
@@ -35,7 +38,6 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
         return jdbcTemplate.query(sql, new AppUserMapper(roles), username)
                 .stream()
                 .findFirst().orElse(null);
-        return null;
     }
 
 

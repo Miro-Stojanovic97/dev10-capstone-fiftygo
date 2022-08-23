@@ -14,8 +14,11 @@ public class AppUser extends User {
     private static final String AUTHORITY_PREFIX = "ROLE_";
 
     private int id;
+    private String firstName;
+    private String lastName;
+    private String username;
 
-    public AppUser(int id, String username, String password,
+    public AppUser(int id, String firstName, String lastName, String username, String password,
                    boolean disabled, List<String> roles) {
         super(username, password, !disabled,
                 true, true, true,
