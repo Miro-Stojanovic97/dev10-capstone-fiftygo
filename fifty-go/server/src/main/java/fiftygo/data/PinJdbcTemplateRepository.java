@@ -113,6 +113,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
         return jdbcTemplate.update("delete from pin where pin_id = ?;", pinId) > 0;
     }
 
+    // tripRepo needs access to this method
     void addCity(Pin pin) {
         final String sql = "select " +
                 "city.city_id, city.city_name, city.state_abr, city.state_name, city.city_latitude, city.city_longitude " +
@@ -122,6 +123,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
         pin.setCity(city);
     }
 
+    // tripRepo needs access to this method
     void addType(Pin pin) {
         final String sql = "select " +
                 "`type`.type_id, `type`.type_name " +
