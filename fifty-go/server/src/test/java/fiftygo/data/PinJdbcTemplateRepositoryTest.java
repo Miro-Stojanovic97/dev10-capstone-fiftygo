@@ -17,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class PinJdbcTemplateRepositoryTest {
 
+    final static int NEXT_ID = 31;
+
     @Autowired
     PinJdbcTemplateRepository repository;
 
@@ -62,6 +64,47 @@ class PinJdbcTemplateRepositoryTest {
 
     @Test
     void shouldNotFindPinByMissingId() {
+        Pin result = repository.findById(999);
+        assertNull(result);
+    }
 
+    @Test
+    void shouldAddPin() {
+        Pin pin = makePin();
+        Pin actual = repository.add(pin);
+        assertNotNull(actual);
+        assertEquals(NEXT_ID, actual.getPinId());
+    }
+
+    @Test
+    void shouldAddPinWithNullDate() {
+        Pin pin = makePin();
+        pin.setPinDate(null);
+        Pin actual = repository.add(pin);
+        assertNotNull(actual);
+        assertEquals(NEXT_ID, actual.getPinId());
+    }
+
+    @Test
+    void shouldAddPinWithNullType() {
+        Pin pin = makePin();
+        pin.setType(null);
+        Pin actual = repository.add(pin);
+        assertNotNull(actual);
+        assertEquals(NEXT_ID, actual.getPinId());
+    }
+
+    private Pin makePin() {
+        City city = new City(1840014730, "Columbia", "SC", "South Carolina",new BigDecimal("34.0378"),	new BigDecimal("-80.9036"));
+        Type type = new Type(11, "sing");
+        Pin pin = new Pin();
+            pin.setPinDescription("Testing Pin.");
+            pin.setPinDate(LocalDate.of(2023, 8,3));
+            pin.setPinPriority(5);
+            pin.setPinDidIt(false);
+            pin.setCity(city);
+            pin.setType(type);
+            pin.setUserId(2);
+            return pin;
     }
 }
