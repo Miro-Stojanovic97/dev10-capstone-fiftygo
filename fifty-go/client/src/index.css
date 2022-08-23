@@ -58,3 +58,5 @@ a.nav-link.map {
   left: 63%;
   display: flex;
 }
+
+#map { height: 180px; }

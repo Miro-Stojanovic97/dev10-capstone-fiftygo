@@ -98,14 +98,14 @@ INSERT INTO `user` (first_name, last_name, username, password_hash, disabled)
     ('John', 'Smith', 'jsmith1', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0),
 	('Jane', 'Smith', 'jsmith2', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0),
     ('Judy', 'Smith', 'jsmith3', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0);
-    
+
 INSERT INTO `role` (role_name)
 	values
     ('GUEST'),
 	('USER'),
 	('PREMIUM'),
 	('ADMIN');
-    
+
 INSERT INTO user_role (user_id, role_id)
 	values
     (1, 4),
@@ -463,7 +463,7 @@ INSERT INTO city (city_id, city_name, state_abr, state_name, city_latitude, city
 	(1840004841, 'Stamford', 'CT', 'Connecticut', 41.1039, -73.5585),
 	(1840018424, 'Kent', 'WA', 'Washington', 47.3887, -122.2128),
 	(1840018346, 'Bellingham', 'WA', 'Washington', 48.7548, -122.469);
-    
+
 INSERT INTO `type` (type_name)
 	values
     ('bike'),
@@ -500,6 +500,3 @@ INSERT INTO `type` (type_name)
 	('visit a state park'),
 	('visit a county park'),
 	('stargaze');
-
-
-
