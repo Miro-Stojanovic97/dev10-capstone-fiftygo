@@ -4,6 +4,7 @@ package fiftygo.models;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Pin {
 
@@ -107,5 +108,24 @@ public class Pin {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pin pin = (Pin) o;
+        return  pinId == pin.pinId &&
+                pinDescription.equalsIgnoreCase(pin.pinDescription) &&
+                pinDate.equals(pin.pinDate) &&
+                pinPriority == pin.pinPriority &&
+                pinDidIt == pin.pinDidIt &&
+                type.equals(pin.type) &&
+                city.equals(pin.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pinId, pinDescription, pinDate, pinPriority, pinDidIt, type, city);
     }
 }
