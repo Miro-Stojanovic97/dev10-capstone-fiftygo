@@ -45,7 +45,12 @@ public class PinJdbcTemplateRepository implements PinRepository{
         final String sql = "select pin_id, pin_description, pin_date, pin_priority, pin_did_it, user_id " +
                 "from pin " +
                 "where pin_id = ?;";
-        return jdbcTemplate.queryForObject(sql, new PinMapper(), pinId);
+        Pin pin = jdbcTemplate.queryForObject(sql, new PinMapper(), pinId);
+        if (pin != null) {
+            addCity(pin);
+            addType(pin);
+        }
+        return pin;
     }
 
     @Override
