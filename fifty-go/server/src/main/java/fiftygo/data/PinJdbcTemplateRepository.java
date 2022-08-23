@@ -7,8 +7,13 @@ import fiftygo.models.City;
 import fiftygo.models.Pin;
 import fiftygo.models.Type;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -45,7 +50,8 @@ public class PinJdbcTemplateRepository implements PinRepository{
         final String sql = "select pin_id, pin_description, pin_date, pin_priority, pin_did_it, user_id " +
                 "from pin " +
                 "where pin_id = ?;";
-        Pin pin = jdbcTemplate.queryForObject(sql, new PinMapper(), pinId);
+        Pin pin = jdbcTemplate.query(sql, new PinMapper(), pinId).stream()
+                .findFirst().orElse(null);
         if (pin != null) {
             addCity(pin);
             addType(pin);
@@ -55,11 +61,37 @@ public class PinJdbcTemplateRepository implements PinRepository{
 
     @Override
     public Pin add(Pin pin) {
-        return null;
+        final String sql = "insert into pin (pin_description, pin_date, pin_priority, pin_did_it, type_id, city_id, user_id) " +
+                "values (?, ?, ?, ?, ?, ?, ?);";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        int rowsAffected = jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, pin.getPinDescription());
+            ps.setDate(2, pin.getPinDate() == null ? null : Date.valueOf(pin.getPinDate()));
+            ps.setInt(3, pin.getPinPriority());
+            ps.setBoolean(4, pin.getPinDidIt());
+            if (pin.getType() != null) {
+                ps.setInt(5, pin.getType().getTypeId());
+            } else {
+                ps.setString(5, null);
+            }
+            ps.setInt(6, pin.getCity().getCityId());
+            ps.setInt(7, pin.getUserId());
+            return ps;
+        }, keyHolder);
+
+        if (rowsAffected <= 0) {
+            return null;
+        }
+
+        pin.setPinId(keyHolder.getKey().intValue());
+        return pin;
     }
 
     @Override
     public boolean update(Pin pin) {
+
         return false;
     }
 
