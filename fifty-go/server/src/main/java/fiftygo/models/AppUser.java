@@ -49,4 +49,5 @@ public class AppUser extends User {
                 .map(a -> a.getAuthority().substring(AUTHORITY_PREFIX.length()))
                 .collect(Collectors.toList());
     }
+
 }

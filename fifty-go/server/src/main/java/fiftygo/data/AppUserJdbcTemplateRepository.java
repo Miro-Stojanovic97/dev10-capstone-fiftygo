@@ -1,9 +1,11 @@
 package fiftygo.data;
 
 import fiftygo.models.AppUser;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class AppUserJdbcTemplateRepository implements AppUserRepository{
     @Override
     public List<AppUser> findAll() {
