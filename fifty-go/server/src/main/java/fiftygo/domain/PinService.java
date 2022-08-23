@@ -72,9 +72,7 @@ public class PinService {
         return result;
     }
 
-//    public boolean deleteById(int pinId) {
-//
-//    }
-
-
+    public boolean deleteById(int pinId) {
+        return repository.deleteById(pinId);
+    }
 }
