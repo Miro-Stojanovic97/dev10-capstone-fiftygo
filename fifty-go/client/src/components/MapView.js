@@ -7,7 +7,6 @@ function MapView() {
     
     return (
         <>
-        
         <button>Home</button>
         <button>Hawaii</button>
         <button>Alaska</button>
@@ -18,7 +17,9 @@ function MapView() {
                                         //there are tons of options in here
                                         dragging={false} > 
             <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                //url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                url="http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg"
+                //url="http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 
             />
