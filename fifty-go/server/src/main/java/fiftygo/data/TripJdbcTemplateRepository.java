@@ -1,9 +1,13 @@
 package fiftygo.data;
 
+import fiftygo.data.mappers.CityMapper;
 import fiftygo.data.mappers.PinMapper;
 import fiftygo.data.mappers.TripMapper;
+import fiftygo.data.mappers.TypeMapper;
+import fiftygo.models.City;
 import fiftygo.models.Pin;
 import fiftygo.models.Trip;
+import fiftygo.models.Type;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -118,14 +122,33 @@ public class TripJdbcTemplateRepository implements TripRepository{
 
 
     private void addPins(Trip trip){
-        final String sql = "select p.pin_id, p.pin_description, p.pin_date, p.pin_priority, p.pin_did_it " +
+        final String sql = "select p.pin_id, p.pin_description, p.pin_date, p.pin_priority, p.pin_did_it, p.user_id " +
                 "from pin p " +
                 "inner join pin_trip on p.pin_id = pin_trip.pin_id " +
                 "inner join trip on pin_trip.trip_id = trip.trip_id " +
                 "where trip.trip_id = ?;";
         List<Pin> pins = jdbcTemplate.query(sql, new PinMapper(), trip.getTripId());
-        pins.forEach(pinJdbcTemplateRepository::addCity);
-        pins.forEach(pinJdbcTemplateRepository::addType);
+        pins.forEach(this::addCity);
+        pins.forEach(this::addType);
         trip.setPins(pins);
+    }
+
+    void addCity(Pin pin) {
+        final String sql = "select " +
+                "city.city_id, city.city_name, city.state_abr, city.state_name, city.city_latitude, city.city_longitude " +
+                "from city " +
+                "inner join pin on city.city_id = pin.city_id where pin_id = ?;";
+        City city = jdbcTemplate.queryForObject(sql, new CityMapper(), pin.getPinId());
+        pin.setCity(city);
+    }
+
+    // tripRepo needs access to this method
+    void addType(Pin pin) {
+        final String sql = "select " +
+                "`type`.type_id, `type`.type_name " +
+                "from `type` " +
+                "inner join pin on `type`.type_id = pin.type_id where pin_id = ?;";
+        Type type = jdbcTemplate.queryForObject(sql, new TypeMapper(), pin.getPinId());
+        pin.setType(type);
     }
 }
