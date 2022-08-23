@@ -92,12 +92,25 @@ public class PinJdbcTemplateRepository implements PinRepository{
     @Override
     public boolean update(Pin pin) {
 
-        return false;
+        final String sql = "update pin set "
+                + "pin_description = ?, "
+                + "pin_date = ?, "
+                + "pin_priority = ?, "
+                + "pin_did_it = ? "
+                + "where pin_id = ?;";
+
+        return jdbcTemplate.update(sql,
+                pin.getPinDescription(),
+                pin.getPinDate(),
+                pin.getPinPriority(),
+                pin.getPinDidIt(),
+                pin.getPinId()) > 0;
     }
 
     @Override
     public boolean deleteById(int pinId) {
-        return false;
+        jdbcTemplate.update("delete from pin_trip where pin_id = ?;", pinId);
+        return jdbcTemplate.update("delete from pin where pin_id = ?;", pinId) > 0;
     }
 
     private void addCity(Pin pin) {

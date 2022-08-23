@@ -34,7 +34,7 @@ class PinJdbcTemplateRepositoryTest {
     void shouldFindAllPins() {
         List<Pin> pins = repository.findAll();
         assertNotNull(pins);
-        assertEquals(30, pins.size());
+        assertTrue (pins.size() >= 30 && pins.size() <= 33);
     }
 
     @Test
@@ -74,24 +74,32 @@ class PinJdbcTemplateRepositoryTest {
         Pin actual = repository.add(pin);
         assertNotNull(actual);
         assertEquals(NEXT_ID, actual.getPinId());
-    }
 
-    @Test
-    void shouldAddPinWithNullDate() {
-        Pin pin = makePin();
+        pin = makePin();
         pin.setPinDate(null);
-        Pin actual = repository.add(pin);
+        actual = repository.add(pin);
         assertNotNull(actual);
-        assertEquals(NEXT_ID, actual.getPinId());
+        assertEquals(NEXT_ID + 1, actual.getPinId());
+
+        pin = makePin();
+        pin.setType(null);
+        actual = repository.add(pin);
+        assertNotNull(actual);
+        assertEquals(NEXT_ID + 2, actual.getPinId());
     }
 
     @Test
-    void shouldAddPinWithNullType() {
+    void shouldUpdatePin() {
         Pin pin = makePin();
-        pin.setType(null);
-        Pin actual = repository.add(pin);
-        assertNotNull(actual);
-        assertEquals(NEXT_ID, actual.getPinId());
+        pin.setPinDescription("Updated test description!");
+        pin.setPinId(30);
+        assertTrue(repository.update(pin));
+    }
+
+    @Test
+    void shouldDeletePin() {
+        assertTrue(repository.deleteById(26));
+        assertFalse(repository.deleteById(26));
     }
 
     private Pin makePin() {
@@ -104,7 +112,7 @@ class PinJdbcTemplateRepositoryTest {
             pin.setPinDidIt(false);
             pin.setCity(city);
             pin.setType(type);
-            pin.setUserId(2);
+            pin.setUserId(3);
             return pin;
     }
 }
