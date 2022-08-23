@@ -23,11 +23,8 @@ public class TripJdbcTemplateRepository implements TripRepository{
 
     private final JdbcTemplate jdbcTemplate;
 
-    private final PinJdbcTemplateRepository pinJdbcTemplateRepository;
-
-    public TripJdbcTemplateRepository(JdbcTemplate jdbcTemplate, PinJdbcTemplateRepository pinJdbcTemplateRepository) {
+    public TripJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.pinJdbcTemplateRepository = pinJdbcTemplateRepository;
     }
 
     @Override
