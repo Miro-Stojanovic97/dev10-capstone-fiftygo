@@ -14,7 +14,7 @@ public interface AppUserRepository {
 
     AppUser findById(int appUserId);
 
-    AppUser add(AppUser appUser);
+    AppUser create(AppUser appUser);
 
     boolean update(AppUser appUser);
 

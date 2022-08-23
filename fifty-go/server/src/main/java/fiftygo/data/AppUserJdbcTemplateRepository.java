@@ -21,7 +21,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     }
 
     @Override
-    public AppUser add(AppUser appUser) {
+    public AppUser create(AppUser appUser) {
         return null;
     }
 
