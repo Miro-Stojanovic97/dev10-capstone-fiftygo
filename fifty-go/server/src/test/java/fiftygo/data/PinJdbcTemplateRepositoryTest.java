@@ -114,13 +114,5 @@ class PinJdbcTemplateRepositoryTest {
         pin.setType(type);
         pin.setUserId(3);
         return pin;
-            pin.setPinDescription("Testing Pin.");
-            pin.setPinDate(LocalDate.of(2023, 8,3));
-            pin.setPinPriority(5);
-            pin.setPinDidIt(false);
-            pin.setCity(city);
-            pin.setType(type);
-            pin.setUserId(3);
-            return pin;
     }
 }
