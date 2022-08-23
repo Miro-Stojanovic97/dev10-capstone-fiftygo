@@ -113,7 +113,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
         return jdbcTemplate.update("delete from pin where pin_id = ?;", pinId) > 0;
     }
 
-    private void addCity(Pin pin) {
+    protected void addCity(Pin pin) {
         final String sql = "select " +
                 "city.city_id, city.city_name, city.state_abr, city.state_name, city.city_latitude, city.city_longitude " +
                 "from city " +
@@ -122,7 +122,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
         pin.setCity(city);
     }
 
-    private void addType(Pin pin) {
+    protected void addType(Pin pin) {
         final String sql = "select " +
                 "`type`.type_id, `type`.type_name " +
                 "from `type` " +
