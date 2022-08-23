@@ -25,12 +25,12 @@ public class PinController {
         return service.findAll();
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/user-{userId}")
     public List<Pin> findByUserId(@PathVariable int userId) {
         return service.findByUserId(userId);
     }
 
-    @GetMapping("/pin-{pinId}")
+    @GetMapping("/{pinId}")
     public Pin findById(@PathVariable int pinId) {
         return service.findById(pinId);
     }
@@ -42,5 +42,27 @@ public class PinController {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
         return ErrorResponse.build(result);
+    }
+
+    @PutMapping("/{pinId}")
+    public ResponseEntity<Object> update(@PathVariable int pinId, @RequestBody Pin pin) {
+        if (pinId != pin.getPinId()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        Result<Pin> result = service.update(pin);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return ErrorResponse.build(result);
+    }
+
+    @DeleteMapping("/{pinId}")
+    public ResponseEntity<Void> deleteById(@PathVariable int pinId) {
+        if (service.deleteById(pinId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
