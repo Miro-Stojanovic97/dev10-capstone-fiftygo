@@ -1,1 +1,5 @@
 # file for testing HTTP requests!
+
+###
+GET http://localhost:8080/api/pin HTTP/1.1
+Authorization: Bearer 48bdcba4-c17f-4992-9a79-05e07fb5e1ba

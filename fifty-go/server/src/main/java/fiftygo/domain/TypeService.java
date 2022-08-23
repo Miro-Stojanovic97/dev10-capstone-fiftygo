@@ -1,7 +1,7 @@
 package fiftygo.domain;
 
-import fiftygo.data.TripRepository;
-import fiftygo.models.Trip;
+import fiftygo.data.TypeRepository;
+import fiftygo.models.Type;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -12,69 +12,66 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class TripService {
+public class TypeService {
 
-    private final TripRepository repository;
+    private final TypeRepository repository;
 
-    public TripService(TripRepository repository) {
+    public TypeService(TypeRepository repository) {
         this.repository = repository;
     }
 
-    public List<Trip> findAll() {
+    public List<Type> findAll() {
         return repository.findAll();
     }
 
-    public List<Trip> findByUsername(int userId) {
-        return repository.findByUserId(userId);
+    public Type findById (int typeId) {
+        return repository.findById(typeId);
     }
 
-    public Trip findById(int tripId) {
-        return repository.findById(tripId);
-    }
-
-    public Result<Trip> add(Trip trip) {
-        Result<Trip> result = new Result<>();
+    public Result<Type> add (Type type) {
+        Result<Type> result = new Result<>();
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator(); // Returns a Hibernate validator hidden behind an interface.
-        Set<ConstraintViolation<Trip>> violations = validator.validate(trip);
+        Set<ConstraintViolation<Type>> violations = validator.validate(type);
 
         if (!violations.isEmpty()) {
-            for (ConstraintViolation<Trip> violation : violations) {
+            for (ConstraintViolation<Type> violation : violations) {
                 result.addErrorMessage(violation.getMessage(), ResultType.INVALID);
             }
             return result;
         }
 
-        result.setPayload(repository.add(trip));
+        result.setPayload(repository.add(type));
         return result;
     }
 
-    public Result<Trip> update(Trip trip) {
-        Result<Trip> result = new Result<>();
+    public Result<Type> update (Type type) {
+        Result<Type> result = new Result<>();
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator(); // Returns a Hibernate validator hidden behind an interface.
-        Set<ConstraintViolation<Trip>> violations = validator.validate(trip);
+        Set<ConstraintViolation<Type>> violations = validator.validate(type);
 
         if (!violations.isEmpty()) {
-            for (ConstraintViolation<Trip> violation : violations) {
+            for (ConstraintViolation<Type> violation : violations) {
                 result.addErrorMessage(violation.getMessage(), ResultType.INVALID);
             }
             return result;
         }
 
-        boolean success = repository.update(trip);
+        boolean success = repository.update(type);
         if(!success) {
             result.addErrorMessage("Something went wrong.", ResultType.NOT_FOUND);
             return result;
         }
 
-        result.setPayload(trip);
+        result.setPayload(type);
         return result;
     }
 
-    public boolean deleteById(int tripId) {
-        return repository.deleteById(tripId);
+    public boolean deleteById (int typeId) {
+        return repository.deleteById(typeId);
     }
+
 }
