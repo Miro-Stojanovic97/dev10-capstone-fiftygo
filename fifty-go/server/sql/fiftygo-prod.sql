@@ -15,8 +15,8 @@ CREATE TABLE `user` (
 CREATE TABLE city (
 	city_id int primary key,
     city_name varchar(50) not null,
-    state_short char(2) not null,
-    state_long varchar(50) not null,
+    state_abr char(2) not null,
+    state_name varchar(50) not null,
     city_latitude decimal(7, 4) not null,
     city_longitude decimal(7, 4) not null
 );
@@ -98,21 +98,21 @@ INSERT INTO `user` (first_name, last_name, username, password_hash, disabled)
     ('John', 'Smith', 'jsmith1', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0),
 	('Jane', 'Smith', 'jsmith2', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0),
     ('Judy', 'Smith', 'jsmith3', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0);
-    
+
 INSERT INTO `role` (role_name)
 	values
     ('GUEST'),
 	('USER'),
 	('PREMIUM'),
 	('ADMIN');
-    
+
 INSERT INTO user_role (user_id, role_id)
 	values
     (1, 4),
     (2, 3),
     (3, 2);
 
-INSERT INTO city (city_id, city_name, state_short, state_long, city_latitude, city_longitude)
+INSERT INTO city (city_id, city_name, state_abr, state_name, city_latitude, city_longitude)
 	values
 	(1840034016, 'New York', 'NY', 'New York', 40.6943, -73.9249),
 	(1840020491, 'Los Angeles', 'CA', 'California', 34.1141, -118.4068),
@@ -463,7 +463,7 @@ INSERT INTO city (city_id, city_name, state_short, state_long, city_latitude, ci
 	(1840004841, 'Stamford', 'CT', 'Connecticut', 41.1039, -73.5585),
 	(1840018424, 'Kent', 'WA', 'Washington', 47.3887, -122.2128),
 	(1840018346, 'Bellingham', 'WA', 'Washington', 48.7548, -122.469);
-    
+
 INSERT INTO `type` (type_name)
 	values
     ('bike'),
@@ -500,6 +500,3 @@ INSERT INTO `type` (type_name)
 	('visit a state park'),
 	('visit a county park'),
 	('stargaze');
-
-
-
