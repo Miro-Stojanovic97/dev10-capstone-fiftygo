@@ -37,6 +37,94 @@ class PinServiceTest {
         assertEquals(expected, result.getPayload());
     }
 
+    @Test
+    void shouldNotAddInvalidPin() {
+        Pin arg = makePin();
+        arg.setPinId(0);
+        arg.setPinDescription(null);
+
+        Result<Pin> result = service.add(arg);
+
+        assertEquals(ResultType.INVALID, result.getResultType());
+    }
+
+    @Test
+    void shouldUpdateValidPin() {
+        Pin arg = makePin();
+        arg.setPinId(1);
+
+        when(repository.update(arg)).thenReturn(true);
+        Result<Pin> result = service.update(arg);
+
+        assertEquals(ResultType.SUCCESS, result.getResultType());
+        assertEquals(arg, result.getPayload());
+    }
+
+    @Test
+    void shouldUpdateValidNullType() {
+        Pin arg = makePin();
+        arg.setPinId(1);
+        arg.setType(null);
+
+        when(repository.update(arg)).thenReturn(true);
+        Result<Pin> result = service.update(arg);
+
+        assertEquals(ResultType.SUCCESS, result.getResultType());
+        assertEquals(arg, result.getPayload());
+    }
+
+    @Test
+    void shouldNotUpdateInvalidDescription() {
+        Pin arg = makePin();
+        arg.setPinId(1);
+        arg.setPinDescription(null);
+
+        Result<Pin> result = service.update(arg);
+        assertEquals(ResultType.INVALID, result.getResultType());
+
+        arg.setPinDescription("This is a test description in which I would like for the character count to be higher than the allotted 300 character max for a Pin's description. It seems like 300 characters should be enough to give a decent description of what you'd like to do at your pin. Any more than 300 is just too verbose, right?");
+        result = service.update(arg);
+        assertEquals(ResultType.INVALID, result.getResultType());
+    }
+
+    @Test
+    void shouldNotUpdateInvalidPriority() {
+        Pin arg = makePin();
+        arg.setPinId(1);
+        arg.setPinPriority(0);
+
+        Result<Pin> result = service.update(arg);
+        assertEquals(ResultType.INVALID, result.getResultType());
+
+        arg.setPinPriority(6);
+        result = service.update(arg);
+        assertEquals(ResultType.INVALID, result.getResultType());
+    }
+
+    @Test
+    void shouldNotUpdateInvalidCity() {
+        Pin arg = makePin();
+        arg.setPinId(1);
+        arg.setCity(null);
+
+        Result<Pin> result = service.update(arg);
+        assertEquals(ResultType.INVALID, result.getResultType());
+    }
+
+    @Test
+    void shouldNotUpdateInvalidUserId() {
+        Pin arg = makePin();
+        arg.setPinId(0);
+
+        Result<Pin> result = service.update(arg);
+        assertEquals(ResultType.NOT_FOUND, result.getResultType());
+
+        arg.setPinId(9999);
+        result = service.update(arg);
+        assertEquals(ResultType.NOT_FOUND, result.getResultType());
+    }
+
+
     private Pin makePin() {
         City city = new City(1840014730, "Columbia", "SC", "South Carolina",new BigDecimal("34.0378"),	new BigDecimal("-80.9036"));
         Type type = new Type(11, "sing");

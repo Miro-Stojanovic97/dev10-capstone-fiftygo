@@ -50,13 +50,29 @@ public class PinService {
         return result;
     }
 
-//    public Result<Pin> update(Pin pin) {
-//
-//    }
-//
-//    public boolean deleteById(int pinId) {
-//
-//    }
+    public Result<Pin> update(Pin pin) {
+        Result<Pin> result = new Result<>();
 
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Pin>> violations = validator.validate(pin);
 
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Pin> violation : violations) {
+                result.addErrorMessage(violation.getMessage(), ResultType.INVALID);
+            }
+            return result;
+        }
+        boolean success = repository.update(pin);
+        if (!success) {
+            result.addErrorMessage("Something went wrong.", ResultType.NOT_FOUND);
+            return result;
+        }
+        result.setPayload(pin);
+        return result;
+    }
+
+    public boolean deleteById(int pinId) {
+        return repository.deleteById(pinId);
+    }
 }
