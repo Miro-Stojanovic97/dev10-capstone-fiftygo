@@ -1,10 +1,12 @@
 package fiftygo.models;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 public class Type {
 
     private int typeId;
+    @NotBlank(message = "A name is required.")
     private String typeName;
 
     public Type(int typeId, String typeName) {

@@ -1,5 +1,6 @@
 package fiftygo.data;
 
+import fiftygo.models.Pin;
 import fiftygo.models.Trip;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class TripJdbcTemplateRepositoryTest {
 
+    final static int NEXT_ID = 7;
+
     @Autowired
     TripJdbcTemplateRepository repository;
 
@@ -23,18 +26,6 @@ class TripJdbcTemplateRepositoryTest {
     @BeforeEach
     void setup(){
         knownGoodState.set();
-    }
-
-    private Trip makeTrip() {
-        Trip newTrip = new Trip();
-        newTrip.setTripDescription("test description");
-        newTrip.setTripStartDate(LocalDate.of(2023,9,15));
-        newTrip.setTripEndDate(LocalDate.of(2023,9,20));
-        newTrip.setTransportation("bus");
-        newTrip.setTripPriority(1);
-        newTrip.setTripDidIt(false);
-        newTrip.setUserId(1);
-        return newTrip;
     }
 
     @Test
@@ -61,11 +52,11 @@ class TripJdbcTemplateRepositoryTest {
     void shouldFindById() {
         Trip idTwo = repository.findById(2);
         assertEquals("In congue.", idTwo.getTripDescription());
-        assertEquals("2022-07-16", idTwo.getTripStartDate());
-        assertEquals("2022-07-20", idTwo.getTripEndDate());
+        assertEquals(LocalDate.of(2022,07,16), idTwo.getTripStartDate());
+        assertEquals(LocalDate.of(2022,07,20), idTwo.getTripEndDate());
         assertEquals("rental car", idTwo.getTransportation());
         assertEquals(1, idTwo.getTripPriority());
-        assertEquals(1, idTwo.isTripDidIt());
+        assertEquals(true, idTwo.isTripDidIt());
         assertEquals(3, idTwo.getUserId());
     }
 
@@ -78,13 +69,9 @@ class TripJdbcTemplateRepositoryTest {
     @Test
     void shouldAdd() {
         Trip newTrip = makeTrip();
-        repository.add(newTrip);
-    }
-
-    @Test
-    void shouldNotAdd() {
-        Trip invalidTrip = new Trip();
-        invalidTrip.setTripDescription(null);
+        Trip actual = repository.add(newTrip);
+        assertNotNull(actual);
+        assertEquals(NEXT_ID, actual.getTripId());
     }
 
     @Test
@@ -97,13 +84,6 @@ class TripJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldNotUpdate() {
-        Trip notUpdatedTrip = makeTrip();
-        notUpdatedTrip.setTripDescription(null);
-        assertFalse(repository.update(notUpdatedTrip));
-    }
-
-    @Test
     void deleteById() {
         assertTrue(repository.deleteById(3));
     }
@@ -111,5 +91,17 @@ class TripJdbcTemplateRepositoryTest {
     @Test
     void shouldNotDelete() {
         assertFalse(repository.deleteById(7));
+    }
+
+    private Trip makeTrip() {
+        Trip newTrip = new Trip();
+        newTrip.setTripDescription("test description");
+        newTrip.setTripStartDate(LocalDate.of(2023,9,15));
+        newTrip.setTripEndDate(LocalDate.of(2023,9,20));
+        newTrip.setTransportation("bus");
+        newTrip.setTripPriority(1);
+        newTrip.setTripDidIt(false);
+        newTrip.setUserId(1);
+        return newTrip;
     }
 }
