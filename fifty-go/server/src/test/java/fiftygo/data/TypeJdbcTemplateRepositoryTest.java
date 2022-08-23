@@ -4,11 +4,13 @@ import fiftygo.models.Type;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class TypeJdbcTemplateRepositoryTest {
 
     final static int NEXT_ID = 35;
@@ -62,9 +64,14 @@ class TypeJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldDeleteById() {
-        assertTrue(repository.deleteById(20));
+    void shouldDeleteUnusedType() {
+        assertTrue(repository.deleteById(19));
     }
+
+//    @Test
+//    void shouldNotDeleteTypeUsedInPin() {
+//        assertFalse(repository.deleteById(5));
+//    }
 
     private Type makeType() {
         Type type = new Type();

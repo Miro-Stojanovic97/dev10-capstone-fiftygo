@@ -63,6 +63,7 @@ public class TypeJdbcTemplateRepository implements TypeRepository{
     @Override
     @Transactional
     public boolean deleteById(int typeId) {
+        jdbcTemplate.update("delete from pin where type_id = ?;", typeId);
         return jdbcTemplate.update("delete from type where type_id = ?;", typeId) > 0;
     }
 }
