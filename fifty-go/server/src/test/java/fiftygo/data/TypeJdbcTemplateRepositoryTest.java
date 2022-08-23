@@ -55,19 +55,15 @@ class TypeJdbcTemplateRepositoryTest {
 
     @Test
     void shouldUpdate() {
-
-    }
-
-    @Test
-    void shouldNotUpdate() {
+        Type type = makeType();
+        type.setTypeName("updated name");
+        type.setTypeId(36);
+        assertTrue(repository.update(type));
     }
 
     @Test
     void shouldDeleteById() {
-    }
-
-    @Test
-    void shouldNotDeleteById() {
+        assertTrue(repository.deleteById(20));
     }
 
     private Type makeType() {

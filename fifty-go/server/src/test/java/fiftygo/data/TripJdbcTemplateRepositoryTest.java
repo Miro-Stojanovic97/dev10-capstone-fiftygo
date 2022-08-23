@@ -79,7 +79,6 @@ class TripJdbcTemplateRepositoryTest {
         actual = repository.add(newTrip);
         assertNotNull(actual);
         assertEquals(NEXT_ID, actual.getTripId());
-
     }
 
     @Test

@@ -23,11 +23,8 @@ public class TripJdbcTemplateRepository implements TripRepository{
 
     private final JdbcTemplate jdbcTemplate;
 
-    private final PinJdbcTemplateRepository pinJdbcTemplateRepository;
-
-    public TripJdbcTemplateRepository(JdbcTemplate jdbcTemplate, PinJdbcTemplateRepository pinJdbcTemplateRepository) {
+    public TripJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.pinJdbcTemplateRepository = pinJdbcTemplateRepository;
     }
 
     @Override
@@ -117,6 +114,7 @@ public class TripJdbcTemplateRepository implements TripRepository{
 
     @Override
     public boolean deleteById(int tripId) {
+        jdbcTemplate.update("delete from pin_trip where trip_id = ?;", tripId);
         return jdbcTemplate.update("delete from trip where trip_id = ?;", tripId) > 0;
     }
 
@@ -142,7 +140,6 @@ public class TripJdbcTemplateRepository implements TripRepository{
         pin.setCity(city);
     }
 
-    // tripRepo needs access to this method
     void addType(Pin pin) {
         final String sql = "select " +
                 "`type`.type_id, `type`.type_name " +
