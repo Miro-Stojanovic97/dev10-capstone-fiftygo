@@ -27,7 +27,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
 
     @Override
     public List<Pin> findAll() {
-        final String sql = "select pin_id, pin_description, pin_date, pin_priority, pin_did_it,user_id from pin;";
+        final String sql = "select pin_id, pin_description, pin_date, pin_priority, pin_did_it, user_id from pin;";
         List<Pin> pins = jdbcTemplate.query(sql, new PinMapper());
         pins.forEach(this::addCity);
         pins.forEach(this::addType);
@@ -113,7 +113,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
         return jdbcTemplate.update("delete from pin where pin_id = ?;", pinId) > 0;
     }
 
-    protected void addCity(Pin pin) {
+    void addCity(Pin pin) {
         final String sql = "select " +
                 "city.city_id, city.city_name, city.state_abr, city.state_name, city.city_latitude, city.city_longitude " +
                 "from city " +
@@ -122,7 +122,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
         pin.setCity(city);
     }
 
-    protected void addType(Pin pin) {
+    void addType(Pin pin) {
         final String sql = "select " +
                 "`type`.type_id, `type`.type_name " +
                 "from `type` " +
