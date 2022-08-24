@@ -7,14 +7,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final JwtConverter converter;
+    private final JwtConverter jwtConverter;
 
-    public SecurityConfig(JwtConverter converter) {
-        this.converter = converter;
+    public SecurityConfig(JwtConverter jwtConverter) {
+        this.jwtConverter = jwtConverter;
     }
 
     @Override
@@ -24,23 +26,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
 
         http.authorizeRequests()
-                .antMatchers("/authenticate").permitAll()
-                .antMatchers("/create_account").permitAll()
-                .antMatchers(HttpMethod.GET,
-                        "/pin").hasAnyRole("USER", "PREMIUM", "ADMIN")
-                .antMatchers(HttpMethod.POST,
-                        "/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
-                .antMatchers(HttpMethod.PUT,
-                        "/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
-                .antMatchers(HttpMethod.DELETE,
-                        "/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
-                .antMatchers(HttpMethod.DELETE,
-                        "/user/*").hasAnyRole("ADMIN")
+                .antMatchers("/authenticate", "/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/refresh-token").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/pin", "/api/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/pin").hasAnyRole("USER", "PREMIUM", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers("/**").denyAll()
                 .and()
-                .addFilter(new JwtRequestFilter(authenticationManager(), converter))
+                .addFilter(new JwtRequestFilter(authenticationManager(), jwtConverter))
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Override

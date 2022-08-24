@@ -1,6 +1,6 @@
 # file for testing HTTP requests!
 
-###
+### technically, get an authorization JWT token (basically, log in)
 POST http://localhost:8080/authenticate HTTP/1.1
 Content-Type: application/json
 
@@ -9,10 +9,10 @@ Content-Type: application/json
     "password": "P@ssw0rd!"
 }
 
-### authorization (got a license for that request??)
-POST http://localhost:8080/pin HTTP/1.1
+### POST, using authorization
+POST http://localhost:8080/api/pin HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMiIsImF1dGhvcml0aWVzIjoiUk9MRV9QUkVNSVVNIiwiZXhwIjoxNjYxMzE4NTI1fQ.NXmxt2z5hO_Mhq8JNVP-sUS861OQZtYO9caOzpakJXI
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMiIsImF1dGhvcml0aWVzIjoiUk9MRV9QUkVNSVVNIiwiZXhwIjoxNjYxMzU5MTE4fQ.T8zg8U3CgZDopkfO6OuIUZKoP9tKDJeDyw8pEHrWwzU
 
 {
     "pinDescription": "Test!",
@@ -24,12 +24,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNta
         "cityName": "San Juan",
         "stateAbr": "PR",
         "stateName": "Puerto Rico",
-        "cityLatitude": 18.3985,
-        "cityLongitude": -66.0610
+        "cityLatitude": "18.3985",
+        "cityLongitude": "-66.0610"
     },
     "type": {
-        "typeId": 1,
-        "typeName": "bike"
+        "typeId": 26,
+        "typeName": "ski"
     },
     "userId": 1
 }
+
+### GET all pins, using authorization
+GET http://localhost:8080/api/pin HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMiIsImF1dGhvcml0aWVzIjoiUk9MRV9QUkVNSVVNIiwiZXhwIjoxNjYxMzU5MTE4fQ.T8zg8U3CgZDopkfO6OuIUZKoP9tKDJeDyw8pEHrWwzU
+
+### GET pin by ID, using authorization
+GET http://localhost:8080/api/pin/1 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMiIsImF1dGhvcml0aWVzIjoiUk9MRV9QUkVNSVVNIiwiZXhwIjoxNjYxMzU5MTE4fQ.T8zg8U3CgZDopkfO6OuIUZKoP9tKDJeDyw8pEHrWwzU

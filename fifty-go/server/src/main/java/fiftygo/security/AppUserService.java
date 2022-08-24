@@ -1,7 +1,10 @@
 package fiftygo.security;
 
 import fiftygo.data.AppUserRepository;
+import fiftygo.domain.Result;
+import fiftygo.domain.ResultType;
 import fiftygo.models.AppUser;
+import fiftygo.models.Credentials;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,30 +37,47 @@ public class AppUserService implements UserDetailsService {
         return appUser;
     }
 
-    public AppUser create(String firstName, String lastName, String username, String password) {
-        validate(username);
-        validatePassword(password);
+    public Result<AppUser> create(Credentials credentials) {
+        Result<AppUser> result = validate(credentials.getUsername());
+        if (!result.isSuccess()) {
+            return result;
+        }
+        result = validatePassword(credentials.getPassword());
+        if (!result.isSuccess()) {
+            return result;
+        }
 
-        password = encoder.encode(password);
+        String password = encoder.encode(credentials.getPassword());
 
-        AppUser appUser = new AppUser(0, firstName, lastName, username, password, false, List.of("User"));
+        AppUser appUser = new AppUser(0, credentials.getUsername(), password, false, List.of("User"));
 
-        return repository.create(appUser);
+        result.setPayload(repository.add(appUser));
+
+        return result;
     }
 
-    private void validate(String username) {
+    private Result<AppUser> validate(String username) {
+        Result<AppUser> result = new Result<>();
         if (username == null || username.isBlank()) {
-            throw new ValidationException("username is required");
+            result.addErrorMessage("username is required",
+                    ResultType.INVALID);
+            return result;
         }
 
         if (username.length() > 50) {
-            throw new ValidationException("username must be less than 50 characters");
+            result.addErrorMessage("username must be less than 50 characters",
+                    ResultType.INVALID);
         }
+        return result;
     }
 
-    private void validatePassword(String password) {
+    private Result<AppUser> validatePassword(String password) {
+        Result<AppUser> result = new Result<>();
+
         if (password == null || password.length() < 8) {
-            throw new ValidationException("password must be at least 8 characters");
+            result.addErrorMessage("password must be at least 8 characters",
+                    ResultType.INVALID);
+            return result;
         }
 
         int digits = 0;
@@ -74,7 +94,10 @@ public class AppUserService implements UserDetailsService {
         }
 
         if (digits == 0 || letters == 0 || others == 0) {
-            throw new ValidationException("password must contain a digit, a letter, and a non-digit/non-letter");
+            result.addErrorMessage("password must contain a digit, a letter, and a non-digit/non-letter",
+                    ResultType.INVALID);
         }
+
+        return result;
     }
 }

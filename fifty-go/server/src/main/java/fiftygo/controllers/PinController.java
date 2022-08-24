@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin//(origins = {"http://localhost:3000"})
-@RequestMapping("/pin")
+@RequestMapping("/api/pin")
 public class PinController {
 
     private final PinService service;
