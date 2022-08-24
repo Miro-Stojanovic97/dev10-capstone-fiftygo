@@ -7,16 +7,12 @@ import java.util.List;
 
 public interface AppUserRepository {
 
-    List<AppUser> findAll();
+//    List<AppUser> findAll();
 
     AppUser findByUsername(String username);
 
-    AppUser findById(int appUserId);
+    AppUser add(AppUser appUser);
 
-    AppUser create(AppUser appUser);
+    boolean update(AppUser appUser);
 
-    void update(AppUser appUser);
-
-    @Transactional
-    boolean deleteById(int appUserId);
 }

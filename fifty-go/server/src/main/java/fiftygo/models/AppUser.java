@@ -17,17 +17,13 @@ public class AppUser extends User {
 
     private int id;
 
-    @NotBlank(message = "First name is required.")
-    private String firstName;
+//    @NotBlank(message = "First name is required.")
+//    private String firstName;
+//
+//    @NotBlank(message = "Last name is required.")
+//    private String lastName;
 
-    @NotBlank(message = "Last name is required.")
-    private String lastName;
-
-    @NotBlank(message = "Username is required.")
-    @Size(min = 8, message = "Username must be at least 8 characters.")
-    private String username;
-
-    public AppUser(int id, String firstName, String lastName, String username, String password,
+    public AppUser(int id, String username, String password,
                    boolean disabled, List<String> roles) {
         super(username, password, !disabled,
                 true, true, true,
@@ -44,6 +40,22 @@ public class AppUser extends User {
     public void setId(int id) {
         this.id = id;
     }
+
+//    public String getFirstName() {
+//        return firstName;
+//    }
+//
+//    public void setFirstName(String firstName) {
+//        this.firstName = firstName;
+//    }
+//
+//    public String getLastName() {
+//        return lastName;
+//    }
+//
+//    public void setLastName(String lastName) {
+//        this.lastName = lastName;
+//    }
 
     public static List<GrantedAuthority> convertRolesToAuthorities(List<String> roles) {
         List<GrantedAuthority> authorities = new ArrayList<>(roles.size());
