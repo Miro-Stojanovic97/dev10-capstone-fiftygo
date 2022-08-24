@@ -2,7 +2,9 @@ package fiftygo.domain;
 
 import fiftygo.data.TripRepository;
 import fiftygo.models.City;
+import fiftygo.models.Pin;
 import fiftygo.models.Trip;
+import fiftygo.models.Type;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -57,16 +61,6 @@ class TripServiceTest {
     }
 
     @Test
-    void shouldNotAddNullCity() {
-        Trip arg = makeTrip();
-        arg.setTripId(0);
-        arg.setCity(null);
-
-        Result<Trip> result = service.add(arg);
-        assertEquals(ResultType.INVALID, result.getResultType());
-    }
-
-    @Test
     void shouldUpdateValidTrip() {
         Trip arg = makeTrip();
         arg.setTripDescription("updated description");
@@ -96,15 +90,6 @@ class TripServiceTest {
         assertEquals(ResultType.INVALID, result.getResultType());
     }
 
-    @Test
-    void shouldNotUpdateNullCity() {
-        Trip arg = makeTrip();
-        arg.setCity(null);
-
-        Result<Trip> result = service.update(arg);
-        assertEquals(ResultType.INVALID, result.getResultType());
-    }
-
     private Trip makeTrip() {
         Trip newTrip = new Trip();
         newTrip.setTripDescription("test description");
@@ -114,19 +99,25 @@ class TripServiceTest {
         newTrip.setTripPriority(1);
         newTrip.setTripDidIt(false);
         newTrip.setUserId(1);
-        newTrip.setCity(makeCity());
+        newTrip.setPins(makePin());
         return newTrip;
     }
 
-    private City makeCity() {
-        City newCity = new City();
-        newCity.setCityId(1840034016);
-        newCity.setCityName("New York");
-        newCity.setStateAbr("NY");
-        newCity.setStateName("New York");
-        newCity.setLatitude(BigDecimal.valueOf(40.6943));
-        newCity.setLongitude(BigDecimal.valueOf(-73.9249));
-        return newCity;
+    private List<Pin> makePin() {
+        City city = new City(1840014730, "Columbia", "SC", "South Carolina",new BigDecimal("34.0378"),	new BigDecimal("-80.9036"));
+        Type type = new Type(11, "sing");
+        List<Pin> pins = new ArrayList<>();
+        Pin pin = new Pin();
+        pin.setPinId(1);
+        pin.setPinDescription("Suspendisse potenti.");
+        pin.setPinDate(LocalDate.of(2023, 8,3));
+        pin.setPinPriority(5);
+        pin.setPinDidIt(false);
+        pin.setCity(city);
+        pin.setType(type);
+        pin.setUserId(3);
+        pins.add(pin);
+        return pins;
     }
 
 }
