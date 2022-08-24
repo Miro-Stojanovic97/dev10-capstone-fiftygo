@@ -2,6 +2,7 @@ package fiftygo.domain;
 
 import fiftygo.data.TripRepository;
 import fiftygo.models.Trip;
+import fiftygo.models.Type;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -24,7 +25,7 @@ public class TripService {
         return repository.findAll();
     }
 
-    public List<Trip> findByUsername(int userId) {
+    public List<Trip> findByUserId(int userId) {
         return repository.findByUserId(userId);
     }
 
@@ -74,7 +75,11 @@ public class TripService {
         return result;
     }
 
-    public boolean deleteById(int tripId) {
-        return repository.deleteById(tripId);
+    public Result<Trip> deleteById(int tripId) {
+        Result<Trip> result = new Result<>();
+        if(!repository.deleteById(tripId)){
+            result.addErrorMessage("Trip Id %s was not found.", ResultType.NOT_FOUND, tripId);
+        }
+        return result;
     }
 }
