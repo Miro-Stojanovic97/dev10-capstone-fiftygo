@@ -11,11 +11,11 @@ function MapView() {
         <button className="map-button">HI</button>
         <button className="map-button">AK</button>
         <button className="map-button">PR</button>
-        <MapContainer center={[39, -96]} zoom={4}scrollWheelZoom={false}
-                                        zoomControl={false}
-                                        doubleClickZoom={false}
+        <MapContainer center={[39, -96]} zoom={4}scrollWheelZoom={true}
+                                        zoomControl={true}
+                                        doubleClickZoom={true}
                                         //there are tons of options in here
-                                        dragging={false} > 
+                                        dragging={true} > 
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 //url="http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg"

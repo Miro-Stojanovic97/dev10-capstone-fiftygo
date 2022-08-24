@@ -39,20 +39,26 @@ Capstone project by Operation Alkemi in Dev10 Cohort-27
 * By Saturday 8/27: 
   * finish controller layer and start testing (Alli)
   * Should get Java Server finished by end of day (everyone)
-  * finish up design (html and CSS) of site
+  * finalize functionality of react front-end (Miro)
 * By Sunday 8/28:
   * make sure java, sql, and js are communicating everything correctly (everyone)
   * make sure all correct crud operations work properly (everyone)
+  * finishing touches on front-end, design (html and CSS) of site (Miro)
 * By Monday 8/29: 
   * finding bugs through rigorous testing unhappy path (everyone)
   * showing off app to friends (everyone)
+  * finish up design (html and CSS) of site (everyone)
 * By Tuesday 8/30: 
   * fixing last minute bugs (everyone)
-  * work on presentation (everyone)
-* By Wednesday 9/1: 
+  * finish up design (html and CSS) of site (everyone)
+* By Wednesday 8/31:
+  * fixing last minute bugs (everyone)
+  * finish up design (html and CSS) of site (everyone)
+  * work on / practice presentation (everyone)
+* By Thursday 9/1: 
   * should be all done by end of day!
   * work on / practice presentation (everyone)
-* By Thursday 9/2: 
+* By Friday 9/2: 
   * crush the presentation!
 
 ---
