@@ -1,7 +1,7 @@
 # file for testing HTTP requests!
 
 @base_url = http://localhost:8080/fiftygo
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMiIsImF1dGhvcml0aWVzIjoiUk9MRV9QUkVNSVVNIiwiZXhwIjoxNjYxMzYyMDE5fQ.3uNssRuoZJgWoIoz-xTGOlfWU5LwV5o-HpmIrC-qfUU
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMiIsImF1dGhvcml0aWVzIjoiUk9MRV9QUkVNSVVNIiwiZXhwIjoxNjYxMzYzMzY2fQ.0mRYJFsHOMAyxu3iY9LJPH7Nkmo9JgIknKp4T6peXn0
 
 
 ### technically, get an authorization JWT token (basically, log in)
@@ -72,5 +72,5 @@ Authorization: Bearer {{jwt}}
     "transportation": "car",
     "tripPriority": 1,
     "tripDidIt": "false",
-    "userId": 1,
+    "userId": 1
 }

@@ -23,10 +23,7 @@ public class Trip {
     @NotNull(message = "Please mark if this trip is completed or not.")
     private boolean tripDidIt;
     private int userId;
-    @NotNull(message = "City is required.")
-    private City city;
     private Type type;
-    private Pin pin;
 
     private List<Pin> pins;
 
@@ -34,7 +31,7 @@ public class Trip {
 
     }
 
-    public Trip(int tripId, String tripDescription, LocalDate tripStartDate, LocalDate tripEndDate, String transportation, int tripPriority, boolean tripDidIt, int userId, City city, Type type, Pin pin) {
+    public Trip(int tripId, String tripDescription, LocalDate tripStartDate, LocalDate tripEndDate, String transportation, int tripPriority, boolean tripDidIt, List<Pin> pins, int userId) {
         this.tripId = tripId;
         this.tripDescription = tripDescription;
         this.tripStartDate = tripStartDate;
@@ -42,10 +39,8 @@ public class Trip {
         this.transportation = transportation;
         this.tripPriority = tripPriority;
         this.tripDidIt = tripDidIt;
+        this.pins = pins;
         this.userId = userId;
-        this.city = city;
-        this.type = type;
-        this.pin = pin;
     }
 
     public int getTripId() {
@@ -112,28 +107,12 @@ public class Trip {
         this.userId = userId;
     }
 
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
     public Type getType() {
         return type;
     }
 
     public void setType(Type type) {
         this.type = type;
-    }
-
-    public Pin getPin() {
-        return pin;
-    }
-
-    public void setPin(Pin pin) {
-        this.pin = pin;
     }
 
     public List<Pin> getPins() {
@@ -155,7 +134,7 @@ public class Trip {
                 transportation.equalsIgnoreCase(trip.transportation) &&
                 tripPriority == trip.tripPriority &&
                 tripDidIt == trip.tripDidIt &&
-                pin.equals(trip.pin);
+                pins.equals(trip.pins);
     }
 
     @Override
