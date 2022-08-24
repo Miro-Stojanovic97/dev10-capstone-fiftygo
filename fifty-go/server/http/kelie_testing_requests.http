@@ -1,7 +1,7 @@
 # file for testing HTTP requests!
 
 @base_url = http://localhost:8080/fiftygo
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMiIsImF1dGhvcml0aWVzIjoiUk9MRV9QUkVNSVVNIiwiZXhwIjoxNjYxMzYwMjU2fQ.6Em2__WTxAaVNteAyUw6vVt9tDli6YdC-gOE7syCSIs
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMiIsImF1dGhvcml0aWVzIjoiUk9MRV9QUkVNSVVNIiwiZXhwIjoxNjYxMzYyMDE5fQ.3uNssRuoZJgWoIoz-xTGOlfWU5LwV5o-HpmIrC-qfUU
 
 
 ### technically, get an authorization JWT token (basically, log in)
@@ -54,3 +54,23 @@ Authorization: Bearer {{jwt}}
 GET {{base_url}}/type HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{jwt}}
+
+### GET all trips, using authorization
+GET {{base_url}}/trip HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+### POST a trip, using authorization
+POST {{base_url}}/trip HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+{
+    "tripDescription": "test",
+    "tripStartDate": "2023-10-31",
+    "tripEndDate": "2023-11-15",
+    "transportation": "car",
+    "tripPriority": 1,
+    "tripDidIt": "false",
+    "userId": 1,
+}
