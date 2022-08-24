@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { createRef, Component } from "react";
 import { toBePartiallyChecked } from "@testing-library/jest-dom/dist/matchers";
-import { layerGroup } from "leaflet";
-import { MapContainer, Marker, Popup, TileLayer, Polygon, GeoJSON } from "react-leaflet";
+import { geoJSON, layerGroup, L } from "leaflet";
+import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon, GeoJSON, ZoomControl } from "react-leaflet";
 import { statesData } from '../us-states';
 import { click } from "@testing-library/user-event/dist/click";
 
@@ -33,6 +33,15 @@ function MapView() {
         feature.setStyle(mainStyle);
     }
 
+    // todo: snap zoom to state on click. Currently unable to find proper
+    // keyword to fit and 
+    // function zoomToFeature(event) {
+    //     TileLayer.fitBounds(event.target.getBounds());
+    // //     var feature = event.target;
+    // //    var featureBounds = feature.getBounds;
+    // //     fitBounds(featureBounds);
+    //  }
+
     //maps through each state, finding its name
     var onEachFeature = function(feature, layer) {
         const stateName = feature.properties.name;
@@ -40,7 +49,8 @@ function MapView() {
         //changes style of state based on mouse events
         layer.on({
             mouseover: highlightFeatureOn,
-            mouseout: highlightFeatureOff
+            mouseout: highlightFeatureOff,
+            // click: zoomToFeature
         });
     }
 
@@ -56,7 +66,9 @@ function MapView() {
                                         zoomControl={false}
                                         doubleClickZoom={false}
                                         //there are tons of options in here
-                                        dragging={false} > 
+                                        dragging={false}
+                                        // click={zoomToFeature} ??
+                                        > 
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
