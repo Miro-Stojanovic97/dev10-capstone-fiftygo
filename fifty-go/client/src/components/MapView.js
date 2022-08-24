@@ -7,18 +7,18 @@ function MapView() {
     
     return (
         <>
-        <button>Home</button>
-        <button>Hawaii</button>
-        <button>Alaska</button>
-        <button>Puerto Rico</button>
+        <button className="map-button main">Home</button>
+        <button className="map-button">HI</button>
+        <button className="map-button">AK</button>
+        <button className="map-button">PR</button>
         <MapContainer center={[39, -96]} zoom={4}scrollWheelZoom={false}
                                         zoomControl={false}
                                         doubleClickZoom={false}
                                         //there are tons of options in here
                                         dragging={false} > 
             <TileLayer
-                //url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                url="http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg"
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                //url="http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg"
                 //url="http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 
@@ -26,7 +26,7 @@ function MapView() {
 
         </MapContainer>
 
-        <p className="display-1">MapView ©</p>
+        <p className="display-6" style={{textAlign:"right", color: "navy", fontWeight: 700}}>MapView ©</p>
 
         </>
     )
