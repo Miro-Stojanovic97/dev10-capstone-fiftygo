@@ -28,10 +28,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/authenticate", "/register").permitAll()
                 .antMatchers(HttpMethod.POST, "/refresh-token").authenticated()
+
                 .antMatchers(HttpMethod.GET, "/fiftygo/pin", "/fiftygo/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/fiftygo/pin").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/fiftygo/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/fiftygo/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
+
+                .antMatchers(HttpMethod.GET, "/fiftygo/trip", "/fiftygo/trip/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/fiftygo/trip").hasAnyRole("USER", "PREMIUM", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/fiftygo/trip/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/fiftygo/trip/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
+
                 .antMatchers(HttpMethod.GET, "/fiftygo/type", "/fiftygo/type/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/fiftygo/type").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/fiftygo/type/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
