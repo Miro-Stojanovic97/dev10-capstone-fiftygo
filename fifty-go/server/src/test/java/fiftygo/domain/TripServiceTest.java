@@ -1,11 +1,14 @@
 package fiftygo.domain;
 
 import fiftygo.data.TripRepository;
+import fiftygo.models.City;
 import fiftygo.models.Trip;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -111,7 +114,19 @@ class TripServiceTest {
         newTrip.setTripPriority(1);
         newTrip.setTripDidIt(false);
         newTrip.setUserId(1);
+        newTrip.setCity(makeCity());
         return newTrip;
+    }
+
+    private City makeCity() {
+        City newCity = new City();
+        newCity.setCityId(1840034016);
+        newCity.setCityName("New York");
+        newCity.setStateAbr("NY");
+        newCity.setStateName("New York");
+        newCity.setLatitude(BigDecimal.valueOf(40.6943));
+        newCity.setLongitude(BigDecimal.valueOf(-73.9249));
+        return newCity;
     }
 
 }
