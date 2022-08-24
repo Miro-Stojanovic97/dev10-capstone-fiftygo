@@ -85,3 +85,7 @@ a.nav-link.map {
   color: white;
   
 }
+
+.leaflet-pane {
+  color: black;
+}

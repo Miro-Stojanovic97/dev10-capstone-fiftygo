@@ -70,8 +70,12 @@ public class TypeService {
         return result;
     }
 
-    public boolean deleteById (int typeId) {
-        return repository.deleteById(typeId);
+    public Result<Type> deleteById (int typeId) {
+        Result<Type> result = new Result<>();
+        if(!repository.deleteById(typeId)){
+            result.addErrorMessage("Type Id %s was not found.", ResultType.NOT_FOUND, typeId);
+        }
+        return result;
     }
 
 }
