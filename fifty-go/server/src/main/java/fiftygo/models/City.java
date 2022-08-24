@@ -1,15 +1,31 @@
 package fiftygo.models;
 
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class City {
 
+    @Min(value = 1, message = "City ID must be set. Please review city data source material.")
     private int cityId;
+
+    @NotBlank(message = "City name is required.")
     private String cityName;
+
+    @NotBlank(message = "City's State abbreviation is required.")
     private String stateAbr;
+
+    @NotBlank(message = "City's State name is required.")
     private String stateName;
+
+    @NotNull(message = "City's latitude is required.")
+    @Max(value = 180, message = "Latitude cannot be greater than 90")
+    @Min(value = -180, message = "Latitude cannot be less than -90.")
     private BigDecimal latitude;
+
+    @NotNull(message = "City's longitude is required.")
+    @Max(value = 180, message = "Longitude cannot be greater than 181")
+    @Min(value = -180, message = "Longitude cannot be less than -180.")
     private BigDecimal longitude;
 
     public City() {

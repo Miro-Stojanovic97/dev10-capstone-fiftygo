@@ -5,6 +5,7 @@ import fiftygo.models.City;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Repository
@@ -31,7 +32,26 @@ public class CityJdbcTemplateRepository implements CityRepository{
 
     @Override
     public City add(City city) {
-        return null;
+        final String sql = """
+                insert into city (city_id, city_name, state_abr, state_name, city_latitude, city_longitude)
+                	values
+                	(?, ?, ?, ?, ?, ?);
+                """;
+        int rowsAffected = jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.NO_GENERATED_KEYS);
+            ps.setInt(1, city.getCityId());
+            ps.setString(2, city.getCityName());
+            ps.setString(3, city.getStateAbr());
+            ps.setString(4, city.getStateName());
+            ps.setBigDecimal(5, city.getLatitude());
+            ps.setBigDecimal(6, city.getLongitude());
+            return ps;
+        });
+
+        if (rowsAffected <= 0) {
+            return null;
+        }
+        return city;
     }
 
     @Override
