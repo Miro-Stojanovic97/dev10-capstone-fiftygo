@@ -5,46 +5,48 @@ import { MapContainer, Marker, Popup, TileLayer, Polygon, GeoJSON } from "react-
 import { statesData } from '../us-states';
 import { click } from "@testing-library/user-event/dist/click";
 
-//import useSwr from "swr"; can help w fetching map data from url
 
 function MapView() {
 
-    // function changeCountryColor(event) {
-    //     event.target.setStyle({
-    //       color: "green",
-    //       fillColor: this.state.color,
-    //       fillOpacity: 1,
-    //     });
-    //   };
+    //state layer stylings
+    var mainStyle = {
+        fillColor: "orange", 
+        fillOpacity: 1,
+        color: "black",
+        weight: 1, 
+    }
+    var highlightStyle = {
+        fillColor: "white",
+        weight: 1,
+        fillOpacity: 1,
+    }
 
-    
+    //changes style of state layer based on mouse on event
+    function highlightFeatureOn(event) {
+        var feature = event.target;
+        feature.setStyle(highlightStyle);
+    }
 
-    function onEachFeature(state, layer) {
-        const stateName = state.properties.name;
-        console.log(stateName);
-        layer.bindPopup(stateName);
-        
-        
-        //layer.mouseover
+    //changes style of state layer based on mouse off event 
+    function highlightFeatureOff(event) {
+        var feature = event.target;
+        feature.setStyle(mainStyle);
+    }
 
-        // layer.on({ 
-        //     mouseover: this.highlightFeature,
-        // })
-        //layer.options.fillOpacity = Math.random(); //0-1 (0.1, 0.2, 0.3)
-        // const colorIndex = Math.floor(Math.random() * this.colors.length);
-        // layer.options.fillColor = this.colors[colorIndex]; //0
-    
-        // layer.on(
-        //   changeCountryColor(click)
-        // );
-      };
-     
-    //   function colorChange(event) {
-    //     this.setState({ color: event.target.value });
-    //   };
+    //maps through each state, finding its name
+    var onEachFeature = function(feature, layer) {
+        const stateName = feature.properties.name;
+        layer.bindPopup(stateName); //appends popup with state name. TODO: Do something cooler
+        //changes style of state based on mouse events
+        layer.on({
+            mouseover: highlightFeatureOn,
+            mouseout: highlightFeatureOff
+        });
+    }
 
     return (
         <>
+        {/* TODO: make functional buttons w/ seperate map view zoom */}
         <button className="map-button main">Home</button>
         <button className="map-button">HI</button>
         <button className="map-button">AK</button>
@@ -64,41 +66,16 @@ function MapView() {
             {/* Overlay state border polygons */}
             <GeoJSON 
                 style={{fillColor: "orange", 
-                        fillOpacity: 1,
+                        fillOpacity:1,
                         color: "black",
                         weight: 1, }}
                 data={statesData.features} 
+                //call function that scans through each feature (state)
                 onEachFeature={onEachFeature}
-                eventHandlers={{
-                    mouseover: (e) => {
-                      let layer = e.target;
-                      layer.setStyle({
-                        dashArray: "",
-                        fillColor: "orange",
-                        fillOpacity: 1,
-                        weight: 2,
-                        opacity: 1,
-                        color: "white",
-                      })
-                    },
-                    mouseout: (e) => {
-                      let layer = e.target;
-                      layer.setStyle({
-                        fillColor: "orange",
-                        fillOpacity: 0.7,
-                        weight: 1,
-                        color: 'black',
-                      });
-                    },
-                    click: (e) => {
-      
-                    }
-                  }}
             />           
 
         </MapContainer>
         <p className="display-6" style={{textAlign:"right", color: "navy", fontWeight: 700}}>MapView ©</p>
-
         </>
     )
 }
