@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/type")
+@RequestMapping("/fiftygo/type")
 public class TypeController {
 
     private final TypeService service;
