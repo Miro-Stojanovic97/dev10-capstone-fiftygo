@@ -65,7 +65,7 @@ public class TripJdbcTemplateRepository implements TripRepository{
 
     @Override
     public Trip add(Trip trip) {
-        final String sql = "insert into trip (trip_id, trip_description, trip_start_date, trip_end_date, transportation, trip_priority, trip_did_it) " +
+        final String sql = "insert into trip (trip_description, trip_start_date, trip_end_date, transportation, trip_priority, trip_did_it, user_id) " +
                 "values (?,?,?,?,?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -81,11 +81,7 @@ public class TripJdbcTemplateRepository implements TripRepository{
             }
             ps.setInt(5, trip.getTripPriority());
             ps.setBoolean(6, trip.isTripDidIt());
-            if (trip.getPin() != null) {
-                ps.setInt(7, trip.getPin().getPinId());
-            } else {
-                ps.setInt(7, 0);
-            }
+            ps.setInt(7, trip.getUserId());
             return ps;
         }, keyHolder);
 
