@@ -24,7 +24,9 @@ public class CityJdbcTemplateRepository implements CityRepository{
 
     @Override
     public City findById(int cityId) {
-        return null;
+
+        final String sql = "select city_id, city_name, state_abr, state_name, city_latitude, city_longitude from city where city_id = ?;";
+        return jdbcTemplate.queryForObject(sql, new CityMapper(), cityId);
     }
 
     @Override
