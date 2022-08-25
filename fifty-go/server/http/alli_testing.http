@@ -1,7 +1,7 @@
 # file for testing https requests for trips and types
 
 @base_url = http://localhost:8080/fiftygo
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoiYWdlaWdlciIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiYXBwVXNlcklkIjo0LCJmaXJzdE5hbWUiOiJBbGxpIiwibGFzdE5hbWUiOiJHZWlnZXIiLCJleHAiOjE2NjE0NjA4ODl9.dEtTIg4l_B3PE5hXqEUUu-BVwXnvZ5CyeYWPr4FMcmg
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoiYWdlaWdlciIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiYXBwVXNlcklkIjo0LCJmaXJzdE5hbWUiOiJBbGxpIiwibGFzdE5hbWUiOiJHZWlnZXIiLCJleHAiOjE2NjE0NjI4MTR9.JA_4y6eFz0XDkKPb4D7dwjfSY27_JXVPx2m3C9-9b2Q
 
 
 ### create an account. If it worked, then "login" below
@@ -33,12 +33,12 @@ GET {{base_url}}/trip HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
-### GET all trips by user ID, using authorization
-GET {{base_url}}/trip/user/6 HTTP/1.1
+### GET trip by user ID, using authorization !!!!!!!!!!!!!!
+GET {{base_url}}/trip/user/4 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
-## GET a trip by ID
+### GET a trip by ID !!!!!!!!!!!!!!!!!!!!!!
 GET {{base_url}}/trip/3 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{jwt}}
@@ -104,12 +104,12 @@ GET {{base_url}}/type HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
-## GET a type by ID
+### GET a type by ID !!!!!!!!!!!!!!!!!!!!!!!!
 GET {{base_url}}/type/3 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
-## GET a type by userID
+### GET a type by userID
 GET {{{base_url}}/type/6
 Content-Type: application/json
 Authorization: Bearer {{jwt}}
