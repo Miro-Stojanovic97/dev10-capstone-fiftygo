@@ -33,12 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/user/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/user/*").hasRole("ADMIN")
 
-                .antMatchers(HttpMethod.GET, "/fiftygo/pin", "/fiftygo/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/fiftygo/pin", "/fiftygo/pin/user/*","/fiftygo/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/fiftygo/pin").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/fiftygo/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/fiftygo/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
 
-                .antMatchers(HttpMethod.GET, "/fiftygo/trip", "/fiftygo/trip/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/fiftygo/trip", "fiftygo/trip/user/*", "/fiftygo/trip/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/fiftygo/trip").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/fiftygo/trip/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/fiftygo/trip/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
