@@ -81,7 +81,7 @@ class AppUserJdbcTemplateRepositoryTest {
     @Test
     void shouldCreateValidUser() {
         AppUser expected = new AppUser(
-                4,
+                5,
                 "Julie",
                 "Smith",
                 "jsmith4",
@@ -92,7 +92,6 @@ class AppUserJdbcTemplateRepositoryTest {
         actual.setAppUserId(0);
         repository.create(actual);
 
-        assertEquals(4, actual.getAppUserId());
         assertEquals(expected, actual);
     }
 
@@ -115,7 +114,18 @@ class AppUserJdbcTemplateRepositoryTest {
 
     @Test
     void shouldDeleteExistingById() {
+        AppUser appUser = new AppUser(
+                0,
+                "Jeb",
+                "Smith",
+                "jsmith85",
+                "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
+                false,
+                Collections.singletonList("PREMIUM"));
+        repository.create(appUser);
 
+        boolean result = repository.deleteById(appUser.getAppUserId());
+        assertTrue(result);
     }
 
     private AppUser makeAppUser() {

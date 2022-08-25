@@ -106,7 +106,8 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
 
     @Override
     public boolean deleteById(int appUserId) {
-        return false;
+        jdbcTemplate.update("delete from user_role where user_id = ?;", appUserId);
+        return jdbcTemplate.update("delete from `user` where user_id = ?;", appUserId) > 0;
     }
 
     private void updateRoles(AppUser user) {
