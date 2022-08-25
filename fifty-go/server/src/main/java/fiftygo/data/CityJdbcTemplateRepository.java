@@ -33,7 +33,7 @@ public class CityJdbcTemplateRepository implements CityRepository{
     // findByState
     @Override
     public List<City> findByStateAbr(String stateAbr) {
-        final String sql = "select city_name from city where state_abr = ?;";
+        final String sql = "select city_id, city_name, state_abr, state_name, city_latitude, city_longitude from city where state_abr = ?;";
         return jdbcTemplate.query(sql, new CityMapper(), stateAbr);
     }
     // filterByBeginsWith

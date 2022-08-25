@@ -22,7 +22,7 @@ public class CityController {
         return service.findAll();
     }
 
-    @GetMapping("/state_{stateAbr}")
+    @GetMapping("/state/{stateAbr}")
     public List<City> findByStateAbr(@PathVariable String stateAbr) {
         return service.findByStateAbr(stateAbr);
     }
