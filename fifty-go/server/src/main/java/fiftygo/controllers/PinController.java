@@ -25,7 +25,7 @@ public class PinController {
         return service.findAll();
     }
 
-    @GetMapping("/user-{userId}")
+    @GetMapping("/user/{userId}")
     public List<Pin> findByUserId(@PathVariable int userId) {
         return service.findByUserId(userId);
     }

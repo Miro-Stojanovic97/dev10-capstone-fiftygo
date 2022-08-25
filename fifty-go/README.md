@@ -265,57 +265,57 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
                      * [ ] return template.update( "delete from trips where tripId = ?", tripId) == ?;
                  
          * [ ] Create Activity interface
-           * [ ] List ;Activity ; findAllPublic()
-           * [ ] List ;Activity ; findByUserId(Integer userId)
-           * [ ] Activity findById( Integer activityId )
-           * [ ] Activity add(Activity toAdd)
-           * [ ] boolean remove(Integer activityId)
-           * [ ] void edit( Activity updated )
-         * [ ] Create ActivityMapper class
-           * [ ] implements RowMapper; Activity;
-           * [ ] Generate interface method
-               * [ ] Activity toReturn = new Activity();
-               * [ ] toReturn.setActivityId( rs.getInt("activityId") );
-               * [ ] toReturn.setActivityDescription( rs.getString("ActivityDescription"));
-               * [ ] toReturn.setUserId( rs.getInt("userId") );
-               * [ ] toReturn.setActivityDate( LocalDate.parse("ActivityDate"));
-               * [ ] to.Return.setActivityPriority( rs.getInt("ActivityPriority"));
-               * [ ] to.Return.setActivityDidIt( rs.boolean("ActivityDidIt"));
-               * [ ] return toReturn;
-           * [ ] Create ActivityDbRepo class
-               * [ ] Add @Repository
-               * [ ] add @Autowired JdbcTemplate template field variable
-               * [ ] implements ActivityRepo
-                   * [ ] generate functions automatically
-                   * [ ] implement findAll()
-                       * [ ] String sql = "SELECT * FROM activities"
-                       * [ ] return template.query( sql, new ActivityMapper());
-                   * [ ] implement findById()
-                       * [ ] String sql = return template.query("select * from activities where activityId = ?", new TripMapper(), tripId).stream().findAny().orElse(null);
-                       * [ ] implement boolean remove(Integer activityId) {
-                           * [ ] return template.update( "delete from activities where activityId = ?", activityId) == ?;
-           * [ ] Create UserRepo interface
-               * [ ] User findByUsername( String username )
-               * [ ] User add( User toAdd )
+           * [x] List ;Activity ; findAllPublic()
+           * [x] List ;Activity ; findByUserId(Integer userId)
+           * [x] Activity findById( Integer activityId )
+           * [x] Activity add(Activity toAdd)
+           * [x] boolean remove(Integer activityId)
+           * [x] void edit( Activity updated )
+         * [x] Create ActivityMapper class
+           * [x] implements RowMapper; Activity;
+           * [x] Generate interface method
+               * [x] Activity toReturn = new Activity();
+               * [x] toReturn.setActivityId( rs.getInt("activityId") );
+               * [x] toReturn.setActivityDescription( rs.getString("ActivityDescription"));
+               * [x] toReturn.setUserId( rs.getInt("userId") );
+               * [x] toReturn.setActivityDate( LocalDate.parse("ActivityDate"));
+               * [x] to.Return.setActivityPriority( rs.getInt("ActivityPriority"));
+               * [x] to.Return.setActivityDidIt( rs.boolean("ActivityDidIt"));
+               * [x] return toReturn;
+           * [x] Create ActivityDbRepo class
+               * [x] Add @Repository
+               * [x] add @Autowired JdbcTemplate template field variable
+               * [x] implements ActivityRepo
+                   * [x] generate functions automatically
+                   * [x] implement findAll()
+                       * [x] String sql = "SELECT * FROM activities"
+                       * [x] return template.query( sql, new ActivityMapper());
+                   * [x] implement findById()
+                       * [x] String sql = return template.query("select * from activities where activityId = ?", new TripMapper(), tripId).stream().findAny().orElse(null);
+                       * [x] implement boolean remove(Integer activityId) {
+                           * [x] return template.update( "delete from activities where activityId = ?", activityId) == ?;
+           * [x] Create UserRepo interface
+               * [x] User findByUsername( String username )
+               * [x] User add( User toAdd )
                * [ ] boolean remove( Integer userId )
                * [ ] void edit( User updated )
-           * [ ] Create UserMapper class
-               * [ ] create Set&lt;String&gt; roles field variable
-               * [ ] create UserMapper constructor which takes in the Set of roles and sets the field variable
-               * [ ] implements RowMapper&lt;AppUser&gt;
-               * [ ] auto-generate methods
-                   * [ ] AppUser toBuild = new AppUser(userId, username, password, roles);
-           * [ ] Create UserDbRepository class
-               * [ ] Add @Repository 
-               * [ ] implements UserRepository
-                   * [ ] Add @Autowired JdbcTemplate template field variable
-                   * [ ] generate functions automatically
-                   * [ ] create private Set&lt;String&gt; findRolesByUsername(String username)
-                       * [ ] String sql = "SELECT roleName FROM users u inner join userroles ur on ur.userId = u.userId inner join roles r on ur.roleId = r.roleId where username = ?"
-                       * [ ] return template.query( sql, (rowData, rowNum)->rowData.getString("roleName"), username).stream().collect(Collectors.toSet())
-                   * [ ] implement findByUsername(String username)
-                       * [ ] String sql = "select userId, username, password from users where username = ?"
-                       * [ ] return template.query( sql, new UserMapper(findRolesByUsername(username)), username).stream().findAny().orElse(null);
+           * [x] Create UserMapper class
+               * [x] create Set&lt;String&gt; roles field variable
+               * [x] create UserMapper constructor which takes in the Set of roles and sets the field variable
+               * [x] implements RowMapper&lt;AppUser&gt;
+               * [x] auto-generate methods
+                   * [x] AppUser toBuild = new AppUser(userId, username, password, roles);
+           * [x] Create UserDbRepository class
+               * [x] Add @Repository 
+               * [x] implements UserRepository
+                   * [x] Add @Autowired JdbcTemplate template field variable
+                   * [x] generate functions automatically
+                   * [x] create private Set&lt;String&gt; findRolesByUsername(String username)
+                       * [x] String sql = "SELECT roleName FROM users u inner join userroles ur on ur.userId = u.userId inner join roles r on ur.roleId = r.roleId where username = ?"
+                       * [x] return template.query( sql, (rowData, rowNum)->rowData.getString("roleName"), username).stream().collect(Collectors.toSet())
+                   * [x] implement findByUsername(String username)
+                       * [x] String sql = "select userId, username, password from users where username = ?"
+                       * [x] return template.query( sql, new UserMapper(findRolesByUsername(username)), username).stream().findAny().orElse(null);
                
    * [ ] Create domain package
      * [ ] Create InvalidUserException
@@ -360,37 +360,37 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
                  * [ ] tRepo.remove(activityId);
              * [ ] } else { throw new InvalidUserException("Only admins and the author of the trip may delete it."); }
            
-   * [ ] Create security package
-     * [ ] create SecurityConfig class
-         * [ ] @EnableWebSecurity
-         * [ ] extends WebSecurityConfigurerAdapter
-         * [ ] @Override protected void configure( HttpSecurity http) throws Exception
-             * [ ] http.csrf().disable()
-             * [ ] http.cors()
-             * [ ] http.authorizeRequests()
-                 * [ ] .antMatchers("/authenticate").permitAll()
-                 * [ ] .antMatchers("/create_account").permitAll()
-                 * [ ] .antMatchers( HttpMethod.POST, "/api/security/login").permitAll()
-                 * [ ] .antMatchers( HttpMethod.GET, "/api/public" ).permitAll()
-                 * [ ] .antMatchers( HttpMethod.DELETE, "/api/activity/*").hasAnyRole("AUTHOR", "ADMIN")
-                 * [ ] .antMatchers( HttpMethod.DELETE, "/api/trip/*").hasAnyRole("AUTHOR", "ADMIN")
-                 * [ ] .antMatchers( HttpMethod.DELETE, "/api/users/*").hasAnyRole("ADMIN")
-                 * [ ] .antMatchers("/**").denyAll()
-                 * [ ] .and()
-                 * [ ] .addFilter(new JwtRequestFilter(authenticationManager(), converter))
-                 * [ ] .sessionManagement()
-                 * [ ] .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-         * [ ] public PasswordEncoder getEncoder(){ return new BCryptPasswordEncoder(); }
-             * [ ] mark with @Bean
-         * [ ] @Override protected AuthenticationManager authenticationManager() throws Exception
-             * [ ] just return super.authenticationManager();
-             * [ ] mark with @Bean
+   * [x] Create security package
+     * [x] create SecurityConfig class
+         * [x] @EnableWebSecurity
+         * [x] extends WebSecurityConfigurerAdapter
+         * [x] @Override protected void configure( HttpSecurity http) throws Exception
+             * [x] http.csrf().disable()
+             * [x] http.cors()
+             * [x] http.authorizeRequests()
+                 * [x] .antMatchers("/authenticate").permitAll()
+                 * [x] .antMatchers("/create_account").permitAll()
+                 * [x] .antMatchers( HttpMethod.POST, "/api/security/login").permitAll()
+                 * [x] .antMatchers( HttpMethod.GET, "/api/public" ).permitAll()
+                 * [x] .antMatchers( HttpMethod.DELETE, "/api/activity/*").hasAnyRole("AUTHOR", "ADMIN")
+                 * [x] .antMatchers( HttpMethod.DELETE, "/api/trip/*").hasAnyRole("AUTHOR", "ADMIN")
+                 * [x] .antMatchers( HttpMethod.DELETE, "/api/users/*").hasAnyRole("ADMIN")
+                 * [x] .antMatchers("/**").denyAll()
+                 * [x] .and()
+                 * [x] .addFilter(new JwtRequestFilter(authenticationManager(), converter))
+                 * [x] .sessionManagement()
+                 * [x] .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+         * [x] public PasswordEncoder getEncoder(){ return new BCryptPasswordEncoder(); }
+             * [x] mark with @Bean
+         * [x] @Override protected AuthenticationManager authenticationManager() throws Exception
+             * [x] just return super.authenticationManager();
+             * [x] mark with @Bean
      * [ ] Create JwtConverter class
-         * [ ] Mark as @Component
-         * [ ] add a Key field variable (secretKey) assign Keys.secretKeyFor(SignatureAlgorithm.HS256)
-         * [ ] add public String getTokenFromUser( User toConvert )
-             * [ ] generate comma separated string of authorities granted to the user (retrieve those with .getAuthorities() )
-             * [ ] return Jwts.builder()
+         * [x] Mark as @Component
+         * [x] add a Key field variable (secretKey) assign Keys.secretKeyFor(SignatureAlgorithm.HS256)
+         * [x] add public String getTokenFromUser( User toConvert )
+             * [x] generate comma separated string of authorities granted to the user (retrieve those with .getAuthorities() )
+             * [x] return Jwts.builder()
                  * [ ] .setIssuer("fiftygo-app")
                  * [ ] .setSubject(toConvert.getUsername())
                  * [ ] .claim("authorties", commaSeparatedString)

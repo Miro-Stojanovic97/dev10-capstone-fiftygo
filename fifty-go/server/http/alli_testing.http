@@ -1,0 +1,52 @@
+# file for testing https requests for trips and types
+
+@base_url = http://localhost:8080/fiftygo
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMiIsImF1dGhvcml0aWVzIjoiUk9MRV9QUkVNSVVNIiwiZXhwIjoxNjYxMzY4NDQ0fQ.PMkWxrbOX_TIrStap9ELXK_EtKjxt-3PW9H1jzbRd9c
+
+
+### technically, get an authorization JWT token (basically, log in)
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "jsmith2",
+    "password": "P@ssw0rd!"
+}
+
+### GET all trips, using authorization
+GET {{base_url}}/trip HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+### POST, using authorization
+POST {{base_url}}/trip HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+{
+    "tripDescription": "test description",
+    "tripStartDate": "2023-09-15",
+    "tripEndDate": "2023-09-20",
+    "transportation": "bus",
+    "tripPriority": 3,
+    "tripDidIt": false,
+    "userId": 1,
+    "pin": {
+        "pinDescription": "Test!",
+        "pinDate": "2022-10-31",
+        "pinPriority": 1,
+        "pinDidIt": false,
+        "city": {
+            "cityId": 1630035577,
+            "cityName": "San Juan",
+            "stateAbr": "PR",
+            "stateName": "Puerto Rico",
+            "cityLatitude": "18.3985",
+            "cityLongitude": "-66.0610"
+        },
+        "type": {
+            "typeId": 26,
+            "typeName": "ski"
+        }
+    }
+}

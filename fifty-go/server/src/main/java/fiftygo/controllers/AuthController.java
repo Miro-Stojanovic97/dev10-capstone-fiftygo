@@ -5,21 +5,17 @@ import fiftygo.models.AppUser;
 import fiftygo.models.Credentials;
 import fiftygo.security.AppUserService;
 import fiftygo.security.JwtConverter;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.ValidationException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -63,7 +59,7 @@ public class AuthController {
         Result<AppUser> result = service.create(credentials);
         if (result.isSuccess()) {
             HashMap<String, Integer> map = new HashMap<>();
-            map.put("id", result.getPayload().getId());
+            map.put("id", result.getPayload().getAppUserId());
             return new ResponseEntity<>(map, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(result.getErrorMessages(), HttpStatus.BAD_REQUEST);
