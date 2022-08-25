@@ -1,7 +1,7 @@
 # file for testing HTTP requests!
 
 @base_url = http://localhost:8080/fiftygo
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMiIsImF1dGhvcml0aWVzIjoiUk9MRV9QUkVNSVVNIiwiYXBwVXNlcklkIjoyLCJmaXJzdE5hbWUiOiJKYW5lIiwibGFzdE5hbWUiOiJTbWl0aCIsImV4cCI6MTY2MTQ1NTEwMX0.zAZE3mPHrgsvWKml_J8RAoefWqNRYJ_MWKKwEwxvjEw
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoia2JlcmVuZHQiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImFwcFVzZXJJZCI6NCwiZmlyc3ROYW1lIjoiS2VsaWUiLCJsYXN0TmFtZSI6IkJlcmVuZHQiLCJleHAiOjE2NjE0NTc4MjN9.6fPoDw9Cg5eBgdVYRfW_J6_8pR8069EG6UwIc0pVSBg
 
 
 ### technically, get an authorization JWT token (basically, log in)
@@ -10,6 +10,26 @@ Content-Type: application/json
 
 {
     "username": "jsmith2",
+    "password": "P@ssw0rd!"
+}
+
+### create an account. If it worked, then "login" below
+POST http://localhost:8080/create_account HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "Kelie",
+    "lastName": "Berendt",
+    "username": "kberendt",
+    "password": "P@ssw0rd!"
+}
+
+### technically, get an authorization JWT token (basically, log in)
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "kberendt",
     "password": "P@ssw0rd!"
 }
 
@@ -40,7 +60,7 @@ Authorization: Bearer {{jwt}}
         "typeId": 26,
         "typeName": "ski"
     },
-    "userId": 1
+    "userId": 4
 }
 
 ### PUT (update) an existing Pin, using authorization

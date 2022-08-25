@@ -11,7 +11,7 @@ public interface AppUserRepository {
 
     AppUser findByUsername(String username);
 
-    AppUser create(AppUser appUser);
+    AppUser createAccount(AppUser appUser);
 
     boolean update(AppUser appUser);
 

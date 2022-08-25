@@ -90,7 +90,7 @@ class AppUserJdbcTemplateRepositoryTest {
                 Collections.singletonList("PREMIUM"));
         AppUser actual = makeAppUser();
         actual.setAppUserId(0);
-        repository.create(actual);
+        repository.createAccount(actual);
 
         assertEquals(expected, actual);
     }
@@ -122,7 +122,7 @@ class AppUserJdbcTemplateRepositoryTest {
                 "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
                 false,
                 Collections.singletonList("PREMIUM"));
-        repository.create(appUser);
+        repository.createAccount(appUser);
 
         boolean result = repository.deleteById(appUser.getAppUserId());
         assertTrue(result);
