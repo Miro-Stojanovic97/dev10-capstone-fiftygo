@@ -32,6 +32,7 @@ Authorization: Bearer {{jwt}}
 ## GET a trip by ID
 GET {{base_url}}/trip/3 HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{jwt}}
 
 ### POST a trip, using authorization
 POST {{base_url}}/trip HTTP/1.1

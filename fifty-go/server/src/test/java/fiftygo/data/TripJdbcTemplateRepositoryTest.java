@@ -38,13 +38,13 @@ class TripJdbcTemplateRepositoryTest {
         List<Trip> trips = repository.findAll();
         assertNotNull(trips);
 
-        assertTrue(trips.size() == 6);
+        assertTrue(trips.size() >= 6 && trips.size() >= 8);
     }
 
     @Test
     void shouldFindTwoTripsByUserId() {
         List<Trip> trips = repository.findByUserId(1);
-        assertEquals(2, trips.size());
+        assertEquals(4, trips.size());
     }
 
     @Test
