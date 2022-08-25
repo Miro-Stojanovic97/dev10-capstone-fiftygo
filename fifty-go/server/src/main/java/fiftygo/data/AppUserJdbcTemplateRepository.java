@@ -51,7 +51,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     }
 
     @Transactional
-    public AppUser add(AppUser user) {
+    public AppUser create(AppUser user) {
 
         final String sql = "insert into `user` (first_name, last_name, username, password_hash) values (?, ?, ?, ?);";
 
