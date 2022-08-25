@@ -7,12 +7,14 @@ import java.util.List;
 
 public interface AppUserRepository {
 
-//    List<AppUser> findAll();
+    List<AppUser> findAll();
 
     AppUser findByUsername(String username);
 
-    AppUser add(AppUser appUser);
+    AppUser createAccount(AppUser appUser);
 
     boolean update(AppUser appUser);
+
+    boolean deleteById(int appUserId);
 
 }

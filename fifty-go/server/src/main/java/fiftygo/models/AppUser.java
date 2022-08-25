@@ -1,5 +1,6 @@
 package fiftygo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -22,24 +23,22 @@ public class AppUser extends User {
     @NotBlank(message = "Last name is required.")
     private String lastName;
 
+    public AppUser() {
+        this(0, null, null, "username", "", false, List.of());
+    }
+
     public AppUser(int appUserId, String firstName, String lastName, String username, String password,
                    boolean disabled, List<String> roles) {
 
-
+        // uses fields from base class constructor:
         super(username, password, !disabled,
                 true, true, true,
                 convertRolesToAuthorities(roles));
 
+        // and we set custom field values as well:
         this.appUserId = appUserId;
         this.firstName = firstName;
         this.lastName = lastName;
-
-        //super() calls base class constructor
-        super(username, password, !disabled,
-                true, true, true,
-                convertRolesToAuthorities(roles));
-        //set custom fields
-        this.id = id;
     }
 
     private List<String> roles = new ArrayList<>();
@@ -68,13 +67,49 @@ public class AppUser extends User {
         this.lastName = lastName;
     }
 
+    @JsonIgnore
+    @Override
+    public String getPassword() {
+        return super.getPassword();
+    }
+
+    @JsonIgnore
+    @Override
+    public Collection<GrantedAuthority> getAuthorities() {
+        return super.getAuthorities();
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isEnabled() {
+        return super.isEnabled();
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return super.isAccountNonExpired();
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return super.isAccountNonLocked();
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return super.isCredentialsNonExpired();
+    }
+
     public static List<GrantedAuthority> convertRolesToAuthorities(List<String> roles) {
         List<GrantedAuthority> authorities = new ArrayList<>(roles.size());
         for (String role : roles) {
-            Assert.isTrue(!role.startsWith(AUTHORITY_PREFIX),
-                    () -> String.format("%s cannot start with %s (it is automatically added)",
-                            role, AUTHORITY_PREFIX));
-            authorities.add(new SimpleGrantedAuthority(AUTHORITY_PREFIX + role));
+            if (!role.startsWith(AUTHORITY_PREFIX)) {
+                role = AUTHORITY_PREFIX + role;
+            }
+            authorities.add(new SimpleGrantedAuthority(role));
         }
         return authorities;
     }

@@ -1,18 +1,21 @@
 package fiftygo.security;
 
+import fiftygo.App;
 import fiftygo.data.AppUserRepository;
 import fiftygo.domain.Result;
 import fiftygo.domain.ResultType;
 import fiftygo.models.AppUser;
 import fiftygo.models.Credentials;
+import fiftygo.models.Pin;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ValidationException;
+import javax.validation.*;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AppUserService implements UserDetailsService {
@@ -26,6 +29,10 @@ public class AppUserService implements UserDetailsService {
         this.encoder = encoder;
     }
 
+    public List<AppUser> findAll() {
+        return repository.findAll();
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = repository.findByUsername(username);
@@ -37,23 +44,62 @@ public class AppUserService implements UserDetailsService {
         return appUser;
     }
 
-    public Result<AppUser> create(Credentials credentials) {
-        Result<AppUser> result = validate(credentials.getUsername());
-        if (!result.isSuccess()) {
+    public Result<AppUser> createAccount(String firstName, String lastName, String username, String password) {
+
+        Result<AppUser> result = new Result<>();
+
+        validate(username);
+        validatePassword(password);
+
+        password = encoder.encode(password);
+
+        AppUser appUser = new AppUser(0, firstName, lastName, username, password, false, List.of("USER"));
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<AppUser>> violations = validator.validate(appUser);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<AppUser> violation : violations) {
+                result.addErrorMessage(violation.getMessage(), ResultType.INVALID);
+            }
             return result;
         }
-        result = validatePassword(credentials.getPassword());
-        if (!result.isSuccess()) {
-            return result;
-        }
 
-        String password = encoder.encode(credentials.getPassword());
-
-        AppUser appUser = new AppUser(0, credentials.getUsername(), password, false, List.of("User"));
-
-        result.setPayload(repository.add(appUser));
-
+        result.setPayload(repository.createAccount(appUser));
         return result;
+    }
+
+    public Result<AppUser> update(int appUserId, String firstName, String lastName, String username, String password) {
+        Result<AppUser> result = new Result<>();
+
+        validate(username);
+        validatePassword(password);
+
+        password = encoder.encode(password);
+
+        AppUser appUser = new AppUser(appUserId, firstName, lastName, username, password, false, List.of("USER"));
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<AppUser>> violations = validator.validate(appUser);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<AppUser> violation : violations) {
+                result.addErrorMessage(violation.getMessage(), ResultType.INVALID);
+            }
+            return result;
+        }
+
+        boolean updated = repository.update(appUser);
+        if (!updated) {
+            result.addErrorMessage("User update failed :(", ResultType.INVALID);
+        }
+        return result;
+    }
+
+    public boolean deleteById(int appUserId) {
+        return repository.deleteById(appUserId);
     }
 
     private Result<AppUser> validate(String username) {

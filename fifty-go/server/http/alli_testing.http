@@ -1,24 +1,49 @@
 # file for testing https requests for trips and types
 
 @base_url = http://localhost:8080/fiftygo
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMiIsImF1dGhvcml0aWVzIjoiUk9MRV9QUkVNSVVNIiwiZXhwIjoxNjYxMzY4NDQ0fQ.PMkWxrbOX_TIrStap9ELXK_EtKjxt-3PW9H1jzbRd9c
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoiYWdlaWdlciIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiYXBwVXNlcklkIjo0LCJmaXJzdE5hbWUiOiJBbGxpIiwibGFzdE5hbWUiOiJHZWlnZXIiLCJleHAiOjE2NjE0NjA4ODl9.dEtTIg4l_B3PE5hXqEUUu-BVwXnvZ5CyeYWPr4FMcmg
 
+
+### create an account. If it worked, then "login" below
+POST http://localhost:8080/create_account HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "Alli",
+    "lastName": "Geiger",
+    "username": "ageiger",
+    "password": "P@ssw0rd!"
+}
 
 ### technically, get an authorization JWT token (basically, log in)
 POST http://localhost:8080/authenticate HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "jsmith2",
+    "username": "ageiger",
     "password": "P@ssw0rd!"
 }
 
-### GET all trips, using authorization
+
+
+## TRIPS
+
+### GET all trips, using authorization !!!!!!!!!!!!!!!!!
 GET {{base_url}}/trip HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
-### POST, using authorization
+### GET all trips by user ID, using authorization
+GET {{base_url}}/trip/user/6 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+## GET a trip by ID
+GET {{base_url}}/trip/3 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+### POST a trip, using authorization !!!!!!!!!!!!!!
 POST {{base_url}}/trip HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{jwt}}
@@ -50,3 +75,65 @@ Authorization: Bearer {{jwt}}
         }
     }
 }
+
+### PUT a trip, using authorization !!!!!!!!!!!!!!!
+PUT {{base_url}}/trip/1 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+{
+    "tripId": 1,
+    "tripDescription": "updated description",
+    "tripPriority": 2,
+    "tripStartDate": "2023-10-15",
+    "tripEndDate": "2023-10-20"
+}
+
+### DELETE a trip, using authorization !!!!!!!!!!!!!!!!
+DELETE {{base_url}}/trip/4 HTTP/1.1
+Authorization: Bearer {{jwt}}
+
+
+
+
+
+## TYPES
+
+### GET all types !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+GET {{base_url}}/type HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+## GET a type by ID
+GET {{base_url}}/type/3 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+## GET a type by userID
+GET {{{base_url}}/type/6
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+### POST a type, using authorization
+POST {{base_url}}/type HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+{
+    "typeId": 35,
+    "typeName": "ski"
+}
+
+### PUT a type, using authorization !!!!!!!!!!!!!!
+PUT {{base_url}}/type/1 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+{
+    "typeId": 1,
+    "typeName": "sky dive"
+}
+
+### DELETE a type
+DELETE {{base_url}}/type/1 HTTP/1.1
+Authorization: Bearer {{jwt}}
