@@ -22,6 +22,11 @@ public class CityController {
         return service.findAll();
     }
 
+    @GetMapping("/state_{stateAbr}")
+    public List<City> findByStateAbr(@PathVariable String stateAbr) {
+        return service.findByStateAbr(stateAbr);
+    }
+
     @GetMapping("/{pinId}")
     public City findById(@PathVariable int cityId) {
         return service.findById(cityId);

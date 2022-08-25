@@ -12,6 +12,9 @@ public interface CityRepository {
 
     City findById(int cityId);
 
+    // findByState
+    List<City> findByStateAbr(String stateAbr);
+
     City add(City city);
 
     boolean update(City city);

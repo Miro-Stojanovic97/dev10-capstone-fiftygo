@@ -30,6 +30,14 @@ public class CityJdbcTemplateRepository implements CityRepository{
         return jdbcTemplate.queryForObject(sql, new CityMapper(), cityId);
     }
 
+    // findByState
+    @Override
+    public List<City> findByStateAbr(String stateAbr) {
+        final String sql = "select city_name from city where state_abr = ?;";
+        return jdbcTemplate.query(sql, new CityMapper(), stateAbr);
+    }
+    // filterByBeginsWith
+
     @Override
     public City add(City city) {
         final String sql = """

@@ -22,4 +22,8 @@ public class CityService {
     public City findById(int cityId) {
         return repository.findById(cityId);
     }
+
+    public List<City> findByStateAbr(String stateAbr) {
+        return repository.findByStateAbr(stateAbr);
+    }
 }
