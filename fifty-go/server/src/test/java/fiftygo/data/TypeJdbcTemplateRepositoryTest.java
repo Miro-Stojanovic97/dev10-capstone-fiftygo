@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest
 class TypeJdbcTemplateRepositoryTest {
 
     final static int NEXT_ID = 35;
@@ -67,11 +67,6 @@ class TypeJdbcTemplateRepositoryTest {
     void shouldDeleteUnusedType() {
         assertTrue(repository.deleteById(19));
     }
-
-//    @Test
-//    void shouldNotDeleteTypeUsedInPin() {
-//        assertFalse(repository.deleteById(5));
-//    }
 
     private Type makeType() {
         Type type = new Type();
