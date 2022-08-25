@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,6 +36,8 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
         final String sql = """
                 select
                     user_id,
+                    first_name,
+                    last_name,
                     username,
                     password_hash,
                     disabled
@@ -52,13 +53,15 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     @Transactional
     public AppUser add(AppUser user) {
 
-        final String sql = "insert into `user` (username, password_hash) values (?, ?, ?, ?);";
+        final String sql = "insert into `user` (first_name, last_name, username, password_hash) values (?, ?, ?, ?);";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setString(3, user.getUsername());
+            ps.setString(4, user.getPassword());
             return ps;
         }, keyHolder);
 
@@ -66,7 +69,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
             return null;
         }
 
-        user.setId(keyHolder.getKey().intValue());
+        user.setAppUserId(keyHolder.getKey().intValue());
 
         updateRoles(user);
 
@@ -84,7 +87,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
                 """;
 
         boolean updated = jdbcTemplate.update(sql,
-                user.getUsername(), !user.isEnabled(), user.getId()) > 0;
+                user.getUsername(), !user.isEnabled(), user.getAppUserId()) > 0;
 
         if (updated) {
             updateRoles(user);
@@ -94,7 +97,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
 
     private void updateRoles(AppUser user) {
         // delete all roles, then re-add
-        jdbcTemplate.update("delete from user_role where user_id = ?;", user.getId());
+        jdbcTemplate.update("delete from user_role where user_id = ?;", user.getAppUserId());
 
         Collection<GrantedAuthority> authorities = user.getAuthorities();
 
@@ -110,7 +113,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
                         role_id
                     from `role` where role_name = ?;
                     """;
-            jdbcTemplate.update(sql, user.getId(), role);
+            jdbcTemplate.update(sql, user.getAppUserId(), role);
         }
     }
 
