@@ -9,8 +9,6 @@ public class Type {
     @NotBlank(message = "A name is required.")
     private String typeName;
 
-    private Pin pin;
-
     public Type(int typeId, String typeName) {
         this.typeId = typeId;
         this.typeName = typeName;
