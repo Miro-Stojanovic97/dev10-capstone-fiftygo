@@ -35,7 +35,7 @@ public class TypeController {
     }
 
     @PostMapping
-    public ResponseEntity<?> add(@PathVariable Type type) {
+    public ResponseEntity<?> add(@RequestBody Type type) {
         Result<Type> result = service.add(type);
         if(!result.isSuccess()) {
             return new ResponseEntity<>(result.getErrorMessages(), HttpStatus.BAD_REQUEST); //400
