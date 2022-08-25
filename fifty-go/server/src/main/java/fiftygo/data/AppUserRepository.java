@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AppUserRepository {
 
-//    List<AppUser> findAll();
+    List<AppUser> findAll();
 
     AppUser findByUsername(String username);
 
