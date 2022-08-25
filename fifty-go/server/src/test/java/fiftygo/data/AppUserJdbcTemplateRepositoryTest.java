@@ -99,22 +99,22 @@ class AppUserJdbcTemplateRepositoryTest {
     @Test
     void shouldUpdateExistingValidAppUser() {
 
-//        AppUser expected = repository.findByUsername(js)
-//
-//        AppUser expected = new AppUser(
-//                4,
-//                "Jennifer",
-//                "Smith",
-//                "jsmith4",
-//                "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
-//                false,
-//                Collections.singletonList("PREMIUM"));
-//
-//
-//
-//        boolean result = repository.update(expected);
-//
-//        assertTrue(result);
+        AppUser actual = new AppUser(
+                3,
+                "Jennifer",
+                "Smith",
+                "jsmith3",
+                "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
+                false,
+                Collections.singletonList("PREMIUM"));
+        boolean result = repository.update(actual);
+
+        assertTrue(result);
+
+    }
+
+    @Test
+    void shouldDeleteExistingById() {
 
     }
 

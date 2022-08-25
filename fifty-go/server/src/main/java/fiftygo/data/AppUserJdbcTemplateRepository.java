@@ -104,6 +104,11 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
         return updated;
     }
 
+    @Override
+    public boolean deleteById(int appUserId) {
+        return false;
+    }
+
     private void updateRoles(AppUser user) {
         // delete all roles, then re-add
         jdbcTemplate.update("delete from user_role where user_id = ?;", user.getAppUserId());
@@ -125,11 +130,6 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
             jdbcTemplate.update(sql, user.getAppUserId(), role);
         }
     }
-
-//    @Override
-//    public boolean deleteById(int appUserId) {
-//        return false;
-//    }
 
     private List<String> getRolesByUsername(String username) { // gets roles from db, adds to list of roles.
         final String sql = """
