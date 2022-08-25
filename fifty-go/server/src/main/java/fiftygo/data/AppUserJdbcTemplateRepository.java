@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,12 +23,12 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-//    @Transactional
-//    public List<AppUser> findAll() {
-//        List<String> roles = new ArrayList<>();
-//        final String sql = "select user_id, first_name, last_name, username, password_hash, disabled from `user`;";
-//        return jdbcTemplate.query(sql, new AppUserMapper(roles));
-//    }
+    @Transactional
+    public List<AppUser> findAll() {
+        List<String> roles = new ArrayList<>();
+        final String sql = "select user_id, first_name, last_name, username, password_hash, disabled from `user`;";
+        return jdbcTemplate.query(sql, new AppUserMapper(roles));
+    }
 
     @Transactional
     public AppUser findByUsername(String username) {
@@ -81,13 +82,21 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
 
         final String sql = """
                 update `user` set
+                    first_name = ?,
+                    last_name = ?,
                     username = ?,
                     disabled = ?
                 where user_id = ?
                 """;
 
-        boolean updated = jdbcTemplate.update(sql,
-                user.getUsername(), !user.isEnabled(), user.getAppUserId()) > 0;
+        boolean updated = jdbcTemplate.update(
+                sql,
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUsername(),
+                !user.isEnabled(),
+                user.getAppUserId()
+        ) > 0;
 
         if (updated) {
             updateRoles(user);
