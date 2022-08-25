@@ -64,6 +64,7 @@ a.nav-link.map {
   height: 70vh;
   border-color: navy;
   border-style: solid;
+  background-color: transparent;
 }
 
 .map-button {

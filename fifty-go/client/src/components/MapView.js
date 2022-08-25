@@ -8,17 +8,22 @@ import { click } from "@testing-library/user-event/dist/click";
 
 function MapView() {
 
-    //state layer stylings
+    //base layer styling
     var mainStyle = {
         fillColor: "orange", 
         fillOpacity: 1,
         color: "black",
         weight: 1, 
     }
+    //styling when mouse hovers over state feature
     var highlightStyle = {
         fillColor: "white",
         weight: 1,
         fillOpacity: 1,
+    }
+    //styling when clicking on state
+    var clearStyle = {
+        fillOpacity: 0,
     }
 
     //changes style of state layer based on mouse on event
@@ -33,8 +38,13 @@ function MapView() {
         feature.setStyle(mainStyle);
     }
 
+    function highlightFeatureClick(event) {
+        var feature = event.target;
+        feature.setStyle(clearStyle);
+    }
+
     // todo: snap zoom to state on click. Currently unable to find proper
-    // keyword to fit and 
+    // keywords to make fitBounds/getBounds do what I want 
     // function zoomToFeature(event) {
     //     TileLayer.fitBounds(event.target.getBounds());
     // //     var feature = event.target;
@@ -45,14 +55,23 @@ function MapView() {
     //maps through each state, finding its name
     var onEachFeature = function(feature, layer) {
         const stateName = feature.properties.name;
-        layer.bindPopup(stateName); //appends popup with state name. TODO: Do something cooler
+        // layer.bindPopup(stateName); //appends popup with state name. TODO: Do something cooler
         //changes style of state based on mouse events
+            // const stateBounds = layer.target.getBounds();
+            // console.log(stateBounds);
         layer.on({
             mouseover: highlightFeatureOn,
             mouseout: highlightFeatureOff,
-            // click: zoomToFeature
+            click: highlightFeatureClick
         });
     }
+
+    // mapContainerCenter() {
+    //     const mainCenter = [39, -96];
+    //     const mainZoom = 4;
+    //     let newCenter = features.geometry 
+    //     onclick.feature: return newCenter;
+    // }
 
     return (
         <>
@@ -60,32 +79,34 @@ function MapView() {
         <button className="map-button main">Home</button>
         <button className="map-button">HI</button>
         <button className="map-button">AK</button>
-        {/* <button className="map-button">PR</button> */}
         {/* 39, -96 zoom-4 is center of USA */}
-        <MapContainer center={[39, -96]} zoom={4}scrollWheelZoom={false}
+        {/* Map container defines the map, and its attributes */}
+        <MapContainer center={[39, -96]} zoom={4}
+                                        scrollWheelZoom={true}
                                         zoomControl={false}
-                                        doubleClickZoom={false}
-                                        //there are tons of options in here
-                                        dragging={false}
-                                        // click={zoomToFeature} ??
+                                        doubleClickZoom={true}
+                                        minZoom={4}
+                                        dragging={true}
+                                        maxBounds={[[20, -60],[55, -130]]}
                                         > 
+            {/* TileLayer allows you to add/overlay map layers */}
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-
+                zIndex={2} //zIndex changes layering order
             />
             
-            {/* Overlay state border polygons */}
+            {/* The <GeoJSON/> tag in leaflet allows you to quickly import data from 
+            a geoJSON file and define its attributes for your map  */}
             <GeoJSON 
                 style={{fillColor: "orange", 
-                        fillOpacity:1,
+                        fillOpacity: 1,
                         color: "black",
                         weight: 1, }}
                 data={statesData.features} 
-                //call function that scans through each feature (state)
+                //on each feature (states), call function to map through them 
                 onEachFeature={onEachFeature}
             />           
-
         </MapContainer>
         <p className="display-6" style={{textAlign:"right", color: "navy", fontWeight: 700}}>MapView ©</p>
         </>

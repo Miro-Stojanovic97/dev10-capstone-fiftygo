@@ -1,77 +1,95 @@
 import { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { authenticate } from '../services/authApi';
-import UserContext from '../contexts/UserContext';
 
 function Login() {
     
     // const [username, setUsername] = useState('');
     // const [password, setPassword] = useState('');
-
     // const [errors, setErrors] = useState([]);
 
-    // const auth = useContext(UserContext);
+    // const auth = useContext(AuthContext);
 
-    // const handleChangeUsername = (evt) => {
-    //     setUsername(evt.target.value);
-    // };  
+    // const history = useHistory();
     
-    // const handleChangePassword = (evt) => {
-    //     setPassword(evt.target.value);
-    // };
+     /* For Reference:
+    POST http://localhost:8080/api/authenticate HTTP/1.1
+    Content-Type: application/json
 
-    // const handleSubmit = (evt) => {
-    //     evt.preventDefault();
+    {
+      "username": "john@smith.com",
+      "password": "P@ssw0rd!"
+    }
 
-    //     authenticate(username, password)
-    //     .then(data => {
-    //         auth.onAuthenticated(data);
+    */
+
+
+    // const authAttempt = {
+    //     username,
+    //     password
+    //   };
+      
+    //   const init = {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(authAttempt)
+    //   };
+//TODO
+    //   fetch('http://localhost:8080/api/authenticate(???)', init)  
+    //     .then(response => {
+    //       if (response.status === 200) {
+    //         return response.json();
+    //       } else if (response.status === 403) {
+    //         return null;
+    //       } else {
+    //         return Promise.reject(`Unexpected status code: ${response.status}`);
+    //       }
     //     })
-    //     .catch(err => {
-    //         setErrors([err]);
-    //     });
+    //     .then(data => {
+    //       if (data) {
+    //         // {
+//TODO??
+    //         //   "jwt_token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYWxvcmllLXRyYWNrZXIiLCJzdWIiOiJzbWFzaGRldjUiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImV4cCI6MTYwNTIzNDczNH0.nwWJtPYhD1WlZA9mGo4n5U0UQ3rEW_kulilO2dEg7jo"
+    //         // }
+    //         auth.login(data.jwt_token);
+    //         history.push('/');
+    //       } else {
+    //         // we have error messages
+    //         setErrors(['login failure']);
+    //       }
+    //     })
+    //     .catch(console.log);
     // };
-    
-    
+
+    // const handleUsernameChange = (event) => {
+    //     setUsername(event.target.value);
+    //   };
+
     return (
     <>
         <h1 className="display-1">Login 🌍</h1>
-        <p1>TODO: Fill out login page </p1>
+        <p>TODO: Fill out login page </p>
         
-        {/* TODO: from Brendan's secured solar farm project */}
-        {/* <h2 className="mb-4">Login</h2>
+        {/* <Errors errors={errors} /> */}
 
-        {errors.length > 0 && (
-            <div className="alert alert-danger">
-            <p>The following errors were found:</p>
-            <ul>
-                {errors.map(error => (
-                <li key={error}>{error}</li>
-                ))}
-            </ul>
-            </div>
-        )}
+      {/* <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="username">Username:</label>
+          <input id="username" type="text" 
+            onChange={handleUsernameChange} value={username} />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input id="password" type="password" 
+            onChange={(event) => setPassword(event.target.value)} value={password} />
+        </div>
+        <div>
+          <button type="submit">Login</button>
+          <Link to="/register">I don't have an account</Link>
+        </div>
+      </form> */}
 
-        <form onSubmit={handleSubmit}>
-            <div className="form-group">
-            <label htmlFor="username">Username:</label>
-            <input id="username" name="username" type="text" className="form-control"
-                value={username} onChange={handleChangeUsername} />
-            </div>
-            <div className="form-group">
-            <label htmlFor="password">Password:</label>
-            <input id="password" name="password" type="password" className="form-control"
-                value={password} onChange={handleChangePassword} />
-            </div>
-            <div className="mt-4">
-            <button className="btn btn-success mr-2" type="submit">
-                <i className="bi bi-file-earmark-check"></i> Login
-            </button>
-            <Link className="btn btn-warning" to="/solarpanels">
-                <i className="bi bi-stoplights"></i> Cancel
-            </Link>
-            </div>
-        </form> */}
     </>
   );
 }

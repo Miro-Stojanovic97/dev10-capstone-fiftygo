@@ -25,9 +25,11 @@ public class AppUser extends User {
 
     public AppUser(int id, String username, String password,
                    boolean disabled, List<String> roles) {
+        //super() calls base class constructor
         super(username, password, !disabled,
                 true, true, true,
                 convertRolesToAuthorities(roles));
+        //set custom fields
         this.id = id;
     }
 
