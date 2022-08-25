@@ -29,6 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/authenticate", "/create_account").permitAll()
                 .antMatchers(HttpMethod.POST, "/refresh-token").authenticated()
 
+                .antMatchers(HttpMethod.GET, "/user", "/user/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/user/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/user/*").hasRole("ADMIN")
+
                 .antMatchers(HttpMethod.GET, "/fiftygo/pin", "/fiftygo/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/fiftygo/pin").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/fiftygo/pin/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
