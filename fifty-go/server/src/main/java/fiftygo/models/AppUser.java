@@ -25,6 +25,7 @@ public class AppUser extends User {
     public AppUser(int appUserId, String firstName, String lastName, String username, String password,
                    boolean disabled, List<String> roles) {
 
+
         super(username, password, !disabled,
                 true, true, true,
                 convertRolesToAuthorities(roles));
@@ -32,6 +33,13 @@ public class AppUser extends User {
         this.appUserId = appUserId;
         this.firstName = firstName;
         this.lastName = lastName;
+
+        //super() calls base class constructor
+        super(username, password, !disabled,
+                true, true, true,
+                convertRolesToAuthorities(roles));
+        //set custom fields
+        this.id = id;
     }
 
     private List<String> roles = new ArrayList<>();

@@ -1,18 +1,22 @@
 package fiftygo.data;
 
+import fiftygo.models.City;
 import fiftygo.models.Pin;
 import fiftygo.models.Trip;
+import fiftygo.models.Type;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest
 class TripJdbcTemplateRepositoryTest {
 
     final static int NEXT_ID = 7;
@@ -78,7 +82,7 @@ class TripJdbcTemplateRepositoryTest {
         newTrip.setTripEndDate(null);
         actual = repository.add(newTrip);
         assertNotNull(actual);
-        assertEquals(NEXT_ID, actual.getTripId());
+        assertEquals(NEXT_ID + 1, actual.getTripId());
     }
 
     @Test
@@ -97,7 +101,7 @@ class TripJdbcTemplateRepositoryTest {
 
     @Test
     void shouldNotDelete() {
-        assertFalse(repository.deleteById(7));
+        assertFalse(repository.deleteById(20));
     }
 
     private Trip makeTrip() {
@@ -109,6 +113,24 @@ class TripJdbcTemplateRepositoryTest {
         newTrip.setTripPriority(1);
         newTrip.setTripDidIt(false);
         newTrip.setUserId(1);
+        newTrip.setPins(makePin());
         return newTrip;
+    }
+
+    private List<Pin> makePin() {
+        City city = new City(1840014730, "Columbia", "SC", "South Carolina",new BigDecimal("34.0378"),	new BigDecimal("-80.9036"));
+        Type type = new Type(11, "sing");
+        List<Pin> pins = new ArrayList<>();
+        Pin pin = new Pin();
+        pin.setPinId(1);
+        pin.setPinDescription("Suspendisse potenti.");
+        pin.setPinDate(LocalDate.of(2023, 8,3));
+        pin.setPinPriority(5);
+        pin.setPinDidIt(false);
+        pin.setCity(city);
+        pin.setType(type);
+        pin.setUserId(3);
+        pins.add(pin);
+        return pins;
     }
 }
