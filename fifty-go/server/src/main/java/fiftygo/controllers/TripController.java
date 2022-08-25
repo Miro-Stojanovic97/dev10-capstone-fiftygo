@@ -25,7 +25,7 @@ public class TripController {
         return service.findAll();
     }
 
-    @GetMapping("/tripId")
+    @GetMapping("/{tripId}")
     public ResponseEntity<Trip> findById(@PathVariable int tripId) {
         Trip trip = service.findById(tripId);
         if(trip == null){
@@ -34,7 +34,7 @@ public class TripController {
         return new ResponseEntity<>(trip, HttpStatus.OK);
     }
 
-    @GetMapping("/userId")
+    @GetMapping("/user/{userId}")
     public List<Trip> findByUserId(@PathVariable int userId) {
         return service.findByUserId(userId);
     }
