@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 
 import AuthContext from '../contexts/AuthContext';
 import Errors from './Errors';
@@ -20,7 +20,7 @@ function PinForm() {
 
   const auth = useContext(AuthContext);
 
-  const history = useNavigate();
+  const history = useHistory();
 
   // Not using destructuring...
   // const params = useParams();

@@ -74,36 +74,35 @@ function App() {
   }
 
   return (
-<AuthContext.Provider value={auth}>
-    <Router>
+  <>
+    <AuthContext.Provider value={auth}>
+    <Router> 
 
       <div id="outer-cont">
         <div id="main">
           <Nav />
           <div className="row">
             <div className="col"></div>
-            <div className="col-11">
-
-            </div>
+            <div className="col-11"></div>
             <div className="col"></div>
           </div>
           <Switch>
             <Route exact path="/">
               <Home />
             </Route>
-            <Route exact path="/pins">
+            <Route path="/pins">
               <Pins />
             </Route>
-            <Route exact path="/trips">
+            <Route path="/trips">
               <Trips />
             </Route>
-            <Route exact path="/map">
+            <Route path="/map">
               <MapView />
             </Route>
-            <Route exact path="/login">
+            <Route path="/login">
               <Login />
             </Route>
-            <Route exact path="/register">
+            <Route path="/register">
               <Register />
             </Route>
           </Switch>
@@ -113,6 +112,7 @@ function App() {
 
     </Router>
     </AuthContext.Provider>
+  </>
   );
 }
 
