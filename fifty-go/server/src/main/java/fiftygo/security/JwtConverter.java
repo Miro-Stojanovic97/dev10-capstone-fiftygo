@@ -69,9 +69,8 @@ public class JwtConverter {
 
         } catch (JwtException e) {
             // JWT failures are modeled as exceptions.
-            System.out.println(e);
+            e.printStackTrace( System.err );
+            return null;
         }
-
-        return null;
     }
 }

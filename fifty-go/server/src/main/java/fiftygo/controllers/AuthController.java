@@ -46,20 +46,20 @@ public class AuthController {
             // The `Authentication` interface Represents the token for an authentication request
             // or for an authenticated principal once the request has been processed by the //
             // `AuthenticationManager.authenticate(Authentication)` method.
-            Authentication authentication = authenticationManager.authenticate(authToken);
+            Authentication authResult = authenticationManager.authenticate(authToken);
 
-            if (authentication.isAuthenticated()) {
-                HashMap<String, String> map = new HashMap<>();
+            if (authResult.isAuthenticated()) {
+                HashMap<String, String> tokenWrapper = new HashMap<>();
 
-                AppUser appUser = (AppUser)authentication.getPrincipal();
+                AppUser appUser = (AppUser)authResult.getPrincipal();
                 String token = jwtConverter.getTokenFromUser(appUser);
-                map.put("jwt_token", token);
+                tokenWrapper.put("jwt_token", token);
 
-                return new ResponseEntity<>(map, HttpStatus.OK); // 200
+                return new ResponseEntity<>(tokenWrapper, HttpStatus.OK); // 200
             }
 
         } catch (AuthenticationException ex) {
-            System.out.println(ex);
+            ex.printStackTrace( System.err );
         }
 
         return new ResponseEntity<>(HttpStatus.FORBIDDEN); // 403

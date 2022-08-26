@@ -1,5 +1,6 @@
 package fiftygo.security;
 
+import fiftygo.models.AppUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,18 +27,18 @@ public class JwtRequestFilter extends BasicAuthenticationFilter {
                                     FilterChain chain) throws IOException, ServletException {
 
         // Read the Authorization value from the request.
-        String authorization = request.getHeader("Authorization");
-        if (authorization != null && authorization.startsWith("Bearer ")) {
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
 
             // The value looks okay, confirm it with JwtConverter.
-            User user = converter.getUserFromToken(authorization);
-            if (user == null) {
+            AppUser appUser = converter.getUserFromToken(authHeader);
+            if (appUser == null) {
                 response.setStatus(403); // Forbidden
             } else {
 
                 // Confirmed. Set auth for this single request.
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                        user.getUsername(), null, user.getAuthorities());
+                        appUser.getUsername(), null, appUser.getAuthorities());
 
                 SecurityContextHolder.getContext().setAuthentication(token);
             }

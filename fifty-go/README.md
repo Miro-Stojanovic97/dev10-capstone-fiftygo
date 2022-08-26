@@ -385,86 +385,79 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
          * [x] @Override protected AuthenticationManager authenticationManager() throws Exception
              * [x] just return super.authenticationManager();
              * [x] mark with @Bean
-     * [ ] Create JwtConverter class
+     * [x] Create JwtConverter class
          * [x] Mark as @Component
          * [x] add a Key field variable (secretKey) assign Keys.secretKeyFor(SignatureAlgorithm.HS256)
          * [x] add public String getTokenFromUser( User toConvert )
              * [x] generate comma separated string of authorities granted to the user (retrieve those with .getAuthorities() )
              * [x] return Jwts.builder()
-                 * [ ] .setIssuer("fiftygo-app")
-                 * [ ] .setSubject(toConvert.getUsername())
-                 * [ ] .claim("authorties", commaSeparatedString)
-                 * [ ] .setExpiration( new Date(System.currentTimeMillis() + 15 * 60 * 1000 ) )
-                 * [ ] .signWithKey( secretKey )
-                 * [ ] .compact();
-         * [ ] add public User getUserFromToken( String token )
-             * [ ] try/catch (JwtException)
-                 * [ ] JwtParser parser = Jwts.parserBuilder().requireIssuer("fiftygo-app").setSigningKey( secretKey ).build();
-                 * [ ] Jws&lt;Claims&gt; claims = parser.parseClaimsJws( token.substring(7) );
-                 * [ ] String username = claims.getBody().getSubject();
-                 * [ ] String authorities = (String)claims.getBody().get("authorities");
-                 * [ ] String [] authSplit = authorities.split(",");
-                 * [ ] List&lt;GrantedAuthority&gt; grantedAuthorities = new ArrayList<>();
-                 * [ ] for( String auth : authSplit ){ grantedAuthorities.add(new SimpleGrantedAuthority(auth)); }
-                 * [ ] return new User( username, username, grantedAuthorities );
-                 * [ ] catch( JwtException ex ) {
-                     * [ ] ex.printStackTrace( System.err );
-                     * [ ] return null; }
-     * [ ] Create JwtRequestFilter class
-         * [ ] extends BasicAuthenticationFilter
-         * [ ] Add a JwtConverter field
-         * [ ] Add a constructor that takes in a JwtConvert and AuthenticationManager
-             * [ ] super( authManager )
-             * [ ] store the JwtConverter in the field variable
-         * [ ] @Override protected void doFilterInternal( HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-             * [ ] String authHeader = request.getHeader( "Authorization");
-             * [ ] if( authHeader != null && authHeader.startsWith( "Bearer ")){
-                 * [ ] User converted = converter.getUserFromToken( authHeader );
-                 * [ ] if( converted != null ){
-                     * [ ] UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken( converted.getUsername(), null, convertedUser.getAuthorities() );
-                     * [ ] SecurityContextHolder.getContext().setAuthentication( token );
-                 * [ ] } else {
-                     * [ ] response.setStatus( 403 ); }
-             * [ ] chain.doFilter( request, response );
-         * [ ] IN SecurityConfig.java
-             * [ ] add @Autowired JwtConverter field variable
-             * [ ] right after the .and() call .addFilter( new JwtReqestFilter() )
+                 * [x] .setIssuer("fiftygo")
+                 * [x] .setSubject(toConvert.getUsername())
+                 * [x] .claim("authorties", commaSeparatedString)
+                 * [x] .setExpiration( new Date(System.currentTimeMillis() + 15 * 60 * 1000 ) )
+                 * [x] .signWithKey( secretKey )
+                 * [x] .compact();
+         * [x] add public User getUserFromToken( String token )
+             * [x] try/catch (JwtException)
+                 * [x] Jws&lt;Claims&gt; jwt = Jwts.parserBuilder().requireIssuer("fiftygo").setSigningKey( secretKey ).build().parseClaimsJws( token.substring(7) );
+                 * [x] String username = jwt.getBody().getSubject();
+                 * [x] String authStr = (String)jwt.getBody().get("authorities");
+                 * [x] List&lt;String&gt; authorities = List.of(authorities.split(","));
+                 * [ ] ~~List&lt;GrantedAuthority&gt; grantedAuthorities = new ArrayList<>();~~
+                 * [ ] ~~for( String auth : authSplit ){ grantedAuthorities.add(new SimpleGrantedAuthority(auth)); }~~
+                 * [x] return new AppUser( appUserId, firstName, lastName, username, username, false, authorities );
+                 * [x] catch( JwtException ex ) {
+                     * [x] ex.printStackTrace( System.err );
+                     * [x] return null; }
+     * [x] Create JwtRequestFilter class
+         * [x] extends BasicAuthenticationFilter
+         * [x] Add a JwtConverter field
+         * [x] Add a constructor that takes in a JwtConvert and AuthenticationManager
+             * [x] super( authManager )
+             * [x] store the JwtConverter in the field variable
+         * [x] @Override protected void doFilterInternal( HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+             * [x] String authHeader = request.getHeader( "Authorization");
+             * [x] if( authHeader != null && authHeader.startsWith( "Bearer ")){
+                 * [x] User converted = converter.getUserFromToken( authHeader );
+                 * [x] if( converted != null ){
+                     * [x] UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken( converted.getUsername(), null, convertedUser.getAuthorities() );
+                     * [x] SecurityContextHolder.getContext().setAuthentication( token );
+                 * [x] } else {
+                     * [x] response.setStatus( 403 ); }
+             * [x] chain.doFilter( request, response );
+         * [x] IN SecurityConfig.java
+             * [x] add @Autowired JwtConverter field variable
+             * [x] right after the .and() call .addFilter( new JwtReqestFilter() )
            
    * [ ] Create controllers package
      * [ ] Add AuthController class
-         * [ ] mark as @RestController
+         * [x] mark as @RestController
          * [ ] add @RequestMapping( "/api/security" )
-         * [ ] add AuthenticationManager field variable
-         * [ ] add JwtConverter field variable
-         * [ ] add UserService field variable
+         * [x] add AuthenticationManager field variable
+         * [x] add JwtConverter field variable
+         * [x] add UserService field variable
          * [ ] add a constructor that takes in all field variables and sets them
-         * [ ] add ResponseEntity login( @RequestBody Map&lt;String,String&gt; credentials )
-             * [ ] mark as @PostMapping("/login")
-             * [ ] create UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken( credentials.get("username"), credentials.get("password") );
+         * [x] add ResponseEntity authenticate( @RequestBody Map&lt;String,String&gt; credentials )
+             * [x] mark as @PostMapping("/authenticate")
+             * [x] create UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken( credentials.get("username"), credentials.get("password") );
              * [ ] in a try/catch( AuthenticationException ex) block...
-                 * [ ] Authentication authResult = authManager.authenticate( token );
-                 * [ ] if( authResult.isAuthenticated() ){
-                     * [ ] String jwt = converter.getTokenFromUser( (User)authResult.getPrincipal());
-                     * [ ] Map&lt;String,String&gt; tokenWrapper = new HashMap<>();
-                     * [ ] tokenWrapper.put( "jwt_token", jwt);
-                     * [ ] return ResponseEntity.ok( tokenWrapper );
-                 * [ ] }
-                 * [ ] catch( AuthenticationException ex ){
-                     * [ ] ex.printStackTrace( System.err ); }
-                 * [ ] return new ResponseEntity( HttpStatus.FORBIDDEN );
-     * [ ] Add ActivityController class
-         * [ ] mark as @RestController
-         * [ ] @RequestMapping( "/api/activity" )
-         * [ ] add @Autowired ActivityService field variable (service)
-         * [ ] add a GET endpoint ("/public") for retrieving all activities
-             * [ ] List&lt;Activity&gt; pubActivities = service.getPublicActivities() (doesn't exist yet...)
-             * [ ] generate ActivityService.getPublicActivities()
-             * [ ] return ResponseEntity.ok(pubActivities);
-         * [ ] add a DELETE endpoint ("/{activityId}")
-             * [ ] public ResponseEntity delete( @PathVariable Integer activityId, Principal user ){
-                 * [ ] service.deleteById( activityId, user );
-                 * [ ] generate activityService.deleteById()
-                 * [ ] return ResponseEntity.ok().build();
+                 * [x] Authentication authResult = authManager.authenticate( token );
+                 * [x] if( authResult.isAuthenticated() ){
+                     * [x] String token = converter.getTokenFromUser( (User)authResult.getPrincipal());
+                     * [x] Map&lt;String,String&gt; tokenWrapper = new HashMap<>();
+                     * [x] tokenWrapper.put( "jwt_token", token);
+                     * [x] return ResponseEntity.ok( tokenWrapper );}
+                 * [x] catch( AuthenticationException ex ){
+                     * [x] ex.printStackTrace( System.err ); }
+                 * [x] return new ResponseEntity( HttpStatus.FORBIDDEN );
+     * [x] Add PinController class
+         * [x] mark as @RestController
+         * [x] @RequestMapping( "/api/pin" )
+         * [x] add @Autowired PinService field variable (service)
+         * [x] add GET
+         * [x] add POST
+         * [x] add PUT
+         * [x] add a DELETE endpoint ("/{pinId}")
      * [ ] Add TripController class
          * [ ] mark as @RestController
          * [ ] @RequestMapping( "/api/trip" )
@@ -478,34 +471,23 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
                  * [ ] service.deleteById( tripId, user );
                  * [ ] generate tripService.deleteById()
                  * [ ] return ResponseEntity.ok().build();
-     * [ ] Add CityController class **(stretch goal)**
-         * [ ] mark as @RestController
-         * [ ] @RequestMapping( "/api/city" )
+     * [x] Add CityController class 
+         * [x] mark as @RestController
+         * [x] @RequestMapping( "/api/city" )
          * [ ] add @Autowired CityService field variable (service)
-         * [ ] add a GET endpoint ("/public") for retrieving all Cities
-             * [ ] List&lt;City&gt; pubCities = service.getPublicCities() (doesn't exist yet...)
-             * [ ] generate CityService.getPublicCities()
-             * [ ] return ResponseEntity.ok(pubCities);
-         * [ ] add a DELETE endpoint ("/{cityId}")
-             * [ ] public ResponseEntity delete( @PathVariable Integer cityId, Principal user ){
-                 * [ ] service.deleteById( cityId, user );
-                 * [ ] generate cityService.deleteById()
-                 * [ ] return ResponseEntity.ok().build();
-     * [ ] Add UserController class
-         * [ ] mark as @RestController
-         * [ ] @RequestMapping( "/api/user" )
-         * [ ] add @Autowired UserService field variable (service)
-         * [ ] add a GET endpoint ("/public") for retrieving all Users 
-             * [ ] List&lt;User&gt; pubUsers = service.getPublicUsers() (doesn't exist yet...)
-             * [ ] generate UserService.getPublicUsers()
-             * [ ] return ResponseEntity.ok(pubUsers);
-         * [ ] add a DELETE endpoint ("/{userId}")
+         * [x] add a GET endpoint ("/public") for retrieving all Cities
+     * [x] Add AppUserController class
+         * [x] mark as @RestController
+         * [x] @RequestMapping
+         * [x] add @Autowired UserService field variable (service)
+         * [x] add a GET endpoint ("/user")
+         * [ ] add a DELETE endpoint ("/{userId}") **(stretch goal)**
              * [ ] public ResponseEntity delete( @PathVariable Integer userId, Principal user ){
                  * [ ] service.deleteById( userId, user );
                  * [ ] generate userService.deleteById()
                  * [ ] return ResponseEntity.ok().build();
                      
-   * [ ] Create mysql schemas (test/prod)
+   * [x] Create mysql schemas (test/prod)
        * [x] create sql folder in project folder
        * [x] create fiftygo-test.sql
        * [x] create fiftygo-prod.sql
@@ -556,7 +538,7 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
            * [x] constraint fk_user_role_user_id foreign key (userId) references user(userId)
            * [x] constraint fk_user_role_role_id foreign key (roleId) references roles(roleId)
          
-       * [ ] insert data into tables for test db:
+       * [x] insert data into tables for test db:
          * [x] insert into user (first_name, last_name, username, password, disabled) values ('bob', '$2a$12$HqaU3VlN09ufZ60R8VrLHuIX8H6b1iFDA9AG./vzThpIzhxEIF8nC');   -- pw is password
          * [x] insert into role (role_name) VALUES ('USER'), ('PREMIUM'), ('ADMIN');
          * [x] insert into user_role (userId, roleId) VALUES (1,1), (2,2);
