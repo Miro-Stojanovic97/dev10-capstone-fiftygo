@@ -11,7 +11,7 @@ function PinList() {
     const history = useNavigate();
   
     useEffect(() => {
-      fetch('http://localhost:8080/api/pin')
+      fetch('http://localhost:8080/fiftygo/pin')
         .then(response => {
           if (response.status === 200) {
             return response.json();
@@ -35,7 +35,7 @@ function PinList() {
           },
         };
   
-        fetch(`http://localhost:8080/api/pin/${pinId}`, init)
+        fetch(`http://localhost:8080/fiftygo/pin/${pinId}`, init)
           .then(response => {
             if (response.status === 204) {
               // create a copy of the pins array

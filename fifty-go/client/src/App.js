@@ -35,13 +35,15 @@ function App() {
       localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token);
 
   //TODO: FINISH UPDATING
-      const { sub: firstName, lastName, username, password, authorities, userId } = jwt_decode(token);
+      const { sub: username, firstName, lastName, password, authorities, appUserId } = jwt_decode(token);
 
       const roles = authorities.split(',');
   //TODO: FINISH UPDATING
       // create our user object
       const userToLogin = {
-        userId,
+        firstName,
+        lastName,
+        appUserId,
         username,
         roles,
         token,
