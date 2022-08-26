@@ -16,18 +16,34 @@ public class CityService {
     }
 
     public List<City> findAll() {
-        return repository.findAll();
+        try {
+            return repository.findAll();
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public City findById(int cityId) {
-        return repository.findById(cityId);
+        try {
+            return repository.findById(cityId);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<City> findByStateAbr(String stateAbr) {
-        return repository.findByStateAbr(stateAbr);
+        try {
+            return repository.findByStateAbr(stateAbr);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<City> searchCities(String sequence) {
-        return repository.searchCities(sequence);
+        try {
+            return repository.searchCities(sequence);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -29,7 +29,12 @@ class TypeJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindAll() {
-        List<Type> types = repository.findAll();
+        List<Type> types = null;
+        try {
+            types = repository.findAll();
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(types);
         assertTrue(types.size() >= 34);
     }
@@ -37,21 +42,36 @@ class TypeJdbcTemplateRepositoryTest {
     @Test
     void shouldFindById() {
         Type expected = new Type(4, "walk");
-        Type actual = repository.findById(4);
+        Type actual = null;
+        try {
+            actual = repository.findById(4);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(actual);
         assertEquals(expected, actual);
     }
 
     @Test
     void shouldNotFindByMissingId() {
-        Type notType = repository.findById(54);
+        Type notType = null;
+        try {
+            notType = repository.findById(54);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNull(notType);
     }
 
     @Test
     void shouldAdd() {
         Type type = makeType();
-        Type actual = repository.add(type);
+        Type actual = null;
+        try {
+            actual = repository.add(type);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(actual);
         assertEquals(NEXT_ID, actual.getTypeId());
     }
@@ -61,12 +81,20 @@ class TypeJdbcTemplateRepositoryTest {
         Type type = makeType();
         type.setTypeName("updated name");
         type.setTypeId(36);
-        assertTrue(repository.update(type));
+        try {
+            assertTrue(repository.update(type));
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     void shouldDeleteUnusedType() {
-        assertTrue(repository.deleteById(19));
+        try {
+            assertTrue(repository.deleteById(19));
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Type makeType() {

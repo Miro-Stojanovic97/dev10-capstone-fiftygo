@@ -21,15 +21,27 @@ public class TypeService {
     }
 
     public List<Type> findAll() {
-        return repository.findAll();
+        try {
+            return repository.findAll();
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Type findById (int typeId) {
-        return repository.findById(typeId);
+        try {
+            return repository.findById(typeId);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<Type> searchTypes(String sequence) {
-        return repository.searchTypes(sequence);
+        try {
+            return repository.searchTypes(sequence);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Result<Type> add (Type type) {
@@ -46,7 +58,11 @@ public class TypeService {
             return result;
         }
 
-        result.setPayload(repository.add(type));
+        try {
+            result.setPayload(repository.add(type));
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         return result;
     }
 
@@ -64,7 +80,12 @@ public class TypeService {
             return result;
         }
 
-        boolean success = repository.update(type);
+        boolean success = false;
+        try {
+            success = repository.update(type);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         if(!success) {
             result.addErrorMessage("Something went wrong.", ResultType.NOT_FOUND);
             return result;
@@ -76,8 +97,12 @@ public class TypeService {
 
     public Result<Type> deleteById (int typeId) {
         Result<Type> result = new Result<>();
-        if(!repository.deleteById(typeId)){
-            result.addErrorMessage("Type Id %s was not found.", ResultType.NOT_FOUND, typeId);
+        try {
+            if(!repository.deleteById(typeId)){
+                result.addErrorMessage("Type Id %s was not found.", ResultType.NOT_FOUND, typeId);
+            }
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
         }
         return result;
     }

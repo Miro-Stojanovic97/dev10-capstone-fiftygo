@@ -24,14 +24,14 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     }
 
     @Transactional
-    public List<AppUser> findAll() {
+    public List<AppUser> findAll() throws DataAccessException {
         List<String> roles = new ArrayList<>();
         final String sql = "select user_id, first_name, last_name, username, password_hash, disabled from `user`;";
         return jdbcTemplate.query(sql, new AppUserMapper(roles));
     }
 
     @Transactional
-    public AppUser findByUsername(String username) {
+    public AppUser findByUsername(String username) throws DataAccessException {
         List<String> roles = getRolesByUsername(username);
 
         final String sql = """
@@ -52,7 +52,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     }
 
     @Transactional
-    public AppUser createAccount(AppUser user) {
+    public AppUser createAccount(AppUser user) throws DataAccessException {
 
         final String sql = "insert into `user` (first_name, last_name, username, password_hash) values (?, ?, ?, ?);";
 
@@ -78,7 +78,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     }
 
     @Transactional
-    public boolean update(AppUser user){
+    public boolean update(AppUser user) throws DataAccessException {
 
         final String sql = """
                 update `user` set
@@ -105,7 +105,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     }
 
     @Override
-    public boolean deleteById(int appUserId) {
+    public boolean deleteById(int appUserId) throws DataAccessException {
         jdbcTemplate.update("delete from user_role where user_id = ?;", appUserId);
         return jdbcTemplate.update("delete from `user` where user_id = ?;", appUserId) > 0;
     }

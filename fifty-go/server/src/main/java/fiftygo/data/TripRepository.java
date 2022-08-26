@@ -1,6 +1,5 @@
 package fiftygo.data;
 
-import fiftygo.models.Pin;
 import fiftygo.models.Trip;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,16 +7,16 @@ import java.util.List;
 
 public interface TripRepository {
 
-    List<Trip> findAll();
+    List<Trip> findAll() throws DataAccessException;
 
-    List<Trip> findByUserId(int userId);
+    List<Trip> findByUserId(int userId) throws DataAccessException;
 
-    Trip findById(int tripId);
+    Trip findById(int tripId) throws DataAccessException;
 
-    Trip add(Trip trip);
+    Trip add(Trip trip) throws DataAccessException;
 
-    boolean update(Trip trip);
+    boolean update(Trip trip) throws DataAccessException;
 
     @Transactional
-    boolean deleteById(int tripId);
+    boolean deleteById(int tripId) throws DataAccessException;
 }
