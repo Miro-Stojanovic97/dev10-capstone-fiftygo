@@ -108,7 +108,7 @@ function MapView() {
                 onEachFeature={onEachFeature}
             />           
         </MapContainer>
-        <p className="display-6" style={{textAlign:"right", color: "navy", fontWeight: 700}}>MapView ©</p>
+        <p className="map-text">MapView ©</p>
         </>
     )
 }

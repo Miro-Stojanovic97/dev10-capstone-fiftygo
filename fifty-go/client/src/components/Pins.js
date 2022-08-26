@@ -3,10 +3,14 @@ import { useEffect, useState } from 'react';
 //TODO: figure out exactly what needs to be in here
 const PIN_DEFAULT = {
     pinDescription: "",
+    pinType: "",
     pinDate: "",
     pinPriority: 0,
-    pinDidIt: 0
+    pinDidIt: 0,
+    pinCity: "",
+    pinState: ""
 };
+
 
 function Pins() {
     // Define our state variables.
@@ -81,7 +85,7 @@ function Pins() {
                 // remove the pin that we need to delete
                 const newPins = pin.filter(pin => pin.id !== pinId);
     
-                // update the  state variable
+                // update the state variable
                 setPins(newPins);
     
                 resetState();
@@ -154,10 +158,10 @@ function Pins() {
               // create a copy of the pins array
               const newPins = [...pins];
     
-              // add the new solar panel
+              // add the new pin
               newPins.push(data);
     
-              // update the solar panels state variable
+              // update the pins state variable
               setPins(newPins);
     
               resetState();
@@ -266,11 +270,6 @@ function Pins() {
               <label htmlFor="pin-type">Type:</label>
               <select id="pin-type" name="pin-type" className="form-control"
                 value={pin.type} onChange={handleChange}>
-                <option>POLY_SI</option>
-                <option>MONO_SI</option>
-                <option>A_SI</option>
-                <option>CD_TE</option>
-                <option>CIGS</option>
               </select>
             </div>
             <div className="form-group">
@@ -293,22 +292,12 @@ function Pins() {
               <select id="pin-state" name="pin-state" className="form-control"
               //not sure if pin.city.state declaration will work right
                 value={pin.city.state} onChange={handleChange}> 
-                <option>POLY_SI</option>
-                <option>MONO_SI</option>
-                <option>A_SI</option>
-                <option>CD_TE</option>
-                <option>CIGS</option>
               </select>
             </div>
             <div className="form-group">
               <label htmlFor="pin-city">City:</label>
               <select id="pin-city" name="pin-city" className="form-control"
                 value={pin.city} onChange={handleChange}>
-                <option>POLY_SI</option>
-                <option>MONO_SI</option>
-                <option>A_SI</option>
-                <option>CD_TE</option>
-                <option>CIGS</option>
               </select>
             </div>
             <div className="mt-4">
