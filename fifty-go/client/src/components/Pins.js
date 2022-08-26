@@ -263,6 +263,17 @@ function Pins() {
                 value={pin.description} onChange={handleChange} />
             </div>
             <div className="form-group">
+              <label htmlFor="pin-type">Type:</label>
+              <select id="pin-type" name="pin-type" className="form-control"
+                value={pin.type} onChange={handleChange}>
+                <option>POLY_SI</option>
+                <option>MONO_SI</option>
+                <option>A_SI</option>
+                <option>CD_TE</option>
+                <option>CIGS</option>
+              </select>
+            </div>
+            <div className="form-group">
               <label htmlFor="pin-date">Date:</label>
               <input id="pin-date" name="pin-date" type="pin-date" className="form-control"
                 value={pin.date} onChange={handleChange} />
@@ -300,17 +311,6 @@ function Pins() {
                 <option>CIGS</option>
               </select>
             </div>
-            <div className="form-group">
-              <label htmlFor="pin-type">Type:</label>
-              <select id="pin-type" name="pin-type" className="form-control"
-                value={pin.type} onChange={handleChange}>
-                <option>POLY_SI</option>
-                <option>MONO_SI</option>
-                <option>A_SI</option>
-                <option>CD_TE</option>
-                <option>CIGS</option>
-              </select>
-            </div>
             <div className="mt-4">
               <button className="btn btn-success mr-2" type="submit">
                 <i className="bi bi-file-earmark-check"></i> {editPinId > 0 ? 'Update Pin' : 'Add Pin'}
@@ -333,12 +333,12 @@ function Pins() {
             <thead className="thead-dark">
               <tr>
                 <th>Description</th>
+                <th>Type</th>
                 <th>Date</th>
                 <th>Priority</th>
                 <th>Did It</th>
                 <th>City</th>
                 <th>State</th>
-                <th>Type</th>
                 <th>&nbsp;</th>
               </tr>
             </thead>
