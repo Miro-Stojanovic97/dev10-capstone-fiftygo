@@ -8,7 +8,8 @@ function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [errors, setErrors] = useState([]);
 
   const auth = useContext(AuthContext);
@@ -32,7 +33,8 @@ function Register() {
     {
       "username": "test@test.com",
       "password": "P@ssw0rd!",
-      "phoneNumber": "555-555-5555"
+      "firstName": "Fname",
+      "lastName": "Lname"
     }
 
     */
@@ -40,7 +42,8 @@ function Register() {
     const appUser = {
       username,
       password,
-      phoneNumber
+      firstName,
+      lastName
     };
     
     const init = {
@@ -81,7 +84,7 @@ function Register() {
             body: JSON.stringify(authAttempt)
           };
           
-          fetch('http://localhost:8080/api/authenticate', init)
+          fetch('http://localhost:8080/authenticate', init)
             .then(response => {
               if (response.status === 200) {
                 return response.json();
@@ -124,32 +127,37 @@ function Register() {
     </div>
 
       <Errors errors={errors} />
-    <div className="container login-form">
+    <div className="container">
       <form onSubmit={handleSubmit}>
-        <div className="col-6 col-lg-4 offset-lg-4 offset-3 mt-5 form-group">
-          <label htmlFor="username">Username:</label>
+      <div className="col-6 col-lg-4 offset-lg-4 offset-3 mt-5 form-group">
+          <label htmlFor="firstName">First Name</label>
+          <input className="form-control" id="firstName" type="text" 
+            onChange={(event) => setFirstName(event.target.value)} value={firstName}/>
+        </div>
+        <div className="col-6 col-lg-4 offset-lg-4 offset-3 mt-3 form-group">
+          <label htmlFor="lastName">Last Name</label>
+          <input className="form-control" id="lastName" type="text"
+            onChange={(event) => setLastName(event.target.value)} value={lastName}/>
+        </div>
+        <div className="col-6 col-lg-4 offset-lg-4 offset-3 mt-3 form-group">
+          <label htmlFor="username">Username</label>
           <input className="form-control" id="username" type="text" 
             onChange={handleUsernameChange} value={username} />
         </div>
         <div className="col-6 col-lg-4 offset-lg-4 offset-3 mt-3 form-group">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password</label>
           <input className="form-control" id="password" type="password" 
             onChange={(event) => setPassword(event.target.value)} value={password} />
         </div>
         <div className="col-6 col-lg-4 offset-lg-4 offset-3 mt-3 form-group">
-          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <label htmlFor="confirmPassword">Confirm Password</label>
           <input className="form-control" id="confirmPassword" type="password" 
             onChange={(event) => setConfirmPassword(event.target.value)} value={confirmPassword} />
         </div>
-        <div className="col-6 col-lg-4 offset-lg-4 offset-3 mt-3 form-group">
-          <label htmlFor="phoneNumber">Phone Number:</label>
-          <input className="form-control" id="phoneNumber" type="text" 
-            onChange={(event) => setPhoneNumber(event.target.value)} value={phoneNumber} />
-        </div>
-        <div>
+        <div className="center">
           <button className="btn btn-primary mt-5" type="submit">Register</button>
         </div>
-        <div className="mt-3">
+        <div className="mt-3 center">
             <Link to="/login">I have an existing account</Link>
         </div>
       </form>
