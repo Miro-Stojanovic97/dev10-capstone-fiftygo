@@ -7,7 +7,7 @@ CREATE TABLE `user` (
 	user_id int primary key auto_increment,
     first_name varchar(50) not null,
     last_name varchar(50) not null,
-    username varchar(50) not null,
+    username varchar(50) not null unique,
     password_hash varchar(2048) not null,
     disabled bit not null default(0)
 );
