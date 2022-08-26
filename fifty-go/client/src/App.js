@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
+import AuthContext from "./contexts/AuthContext";
 
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
@@ -90,13 +91,21 @@ function App() {
                <Home />
              </Route>
              <Route path="/pins">
-               <Pins />
+               {auth.user ? (
+                 <Pins /> ) : ( 
+                 <Redirect to="/login" /> )}
              </Route>
              <Route path="/trips">
-               <Trips />
+               {auth.user ? (
+                 <Trips /> ) : (
+                   <Redirect to="/login" /> 
+                 )}
              </Route>
              <Route path="/map">
-               <MapView />
+               {auth.user ? (
+                 <MapView /> ) : (
+                   <Redirect to="/login" />
+               )}
              </Route>
              <Route path="/login">
                <Login />
