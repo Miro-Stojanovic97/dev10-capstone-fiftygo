@@ -1,14 +1,11 @@
 package fiftygo.data;
 
-import fiftygo.App;
 import fiftygo.models.AppUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -47,7 +44,12 @@ class AppUserJdbcTemplateRepositoryTest {
                 false,
                 Collections.singletonList("PREMIUM"));
 
-        List<AppUser> appUsers = repository.findAll();
+        List<AppUser> appUsers = null;
+        try {
+            appUsers = repository.findAll();
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println(appUsers);
         assertTrue(appUsers.contains(expected1) && appUsers.contains(expected2));
         assertEquals(expected1.getFirstName(), appUsers.get(0).getFirstName());
@@ -64,7 +66,12 @@ class AppUserJdbcTemplateRepositoryTest {
                 "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
                 false,
                 Collections.singletonList("ADMIN"));
-        AppUser actual = repository.findByUsername("jsmith1");
+        AppUser actual = null;
+        try {
+            actual = repository.findByUsername("jsmith1");
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
 
         assertEquals("John", actual.getFirstName());
         assertEquals("Smith", actual.getLastName());
@@ -73,7 +80,12 @@ class AppUserJdbcTemplateRepositoryTest {
 
     @Test
     void shouldNotFindByMissingUsername() {
-        AppUser actual = repository.findByUsername("jsmith99");
+        AppUser actual = null;
+        try {
+            actual = repository.findByUsername("jsmith99");
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
 
         assertNull(actual);
     }
@@ -90,7 +102,11 @@ class AppUserJdbcTemplateRepositoryTest {
                 Collections.singletonList("PREMIUM"));
         AppUser actual = makeAppUser();
         actual.setAppUserId(0);
-        repository.createAccount(actual);
+        try {
+            repository.createAccount(actual);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
 
         assertEquals(expected, actual);
     }
@@ -106,7 +122,12 @@ class AppUserJdbcTemplateRepositoryTest {
                 "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
                 false,
                 Collections.singletonList("PREMIUM"));
-        boolean result = repository.update(actual);
+        boolean result = false;
+        try {
+            result = repository.update(actual);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
 
         assertTrue(result);
 
@@ -122,9 +143,18 @@ class AppUserJdbcTemplateRepositoryTest {
                 "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
                 false,
                 Collections.singletonList("PREMIUM"));
-        repository.createAccount(appUser);
+        try {
+            repository.createAccount(appUser);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
 
-        boolean result = repository.deleteById(appUser.getAppUserId());
+        boolean result = false;
+        try {
+            result = repository.deleteById(appUser.getAppUserId());
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertTrue(result);
     }
 

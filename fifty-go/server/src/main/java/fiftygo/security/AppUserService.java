@@ -1,12 +1,9 @@
 package fiftygo.security;
 
-import fiftygo.App;
 import fiftygo.data.AppUserRepository;
 import fiftygo.domain.Result;
 import fiftygo.domain.ResultType;
 import fiftygo.models.AppUser;
-import fiftygo.models.Credentials;
-import fiftygo.models.Pin;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,12 +27,21 @@ public class AppUserService implements UserDetailsService {
     }
 
     public List<AppUser> findAll() {
-        return repository.findAll();
+        try {
+            return repository.findAll();
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser = repository.findByUsername(username);
+        AppUser appUser = null;
+        try {
+            appUser = repository.findByUsername(username);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
 
         if (appUser == null || !appUser.isEnabled()) {
             throw new UsernameNotFoundException(username + " not found");
@@ -66,7 +72,11 @@ public class AppUserService implements UserDetailsService {
             return result;
         }
 
-        result.setPayload(repository.createAccount(appUser));
+        try {
+            result.setPayload(repository.createAccount(appUser));
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         return result;
     }
 
@@ -91,7 +101,12 @@ public class AppUserService implements UserDetailsService {
             return result;
         }
 
-        boolean updated = repository.update(appUser);
+        boolean updated = false;
+        try {
+            updated = repository.update(appUser);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         if (!updated) {
             result.addErrorMessage("User update failed :(", ResultType.INVALID);
         }
@@ -99,7 +114,11 @@ public class AppUserService implements UserDetailsService {
     }
 
     public boolean deleteById(int appUserId) {
-        return repository.deleteById(appUserId);
+        try {
+            return repository.deleteById(appUserId);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Result<AppUser> validate(String username) {
