@@ -37,6 +37,11 @@ public class CityJdbcTemplateRepository implements CityRepository{
         return jdbcTemplate.query(sql, new CityMapper(), stateAbr);
     }
     // filterByBeginsWith
+    @Override
+    public List<City> searchCities(String sequence) {
+        final String sql = "select * from city where city_name like CONCAT('%', ?,'%');";
+        return jdbcTemplate.query(sql, new CityMapper(), sequence);
+    }
 
     @Override
     public City add(City city) {

@@ -1,7 +1,6 @@
 package fiftygo.data;
 
 import fiftygo.models.City;
-import fiftygo.models.Pin;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -14,6 +13,9 @@ public interface CityRepository {
 
     // findByState
     List<City> findByStateAbr(String stateAbr);
+
+    // filterByBeginsWith
+    List<City> searchCities(String sequence);
 
     City add(City city);
 

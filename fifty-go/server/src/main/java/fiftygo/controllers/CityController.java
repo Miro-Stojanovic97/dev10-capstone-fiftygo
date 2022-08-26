@@ -27,6 +27,11 @@ public class CityController {
         return service.findByStateAbr(stateAbr);
     }
 
+    @GetMapping("/search/{sequence}")
+    public List<City> searchCities(@PathVariable String sequence) {
+        return service.searchCities(sequence);
+    }
+
     @GetMapping("/{pinId}")
     public City findById(@PathVariable int cityId) {
         return service.findById(cityId);

@@ -26,4 +26,8 @@ public class CityService {
     public List<City> findByStateAbr(String stateAbr) {
         return repository.findByStateAbr(stateAbr);
     }
+
+    public List<City> searchCities(String sequence) {
+        return repository.searchCities(sequence);
+    }
 }

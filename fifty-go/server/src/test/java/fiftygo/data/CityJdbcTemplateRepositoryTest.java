@@ -30,4 +30,20 @@ class CityJdbcTemplateRepositoryTest {
         assertNotNull(cities);
         assertEquals(349, cities.size());
     }
+
+    @Test
+    void shouldFindCitiesBySequence() {
+
+        List<City> cities = repository.searchCities("st.");
+        assertEquals(4, cities.size());
+
+        cities = repository.searchCities("den");
+        assertEquals(7, cities.size());
+
+        cities = repository.searchCities("mil");
+        assertEquals(1, cities.size());
+
+        cities = repository.searchCities("frank");
+        assertEquals(0, cities.size());
+    }
 }
