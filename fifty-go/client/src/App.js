@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 import AuthContext from "./contexts/AuthContext";
@@ -31,19 +31,27 @@ function App() {
       setRestoreLoginAttemptCompleted(true);
     }, []);
 
+    // const confirmUser = () => {
+    //   if (!user) {
+    //     replace({
+    //       pathname: "/login"
+    //     })
+    //   }
+    // }
+
     const login = (token) => {
       localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token);
 
   //TODO: FINISH UPDATING
-      const { sub: username, firstName, lastName, password, authorities, appUserId } = jwt_decode(token);
+      const { sub: username, firstName, lastName, authorities, appUserId } = jwt_decode(token);
 
       const roles = authorities.split(',');
   //TODO: FINISH UPDATING
       // create our user object
       const userToLogin = {
+        appUserId,
         firstName,
         lastName,
-        appUserId,
         username,
         roles,
         token,
@@ -52,16 +60,20 @@ function App() {
         }
       };
 
-      console.log(userToLogin);
+      console.log("userToLogin", userToLogin);
 
-  //     // update the global user state variable
+// update the global user state variable
       setUser(userToLogin);
+      //console.log("user: ", user);
+      //console.log(user.username);
     };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
   };
+
+  //const auth = useContext(AuthContext);
 
   const auth = {
     user,
@@ -93,10 +105,12 @@ function App() {
                <Home />
              </Route>
              <Route path="/pins">
-               {auth.user ? (
-                 <Pins /> ) : ( 
-                 <Redirect to="/login" /> )}
+              {console.log("in routes", auth)}
+              {auth.user ? (<Pins />) : (<Redirect to="/login" />)}
              </Route>
+             {/* <Route path="/pins" component={Login} onEnter={confirmUser} /> */}
+               
+             
              <Route path="/trips">
                {auth.user ? (
                  <Trips /> ) : (

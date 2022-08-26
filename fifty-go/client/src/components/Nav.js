@@ -30,7 +30,7 @@ function Nav() {
                             </div>
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                <a href="/login" class="btn btn-outline-light btn-rounded nav-login" role="button" aria-pressed="true">Login</a>
+                                <a href="/login" className="btn btn-outline-light btn-rounded nav-login" role="button" aria-pressed="true">Login</a>
                                 </li>
                             </ul>
                         </div>

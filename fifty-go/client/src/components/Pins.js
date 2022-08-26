@@ -1,4 +1,7 @@
-import { useEffect, useState } from 'react';
+import userEvent from '@testing-library/user-event';
+import { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import AuthContext from '../contexts/AuthContext';
 
 //TODO: figure out exactly what needs to be in here
 const PIN_DEFAULT = {
@@ -21,9 +24,20 @@ function Pins() {
     const [currentView, setCurrentView] = useState('List'); // Add, Edit
     const [errors, setErrors] = useState([]);
     
+    const auth = useContext(AuthContext);
+
+    const history = useHistory();
 
     useEffect(() => {
-        fetch('http://localhost:8080/fiftygo/pin')
+      const init = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${auth.user.token}`
+        },
+      };
+
+        fetch(`http://localhost:8080/fiftygo/pin/user/${auth.user.appUserId}`, init)
           .then(response => {
             if (response.status === 200) {
               return response.json();
