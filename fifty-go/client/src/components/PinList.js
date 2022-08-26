@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import AuthContext from '../contexts/AuthContext';
 
@@ -8,7 +8,7 @@ function PinList() {
   
     const auth = useContext(AuthContext);
   
-    const history = useNavigate();
+    const history = useHistory();
   
     useEffect(() => {
       fetch('http://localhost:8080/api/pin')

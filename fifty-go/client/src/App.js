@@ -79,7 +79,9 @@ function App() {
     <Router> 
 
       <div id="outer-cont">
+      
         <div id="main">
+        
           <Nav />
           <div className="row">
             <div className="col"></div>
