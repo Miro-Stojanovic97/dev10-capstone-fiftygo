@@ -33,7 +33,7 @@ class CityJdbcTemplateRepositoryTest {
             throw new RuntimeException(e);
         }
         assertNotNull(cities);
-        assertEquals(349, cities.size());
+        assertEquals(500, cities.size());
     }
 
     @Test
@@ -45,27 +45,27 @@ class CityJdbcTemplateRepositoryTest {
         } catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
-        assertEquals(4, cities.size());
+        assertEquals(79, cities.size());
 
         try {
             cities = repository.searchCities("den");
         } catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
-        assertEquals(7, cities.size());
+        assertEquals(158, cities.size());
 
         try {
             cities = repository.searchCities("mil");
         } catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
-        assertEquals(1, cities.size());
+        assertEquals(96, cities.size());
 
         try {
             cities = repository.searchCities("frank");
         } catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
-        assertEquals(0, cities.size());
+        assertEquals(29, cities.size());
     }
 }
