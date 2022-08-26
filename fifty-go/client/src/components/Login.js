@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import AuthContext from "../contexts/AuthContext";
 import Errors from "./Errors";
@@ -12,7 +12,7 @@ function Login() {
 
     const auth = useContext(AuthContext);
 
-    const history = useNavigate();
+    const history = useHistory();
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -30,7 +30,7 @@ function Login() {
         body: JSON.stringify(authAttempt)
       };
 
-      fetch('http://localhost:8080/api/authenticate', init)
+      fetch('http://localhost:8080/authenticate', init)
         .then(response => {
           if(response.status === 200) {
             return response.json();
@@ -62,7 +62,7 @@ function Login() {
     </div>
         
     <Errors errors={errors} />
-    <div className="container login-form">
+    <div className="container">
       <form onSubmit={handleSubmit}>
         <div className="col-6 col-lg-4 offset-lg-4 offset-3 mt-5 form-group">
           <label htmlFor="username">Username</label>
@@ -74,10 +74,10 @@ function Login() {
           <input className="form-control" id="password" type="password" 
             onChange={(event) => setPassword(event.target.value)} value={password} />
         </div>
-        <div>
+        <div className="center">
           <button className="btn btn-primary mt-5" type="submit">Login</button>
         </div>
-        <div className="mt-3">
+        <div className="mt-3 center">
           <Link to="/register">I don't have an account</Link>
         </div>
       </form>
