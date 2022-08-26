@@ -333,13 +333,13 @@ function Pins() {
             </thead>
             <tbody>
               {pins.map(pin => (
-                <tr key={pin.id}>
-                  <td>{pin.description}</td>
-                  <td>{pin.type}</td>
-                  <td>{pin.date}</td>
-                  <td>{pin.priority}</td>
-                  <td>{pin.didIt}</td>
-                  <td>{pin.city}</td>
+                <tr key={pin.pinId}>
+                  <td>{pin.pinDescription}</td>
+                  <td>{pin.pinType}</td>
+                  <td>{pin.pinDate}</td>
+                  <td>{pin.pinPriority}</td>
+                  <td>{pin.pinDidIt}</td>
+                  <td>{pin.pinCity}</td>
                   <td>
                     <div className="float-right mr-2">
                       <button className="btn btn-primary btn-sm mr-2" onClick={() => handleEditPin(pin.id)}>
