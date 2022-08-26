@@ -35,7 +35,12 @@ class TripJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindAll() {
-        List<Trip> trips = repository.findAll();
+        List<Trip> trips = null;
+        try {
+            trips = repository.findAll();
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(trips);
 
         assertTrue(trips.size() >= 6 && trips.size() >= 8);
@@ -43,19 +48,34 @@ class TripJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindTwoTripsByUserId() {
-        List<Trip> trips = repository.findByUserId(1);
+        List<Trip> trips = null;
+        try {
+            trips = repository.findByUserId(1);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(4, trips.size());
     }
 
     @Test
     void shouldNotFindByUsername() {
-        List<Trip> trips = repository.findByUserId(4);
+        List<Trip> trips = null;
+        try {
+            trips = repository.findByUserId(4);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(0, trips.size());
     }
 
     @Test
     void shouldFindById() {
-        Trip idTwo = repository.findById(2);
+        Trip idTwo = null;
+        try {
+            idTwo = repository.findById(2);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals("In congue.", idTwo.getTripDescription());
         assertEquals(LocalDate.of(2022,07,16), idTwo.getTripStartDate());
         assertEquals(LocalDate.of(2022,07,20), idTwo.getTripEndDate());
@@ -67,21 +87,35 @@ class TripJdbcTemplateRepositoryTest {
 
     @Test
     void shouldNotFindById() {
-        Trip result = repository.findById(10);
+        Trip result = null;
+        try {
+            result = repository.findById(10);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNull(result);
     }
 
     @Test
     void shouldAdd() {
         Trip newTrip = makeTrip();
-        Trip actual = repository.add(newTrip);
+        Trip actual = null;
+        try {
+            actual = repository.add(newTrip);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(actual);
         assertEquals(NEXT_ID, actual.getTripId());
 
         newTrip = makeTrip();
         newTrip.setTripStartDate(null);
         newTrip.setTripEndDate(null);
-        actual = repository.add(newTrip);
+        try {
+            actual = repository.add(newTrip);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(actual);
         assertEquals(NEXT_ID + 1, actual.getTripId());
     }
@@ -92,17 +126,29 @@ class TripJdbcTemplateRepositoryTest {
         updatedTrip.setTripDescription("updated description");
         updatedTrip.setTripStartDate(LocalDate.of(2023,10,15));
         updatedTrip.setTripEndDate(LocalDate.of(2023,10,20));
-        assertTrue(repository.update(updatedTrip));
+        try {
+            assertTrue(repository.update(updatedTrip));
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     void deleteById() {
-        assertTrue(repository.deleteById(3));
+        try {
+            assertTrue(repository.deleteById(3));
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     void shouldNotDelete() {
-        assertFalse(repository.deleteById(20));
+        try {
+            assertFalse(repository.deleteById(20));
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Trip makeTrip() {

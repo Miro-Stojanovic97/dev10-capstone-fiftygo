@@ -1,5 +1,6 @@
 package fiftygo.controllers;
 
+import fiftygo.data.DataAccessException;
 import fiftygo.domain.PinService;
 import fiftygo.domain.Result;
 import fiftygo.models.Pin;
@@ -21,22 +22,22 @@ public class PinController {
     }
 
     @GetMapping
-    public List<Pin> findAll() {
+    public List<Pin> findAll() throws DataAccessException {
         return service.findAll();
     }
 
     @GetMapping("/user/{userId}")
-    public List<Pin> findByUserId(@PathVariable int userId) {
+    public List<Pin> findByUserId(@PathVariable int userId) throws DataAccessException {
         return service.findByUserId(userId);
     }
 
     @GetMapping("/{pinId}")
-    public Pin findById(@PathVariable int pinId) {
+    public Pin findById(@PathVariable int pinId) throws DataAccessException {
         return service.findById(pinId);
     }
 
     @PostMapping
-    public ResponseEntity<Object> add(@RequestBody Pin pin) {
+    public ResponseEntity<Object> add(@RequestBody Pin pin) throws DataAccessException {
         Result<Pin> result = service.add(pin);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
@@ -45,7 +46,7 @@ public class PinController {
     }
 
     @PutMapping("/{pinId}")
-    public ResponseEntity<Object> update(@PathVariable int pinId, @RequestBody Pin pin) {
+    public ResponseEntity<Object> update(@PathVariable int pinId, @RequestBody Pin pin) throws DataAccessException {
         if (pinId != pin.getPinId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -59,7 +60,7 @@ public class PinController {
     }
 
     @DeleteMapping("/{pinId}")
-    public ResponseEntity<Void> deleteById(@PathVariable int pinId) {
+    public ResponseEntity<Void> deleteById(@PathVariable int pinId) throws DataAccessException {
         if (service.deleteById(pinId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

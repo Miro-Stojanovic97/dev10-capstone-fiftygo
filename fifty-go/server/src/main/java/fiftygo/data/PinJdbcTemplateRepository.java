@@ -26,7 +26,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
     }
 
     @Override
-    public List<Pin> findAll() {
+    public List<Pin> findAll() throws DataAccessException {
         final String sql = "select pin_id, pin_description, pin_date, pin_priority, pin_did_it, user_id from pin;";
         List<Pin> pins = jdbcTemplate.query(sql, new PinMapper());
         pins.forEach(this::addCity);
@@ -35,7 +35,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
     }
 
     @Override
-    public List<Pin> findByUserId(int userId) {
+    public List<Pin> findByUserId(int userId) throws DataAccessException {
         final String sql = "select pin_id, pin_description, pin_date, pin_priority, pin_did_it, user_id " +
                 "from pin " +
                 "where user_id = ?;";
@@ -46,7 +46,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
     }
 
     @Override
-    public Pin findById(int pinId) {
+    public Pin findById(int pinId) throws DataAccessException {
         final String sql = "select pin_id, pin_description, pin_date, pin_priority, pin_did_it, user_id " +
                 "from pin " +
                 "where pin_id = ?;";
@@ -60,7 +60,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
     }
 
     @Override
-    public Pin add(Pin pin) {
+    public Pin add(Pin pin) throws DataAccessException {
         final String sql = "insert into pin (pin_description, pin_date, pin_priority, pin_did_it, type_id, city_id, user_id) " +
                 "values (?, ?, ?, ?, ?, ?, ?);";
 
@@ -90,7 +90,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
     }
 
     @Override
-    public boolean update(Pin pin) {
+    public boolean update(Pin pin) throws DataAccessException {
 
         final String sql = "update pin set "
                 + "pin_description = ?, "
@@ -108,7 +108,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
     }
 
     @Override
-    public boolean deleteById(int pinId) {
+    public boolean deleteById(int pinId) throws DataAccessException {
         jdbcTemplate.update("delete from pin_trip where pin_id = ?;", pinId);
         return jdbcTemplate.update("delete from pin where pin_id = ?;", pinId) > 0;
     }

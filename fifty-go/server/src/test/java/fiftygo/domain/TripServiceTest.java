@@ -34,7 +34,11 @@ class TripServiceTest {
         Trip arg = makeTrip();
         arg.setTripId(0);
 
-        when(repository.add(arg)).thenReturn(expected);
+        try {
+            when(repository.add(arg)).thenReturn(expected);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         Result<Trip> result = service.add(arg);
 
         assertEquals(ResultType.SUCCESS, result.getResultType());
@@ -66,7 +70,11 @@ class TripServiceTest {
         Trip arg = makeTrip();
         arg.setTripDescription("updated description");
 
-        when(repository.update(arg)).thenReturn(true);
+        try {
+            when(repository.update(arg)).thenReturn(true);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         Result<Trip> result = service.update(arg);
 
         assertEquals(ResultType.SUCCESS, result.getResultType());

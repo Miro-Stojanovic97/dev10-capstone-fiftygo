@@ -30,7 +30,11 @@ class PinServiceTest {
         Pin arg = makePin();
         arg.setPinId(0);
 
-        when(repository.add(arg)).thenReturn(expected);
+        try {
+            when(repository.add(arg)).thenReturn(expected);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         Result<Pin> result = service.add(arg);
 
         assertEquals(ResultType.SUCCESS, result.getResultType());
@@ -53,7 +57,11 @@ class PinServiceTest {
         Pin arg = makePin();
         arg.setPinId(1);
 
-        when(repository.update(arg)).thenReturn(true);
+        try {
+            when(repository.update(arg)).thenReturn(true);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         Result<Pin> result = service.update(arg);
 
         assertEquals(ResultType.SUCCESS, result.getResultType());
@@ -66,7 +74,11 @@ class PinServiceTest {
         arg.setPinId(1);
         arg.setType(null);
 
-        when(repository.update(arg)).thenReturn(true);
+        try {
+            when(repository.update(arg)).thenReturn(true);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         Result<Pin> result = service.update(arg);
 
         assertEquals(ResultType.SUCCESS, result.getResultType());

@@ -44,19 +44,31 @@ class PinJdbcTemplateRepositoryTest {
             assertEquals(pins.get(2), expected);
         } catch (EmptyResultDataAccessException ex) {
 
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Test
     void shouldFindAllUsersPinsByExistingUserId() {
-        List<Pin> pins = repository.findByUserId(2);
+        List<Pin> pins = null;
+        try {
+            pins = repository.findByUserId(2);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(pins);
         assertEquals(11, pins.size());
     }
 
     @Test
     void shouldNotFindAllByMissingUserId() {
-        List<Pin> pins = repository.findByUserId(999);
+        List<Pin> pins = null;
+        try {
+            pins = repository.findByUserId(999);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(0, pins.size());
     }
 
@@ -66,7 +78,12 @@ class PinJdbcTemplateRepositoryTest {
         Type type = new Type(11, "sing");
         Pin expected = new Pin(3, "Suspendisse potenti.", LocalDate.of(2023, 8,3), 5, false, city, type, 2);
 
-        Pin result = repository.findById(3);
+        Pin result = null;
+        try {
+            result = repository.findById(3);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
 
         assertNotNull(result);
         assertEquals(expected, result);
@@ -74,26 +91,44 @@ class PinJdbcTemplateRepositoryTest {
 
     @Test
     void shouldNotFindPinByMissingId() {
-        Pin result = repository.findById(999);
+        Pin result = null;
+        try {
+            result = repository.findById(999);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNull(result);
     }
 
     @Test
     void shouldAddPin() {
         Pin pin = makePin();
-        Pin actual = repository.add(pin);
+        Pin actual = null;
+        try {
+            actual = repository.add(pin);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(actual);
         assertEquals(NEXT_ID, actual.getPinId());
 
         pin = makePin();
         pin.setPinDate(null);
-        actual = repository.add(pin);
+        try {
+            actual = repository.add(pin);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(actual);
         assertEquals(NEXT_ID + 1, actual.getPinId());
 
         pin = makePin();
         pin.setType(null);
-        actual = repository.add(pin);
+        try {
+            actual = repository.add(pin);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(actual);
         assertEquals(NEXT_ID + 2, actual.getPinId());
     }
@@ -103,13 +138,25 @@ class PinJdbcTemplateRepositoryTest {
         Pin pin = makePin();
         pin.setPinDescription("Updated test description!");
         pin.setPinId(30);
-        assertTrue(repository.update(pin));
+        try {
+            assertTrue(repository.update(pin));
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     void shouldDeletePin() {
-        assertTrue(repository.deleteById(26));
-        assertFalse(repository.deleteById(26));
+        try {
+            assertTrue(repository.deleteById(26));
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            assertFalse(repository.deleteById(26));
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Pin makePin() {

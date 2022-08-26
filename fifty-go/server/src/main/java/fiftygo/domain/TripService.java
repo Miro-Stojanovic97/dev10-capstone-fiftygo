@@ -2,7 +2,6 @@ package fiftygo.domain;
 
 import fiftygo.data.TripRepository;
 import fiftygo.models.Trip;
-import fiftygo.models.Type;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -22,15 +21,27 @@ public class TripService {
     }
 
     public List<Trip> findAll() {
-        return repository.findAll();
+        try {
+            return repository.findAll();
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<Trip> findByUserId(int userId) {
-        return repository.findByUserId(userId);
+        try {
+            return repository.findByUserId(userId);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Trip findById(int tripId) {
-        return repository.findById(tripId);
+        try {
+            return repository.findById(tripId);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Result<Trip> add(Trip trip) {
@@ -47,7 +58,11 @@ public class TripService {
             return result;
         }
 
-        result.setPayload(repository.add(trip));
+        try {
+            result.setPayload(repository.add(trip));
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         return result;
     }
 
@@ -65,7 +80,12 @@ public class TripService {
             return result;
         }
 
-        boolean success = repository.update(trip);
+        boolean success = false;
+        try {
+            success = repository.update(trip);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         if(!success) {
             result.addErrorMessage("Something went wrong.", ResultType.NOT_FOUND);
             return result;
@@ -77,8 +97,12 @@ public class TripService {
 
     public Result<Trip> deleteById(int tripId) {
         Result<Trip> result = new Result<>();
-        if(!repository.deleteById(tripId)){
-            result.addErrorMessage("Trip Id %s was not found.", ResultType.NOT_FOUND, tripId);
+        try {
+            if(!repository.deleteById(tripId)){
+                result.addErrorMessage("Trip Id %s was not found.", ResultType.NOT_FOUND, tripId);
+            }
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
         }
         return result;
     }

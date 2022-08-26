@@ -28,7 +28,7 @@ public class TripJdbcTemplateRepository implements TripRepository{
     }
 
     @Override
-    public List<Trip> findAll() {
+    public List<Trip> findAll() throws DataAccessException {
         final String sql = "select trip_id, trip_description, trip_start_date, " +
                 "trip_end_date, transportation, trip_priority, trip_did_it, user_id " +
                 "from trip;";
@@ -38,7 +38,7 @@ public class TripJdbcTemplateRepository implements TripRepository{
     }
 
     @Override
-    public List<Trip> findByUserId(int userId) {
+    public List<Trip> findByUserId(int userId) throws DataAccessException {
         final String sql = "select trip_id, trip_description, trip_start_date, " +
                 "trip_end_date, transportation, trip_priority, trip_did_it, user_id " +
                 "from trip " +
@@ -49,7 +49,7 @@ public class TripJdbcTemplateRepository implements TripRepository{
     }
 
     @Override
-    public Trip findById(int tripId) {
+    public Trip findById(int tripId) throws DataAccessException {
         final String sql = "select trip_id, trip_description, trip_start_date, " +
                 "trip_end_date, transportation, trip_priority, trip_did_it, user_id " +
                 "from trip " +
@@ -64,7 +64,7 @@ public class TripJdbcTemplateRepository implements TripRepository{
     }
 
     @Override
-    public Trip add(Trip trip) {
+    public Trip add(Trip trip) throws DataAccessException {
         final String sql = "insert into trip (trip_description, trip_start_date, trip_end_date, transportation, trip_priority, trip_did_it, user_id) " +
                 "values (?,?,?,?,?,?,?);";
 
@@ -94,7 +94,7 @@ public class TripJdbcTemplateRepository implements TripRepository{
     }
 
     @Override
-    public boolean update(Trip trip) {
+    public boolean update(Trip trip) throws DataAccessException {
         final String sql = "update trip set trip_description = ?, " +
                 "trip_start_date = ?, trip_end_date = ?, transportation = ?, " +
                 "trip_priority = ?, trip_did_it = ?;";
@@ -109,7 +109,7 @@ public class TripJdbcTemplateRepository implements TripRepository{
     }
 
     @Override
-    public boolean deleteById(int tripId) {
+    public boolean deleteById(int tripId) throws DataAccessException {
         jdbcTemplate.update("delete from pin_trip where trip_id = ?;", tripId);
         return jdbcTemplate.update("delete from trip where trip_id = ?;", tripId) > 0;
     }

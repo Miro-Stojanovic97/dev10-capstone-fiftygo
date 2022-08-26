@@ -21,15 +21,27 @@ public class PinService {
     }
 
     public List<Pin> findAll() {
-        return repository.findAll();
+        try {
+            return repository.findAll();
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<Pin> findByUserId(int userId) {
-        return repository.findByUserId(userId);
+        try {
+            return repository.findByUserId(userId);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Pin findById(int pinId) {
-        return repository.findById(pinId);
+        try {
+            return repository.findById(pinId);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Result<Pin> add(Pin pin) {
@@ -46,7 +58,11 @@ public class PinService {
             return result;
         }
 
-        result.setPayload(repository.add(pin));
+        try {
+            result.setPayload(repository.add(pin));
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         return result;
     }
 
@@ -63,7 +79,12 @@ public class PinService {
             }
             return result;
         }
-        boolean success = repository.update(pin);
+        boolean success = false;
+        try {
+            success = repository.update(pin);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         if (!success) {
             result.addErrorMessage("Something went wrong.", ResultType.NOT_FOUND);
             return result;
@@ -73,6 +94,10 @@ public class PinService {
     }
 
     public boolean deleteById(int pinId) {
-        return repository.deleteById(pinId);
+        try {
+            return repository.deleteById(pinId);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
