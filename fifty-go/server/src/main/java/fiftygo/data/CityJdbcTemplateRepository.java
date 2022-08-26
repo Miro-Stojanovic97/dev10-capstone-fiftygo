@@ -18,13 +18,13 @@ public class CityJdbcTemplateRepository implements CityRepository{
     }
 
     @Override
-    public List<City> findAll() {
+    public List<City> findAll() throws DataAccessException {
         final String sql = "select city_id, city_name, state_abr, state_name, city_latitude, city_longitude from city;";
         return jdbcTemplate.query(sql, new CityMapper());
     }
 
     @Override
-    public City findById(int cityId) {
+    public City findById(int cityId) throws DataAccessException {
 
         final String sql = "select city_id, city_name, state_abr, state_name, city_latitude, city_longitude from city where city_id = ?;";
         return jdbcTemplate.queryForObject(sql, new CityMapper(), cityId);
@@ -32,19 +32,19 @@ public class CityJdbcTemplateRepository implements CityRepository{
 
     // findByState
     @Override
-    public List<City> findByStateAbr(String stateAbr) {
+    public List<City> findByStateAbr(String stateAbr) throws DataAccessException {
         final String sql = "select city_id, city_name, state_abr, state_name, city_latitude, city_longitude from city where state_abr = ?;";
         return jdbcTemplate.query(sql, new CityMapper(), stateAbr);
     }
     // filterByBeginsWith
     @Override
-    public List<City> searchCities(String sequence) {
+    public List<City> searchCities(String sequence) throws DataAccessException {
         final String sql = "select * from city where city_name like CONCAT('%', ?,'%');";
         return jdbcTemplate.query(sql, new CityMapper(), sequence);
     }
 
     @Override
-    public City add(City city) {
+    public City add(City city) throws DataAccessException {
         final String sql = """
                 insert into city (city_id, city_name, state_abr, state_name, city_latitude, city_longitude)
                 	values
@@ -68,12 +68,12 @@ public class CityJdbcTemplateRepository implements CityRepository{
     }
 
     @Override
-    public boolean update(City city) {
+    public boolean update(City city) throws DataAccessException {
         return false;
     }
 
     @Override
-    public boolean deleteById(int cityId) {
+    public boolean deleteById(int cityId) throws DataAccessException {
         return false;
     }
 }

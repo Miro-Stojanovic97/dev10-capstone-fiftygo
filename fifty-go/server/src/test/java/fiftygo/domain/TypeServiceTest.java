@@ -26,7 +26,11 @@ class TypeServiceTest {
         Type arg = makeType();
         arg.setTypeId(0);
 
-        when(repository.add(arg)).thenReturn(expected);
+        try {
+            when(repository.add(arg)).thenReturn(expected);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         Result<Type> result = service.add(arg);
 
         assertEquals(ResultType.SUCCESS, result.getResultType());
@@ -49,7 +53,11 @@ class TypeServiceTest {
         Type arg = makeType();
         arg.setTypeName("updated name");
 
-        when(repository.update(arg)).thenReturn(true);
+        try {
+            when(repository.update(arg)).thenReturn(true);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         Result<Type> result = service.update(arg);
 
         assertEquals(ResultType.SUCCESS, result.getResultType());

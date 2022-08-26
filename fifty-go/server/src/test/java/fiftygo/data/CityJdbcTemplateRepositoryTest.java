@@ -26,7 +26,12 @@ class CityJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindAllCities() {
-        List<City> cities = repository.findAll();
+        List<City> cities = null;
+        try {
+            cities = repository.findAll();
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(cities);
         assertEquals(349, cities.size());
     }
@@ -34,16 +39,33 @@ class CityJdbcTemplateRepositoryTest {
     @Test
     void shouldFindCitiesBySequence() {
 
-        List<City> cities = repository.searchCities("st.");
+        List<City> cities = null;
+        try {
+            cities = repository.searchCities("st.");
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(4, cities.size());
 
-        cities = repository.searchCities("den");
+        try {
+            cities = repository.searchCities("den");
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(7, cities.size());
 
-        cities = repository.searchCities("mil");
+        try {
+            cities = repository.searchCities("mil");
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(1, cities.size());
 
-        cities = repository.searchCities("frank");
+        try {
+            cities = repository.searchCities("frank");
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(0, cities.size());
     }
 }

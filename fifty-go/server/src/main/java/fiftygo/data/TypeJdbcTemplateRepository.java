@@ -22,26 +22,26 @@ public class TypeJdbcTemplateRepository implements TypeRepository{
     }
 
     @Override
-    public List<Type> findAll() {
+    public List<Type> findAll() throws DataAccessException {
         final String sql = "select type_id, type_name from type;";
         return jdbcTemplate.query(sql, new TypeMapper());
     }
 
     @Override
-    public Type findById(int typeId) {
+    public Type findById(int typeId) throws DataAccessException {
         final String sql = "select type_id, type_name from type where type_id = ?;";
         return jdbcTemplate.query(sql, new TypeMapper(), typeId).stream()
                 .findFirst().orElse(null);
     }
 
     @Override
-    public List<Type> searchTypes(String sequence) {
+    public List<Type> searchTypes(String sequence) throws DataAccessException {
         final String sql = "select type_id, type_name from type where type_name like CONCAT('%', ?,'%')";
         return jdbcTemplate.query(sql, new TypeMapper(), sequence);
     }
 
     @Override
-    public Type add(Type type) {
+    public Type add(Type type) throws DataAccessException {
         final String sql = "insert into type (type_name) values (?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -60,14 +60,14 @@ public class TypeJdbcTemplateRepository implements TypeRepository{
     }
 
     @Override
-    public boolean update(Type type) {
+    public boolean update(Type type) throws DataAccessException {
         final String sql = "update type set type_name = ?;";
         return jdbcTemplate.update(sql, type.getTypeName()) > 0;
     }
 
     @Override
     @Transactional
-    public boolean deleteById(int typeId) {
+    public boolean deleteById(int typeId) throws DataAccessException {
         jdbcTemplate.update("delete from pin where type_id = ?;", typeId);
         return jdbcTemplate.update("delete from type where type_id = ?;", typeId) > 0;
     }
