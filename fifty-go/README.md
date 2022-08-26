@@ -175,8 +175,8 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
 ---
 
 ## Tasks
-* [ ] Shift+Alt+F is awesome in VSCode
-* [ ] Create Java API
+* [x] Shift+Alt+F is awesome in VSCode
+* [x] Create Java API
     * [x] Create Java Project (fifty-go-with-security)
     * [x] Modify pom.xml to include the parent tag (spring-boot-starter-parent)
     * [x] Modify pom.xml to include the following dependencies
@@ -264,7 +264,7 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
                  * [ ] implement boolean remove(Integer tripId) {
                      * [ ] return template.update( "delete from trips where tripId = ?", tripId) == ?;
                  
-         * [ ] Create Activity interface
+         * [x] Create Activity interface
            * [x] List ;Activity ; findAllPublic()
            * [x] List ;Activity ; findByUserId(Integer userId)
            * [x] Activity findById( Integer activityId )

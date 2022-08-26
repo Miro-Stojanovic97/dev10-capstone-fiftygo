@@ -7,8 +7,8 @@ const PIN_DEFAULT = {
     pinDate: "",
     pinPriority: 0,
     pinDidIt: 0,
-    pinCity: "",
-    pinState: ""
+    pinCity: {},
+    pinState: {}
 };
 
 
@@ -23,7 +23,7 @@ function Pins() {
     
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/pin')
+        fetch('http://localhost:8080/fiftygo/pin')
           .then(response => {
             if (response.status === 200) {
               return response.json();
@@ -78,7 +78,7 @@ function Pins() {
             method: 'DELETE'
           };
     
-          fetch(`http://localhost:8080/api/pin/${pinId}`, init)
+          fetch(`http://localhost:8080/fiftygo/pin/${pinId}`, init)
             .then(response => {
               if (response.status === 204) {
                 // create a copy of the pins array
@@ -118,7 +118,7 @@ function Pins() {
           body: JSON.stringify(pin)
         };
     
-        fetch('http://localhost:8080/api/pin', init)
+        fetch('http://localhost:8080/fiftygo/pin', init)
           .then(response => {
             if (response.status === 201 || response.status === 400) {
               return response.json();
@@ -199,7 +199,7 @@ function Pins() {
           body: JSON.stringify(pin)
         };
       
-        fetch(`http://localhost:8080/api/pin/${editPinId}`, init)
+        fetch(`http://localhost:8080/fiftygo/pin/${editPinId}`, init)
           .then(response => {
             if (response.status === 204) {
               return null;
