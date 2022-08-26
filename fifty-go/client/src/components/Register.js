@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import AuthContext from "../contexts/AuthContext";
 import Errors from './Errors';
@@ -14,7 +14,7 @@ function Register() {
 
   const auth = useContext(AuthContext);
 
-  const history = useNavigate();
+  const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -96,9 +96,6 @@ function Register() {
             })
             .then(data => {
               if (data) {
-                // {
-                //   "jwt_token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYWxvcmllLXRyYWNrZXIiLCJzdWIiOiJzbWFzaGRldjUiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImV4cCI6MTYwNTIzNDczNH0.nwWJtPYhD1WlZA9mGo4n5U0UQ3rEW_kulilO2dEg7jo"
-                // }
                 auth.login(data.jwt_token);
                 history.push('/');
               } else {

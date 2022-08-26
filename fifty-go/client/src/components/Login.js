@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import AuthContext from "../contexts/AuthContext";
 import Errors from "./Errors";
@@ -12,7 +12,7 @@ function Login() {
 
     const auth = useContext(AuthContext);
 
-    const history = useNavigate();
+    const history = useHistory();
 
     const handleSubmit = (event) => {
       event.preventDefault();
