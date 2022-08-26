@@ -50,7 +50,7 @@ function Pins() {
 
       const handleEditPin = (pinId) => {
         // Update the pinId state variable to the pinId that we need to edit.
-        setEditPinId(PinId);
+        setEditPinId(pinId);
     
         // Find the pin in the array of pins for the pinId that we need to edit.
         const pin = pins.find(pin => pin.id === pinId);
@@ -79,9 +79,9 @@ function Pins() {
               if (response.status === 204) {
                 // create a copy of the pins array
                 // remove the pin that we need to delete
-                const newPin = pin.filter(pin => pin.id !== pinId);
+                const newPins = pin.filter(pin => pin.id !== pinId);
     
-                // update the solar panels state variable
+                // update the  state variable
                 setPins(newPins);
     
                 resetState();
@@ -129,13 +129,24 @@ function Pins() {
               On the happy path, "data" is an object that looks this:
     
               {
-                "pinId": 1,
-                "pinDescription": "Visiting friends in NYC",
+                "pinId": 3,
+                "pinDescription": "Test!",
                 "pinDate": "2022-10-31",
                 "pinPriority": 1,
-                "pinDidIt": 2000,
-                ?"typeId": 26,
-                ?"cityId": 1630035577
+                "pinDidIt": false,
+                "city": {
+                  "cityId": 1630035577,
+                  "cityName": "San Juan",
+                  "stateAbr": "PR",
+                  "stateName": "Puerto Rico",
+                  "latitude": 18.3985,
+                  "longitude": -66.0610
+                },
+                "type": {
+                  "typeId": 26,
+                  "typeName": "ski"
+                },
+                "userId": 4
               }
     
               */
@@ -247,29 +258,30 @@ function Pins() {
 
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="description">Section:</label>
-              <input id="description" name="description" type="text" className="form-control"
-                value={pin.pinDescription} onChange={handleChange} />
+              <label htmlFor="pin-description">Description:</label>
+              <input id="pin-description" name="pin-description" type="text" className="form-control"
+                value={pin.description} onChange={handleChange} />
             </div>
             <div className="form-group">
-              <label htmlFor="date">Row:</label>
-              <input id="date" name="date" type="date" className="form-control"
-                value={pin.pinDate} onChange={handleChange} />
+              <label htmlFor="pin-date">Date:</label>
+              <input id="pin-date" name="pin-date" type="pin-date" className="form-control"
+                value={pin.date} onChange={handleChange} />
             </div>
             <div className="form-group">
-              <label htmlFor="priority">Column:</label>
-              <input id="priority" name="priority" type="number" className="form-control"
-                value={pin.pinPriority} onChange={handleChange} />
+              <label htmlFor="pin-priority">Priority [1-5]:</label>
+              <input id="pin-priority" name="pin-priority" type="number" className="form-control"
+                value={pin.priority} onChange={handleChange} />
             </div>
             <div className="form-group">
-              <label htmlFor="yearInstalled">Year Installed:</label>
-              <input id="yearInstalled" name="yearInstalled" type="number" className="form-control"
-                value={solarPanel.yearInstalled} onChange={handleChange} />
+              <label htmlFor="pin-did-it">Did it:</label>
+              <input id="pin-did-it" name="pin-did-it" type="number" className="form-control"
+                value={pin.didIt} onChange={handleChange} />
             </div>
             <div className="form-group">
-              <label htmlFor="material">Material:</label>
-              <select id="material" name="material" className="form-control"
-                value={solarPanel.material} onChange={handleChange}>
+              <label htmlFor="pin-state">State:</label>
+              <select id="pin-state" name="pin-state" className="form-control"
+              //not sure if pin.city.state declaration will work right
+                value={pin.city.state} onChange={handleChange}> 
                 <option>POLY_SI</option>
                 <option>MONO_SI</option>
                 <option>A_SI</option>
@@ -278,14 +290,30 @@ function Pins() {
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="tracking">Is Tracking?
-                <input id="tracking" name="tracking" type="checkbox"
-                  checked={solarPanel.tracking} onChange={handleChange} />
-              </label>
+              <label htmlFor="pin-city">City:</label>
+              <select id="pin-city" name="pin-city" className="form-control"
+                value={pin.city} onChange={handleChange}>
+                <option>POLY_SI</option>
+                <option>MONO_SI</option>
+                <option>A_SI</option>
+                <option>CD_TE</option>
+                <option>CIGS</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="pin-type">Type:</label>
+              <select id="pin-type" name="pin-type" className="form-control"
+                value={pin.type} onChange={handleChange}>
+                <option>POLY_SI</option>
+                <option>MONO_SI</option>
+                <option>A_SI</option>
+                <option>CD_TE</option>
+                <option>CIGS</option>
+              </select>
             </div>
             <div className="mt-4">
               <button className="btn btn-success mr-2" type="submit">
-                <i className="bi bi-file-earmark-check"></i> {editSolarPanelId > 0 ? 'Update Solar Panel' : 'Add Solar Panel'}
+                <i className="bi bi-file-earmark-check"></i> {editPinId > 0 ? 'Update Pin' : 'Add Pin'}
               </button>
               <button className="btn btn-warning" type="button" onClick={resetState}>
                 <i className="bi bi-stoplights"></i> Cancel
@@ -297,35 +325,38 @@ function Pins() {
 
       {currentView === 'List' && (
         <>
-          <h2 className="mb-4">Solar Panels</h2>
+          <h2 className="mb-4">Pins</h2>
           <button className="btn btn-primary my-4" onClick={() => setCurrentView('Add')}>
-            <i className="bi bi-plus-circle"></i> Add Solar Panel
+            <i className="bi bi-plus-circle"></i> Add Pin
           </button>
           <table className="table table-striped table-hover table-sm">
             <thead className="thead-dark">
               <tr>
-                <th>Section</th>
-                <th>Row-Column</th>
-                <th>Year Installed</th>
-                <th>Material</th>
-                <th>Is Tracking?</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Priority</th>
+                <th>Did It</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Type</th>
                 <th>&nbsp;</th>
               </tr>
             </thead>
             <tbody>
-              {solarPanels.map(solarPanel => (
-                <tr key={solarPanel.id}>
-                  <td>{solarPanel.section}</td>
-                  <td>{solarPanel.row}-{solarPanel.column}</td>
-                  <td>{solarPanel.yearInstalled}</td>
-                  <td>{solarPanel.material}</td>
-                  <td>{solarPanel.tracking ? 'Yes' : 'No'}</td>
+              {pins.map(pin => (
+                <tr key={pin.id}>
+                  <td>{pin.description}</td>
+                  <td>{pin.type}</td>
+                  <td>{pin.date}</td>
+                  <td>{pin.priority}</td>
+                  <td>{pin.didIt}</td>
+                  <td>{pin.city}</td>
                   <td>
                     <div className="float-right mr-2">
-                      <button className="btn btn-primary btn-sm mr-2" onClick={() => handleEditPanel(solarPanel.id)}>
+                      <button className="btn btn-primary btn-sm mr-2" onClick={() => handleEditPin(pin.id)}>
                         <i className="bi bi-pencil-square"></i> Edit
                       </button>
-                      <button className="btn btn-danger btn-sm" onClick={() => handleDeletePanel(solarPanel.id)}>
+                      <button className="btn btn-danger btn-sm" onClick={() => handleDeletePin(pin.id)}>
                         <i className="bi bi-trash"></i> Delete
                       </button>
                     </div>
