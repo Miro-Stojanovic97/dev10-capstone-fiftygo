@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 
 import Nav from "./components/Nav";
@@ -12,7 +12,6 @@ import Trips from "./components/Trips";
 import Contact from './components/Contact';
 import MapView from "./components/MapView";
 import PinForm from "./components/PinForm";
-import AuthContext from "./contexts/AuthContext";
 
 const LOCAL_STORAGE_TOKEN_KEY = 'fiftyGoToken';
 
@@ -35,7 +34,7 @@ function App() {
       localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token);
 
   //TODO: FINISH UPDATING
-      const { sub: username, authorities, userId } = jwt_decode(token);
+      const { sub: firstName, lastName, username, password, authorities, userId } = jwt_decode(token);
 
       const roles = authorities.split(',');
   //TODO: FINISH UPDATING
@@ -67,52 +66,52 @@ function App() {
     logout
   };
 
-  // If we haven't attempted to restore the login yet...
-  // then don't render the App component.
-  if (!restoreLoginAttemptCompleted) {
-    return null;
-  }
+  // // If we haven't attempted to restore the login yet...
+  // // then don't render the App component.
+  // if (!restoreLoginAttemptCompleted) {
+  //   return null;
+  // }
 
   return (
-  <>
-    <AuthContext.Provider value={auth}>
-    <Router> 
+    <>
+   <AuthContext.Provider value={auth}>
+     <Router> 
 
-      <div id="outer-cont">
-        <div id="main">
-          <Nav />
-          <div className="row">
-            <div className="col"></div>
-            <div className="col-11"></div>
-            <div className="col"></div>
-          </div>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/pins">
-              <Pins />
-            </Route>
-            <Route path="/trips">
-              <Trips />
-            </Route>
-            <Route path="/map">
-              <MapView />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
-          </Switch>
-        </div>
-      </div>
-      <Footer />
+       <div id="outer-cont">
+         <div id="main">
+           <Nav />
+           <div className="row">
+             <div className="col"></div>
+             <div className="col-11"></div>
+             <div className="col"></div>
+           </div>
+           <Switch>
+             <Route exact path="/">
+               <Home />
+             </Route>
+             <Route path="/pins">
+               <Pins />
+             </Route>
+             <Route path="/trips">
+               <Trips />
+             </Route>
+             <Route path="/map">
+               <MapView />
+             </Route>
+             <Route path="/login">
+               <Login />
+             </Route>
+             <Route path="/register">
+               <Register />
+             </Route>
+           </Switch>
+         </div>
+       </div>
+       <Footer />
 
-    </Router>
-    </AuthContext.Provider>
-  </>
+     </Router>
+     </AuthContext.Provider>
+   </>
   );
 }
 
