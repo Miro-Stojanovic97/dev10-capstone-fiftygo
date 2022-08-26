@@ -25,6 +25,11 @@ public class TypeController {
         return service.findAll();
     }
 
+    @GetMapping("/search/{sequence}")
+    public List<Type> searchTypes(@PathVariable String sequence) {
+        return service.searchTypes(sequence);
+    }
+
     @GetMapping("/{typeId}")
     public ResponseEntity<Type> findById(@PathVariable int typeId) {
         Type type = service.findById(typeId);

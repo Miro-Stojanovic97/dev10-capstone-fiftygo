@@ -1,7 +1,7 @@
 # file for testing HTTP requests!
 
 @base_url = http://localhost:8080/fiftygo
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoia2JlcmVuZHQiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImFwcFVzZXJJZCI6NCwiZmlyc3ROYW1lIjoiS2VsaWUiLCJsYXN0TmFtZSI6IlRlc3RVcGRhdGUtQmVyZW5kdCIsImV4cCI6MTY2MTQ4NDcxM30.o9VAFd4sYxPLclcmUiKeyFryw6H1FAFjhzHMi7aRqdU
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoia2JlcmVuZHQiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImFwcFVzZXJJZCI6NCwiZmlyc3ROYW1lIjoiS2VsaWUiLCJsYXN0TmFtZSI6IlRlc3RVcGRhdGUtQmVyZW5kdCIsImV4cCI6MTY2MTQ4NTUxN30.il-tORyqxRp77c5aKHFeHorXAEXL_GdlGoQZU01pcyk
 
 
 ### technically, get an authorization JWT token (basically, log in)
@@ -158,5 +158,10 @@ Authorization: Bearer {{jwt}}
 
 ### GET all cities that match search, using authorization
 GET {{base_url}}/city/search/gree HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+### GET all types that match search, using authorization
+GET {{base_url}}/type/search/sk HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{jwt}}

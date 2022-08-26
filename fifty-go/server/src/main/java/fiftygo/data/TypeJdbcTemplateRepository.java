@@ -8,7 +8,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.JDBCType;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
@@ -33,6 +32,12 @@ public class TypeJdbcTemplateRepository implements TypeRepository{
         final String sql = "select type_id, type_name from type where type_id = ?;";
         return jdbcTemplate.query(sql, new TypeMapper(), typeId).stream()
                 .findFirst().orElse(null);
+    }
+
+    @Override
+    public List<Type> searchTypes(String sequence) {
+        final String sql = "select type_id, type_name from type where type_name like CONCAT('%', ?,'%')";
+        return jdbcTemplate.query(sql, new TypeMapper(), sequence);
     }
 
     @Override

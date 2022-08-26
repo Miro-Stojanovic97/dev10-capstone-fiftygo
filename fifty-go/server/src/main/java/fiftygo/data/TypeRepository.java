@@ -11,6 +11,8 @@ public interface TypeRepository {
 
     Type findById(int typeId);
 
+    List<Type> searchTypes(String sequence);
+
     Type add(Type type);
 
     boolean update(Type type);

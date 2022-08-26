@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/fiftygo/trip/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/fiftygo/trip/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
 
-                .antMatchers(HttpMethod.GET, "/fiftygo/type", "/fiftygo/type/*", "/fiftygo/type/user/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/fiftygo/type", "/fiftygo/type/*", "/fiftygo/type/search/*", "/fiftygo/type/user/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/fiftygo/type").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/fiftygo/type/*").hasAnyRole("USER", "PREMIUM", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/fiftygo/type/*").hasAnyRole("ADMIN")

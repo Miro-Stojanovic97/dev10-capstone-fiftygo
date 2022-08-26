@@ -28,6 +28,10 @@ public class TypeService {
         return repository.findById(typeId);
     }
 
+    public List<Type> searchTypes(String sequence) {
+        return repository.searchTypes(sequence);
+    }
+
     public Result<Type> add (Type type) {
         Result<Type> result = new Result<>();
 
