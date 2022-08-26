@@ -1,10 +1,161 @@
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+import AuthContext from "../contexts/AuthContext";
+import Errors from './Errors';
+
 function Register() {
-    return (
-        <>
-        <h1 className="display-1">Register 🌍</h1>
-        <p> TODO: Fill out Register page </p>
-        </>
-    )
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [errors, setErrors] = useState([]);
+
+  const auth = useContext(AuthContext);
+
+  const history = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // Make sure that the user didn't make a mistake in entering their password.
+    if (password !== confirmPassword) {
+      setErrors(['your passwords don\'t match']);
+      return;
+    }
+
+    /*
+
+    POST http://localhost:8080/api/appuser HTTP/1.1
+    Content-Type: application/json
+
+    {
+      "username": "test@test.com",
+      "password": "P@ssw0rd!",
+      "phoneNumber": "555-555-5555"
+    }
+
+    */
+
+    const appUser = {
+      username,
+      password,
+      phoneNumber
+    };
+    
+    const init = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(appUser)
+    };
+    
+    fetch('http://localhost:8080/api/appuser', init)
+      .then(response => {
+        if (response.status === 201 || response.status === 400) {
+          return response.json();
+        } else {
+          return Promise.reject(`Unexpected status code: ${response.status}`);
+        }
+      })
+      .then(data => {
+        if (data.appUserId) {
+
+          // HAPPY PATH :)
+
+          // Option 1: Send the user to the Home page... or a "Success" page
+
+          // Option 2: We can log them in automatically
+
+          const authAttempt = {
+            username,
+            password
+          };
+          
+          const init = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(authAttempt)
+          };
+          
+          fetch('http://localhost:8080/api/authenticate', init)
+            .then(response => {
+              if (response.status === 200) {
+                return response.json();
+              } else if (response.status === 403) {
+                return null;
+              } else {
+                return Promise.reject(`Unexpected status code: ${response.status}`);
+              }
+            })
+            .then(data => {
+              if (data) {
+                // {
+                //   "jwt_token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYWxvcmllLXRyYWNrZXIiLCJzdWIiOiJzbWFzaGRldjUiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImV4cCI6MTYwNTIzNDczNH0.nwWJtPYhD1WlZA9mGo4n5U0UQ3rEW_kulilO2dEg7jo"
+                // }
+                auth.login(data.jwt_token);
+                history.push('/');
+              } else {
+                // we have error messages
+                setErrors(['login failure']);
+              }
+            })
+            .catch(console.log);
+      
+        } else {
+          // UNHAPPY PATH :(
+          setErrors(data);
+        }
+      })
+      .catch(console.log);
+  };
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  return (
+    <>
+    <div className="container mt-3">
+        <h1 className="display-3">Register 🌍</h1>
+    </div>
+
+      <Errors errors={errors} />
+    <div className="container login-form">
+      <form onSubmit={handleSubmit}>
+        <div className="col-6 col-lg-4 offset-lg-4 offset-3 mt-5 form-group">
+          <label htmlFor="username">Username:</label>
+          <input className="form-control" id="username" type="text" 
+            onChange={handleUsernameChange} value={username} />
+        </div>
+        <div className="col-6 col-lg-4 offset-lg-4 offset-3 mt-3 form-group">
+          <label htmlFor="password">Password:</label>
+          <input className="form-control" id="password" type="password" 
+            onChange={(event) => setPassword(event.target.value)} value={password} />
+        </div>
+        <div className="col-6 col-lg-4 offset-lg-4 offset-3 mt-3 form-group">
+          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <input className="form-control" id="confirmPassword" type="password" 
+            onChange={(event) => setConfirmPassword(event.target.value)} value={confirmPassword} />
+        </div>
+        <div className="col-6 col-lg-4 offset-lg-4 offset-3 mt-3 form-group">
+          <label htmlFor="phoneNumber">Phone Number:</label>
+          <input className="form-control" id="phoneNumber" type="text" 
+            onChange={(event) => setPhoneNumber(event.target.value)} value={phoneNumber} />
+        </div>
+        <div>
+          <button className="btn btn-primary mt-5" type="submit">Register</button>
+        </div>
+        <div className="mt-3">
+            <Link to="/login">I have an existing account</Link>
+        </div>
+      </form>
+    </div>
+    </>
+  );
 }
 
 export default Register;
