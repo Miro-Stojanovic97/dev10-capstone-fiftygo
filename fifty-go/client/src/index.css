@@ -26,7 +26,7 @@ html, body {
 #main {
   background-color: #F1F7ED;
   /* overflow: auto; */
-  /* padding-bottom: 100px; */
+  padding-bottom: 100px;
   min-height: 100vh;
 }
 
