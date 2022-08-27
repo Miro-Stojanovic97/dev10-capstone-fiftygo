@@ -11,17 +11,25 @@ function PinList() {
     const history = useHistory();
   
     useEffect(() => {
-      fetch('http://localhost:8080/fiftygo/pin')
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            return Promise.reject(`Unexpected status code: ${response.status}`);
-          }
-        })
-        .then(data => setPins(data))
-        .catch(console.log);
-    }, []); // An empty dependency array tells to run our side effect once when the component is initially loaded.    
+      const init = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${auth.user.token}`
+        },
+      };
+
+        fetch(`http://localhost:8080/fiftygo/pin/user/${auth.user.appUserId}`, init)
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else {
+              return Promise.reject(`Unexpected status code: ${response.status}`);
+            }
+          })
+          .then(data => setPins(data))
+          .catch(console.log);
+      }, []); // An empty dependency array tells to run our side effect once when the component is initially loaded.    
   
     const handleDeletePin = (pinId) => {
       const pin = pins.find(pin => pin.id === pinId);
@@ -76,24 +84,24 @@ function PinList() {
           </thead>
           <tbody>
             {pins.map(pin => (
-              <tr key={pin.id}>
+              <tr key={pin.pinId}>
                 <td>{pin.pinDescription}</td>
-                <td>{pin.pinType}</td>
+                <td>{pin.type}</td>
                 <td>{pin.pinDate}</td>
                 <td>{pin.pinPriority}</td>
                 <td>{pin.pinDidIt ? 'Yes' : 'No'}</td>
-                <td>{pin.pinCity}</td>
-                <td>{pin.pinState}</td>
+                <td>{pin.city}</td>
+                <td>{pin.city.stateAbr}</td>
                 <td>
                   <div className="float-right mr-2">
-                    {auth.user && auth.user.appUserId === pin.appUser.appUserId && (
-                      <Link className="btn btn-primary btn-sm mr-2" to={`/pins/edit/${pin.id}`}>
+                    {auth.user && auth.user.appUserId && (
+                      <Link className="btn btn-primary btn-sm mr-2" to={`/pins/edit/${pin.pinId}`}>
                         <i className="bi bi-pencil-square"></i> Edit
                       </Link>
                     )}
         {/* TODO: Determine how we want to handle our roles here */}
                     {auth.user && auth.user.hasRole('ROLE_ADMIN') && (
-                      <button className="btn btn-danger btn-sm" onClick={() => handleDeletePin(pin.id)}>
+                      <button className="btn btn-danger btn-sm" onClick={() => handleDeletePin(pin.pinId)}>
                         <i className="bi bi-trash"></i> Delete
                       </button>
                     )}

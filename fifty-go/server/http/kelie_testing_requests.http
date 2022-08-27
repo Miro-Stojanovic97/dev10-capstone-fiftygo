@@ -1,7 +1,7 @@
 # file for testing HTTP requests!
 
 @base_url = http://localhost:8080/fiftygo
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImFwcFVzZXJJZCI6MSwiZmlyc3ROYW1lIjoiSm9obiIsImxhc3ROYW1lIjoiU21pdGgiLCJleHAiOjE2NjE1NDc4NzF9.fyr7hukqkjeFOn3jBCVKx-WrFngQci95PBLuA9X5pJ8
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImFwcFVzZXJJZCI6MSwiZmlyc3ROYW1lIjoiSm9obiIsImxhc3ROYW1lIjoiU21pdGgiLCJleHAiOjE2NjE2MzUyODl9.BejrIbcYzYpEE4SHTkncj1u59le9GcU5RbCVxzGcT88
 
 
 ### technically, get an authorization JWT token (basically, log in)

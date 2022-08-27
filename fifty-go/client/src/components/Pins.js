@@ -75,9 +75,10 @@ function Pins() {
     
         // Create a copy of the pin to edit.
         const editPin = { ...pin };
-    
+
         // Update the pin state variable with the pin object that we need to edit.
         setPin(editPin);
+        //console.log(pin);
     
         // Update the current view to display the form.
         setCurrentView('Edit');
@@ -278,28 +279,28 @@ function Pins() {
             <div className="form-group">
               <label htmlFor="pin-description">Description:</label>
               <input id="pin-description" name="pin-description" type="text" className="form-control"
-                value={pin.description} onChange={handleChange} />
+                value={pin.pinDescription} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="pin-type">Type:</label>
               <select id="pin-type" name="pin-type" className="form-control"
-                value={pin.type} onChange={handleChange}>
+                value={pin.type.typeName} onChange={handleChange}>
               </select>
             </div>
             <div className="form-group">
               <label htmlFor="pin-date">Date:</label>
               <input id="pin-date" name="pin-date" type="pin-date" className="form-control"
-                value={pin.date} onChange={handleChange} />
+                value={pin.pinDate} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="pin-priority">Priority [1-5]:</label>
               <input id="pin-priority" name="pin-priority" type="number" className="form-control"
-                value={pin.priority} onChange={handleChange} />
+                value={pin.pinPriority} onChange={handleChange} />
             </div>
             <div className="form-group">
-              <label htmlFor="pin-did-it">Did it:</label>
-              <input id="pin-did-it" name="pin-did-it" type="number" className="form-control"
-                value={pin.didIt} onChange={handleChange} />
+              <input id="pin-did-it" name="pin-did-it" type="checkbox" className="form-check-input pe-2"
+                value={pin.pinDidIt} onChange={handleChange} />
+              <label className="form-check-label" htmlFor="pin-did-it">Did it</label>
             </div>
             <div className="form-group">
               <label htmlFor="pin-state">State:</label>
@@ -356,10 +357,10 @@ function Pins() {
                   <td>{pin.pinCity}</td>
                   <td>
                     <div className="float-right mr-2">
-                      <button className="btn btn-primary btn-sm mr-2" onClick={() => handleEditPin(pin.id)}>
+                      <button className="btn btn-primary btn-sm mr-2" onClick={() => handleEditPin(pin.pinId)}>
                         <i className="bi bi-pencil-square"></i> Edit
                       </button>
-                      <button className="btn btn-danger btn-sm" onClick={() => handleDeletePin(pin.id)}>
+                      <button className="btn btn-danger btn-sm" onClick={() => handleDeletePin(pin.pinId)}>
                         <i className="bi bi-trash"></i> Delete
                       </button>
                     </div>

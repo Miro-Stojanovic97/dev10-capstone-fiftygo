@@ -10,6 +10,7 @@ import MapView from "./components/MapView";
 import Nav from "./components/Nav";
 import PinForm from "./components/PinForm";
 import Pins from "./components/Pins";
+import PinList from "./components/PinList";
 import Register from "./components/Register";
 import Trips from "./components/Trips";
 import AuthContext from "./contexts/AuthContext";
@@ -121,15 +122,23 @@ function App() {
            </div>
            <Switch>
              <Route exact path="/">
-             {/* {console.log("in routes", auth)} */}
                <Home />
              </Route>
+             {/* <Route path="/pinlist">
+              {console.log("in routes", auth)}
+              {auth.user ? (<PinList />) : (<Redirect to="/login" />)}
+             </Route> */}
              <Route path="/pins">
               {console.log("in routes", auth)}
               {auth.user ? (<Pins />) : (<Redirect to="/login" />)}
              </Route>
-             {/* <Route path="/pins" component={Login} onEnter={confirmUser} /> */}
-               
+             <Route path={['/pins/add', '/pins/edit/:id']}>
+              {auth.user ? (
+                <PinForm />
+              ) : (
+                <Redirect to="/login" />
+              )}
+            </Route>
              
              <Route path="/trips">
                {auth.user ? (
