@@ -1,6 +1,4 @@
-import React, { createRef, Component } from "react";
-import { toBePartiallyChecked } from "@testing-library/jest-dom/dist/matchers";
-import { geoJSON, layerGroup, L } from "leaflet";
+import React from "react";
 import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon, GeoJSON, ZoomControl } from "react-leaflet";
 import { statesData } from '../us-states';
 import { click } from "@testing-library/user-event/dist/click";

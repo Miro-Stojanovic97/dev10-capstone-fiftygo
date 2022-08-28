@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import jwtDecode from 'jwt-decode';
-import Contact from './components/Contact';
 import Errors from "./components/Errors";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Login from "./components/Login";
+import Features from "./components/Features";
 import MapView from "./components/MapView";
 import Nav from "./components/Nav";
 import PinForm from "./components/PinForm";
@@ -123,6 +123,9 @@ function App() {
            <Switch>
              <Route exact path="/">
                <Home />
+             </Route>
+             <Route exact path="/features">
+               <Features />
              </Route>
              {/* <Route path="/pinlist">
               {console.log("in routes", auth)}

@@ -18,6 +18,9 @@ function Nav() {
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav">
                                     <li className="nav-item">
+                                        <a className="navbar-brand nav-link" aria-current="page" href="/features">Features</a>
+                                    </li>
+                                    <li className="nav-item">
                                         <a className="navbar-brand nav-link" aria-current="page" href="/pins">Pins</a>
                                     </li>
                                     <li className="nav-item">

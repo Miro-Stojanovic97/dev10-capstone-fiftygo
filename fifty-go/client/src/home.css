@@ -1,0 +1,836 @@
+:root {
+  scroll-behavior: smooth;
+}
+
+/*--------------------------------------------------------------
+# Sections & Section Header
+--------------------------------------------------------------*/
+
+/* Currently if you uncomment this, the page looks nicer, but the footer drops off.
+If its commented, the footer is in its normal position. TODO: Figure that out. */
+section {
+  padding: 80px 0;
+  overflow: hidden;
+}
+
+/* //I tried fixing the above issue by singling out the footer section and undoing 
+the padding from the above, but it didn't work. TBD */
+section.footer-outer {
+  padding: 0px;
+  overflow: visible;
+}
+
+.section-header {
+  text-align: center;
+  padding: 30px 0;
+  position: relative;
+}
+
+.section-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 0;
+  color: #001973;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.section-header h2:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--color-primary);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.section-header span {
+  position: absolute;
+  top: 46px;
+  color: rgba(14, 29, 52, 0.06);
+  left: 0;
+  right: 0;
+  z-index: 1;
+  font-weight: 700;
+  font-size: 56px;
+  text-transform: uppercase;
+  line-height: 0;
+}
+
+.section-header p {
+  margin-bottom: 0;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 640px) {
+  .section-header h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .section-header span {
+    font-size: 38px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Featured Services Section
+--------------------------------------------------------------*/
+/* .featured-services .service-item {
+  position: relative;
+  height: 100%;
+  margin-bottom: 20px;
+}
+
+.featured-services .service-item .icon {
+  margin-right: 20px;
+}
+
+.featured-services .service-item .icon i {
+  color: #001f8d;
+  font-size: 48px;
+  transition: 0.3s;
+}
+
+.featured-services .service-item:hover .icon {
+  background: #fff;
+}
+
+.featured-services .service-item:hover .icon i {
+  color: var(--color-primary);
+}
+
+.featured-services .service-item .title {
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: var(--color-secondary);
+  transition: 0.3s;
+}
+
+.featured-services .service-item .description {
+  font-size: 15px;
+  color: #132848;
+  margin-bottom: 10px;
+}
+
+.featured-services .service-item .readmore {
+  display: flex;
+  align-items: center;
+  color: var(--color-secondary);
+  transition: 0.3s;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.featured-services .service-item .readmore i {
+  margin-left: 8px;
+}
+
+.featured-services .service-item:hover .title,
+.featured-services .service-item:hover .readmore,
+.featured-services .service-item:hover .icon i {
+  color: var(--color-primary);
+} */
+
+/*--------------------------------------------------------------
+# About Us Section
+--------------------------------------------------------------*/
+.about .content h3 {
+  font-weight: 700;
+  font-size: 32px;
+  font-family: var(--font-secondary);
+  color: #001f8d;
+}
+
+.about .content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about .content ul li {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 40px;
+}
+
+.about .content ul i {
+  flex-shrink: 0;
+  font-size: 48px;
+  color: var(--color-primary);
+  margin-right: -20px;
+  line-height: 0;
+}
+
+.about .content ul h5 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #19335c;
+}
+
+.about .content ul p {
+  font-size: 15px;
+}
+
+.about .content p:last-child {
+  margin-bottom: 0;
+
+
+}
+/*--------------------------------------------------------------
+# Services Section
+--------------------------------------------------------------*/
+.services .card {
+  border: 1px solid rgba(14, 29, 52, 0.15);
+  background: #fff;
+  position: relative;
+  border-radius: 0;
+  height: 100%;
+}
+
+.services .card .card-img {
+  overflow: hidden;
+  margin-bottom: 15px;
+  border-radius: 0;
+}
+
+.services .card .card-img img {
+  transition: 0.3s ease-in-out;
+}
+
+.services .card h3 {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 5px;
+  padding: 10px 30px;
+  text-transform: uppercase;
+}
+
+.services .card a {
+  color: #001973;
+  transition: 0.3;
+}
+
+.services .card a:hover {
+  color: var(--color-primary);
+}
+
+.services .card p {
+  padding: 0 30px;
+  margin-bottom: 30px;
+  color: var(--color-secondary);
+  font-size: 15px;
+}
+
+.services .card:hover .card-img img {
+  transform: scale(1.1);
+}
+
+/*--------------------------------------------------------------
+# Features Section
+--------------------------------------------------------------*/
+.features {
+  padding-top: 80px;
+}
+
+.features .features-item+.features-item {
+  margin-top: 100px;
+}
+
+@media (max-width: 640px) {
+  .features .features-item+.features-item {
+    margin-top: 40px;
+  }
+}
+
+.features .features-item h3 {
+  font-weight: 600;
+  font-size: 26px;
+  color: #001973;
+}
+
+.features .features-item ul {
+  list-style: none;
+  padding: 0;
+}
+
+.features .features-item ul li {
+  padding-bottom: 10px;
+}
+
+.features .features-item ul li:last-child {
+  padding-bottom: 0;
+}
+
+.features .features-item ul i {
+  font-size: 20px;
+  padding-right: 4px;
+  color: var(--color-primary);
+}
+
+.features .features-item p:last-child {
+  margin-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+# Pricing Section
+--------------------------------------------------------------*/
+.pricing .pricing-item {
+  padding: 60px 40px;
+  box-shadow: 0 3px 20px -2px rgba(108, 117, 125, 0.15);
+  background: #fff;
+  height: 100%;
+  border-top: 4px solid #fff;
+  border-radius: 5px;
+}
+
+.pricing h3 {
+  font-weight: 600;
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: var(--color-secondary);
+}
+
+.pricing h4 {
+  font-size: 48px;
+  color: var(--color-primary);
+  font-weight: 400;
+  font-family: var(--font-primary);
+  margin-bottom: 25px;
+}
+
+.pricing h4 sup {
+  font-size: 28px;
+}
+
+.pricing h4 span {
+  color: rgba(108, 117, 125, 0.8);
+  font-size: 18px;
+}
+
+.pricing ul {
+  padding: 20px 0;
+  list-style: none;
+  color: #6c757d;
+  text-align: left;
+  line-height: 20px;
+}
+
+.pricing ul li {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.pricing ul i {
+  color: #059652;
+  font-size: 24px;
+  padding-right: 3px;
+}
+
+.pricing ul .na {
+  color: rgba(108, 117, 125, 0.5);
+}
+
+.pricing ul .na i {
+  color: rgba(108, 117, 125, 0.5);
+}
+
+.pricing ul .na span {
+  text-decoration: line-through;
+}
+
+.pricing .buy-btn {
+  display: inline-block;
+  padding: 12px 35px;
+  border-radius: 4px;
+  color: var(--color-primary);
+  transition: none;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--font-primary);
+  transition: 0.3s;
+  border: 1px solid var(--color-primary);
+}
+
+.pricing .buy-btn:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.pricing .featured {
+  border-top-color: var(--color-primary);
+}
+
+.pricing .featured .buy-btn {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+@media (max-width: 992px) {
+  .pricing .box {
+    max-width: 60%;
+    margin: 0 auto 30px auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .pricing .box {
+    max-width: 80%;
+    margin: 0 auto 30px auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .pricing .box {
+    max-width: 100%;
+    margin: 0 auto 30px auto;
+  }
+}
+
+/*--------------------------------------------------------------
+# Frequently Asked Questions Section
+--------------------------------------------------------------*/
+.faq {
+  padding-top: 80px;
+}
+
+.faq .accordion-item {
+  border: 0;
+  margin-bottom: 10px;
+}
+
+.faq .accordion-collapse {
+  border: 0;
+}
+
+.faq .accordion-button {
+  padding: 15px 30px 20px 60px;
+  font-weight: 600;
+  border: 0;
+  font-size: 18px;
+  color: var(--color-default);
+  text-align: left;
+  background: rgba(14, 29, 52, 0.03);
+  border-radius: 5px;
+}
+
+.faq .accordion-button:focus {
+  box-shadow: none;
+}
+
+.faq .accordion-button:not(.collapsed) {
+  color: var(--color-primary);
+  border-bottom: 0;
+  box-shadow: none;
+}
+
+.faq .question-icon {
+  position: absolute;
+  top: 14px;
+  left: 25px;
+  font-size: 20px;
+  color: var(--color-primary);
+}
+
+.faq .accordion-button:after {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.faq .accordion-body {
+  padding: 0 30px 25px 60px;
+  border: 0;
+  background: rgba(14, 29, 52, 0.03);
+  border-radius: 5px;
+}
+
+/*--------------------------------------------------------------
+# Testimonials Section
+--------------------------------------------------------------*/
+.testimonials {
+  background-image: linear-gradient(-90deg, #F6AE2D, #7CA982);
+  /* background: #F6AE2D; */
+}
+
+.testimonials .testimonials-carousel,
+.testimonials .testimonials-slider {
+  overflow: hidden;
+}
+
+.testimonials .testimonial-item {
+  font-size: 14px;
+  text-align: center;
+  color: black;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.testimonials .testimonial-item h3 {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 10px 0 5px 0;
+  color: white;
+}
+
+.testimonials .testimonial-item h4 {
+  font-size: 12px;
+  color: white;
+  margin: 0 0 15px 0;
+}
+
+/*--------------------------------------------------------------
+# Stats Counter Section
+--------------------------------------------------------------*/
+.stats-counter .stats-item {
+  padding: 5px;
+  width: 100%;
+}
+
+.stats-counter .stats-item span {
+  font-size: 30px;
+  display: block;
+  color: var(--color-secondary);
+  font-weight: 700;
+  margin-top: px;
+  padding-bottom: 0px;
+  position: relative;
+}
+
+.stats-counter .stats-item span:after {
+  position: relative;
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: var(--color-primary);
+  margin: auto;
+}
+
+/* TODO: Figure out how to make the number look normal. Maybe don't use Span */
+#span-one:after {
+  content: "1,453";
+}
+#span-two:after {
+  content: "20,342";
+}
+#span-three:after {
+  content: "10,171";
+}
+#span-four:after {
+  content: "4.8";
+}
+
+
+.stats-counter .stats-item p {
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-primary);
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--color-secondary);
+}
+
+/*--------------------------------------------------------------
+# Our Team Section
+--------------------------------------------------------------*/
+.team .member {
+  text-align: center;
+  margin-bottom: 20px;
+  background: #fff;
+  border: 1px solid rgba(14, 29, 52, 0.15);
+}
+
+.team .member img {
+  margin: -1px -1px 30px -1px;
+}
+
+.team .member .member-content {
+  padding: 0 20px 30px 20px;
+}
+
+.team .member h4 {
+  font-weight: 700;
+  margin-bottom: 2px;
+  font-size: 18px;
+}
+
+.team .member span {
+  font-style: italic;
+  display: block;
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.team .member p {
+  padding-top: 10px;
+  font-size: 14px;
+  font-style: italic;
+  color: #6c757d;
+}
+
+.team .member .social {
+  margin-top: 15px;
+}
+
+.team .member .social a {
+  color: rgba(14, 29, 52, 0.5);
+  transition: 0.3s;
+}
+
+.team .member .social a:hover {
+  color: var(--color-primary);
+}
+
+.team .member .social i {
+  font-size: 18px;
+  margin: 0 2px;
+}
+
+/*--------------------------------------------------------------
+# Horizontal Pricing Section
+--------------------------------------------------------------*/
+.horizontal-pricing .pricing-item {
+  box-shadow: 0 3px 20px -2px rgba(108, 117, 125, 0.15);
+  padding-bottom: 30px;
+  background: #fff;
+  height: 100%;
+  position: relative;
+}
+
+.horizontal-pricing h3 {
+  font-weight: 700;
+  margin-bottom: 0;
+  font-size: 24px;
+  color: var(--color-secondary);
+}
+
+.horizontal-pricing h4 {
+  font-size: 48px;
+  color: var(--color-primary);
+  font-weight: 400;
+  font-family: var(--font-primary);
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.horizontal-pricing h4 sup {
+  font-size: 28px;
+}
+
+.horizontal-pricing h4 span {
+  color: rgba(108, 117, 125, 0.8);
+  font-size: 18px;
+}
+
+.horizontal-pricing ul {
+  padding: 20px 0;
+  list-style: none;
+  color: #6c757d;
+  text-align: left;
+  line-height: 20px;
+}
+
+.horizontal-pricing ul li {
+  padding-top: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.horizontal-pricing ul i {
+  color: #059652;
+  font-size: 24px;
+  padding-right: 3px;
+}
+
+.horizontal-pricing ul .na {
+  color: rgba(108, 117, 125, 0.5);
+}
+
+.horizontal-pricing ul .na i {
+  color: rgba(108, 117, 125, 0.5);
+}
+
+.horizontal-pricing ul .na span {
+  text-decoration: line-through;
+}
+
+.horizontal-pricing .buy-btn {
+  display: inline-block;
+  padding: 12px 40px;
+  border-radius: 4px;
+  color: #fff;
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  transition: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: 0.3s;
+  font-family: var(--font-primary);
+}
+
+.horizontal-pricing .buy-btn:hover {
+  background: #406aff;
+  border-color: #406aff;
+}
+
+.horizontal-pricing .featured {
+  background: var(--color-primary);
+}
+
+.horizontal-pricing .featured h3,
+.horizontal-pricing .featured h4,
+.horizontal-pricing .featured h4 span,
+.horizontal-pricing .featured ul,
+.horizontal-pricing .featured ul .na,
+.horizontal-pricing .featured ul i,
+.horizontal-pricing .featured ul .na i {
+  color: #fff;
+}
+
+.horizontal-pricing .featured .buy-btn {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: #fff;
+}
+
+.horizontal-pricing .featured .buy-btn:hover {
+  background: #fff;
+  color: var(--color-primary);
+}
+
+
+/*--------------------------------------------------------------
+# Contact Section
+--------------------------------------------------------------*/
+.contact .info-item+.info-item {
+  margin-top: 40px;
+}
+
+.contact .info-item i {
+  font-size: 20px;
+  background: var(--color-primary);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+  margin-right: 15px;
+}
+
+.contact .info-item h4 {
+  padding: 0;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--color-secondary);
+}
+
+.contact .info-item p {
+  padding: 0;
+  margin-bottom: 0;
+  font-size: 14px;
+  color: rgba(14, 29, 52, 0.8);
+}
+
+.contact .php-email-form {
+  width: 100%;
+  background: #fff;
+}
+
+.contact .php-email-form .form-group {
+  padding-bottom: 8px;
+}
+
+.contact .php-email-form .error-message {
+  display: none;
+  color: #fff;
+  background: #df1529;
+  text-align: left;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.contact .php-email-form .error-message br+br {
+  margin-top: 25px;
+}
+
+.contact .php-email-form .sent-message {
+  display: none;
+  color: #fff;
+  background: #059652;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.contact .php-email-form .loading {
+  display: none;
+  background: #fff;
+  text-align: center;
+  padding: 15px;
+}
+
+.contact .php-email-form .loading:before {
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px -6px 0;
+  border: 3px solid #059652;
+  border-top-color: #fff;
+  -webkit-animation: animate-loading 1s linear infinite;
+  animation: animate-loading 1s linear infinite;
+}
+
+.contact .php-email-form input,
+.contact .php-email-form textarea {
+  border-radius: 4px;
+  box-shadow: none;
+  font-size: 14px;
+}
+
+.contact .php-email-form input {
+  height: 44px;
+}
+
+.contact .php-email-form textarea {
+  padding: 10px 12px;
+}
+
+.contact .php-email-form button[type=submit] {
+  background: var(--color-primary);
+  border: 0;
+  padding: 10px 35px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 5px;
+}
+
+.contact .php-email-form button[type=submit]:hover {
+  background: rgba(13, 66, 255, 0.8);
+}
+
+@keyframes animate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
