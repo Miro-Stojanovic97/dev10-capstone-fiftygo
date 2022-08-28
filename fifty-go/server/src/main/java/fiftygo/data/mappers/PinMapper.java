@@ -18,7 +18,7 @@ public class PinMapper implements RowMapper<Pin> {
         }
         pin.setPinPriority(rs.getInt("pin_priority"));
         pin.setPinDidIt(rs.getBoolean("pin_did_it"));
-        pin.setUserId(rs.getInt("user_id"));
+        pin.setAppUserId(rs.getInt("user_id"));
         return pin;
     }
 }

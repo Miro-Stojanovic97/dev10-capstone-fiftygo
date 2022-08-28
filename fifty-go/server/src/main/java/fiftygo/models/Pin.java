@@ -30,7 +30,7 @@ public class Pin {
     private Type type;
 
     @Min(value = 1, message = "userId must be greater than 0.")
-    private int userId;
+    private int appUserId;
 
     public Pin() {
     }
@@ -43,7 +43,7 @@ public class Pin {
         this.pinDidIt = pinDidIt;
         this.city = city;
         this.type = type;
-        this.userId = userId;
+        this.appUserId = userId;
     }
 
     public int getPinId() {
@@ -102,12 +102,12 @@ public class Pin {
         this.type = type;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getAppUserId() {
+        return appUserId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setAppUserId(int appUserId) {
+        this.appUserId = appUserId;
     }
 
     @Override

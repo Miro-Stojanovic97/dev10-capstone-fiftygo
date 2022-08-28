@@ -21,7 +21,7 @@ function Nav() {
                                         <a className="navbar-brand nav-link" aria-current="page" href="/features">Features</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="navbar-brand nav-link" aria-current="page" href="/pins">Pins</a>
+                                        <a className="navbar-brand nav-link" aria-current="page" href="/pinlist">Pins</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="navbar-brand nav-link" aria-current="page" href="/trips">Trips</a>

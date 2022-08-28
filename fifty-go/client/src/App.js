@@ -127,14 +127,14 @@ function App() {
              <Route exact path="/features">
                <Features />
              </Route>
-             {/* <Route path="/pinlist">
+             <Route path="/pinlist">
               {console.log("in routes", auth)}
               {auth.user ? (<PinList />) : (<Redirect to="/login" />)}
-             </Route> */}
-             <Route path="/pins">
+             </Route>
+             {/* <Route path="/pins">
               {console.log("in routes", auth)}
               {auth.user ? (<Pins />) : (<Redirect to="/login" />)}
-             </Route>
+             </Route> */}
              <Route path={['/pins/add', '/pins/edit/:id']}>
               {auth.user ? (
                 <PinForm />

@@ -176,7 +176,7 @@ class TripJdbcTemplateRepositoryTest {
         pin.setPinDidIt(false);
         pin.setCity(city);
         pin.setType(type);
-        pin.setUserId(3);
+        pin.setAppUserId(3);
         pins.add(pin);
         return pins;
     }

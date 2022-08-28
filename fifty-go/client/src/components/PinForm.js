@@ -32,7 +32,16 @@ function PinForm() {
   useEffect(() => {
     // Make sure that we have an "id" value...
     if (id) {
-      fetch(`http://localhost:8080/api/pin/${id}`)
+
+      const init = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${auth.user.token}`
+        },
+      };
+
+      fetch(`http://localhost:8080/fiftygo/pin/${id}`, init)
         .then(response => {
           if (response.status === 200) {
             return response.json();
@@ -156,7 +165,7 @@ function PinForm() {
       .then(data => {
         if (!data) {
           // Send the user back to the list route.
-          history.push('/pin');
+          history.push('/pins');
         } else {
           setErrors(data);
         }

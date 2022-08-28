@@ -169,7 +169,7 @@ class PinJdbcTemplateRepositoryTest {
         pin.setPinDidIt(false);
         pin.setCity(city);
         pin.setType(type);
-        pin.setUserId(3);
+        pin.setAppUserId(3);
         return pin;
     }
 }

@@ -77,7 +77,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
                 ps.setString(5, null);
             }
             ps.setInt(6, pin.getCity().getCityId());
-            ps.setInt(7, pin.getUserId());
+            ps.setInt(7, pin.getAppUserId());
             return ps;
         }, keyHolder);
 

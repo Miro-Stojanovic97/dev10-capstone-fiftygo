@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { useEffect, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
 
 //TODO: figure out exactly what needs to be in here
@@ -358,10 +358,12 @@ function Pins() {
                   <td>{pin.city.stateAbr}</td>
                   <td>
                     <div className="float-right mr-2">
-                      <button className="btn btn-primary btn-sm mr-2" onClick={() => handleEditPin(pin.pinId)}>
-                        <i className="bi bi-pencil-square"></i> Edit
-                      </button>
-                      <button className="btn btn-danger btn-sm" onClick={() => handleDeletePin(pin.pinId)}>
+                    {auth.user && auth.user.appUserId === pin.appUserId && (
+                    <Link className="btn btn-primary btn-sm mr-2" to={`/pins/edit/${pin.pinId}`}>
+                      <i className="bi bi-pencil-square"></i> Edit
+                    </Link>
+                  )}
+                      <button className="btn btn-danger btn-sm" onClick={() => handleDeletePin(pin)}>
                         <i className="bi bi-trash"></i> Delete
                       </button>
                     </div>
