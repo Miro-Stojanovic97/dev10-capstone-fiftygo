@@ -11,7 +11,9 @@ import '../home.css';
 //TODO: Format the divs and padding/margins properly so the page looks nice, while not 
 //interfering with the header/footer positions.
 
-//TODO: See TODO on line 22 of home.css
+
+
+//TODO: See TODO on line 9 of home.css. Footer is acting up
 
 
 function Home() {
