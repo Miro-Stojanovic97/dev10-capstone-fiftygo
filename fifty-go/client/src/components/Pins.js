@@ -278,18 +278,18 @@ function Pins() {
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="pin-description">Description:</label>
-              <input id="pin-description" name="pin-description" type="text" className="form-control"
+              <input id="pin-description" name="pinDescription" type="text" className="form-control"
                 value={pin.pinDescription} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="pin-type">Type:</label>
-              <select id="pin-type" name="pin-type" className="form-control"
+              <select id="pin-type" name="typeName" className="form-control"
                 value={pin.type.typeName} onChange={handleChange}>
               </select>
             </div>
             <div className="form-group">
               <label htmlFor="pin-date">Date:</label>
-              <input id="pin-date" name="pin-date" type="pin-date" className="form-control"
+              <input id="pin-date" name="pinDate" type="pin-date" className="form-control"
                 value={pin.pinDate} onChange={handleChange} />
             </div>
             <div className="form-group">
