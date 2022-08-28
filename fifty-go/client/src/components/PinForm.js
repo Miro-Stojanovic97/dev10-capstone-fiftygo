@@ -10,8 +10,13 @@ const PIN_DEFAULT = {
     pinDate: "",
     pinPriority: 0,
     pinDidIt: 0,
-    pinCity: "",
-    pinState: ""
+    city: {
+      cityName: "",
+      stateAbr: "",
+    },
+    type: {
+      typeName: ""
+    }
 };
 
 function PinForm() {
@@ -181,14 +186,18 @@ function PinForm() {
 
 
       {/* const PIN_DEFAULT = {
-    pinDescription: "",
-    pinType: "",
-    pinDate: "",
-    pinPriority: 0,
-    pinDidIt: 0,
-    pinCity: "",
-    pinState: ""
-}; */}
+          pinDescription: "",
+          pinType: "",
+          pinDate: "",
+          pinPriority: 0,
+          pinDidIt: 0,
+          city: {
+
+          },
+          type: {
+
+          }
+          }; */}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="description">Description:</label>
@@ -198,7 +207,7 @@ function PinForm() {
         <div className="form-group">
           <label htmlFor="type">Type:</label>
           <input id="type" name="type" type="text" className="form-control"
-            value={pin.pinDescription} onChange={handleChange} />
+            value={pin.type.typeName} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label htmlFor="date">Date:</label>
@@ -211,19 +220,19 @@ function PinForm() {
             value={pin.pinPriority} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="didIt">Did It?:</label>
-          <input id="didIt" name="didIt" className="form-control"
-            value={pin.pinDidIt} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="city">City:</label>
-          <input id="city" name="city" className="form-control"
-            value={pin.pinCity} onChange={handleChange} />
+          <label className="form-check-label" htmlFor="didIt">Did It?:</label>
+          <input id="didIt" name="didIt" type="checkbox" className="form-check-input"
+            checked={pin.pinDidIt} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label htmlFor="state">State:</label>
           <input id="state" name="dstate" className="form-control"
-            value={pin.pinState} onChange={handleChange} />
+            value={pin.city.stateAbr ? pin.city.stateAbr : "State"} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="city">City:</label>
+          <input id="city" name="city" className="form-control"
+            value={pin.city.cityName} onChange={handleChange} />
         </div>
         <div className="mt-4">
           <button className="btn btn-success mr-2" type="submit">

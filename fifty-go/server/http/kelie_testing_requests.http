@@ -1,7 +1,7 @@
 # file for testing HTTP requests!
 
 @base_url = http://localhost:8080/fiftygo
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImFwcFVzZXJJZCI6MSwiZmlyc3ROYW1lIjoiSm9obiIsImxhc3ROYW1lIjoiU21pdGgiLCJleHAiOjE2NjE2MzUyODl9.BejrIbcYzYpEE4SHTkncj1u59le9GcU5RbCVxzGcT88
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImFwcFVzZXJJZCI6MSwiZmlyc3ROYW1lIjoiSm9obiIsImxhc3ROYW1lIjoiU21pdGgiLCJleHAiOjE2NjE3MjkzMjB9.7QwKx0fbOywk0mDCSNwP34Sfs8foCZPzTWnbW7FRVYk
 
 
 ### technically, get an authorization JWT token (basically, log in)
@@ -88,6 +88,10 @@ Authorization: Bearer {{jwt}}
     },
     "userId": 1
 }
+
+### GET Pin by ID, using authorization
+GET {{base_url}}/pin/1 HTTP/1.1
+Authorization: Bearer {{jwt}}
 
 ### DELETE Pin by ID, using authorization
 DELETE {{base_url}}/pin/1 HTTP/1.1
