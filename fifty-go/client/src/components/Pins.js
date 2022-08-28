@@ -306,13 +306,13 @@ function Pins() {
               <label htmlFor="pin-state">State:</label>
               <select id="pin-state" name="pin-state" className="form-control"
               //not sure if pin.city.state declaration will work right
-                value={pin.city.state} onChange={handleChange}> 
+                value={pin.city.stateAbr} onChange={handleChange}> 
               </select>
             </div>
             <div className="form-group">
               <label htmlFor="pin-city">City:</label>
               <select id="pin-city" name="pin-city" className="form-control"
-                value={pin.city} onChange={handleChange}>
+                value={pin.city.cityName} onChange={handleChange}>
               </select>
             </div>
             <div className="mt-4">
@@ -350,11 +350,12 @@ function Pins() {
               {pins.map(pin => (
                 <tr key={pin.pinId}>
                   <td>{pin.pinDescription}</td>
-                  <td>{pin.pinType}</td>
+                  <td>{pin.type.typeName}</td>
                   <td>{pin.pinDate}</td>
                   <td>{pin.pinPriority}</td>
-                  <td>{pin.pinDidIt}</td>
-                  <td>{pin.pinCity}</td>
+                  <td>{pin.pinDidIt ? 'Yes' : 'No'}</td>
+                  <td>{pin.city.cityName}</td>
+                  <td>{pin.city.stateAbr}</td>
                   <td>
                     <div className="float-right mr-2">
                       <button className="btn btn-primary btn-sm mr-2" onClick={() => handleEditPin(pin.pinId)}>

@@ -32,7 +32,7 @@ function PinList() {
       }, []); // An empty dependency array tells to run our side effect once when the component is initially loaded.    
   
     const handleDeletePin = (pinId) => {
-      const pin = pins.find(pin => pin.id === pinId);
+      const pin = pins.find(pin => pin.pinId === pinId);
   
       //TODO: Are pinDescription / pinCity callable here?
       if (window.confirm(`Delete pin ${pin.pinDescription} in ${pin.pinCity}?`)) {
@@ -86,11 +86,11 @@ function PinList() {
             {pins.map(pin => (
               <tr key={pin.pinId}>
                 <td>{pin.pinDescription}</td>
-                <td>{pin.type}</td>
+                <td>{pin.type.typeName}</td>
                 <td>{pin.pinDate}</td>
                 <td>{pin.pinPriority}</td>
                 <td>{pin.pinDidIt ? 'Yes' : 'No'}</td>
-                <td>{pin.city}</td>
+                <td>{pin.city.cityName}</td>
                 <td>{pin.city.stateAbr}</td>
                 <td>
                   <div className="float-right mr-2">
