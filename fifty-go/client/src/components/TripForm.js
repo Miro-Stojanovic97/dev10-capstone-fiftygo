@@ -196,7 +196,8 @@ function TripForm() {
 
   return (
     <>
-      <h2 className="mb-4">{id ? 'Update Trip' : 'Add Trip'}</h2>
+    <div className="container">
+      <h2 className="mt-4">{id ? 'Update Trip' : 'Add Trip'}</h2>
 
       <Errors errors={errors} />
 
@@ -211,30 +212,30 @@ function TripForm() {
             //...
 }; */}
        <form onSubmit={handleSubmit}>
-         <div className="form-group">
+         <div className="form-group mt-3">
            <label htmlFor="tripDescription">Description:</label>
            <input id="tripDescription" name="tripDescription" type="text" className="form-control"
             value={trip.tripDescription} onChange={handleChange()} />
          </div>
-         <div className="form-group">
+         <div className="form-group mt-3">
            <label htmlFor="tripStartDate">Start Date:</label>
            <input id="tripStartDate" name="tripStartDate" type="date" className="form-control"
-             value={trip.tripStartDate} onChange={handleChange} />
+             value={trip.tripStartDate} onChange={handleChange()} />
          </div>
-         <div className="form-group">
+         <div className="form-group mt-3">
            <label htmlFor="tripEndDate">End Date:</label>
            <input id="tripEndDate" name="tripEndDate" type="date" className="form-control"
-             value={trip.tripEndDate} onChange={handleChange} />
+             value={trip.tripEndDate} onChange={handleChange()} />
          </div>
-         <div className="form-group">
+         <div className="form-group mt-3">
            <label htmlFor="tripPriority">Priority:</label>
            <input id="tripPriority" name="tripPriority" type="number" className="form-control"
-             value={trip.tripPriority} onChange={handleChange} />
+             value={trip.tripPriority} onChange={handleChange()} />
          </div>
-         <div className="form-group">
+         <div className="form-group mt-3">
            <label className="form-check-label" htmlFor="tripDidIt">Did It?:</label>
            <input id="tripDidIt" name="tripDidIt" type="checkbox" className="form-check-input"
-             checked={trip.tripDidIt} onChange={handleChange} />
+             checked={trip.tripDidIt} onChange={handleChange()} />
          </div>
 
         {/* //TODO: Add the ability to add Pins in the form. 
@@ -250,6 +251,7 @@ function TripForm() {
            </Link>
          </div>
        </form>
+       </div>
      </>
    );
  }
