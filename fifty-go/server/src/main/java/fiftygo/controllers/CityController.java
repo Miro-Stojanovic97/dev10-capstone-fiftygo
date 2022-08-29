@@ -4,7 +4,10 @@ import fiftygo.domain.CityService;
 import fiftygo.models.City;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin//(origins = {"http://localhost:3000"})
@@ -20,6 +23,19 @@ public class CityController {
     @GetMapping
     public List<City> findAll() {
         return service.findAll();
+    }
+
+    @GetMapping("/states")
+    public List<String> findAllStates() {
+        List<City> cities = service.findAll();
+        List<String> states = new ArrayList<>();
+        for (City c : cities) {
+            if (!states.contains(c.getStateName())) {
+                states.add(c.getStateName());
+            }
+        }
+        return states.stream().sorted(
+                Comparator.comparing(n -> n)).collect(Collectors.toList());
     }
 
     @GetMapping("/state/{stateAbr}")

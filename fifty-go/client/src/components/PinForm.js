@@ -11,16 +11,11 @@ const PIN_DEFAULT = {
     pinPriority: 0,
     pinDidIt: false,
     city: {
-      cityId: 0,
       cityName: "",
       stateAbr: "",
-      stateName: "",
-      cityLatitude: "1.0000",
-      cityLongitude: "1.0000"
     },
     type: {
-      typeId: 0,
-      typeName: ""
+      typeName: "",
     },
     userId: 0
 };
@@ -66,20 +61,31 @@ function PinForm() {
     }
   }, [id]); // Hey React... please call my arrow function every time the "id" route parameter changes value
 
-  const handleChange = (event) => {
-    // Make a copy of the object.
-    const newPin = { ...pin };
-
+  const handleChange = level => (event) => {
+     // Make a copy of the object.
+    if (!level) {
+      if (event.target.type === 'checkbox') {
+            setPin({
+              ...pin, [event.target.name] : event.target.checked
+            })
+            
+          } else {
+            setPin({
+              ...pin, [event.target.name] : event.target.value
+            })
+          } 
+    } else {
+      setPin({
+        ...pin,
+        [level]: {
+          ...pin[level], [event.target.name] : event.target.value
+        }
+      })
+    }
     // Update the value of the property that just changed.
     // We can "index" into the object using square brackets (just like we can do with arrays).
-    if (event.target.type === 'checkbox') {
-      newPin[event.target.name] = event.target.checked;
-    } else {
-      newPin[event.target.name] = event.target.value;
-    }
-
-    setPin(newPin);
-    //console.log(pin);
+    
+    console.log(pin);
   };
 
   const handleSubmit = (event) => {
@@ -212,22 +218,26 @@ function PinForm() {
         <div className="form-group">
           <label htmlFor="pinDescription">Description:</label>
           <input id="pinDescription" name="pinDescription" type="text" className="form-control"
-            defaultValue={pin.pinDescription} onChange={handleChange} />
+            value={pin.pinDescription} onChange={handleChange()} />
         </div>
         <div className="form-group">
-          <label htmlFor="type.typeName">Type:</label>
-          <input id="type.typeName" name="type.typeName" type="text" className="form-control"
-            defaultValue={pin.type.typeName} onChange={handleChange} />
+          <label htmlFor="typeName">Type:</label>
+          <input
+            id="typeName"
+            name="typeName"
+            type="text"
+            className="form-control"
+            defaultValue={pin.type.typeName} onChange={handleChange('type')} />
         </div>
         <div className="form-group">
           <label htmlFor="pinDate">Date:</label>
           <input id="pinDate" name="pinDate" type="date" className="form-control"
-            defaultValue={pin.pinDate} onChange={handleChange} />
+            value={pin.pinDate} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label htmlFor="pinPriority">Priority:</label>
           <input id="pinPriority" name="pinPriority" type="number" className="form-control"
-            defaultValue={pin.pinPriority} onChange={handleChange} />
+            value={pin.pinPriority} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label className="form-check-label" htmlFor="pinDidIt">Did It?:</label>
@@ -235,9 +245,61 @@ function PinForm() {
             checked={pin.pinDidIt} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="city.stateAbr">State:</label>
-          <input id="city.stateAbr" name="city.stateAbr" className="form-control"
-            defaultValue={pin.city.stateAbr} onChange={handleChange} />
+          <label htmlFor="stateAbr">State:</label>
+          <select id="stateAbr" name="city: {stateAbr}" className="form-control"
+            defaultValue={pin.city.stateAbr} onChange={handleChange}>
+              <option value="AL">Alabama</option>
+              <option value="AK">Alaska</option>
+              <option value="AZ">Arizona</option>
+              <option value="AR">Arkansas</option>
+              <option value="CA">California</option>
+              <option value="CO">Colorado</option>
+              <option value="CT">Connecticut</option>
+              <option value="DE">Delaware</option>
+              <option value="DC">District Of Columbia</option>
+              <option value="FL">Florida</option>
+              <option value="GA">Georgia</option>
+              <option value="HI">Hawaii</option>
+              <option value="ID">Idaho</option>
+              <option value="IL">Illinois</option>
+              <option value="IN">Indiana</option>
+              <option value="IA">Iowa</option>
+              <option value="KS">Kansas</option>
+              <option value="KY">Kentucky</option>
+              <option value="LA">Louisiana</option>
+              <option value="ME">Maine</option>
+              <option value="MD">Maryland</option>
+              <option value="MA">Massachusetts</option>
+              <option value="MI">Michigan</option>
+              <option value="MN">Minnesota</option>
+              <option value="MS">Mississippi</option>
+              <option value="MO">Missouri</option>
+              <option value="MT">Montana</option>
+              <option value="NE">Nebraska</option>
+              <option value="NV">Nevada</option>
+              <option value="NH">New Hampshire</option>
+              <option value="NJ">New Jersey</option>
+              <option value="NM">New Mexico</option>
+              <option value="NY">New York</option>
+              <option value="NC">North Carolina</option>
+              <option value="ND">North Dakota</option>
+              <option value="OH">Ohio</option>
+              <option value="OK">Oklahoma</option>
+              <option value="OR">Oregon</option>
+              <option value="PA">Pennsylvania</option>
+              <option value="RI">Rhode Island</option>
+              <option value="SC">South Carolina</option>
+              <option value="SD">South Dakota</option>
+              <option value="TN">Tennessee</option>
+              <option value="TX">Texas</option>
+              <option value="UT">Utah</option>
+              <option value="VT">Vermont</option>
+              <option value="VA">Virginia</option>
+              <option value="WA">Washington</option>
+              <option value="WV">West Virginia</option>
+              <option value="WI">Wisconsin</option>
+              <option value="WY">Wyoming</option>
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="city.cityName">City:</label>
@@ -257,4 +319,5 @@ function PinForm() {
   );
 }
 
+            
 export default PinForm;
