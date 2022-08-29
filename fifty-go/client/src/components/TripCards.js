@@ -17,10 +17,11 @@ function TripCards() {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${auth.user.token}`
+
           },
         };
   
-          fetch(`http://localhost:8080/fiftygo/trip/user/${auth.user.appUserId}`, init)
+        fetch(`http://localhost:8080/fiftygo/trip/user/${auth.user.appUserId}`, init)
             .then(response => {
               if (response.status === 200) {
                 return response.json();
@@ -32,28 +33,27 @@ function TripCards() {
             .catch(console.log);
         }, []); // An empty dependency array tells to run our side effect once when the component is initially loaded.
 
-        const handleDeleteTrip = (tripId) => {
-            const trip = trips.find(trip => trip.tripId === tripId);
+    const handleDeleteTrip = (tripId) => {
+        const trip = trips.find(trip => trip.tripId === tripId);
         
-            //TODO: Are tripDescription / tripEnd/StartDate callable here?
-            if (window.confirm(`Delete trip ${trip.tripDescription} from ${trip.tripStartDate} to ${trip.tripEndDate}?`)) {
-              const init = {
-                method: 'DELETE',
-                headers: {
-                  'Authorization': `Bearer ${auth.user.token}`
-                },
-              };
+        if (window.confirm(`Delete trip ${trip.tripDescription} from ${trip.tripStartDate} to ${trip.tripEndDate}?`)) {
+            const init = {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${auth.user.token}`
+            },
+            };
         
-              fetch(`http://localhost:8080/fiftygo/trip/${tripId}`, init)
-                .then(response => {
-                  if (response.status === 204) {
+            fetch(`http://localhost:8080/fiftygo/trip/${tripId}`, init)
+            .then(response => {
+                if (response.status === 204) {
                     // create a copy of the trips array
                     // remove the trip that we need to delete
                     const newTrips = trips.filter(trip => trip.id !== tripId);
         
                     // update the trips state variable
                     setTrips(newTrips);
-                  } else {
+                } else {
                     return Promise.reject(`Unexpected status code: ${response.status}`);
                   }
                 })
@@ -68,16 +68,12 @@ function TripCards() {
                     <button className="btn btn-primary mt-4" onClick={() => history.push('/trip/add')}>
                         <i className="bi bi-plus-circle"></i> Add Trip
                     </button>
-                    {/* <Link className="btn btn-primary mt-4" to="/trips/add">
-                         <i className="bi bi-plus-circle"></i> Add Trip
-                     </Link> */}
                     </div>
                     <div className="container">
                         <div className="row">
                             {trips.map(trip => {
                                 <div className="col-12">
                                     <div key={trip.tripId + "-key"} className="card mb-5">
-                                        <div className="row no-gutters">
                                         <div className="card-body">
                                             <h5 className="card-title mb-3">{trip.tripDescription}</h5>
                                             <div className="col-12">
@@ -88,6 +84,9 @@ function TripCards() {
                                             </div>
                                             <div className="col-6">
                                                 <h6 className="card-subtitle mb-2">Completed?: {trip.tripDidIt}</h6>
+                                            </div>
+                                            <div className="col-6">
+                                                <h6 className="card-text mb-2">Pins: {trip.pins}</h6>
                                             </div>
                                             <div className="col-12">
                                                 {auth.user && auth.user.appUserId && (
@@ -101,7 +100,6 @@ function TripCards() {
                                                 </button>
                                                 )}
                                             </div>
-                                        </div>
                                         </div>
                                     </div>
                                 </div>   

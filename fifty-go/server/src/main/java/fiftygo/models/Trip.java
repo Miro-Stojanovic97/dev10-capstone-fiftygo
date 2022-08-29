@@ -22,7 +22,7 @@ public class Trip {
     private int tripPriority;
     @NotNull(message = "Please mark if this trip is completed or not.")
     private boolean tripDidIt;
-    private int userId;
+    private int appUserId;
     private Type type;
 
     private List<Pin> pins;
@@ -31,7 +31,7 @@ public class Trip {
 
     }
 
-    public Trip(int tripId, String tripDescription, LocalDate tripStartDate, LocalDate tripEndDate, String transportation, int tripPriority, boolean tripDidIt, List<Pin> pins, int userId) {
+    public Trip(int tripId, String tripDescription, LocalDate tripStartDate, LocalDate tripEndDate, String transportation, int tripPriority, boolean tripDidIt, List<Pin> pins, int appUserId) {
         this.tripId = tripId;
         this.tripDescription = tripDescription;
         this.tripStartDate = tripStartDate;
@@ -40,7 +40,7 @@ public class Trip {
         this.tripPriority = tripPriority;
         this.tripDidIt = tripDidIt;
         this.pins = pins;
-        this.userId = userId;
+        this.appUserId = appUserId;
     }
 
     public int getTripId() {
@@ -99,12 +99,12 @@ public class Trip {
         this.tripDidIt = tripDidIt;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getAppUserId() {
+        return appUserId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setAppUserId(int appUserId) {
+        this.appUserId = appUserId;
     }
 
     public Type getType() {
@@ -139,6 +139,6 @@ public class Trip {
 
     @Override
     public int hashCode() {
-        return Objects.hash(tripId, tripDescription, tripStartDate, tripEndDate, transportation, tripPriority, tripDidIt, userId);
+        return Objects.hash(tripId, tripDescription, tripStartDate, tripEndDate, transportation, tripPriority, tripDidIt, appUserId);
     }
 }

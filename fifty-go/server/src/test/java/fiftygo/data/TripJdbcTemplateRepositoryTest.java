@@ -82,7 +82,7 @@ class TripJdbcTemplateRepositoryTest {
         assertEquals("rental car", idTwo.getTransportation());
         assertEquals(1, idTwo.getTripPriority());
         assertEquals(true, idTwo.isTripDidIt());
-        assertEquals(3, idTwo.getUserId());
+        assertEquals(3, idTwo.getAppUserId());
     }
 
     @Test
@@ -159,7 +159,7 @@ class TripJdbcTemplateRepositoryTest {
         newTrip.setTransportation("bus");
         newTrip.setTripPriority(1);
         newTrip.setTripDidIt(false);
-        newTrip.setUserId(1);
+        newTrip.setAppUserId(1);
         newTrip.setPins(makePin());
         return newTrip;
     }

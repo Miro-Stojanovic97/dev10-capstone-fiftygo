@@ -107,7 +107,7 @@ class TripServiceTest {
         newTrip.setTransportation("bus");
         newTrip.setTripPriority(1);
         newTrip.setTripDidIt(false);
-        newTrip.setUserId(1);
+        newTrip.setAppUserId(1);
         newTrip.setPins(makePin());
         return newTrip;
     }

@@ -81,7 +81,7 @@ public class TripJdbcTemplateRepository implements TripRepository{
             }
             ps.setInt(5, trip.getTripPriority());
             ps.setBoolean(6, trip.isTripDidIt());
-            ps.setInt(7, trip.getUserId());
+            ps.setInt(7, trip.getAppUserId());
             return ps;
         }, keyHolder);
 

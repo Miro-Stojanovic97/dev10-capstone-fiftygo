@@ -9,6 +9,7 @@ const TRIP_DEFAULT = {
     tripTransportation: "",
     tripPriority: 0,
     tripDidIt: 0,
+    tripPins: {}
 };
 
 
@@ -342,6 +343,9 @@ function Trips() {
                                             </div>
                                             <div className="col-6">
                                                 <h6 className="card-subtitle mb-2">Completed?: {trip.tripDidIt}</h6>
+                                            </div>
+                                            <div className="col-6">
+                                                <h6 className="card-text mb-2">Pins: {trip.pins}</h6>
                                             </div>
                                             <div className="col-12">
                                                 <button className="btn btn-primary btn-sm mr-2" onClick={() => handleEditTrip(trip.id)}>
