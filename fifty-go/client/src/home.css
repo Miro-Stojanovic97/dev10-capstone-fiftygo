@@ -8,13 +8,33 @@
 
 /* Currently if you uncomment this, the page looks nicer, but the footer drops off.
 If its commented, the footer is in its normal position. TODO: Figure that out. */
-section {
-  padding: 80px 0;
-  overflow: hidden;
+
+section.about {
+  padding-top: 80px;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding-bottom: 50px;
 }
 
-/* //I tried fixing the above issue by singling out the footer section and undoing 
-the padding from the above, but it didn't work. TBD */
+section.stats-counter {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+section.team {
+  margin-top: 40px;
+  margin-bottom: 80px;
+}
+
+section.testimonials {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+section.faq {
+  padding-top: 40px;
+  padding-bottom: 80px;
+}
 section.footer-outer {
   padding: 0px;
   overflow: visible;
@@ -32,7 +52,7 @@ section.footer-outer {
   text-transform: uppercase;
   margin-bottom: 20px;
   padding-bottom: 0;
-  color: #001973;
+  color: #266DD3;
   position: relative;
   z-index: 2;
   margin-bottom: 20px;
@@ -150,7 +170,7 @@ section.footer-outer {
   font-weight: 700;
   font-size: 32px;
   font-family: var(--font-secondary);
-  color: #001f8d;
+  color: #266DD3;
 }
 
 .about .content ul {
@@ -465,7 +485,7 @@ section.footer-outer {
 # Testimonials Section
 --------------------------------------------------------------*/
 .testimonials {
-  background-image: linear-gradient(-90deg, #F6AE2D, #7CA982);
+  background-image: linear-gradient(-90deg, #7CA982, #F6AE2D);
   /* background: #F6AE2D; */
 }
 
@@ -498,9 +518,10 @@ section.footer-outer {
 /*--------------------------------------------------------------
 # Stats Counter Section
 --------------------------------------------------------------*/
-.stats-counter .stats-item {
+.stats-counter {
   padding: 5px;
   width: 100%;
+  background-image: linear-gradient(-90deg, #F6AE2D, #7CA982);
 }
 
 .stat-counter {
@@ -509,6 +530,8 @@ section.footer-outer {
   display: block;
   color: black;
   font-weight: 700;
+  /* position: relative;
+  bottom: 10%; */
 }
 
 .stat-text {

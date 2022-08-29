@@ -64,8 +64,8 @@ function Home() {
                 </section>
 
 
-                <section id="stats-counter" className="stats-counter pt-0">
-                    <div className="container" data-aos="fade-up">
+                <section id="stats-counter" className="pt-0">
+                    <div className="container stats-counter">
 
                         <div className="row gy-4">
 
