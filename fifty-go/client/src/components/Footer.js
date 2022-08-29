@@ -9,7 +9,7 @@ function Footer() {
         //potentially add 'fixed-top' if we have to scroll a lot w/ pins/trips
         <>
             <section className="footer-outer">
-                <footer className="text-center text-white app-footer">
+                <footer className="text-center text-white app-footer footer-outer">
                     <div className="register-text">
                         <section className="">
                             <p className="justify-content-center align-items-center">
