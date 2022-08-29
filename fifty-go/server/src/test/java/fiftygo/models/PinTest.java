@@ -22,7 +22,7 @@ class PinTest {
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<Pin>> violations = validator.validate(pin);
 
-        assertEquals(4, violations.size());
+        assertEquals(3, violations.size());
     }
 
 }

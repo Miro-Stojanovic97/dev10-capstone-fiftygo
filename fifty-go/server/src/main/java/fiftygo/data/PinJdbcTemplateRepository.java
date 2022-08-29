@@ -27,7 +27,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
 
     @Override
     public List<Pin> findAll() throws DataAccessException {
-        final String sql = "select pin_id, pin_description, pin_date, pin_priority, pin_did_it, user_id from pin;";
+        final String sql = "select pin_id, city_id, type_id, pin_description, pin_date, pin_priority, pin_did_it, user_id from pin;";
         List<Pin> pins = jdbcTemplate.query(sql, new PinMapper());
         pins.forEach(this::addCity);
         pins.forEach(this::addType);
@@ -36,7 +36,7 @@ public class PinJdbcTemplateRepository implements PinRepository{
 
     @Override
     public List<Pin> findByUserId(int userId) throws DataAccessException {
-        final String sql = "select pin_id, pin_description, pin_date, pin_priority, pin_did_it, user_id " +
+        final String sql = "select pin_id, pin_description, city_id, type_id, pin_date, pin_priority, pin_did_it, user_id " +
                 "from pin " +
                 "where user_id = ?;";
         List<Pin> pins = jdbcTemplate.query(sql, new PinMapper(), userId);
@@ -47,9 +47,19 @@ public class PinJdbcTemplateRepository implements PinRepository{
 
     @Override
     public Pin findById(int pinId) throws DataAccessException {
-        final String sql = "select pin_id, pin_description, pin_date, pin_priority, pin_did_it, user_id " +
-                "from pin " +
-                "where pin_id = ?;";
+        final String sql = """
+                select
+                    pin_id,
+                    pin_description,
+                    type_id,
+                    city_id,
+                    pin_date,
+                    pin_priority,
+                    pin_did_it,
+                    user_id
+                from pin
+                where pin_id = ?;
+                """;
         Pin pin = jdbcTemplate.query(sql, new PinMapper(), pinId).stream()
                 .findFirst().orElse(null);
         if (pin != null) {
@@ -71,12 +81,8 @@ public class PinJdbcTemplateRepository implements PinRepository{
             ps.setDate(2, pin.getPinDate() == null ? null : Date.valueOf(pin.getPinDate()));
             ps.setInt(3, pin.getPinPriority());
             ps.setBoolean(4, pin.getPinDidIt());
-            if (pin.getType() != null) {
-                ps.setInt(5, pin.getType().getTypeId());
-            } else {
-                ps.setString(5, null);
-            }
-            ps.setInt(6, pin.getCity().getCityId());
+            ps.setInt(5, pin.getTypeId());
+            ps.setInt(6, pin.getCityId());
             ps.setInt(7, pin.getAppUserId());
             return ps;
         }, keyHolder);
@@ -92,15 +98,21 @@ public class PinJdbcTemplateRepository implements PinRepository{
     @Override
     public boolean update(Pin pin) throws DataAccessException {
 
-        final String sql = "update pin set "
-                + "pin_description = ?, "
-                + "pin_date = ?, "
-                + "pin_priority = ?, "
-                + "pin_did_it = ? "
-                + "where pin_id = ?;";
+        final String sql = """
+                update pin set
+                    pin_description = ?,
+                    type_id = ?,
+                    city_id = ?,
+                    pin_date = ?,
+                    pin_priority = ?,
+                    pin_did_it = ?
+                where pin_id = ?;
+                """;
 
         return jdbcTemplate.update(sql,
                 pin.getPinDescription(),
+                pin.getTypeId(),
+                pin.getCityId(),
                 pin.getPinDate(),
                 pin.getPinPriority(),
                 pin.getPinDidIt(),

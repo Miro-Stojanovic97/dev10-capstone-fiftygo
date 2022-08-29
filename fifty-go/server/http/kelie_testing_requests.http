@@ -1,7 +1,7 @@
 # file for testing HTTP requests!
 
 @base_url = http://localhost:8080/fiftygo
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImFwcFVzZXJJZCI6MSwiZmlyc3ROYW1lIjoiSm9obiIsImxhc3ROYW1lIjoiU21pdGgiLCJleHAiOjE2NjE4MDA4NzN9.rGBqwRtLZtBk9ZR1hU7wfOEVkEksY8TJ0bHq4TMf6w8
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImFwcFVzZXJJZCI6MSwiZmlyc3ROYW1lIjoiSm9obiIsImxhc3ROYW1lIjoiU21pdGgiLCJleHAiOjE2NjE4MDk2NDB9.zCy3kKzlW4e4q-QI4Nu08CMNJEoTfaRph174K7I_qFs
 
 
 ### technically, get an authorization JWT token (basically, log in)
@@ -48,19 +48,9 @@ Authorization: Bearer {{jwt}}
     "pinDate": "2022-10-31",
     "pinPriority": 1,
     "pinDidIt": false,
-    "city": {
-        "cityId": 1630035577,
-        "cityName": "San Juan",
-        "stateAbr": "PR",
-        "stateName": "Puerto Rico",
-        "cityLatitude": "18.3985",
-        "cityLongitude": "-66.0610"
-    },
-    "type": {
-        "typeId": 26,
-        "typeName": "ski"
-    },
-    "userId": 4
+    "cityId": 1630035577,
+    "typeId": 26,
+    "appUserId": 1
 }
 
 ### PUT (update) an existing Pin, using authorization
@@ -74,20 +64,11 @@ Authorization: Bearer {{jwt}}
     "pinDate": "2022-10-31",
     "pinPriority": 1,
     "pinDidIt": false,
-    "city": {
-        "cityId": 1630035577,
-        "cityName": "San Juan",
-        "stateAbr": "PR",
-        "stateName": "Puerto Rico",
-        "cityLatitude": "18.3985",
-        "cityLongitude": "-66.0610"
-    },
-    "type": {
-        "typeId": 26,
-        "typeName": "ski"
-    },
-    "userId": 1
+    "cityId": 1630035577,
+    "typeId": 26,
+    "appUserId": 1
 }
+
 
 ### GET Pin by ID, using authorization
 GET {{base_url}}/pin/1 HTTP/1.1

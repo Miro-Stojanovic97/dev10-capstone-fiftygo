@@ -24,10 +24,13 @@ public class Pin {
     //defaults to false, so no worry about being null
     private boolean pinDidIt;
 
-    @NotNull(message = "City is required.")
+//    @NotNull(message = "City is required.")
     private City city;
 
     private Type type;
+
+    private int cityId;
+    private int typeId;
 
     @Min(value = 1, message = "userId must be greater than 0.")
     private int appUserId;
@@ -35,7 +38,7 @@ public class Pin {
     public Pin() {
     }
 
-    public Pin(int pinId, String pinDescription, LocalDate pinDate, int pinPriority, boolean pinDidIt, City city, Type type, int userId) {
+    public Pin(int pinId, String pinDescription, LocalDate pinDate, int pinPriority, boolean pinDidIt, City city, Type type, int cityId, int typeId, int appUserId) {
         this.pinId = pinId;
         this.pinDescription = pinDescription;
         this.pinDate = pinDate;
@@ -43,8 +46,22 @@ public class Pin {
         this.pinDidIt = pinDidIt;
         this.city = city;
         this.type = type;
-        this.appUserId = userId;
+        this.cityId = cityId;
+        this.typeId = typeId;
+        this.appUserId = appUserId;
     }
+//    public Pin(int pinId, String pinDescription, LocalDate pinDate, int pinPriority, boolean pinDidIt, int cityId, City city, int typeId, Type type, int userId) {
+//        this.pinId = pinId;
+//        this.pinDescription = pinDescription;
+//        this.pinDate = pinDate;
+//        this.pinPriority = pinPriority;
+//        this.pinDidIt = pinDidIt;
+//        this.cityId = cityId;
+//        this.city = city;
+//        this.typeId = typeId;
+//        this.type = type;
+//        this.appUserId = userId;
+//    }
 
     public int getPinId() {
         return pinId;
@@ -100,6 +117,26 @@ public class Pin {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public boolean isPinDidIt() {
+        return pinDidIt;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
     }
 
     public int getAppUserId() {

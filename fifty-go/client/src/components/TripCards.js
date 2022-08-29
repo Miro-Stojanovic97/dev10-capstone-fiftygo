@@ -75,6 +75,7 @@ function TripCards() {
                     <div className="container">
                         <div className="row">
                             {trips.map(trip => {
+                              {console.log(trip)}
                                 <div className="col-12">
                                     <div key={trip.tripId + "-key"} className="card mb-5">
                                         <div className="row no-gutters">
