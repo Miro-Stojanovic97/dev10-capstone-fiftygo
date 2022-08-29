@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 
 import AuthContext from '../contexts/AuthContext';
+import CityList from './CityList';
 import Errors from './Errors';
 
 const PIN_DEFAULT = {
@@ -138,7 +139,7 @@ function PinForm() {
           */
 
           // Send the user back to the list route.
-          history.push('/pin');
+          history.push('/pinlist');
         } else {
           /*
 
@@ -222,32 +223,67 @@ function PinForm() {
         </div>
         <div className="form-group">
           <label htmlFor="typeName">Type:</label>
-          <input
+          <select
             id="typeName"
             name="typeName"
             type="text"
             className="form-control"
-            defaultValue={pin.type.typeName} onChange={handleChange('type')} />
+            defaultValue={pin.type.typeName} onChange={handleChange('type')}>
+              <option value={pin.type = {typeId: 1, typeName: "bike"}}>bike</option>
+              <option value={pin.type}>hike</option>
+              <option value={pin.type}>kayak</option>
+              <option value={pin.type}>walk</option>
+              <option value={pin.type}>visit a museum</option>
+              <option value={pin.type}>go swimming</option>
+              <option value={pin.type}>go climbing</option>
+              <option value={pin.type}>go shopping</option>
+              <option value={pin.type}>wing it</option>
+              <option value={pin.type}>adventure</option>
+              <option value={pin.type}>sing</option>
+              <option value={pin.type}>skate</option>
+              <option value={pin.type}>ice skate</option>
+              <option value={pin.type}>barhop</option>
+              <option value={pin.type}>eat</option>
+              <option value={pin.type}>watch a sport</option>
+              <option value={pin.type}>camp</option>
+              <option value={pin.type}>go to an amusement park</option>
+              <option value={pin.type}>go to a spa</option>
+              <option value={pin.type}>find shells</option>
+              <option value={pin.type}>find fossils</option>
+              <option value={pin.type}>find rocks</option>
+              <option value={pin.type}>take a class</option>
+              <option value={pin.type}>dance</option>
+              <option value={pin.type}>bowl</option>
+              <option value={pin.type}>ski</option>
+              <option value={pin.type}>snowboard</option>
+              <option value={pin.type}>go tubing</option>
+              <option value={pin.type}>visit a theme park</option>
+              <option value={pin.type}>see some sights</option>
+              <option value={pin.type}>visit a national park</option>
+              <option value={pin.type}>visit a state park</option>
+              <option value={pin.type}>visit a county park</option>
+              <option value={pin.type}>stargaze</option>
+            </select>
         </div>
         <div className="form-group">
           <label htmlFor="pinDate">Date:</label>
           <input id="pinDate" name="pinDate" type="date" className="form-control"
-            value={pin.pinDate} onChange={handleChange} />
+            value={pin.pinDate} onChange={handleChange()} />
         </div>
         <div className="form-group">
           <label htmlFor="pinPriority">Priority:</label>
           <input id="pinPriority" name="pinPriority" type="number" className="form-control"
-            value={pin.pinPriority} onChange={handleChange} />
+            value={pin.pinPriority} onChange={handleChange()} />
         </div>
         <div className="form-group">
           <label className="form-check-label" htmlFor="pinDidIt">Did It?:</label>
           <input id="pinDidIt" name="pinDidIt" type="checkbox" className="form-check-input"
-            checked={pin.pinDidIt} onChange={handleChange} />
+            checked={pin.pinDidIt} onChange={handleChange()} />
         </div>
         <div className="form-group">
           <label htmlFor="stateAbr">State:</label>
-          <select id="stateAbr" name="city: {stateAbr}" className="form-control"
-            defaultValue={pin.city.stateAbr} onChange={handleChange}>
+          <select id="stateAbr" name="city.stateAbr" className="form-control"
+            defaultValue={pin.city.stateAbr} onChange={handleChange('city')}>
               <option value="AL">Alabama</option>
               <option value="AK">Alaska</option>
               <option value="AZ">Arizona</option>
@@ -303,8 +339,10 @@ function PinForm() {
         </div>
         <div className="form-group">
           <label htmlFor="city.cityName">City:</label>
-          <input id="city.cityName" name="city.cityName" className="form-control"
-            defaultValue={pin.city.cityName} onChange={handleChange} />
+          <select id="city.cityName" name="city.cityName" className="form-control"
+            defaultValue={pin.city.cityName} onChange={handleChange('city')} >
+              <CityList stateAbr={pin.city.stateAbr} />
+          </select>
         </div>
         <div className="mt-4">
           <button className="btn btn-success mr-2" type="submit">
