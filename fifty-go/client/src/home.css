@@ -9,7 +9,7 @@
 /* Currently if you uncomment this, the page looks nicer, but the footer drops off.
 If its commented, the footer is in its normal position. TODO: Figure that out. */
 section {
-  margin: 80px 0;
+  padding: 80px 0;
   overflow: hidden;
 }
 
@@ -402,12 +402,11 @@ section.footer-outer {
 # Frequently Asked Questions Section
 --------------------------------------------------------------*/
 .faq {
-  padding-top: 80px;
+  padding-top: 40px;
 }
 
 .faq .accordion-item {
-  border: 0;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 .faq .accordion-collapse {
@@ -419,20 +418,21 @@ section.footer-outer {
   font-weight: 600;
   border: 0;
   font-size: 18px;
-  color: var(--color-default);
   text-align: left;
-  background: rgba(14, 29, 52, 0.03);
+  background: #7CA982;
   border-radius: 5px;
+  font-style: bold;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .faq .accordion-button:focus {
-  box-shadow: none;
+  color: white;
 }
 
 .faq .accordion-button:not(.collapsed) {
-  color: var(--color-primary);
   border-bottom: 0;
   box-shadow: none;
+  color: white;
 }
 
 .faq .question-icon {
@@ -440,20 +440,25 @@ section.footer-outer {
   top: 14px;
   left: 25px;
   font-size: 20px;
-  color: var(--color-primary);
+  color: white;
 }
 
 .faq .accordion-button:after {
   position: absolute;
   right: 15px;
   top: 15px;
+  color: white;
 }
 
 .faq .accordion-body {
-  padding: 0 30px 25px 60px;
+  padding: 10px 40px 10px 50px;
   border: 0;
-  background: rgba(14, 29, 52, 0.03);
+  background: #243E36;
   border-radius: 5px;
+  color: white;
+  font-size: large;
+  font-style: bold;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 /*--------------------------------------------------------------
@@ -498,48 +503,24 @@ section.footer-outer {
   width: 100%;
 }
 
-.stats-counter .stats-item span {
+.stat-counter {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 30px;
   display: block;
-  color: var(--color-secondary);
+  color: black;
   font-weight: 700;
-  margin-top: px;
-  padding-bottom: 0px;
-  position: relative;
 }
 
-.stats-counter .stats-item span:after {
-  position: relative;
-  display: block;
-  width: 25px;
-  height: 3px;
-  background: var(--color-primary);
-  margin: auto;
-}
-
-/* TODO: Figure out how to make the number look normal. Maybe don't use Span */
-#span-one:after {
-  content: "1,453";
-}
-#span-two:after {
-  content: "20,342";
-}
-#span-three:after {
-  content: "10,171";
-}
-#span-four:after {
-  content: "4.8";
-}
-
-
-.stats-counter .stats-item p {
-  padding: 0;
-  margin: 0;
-  font-family: var(--font-primary);
+.stat-text {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 16px;
-  font-weight: 300;
-  color: var(--color-secondary);
+  font-style: italic;
+  font-weight: 500;
+  margin-top: -15px;
+  padding-bottom: 0;
 }
+
+
 
 /*--------------------------------------------------------------
 # Our Team Section
