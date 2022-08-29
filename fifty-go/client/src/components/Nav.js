@@ -32,7 +32,7 @@ function Nav() {
                                         <a className="navbar-brand nav-link" aria-current="page" href="/pinlist">Pins</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="navbar-brand nav-link" aria-current="page" href="/trips">Trips</a>
+                                        <a className="navbar-brand nav-link" aria-current="page" href="/tripcards">Trips</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="navbar-brand nav-link" aria-current="page" href="/map">MapView</a>

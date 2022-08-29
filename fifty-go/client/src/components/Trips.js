@@ -289,7 +289,7 @@ function Trips() {
                     <button className="btn btn-primary my-4" onClick={() => setCurrentView('Add')}>
                         <i className="bi bi-plus-circle"></i> Add Trip
                     </button>
-                    <table className="table table-striped table-hover table-sm">
+                    {/* <table className="table table-striped table-hover table-sm">
                         <thead className="thead-dark">
                             <tr>
                                 <th>Description</th>
@@ -322,7 +322,7 @@ function Trips() {
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
+                    </table> */}
                     </div>
 
                     {/* card view */}
