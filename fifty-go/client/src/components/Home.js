@@ -23,7 +23,7 @@ function Home() {
             <main id="homeMain">
                 <section id="about" className="about">
                             <div className="col-lg-1"> </div>
-                            <div className="col-lg-10" content order-last  order-lg-first>
+                            <div className="container col-lg-10" content order-last  order-lg-first>
                                 <h3>About Us</h3>
                                 {/* <img src="../LogoAlk.jpg" className="img-fluid" alt="" /> */}
                                 <p>
