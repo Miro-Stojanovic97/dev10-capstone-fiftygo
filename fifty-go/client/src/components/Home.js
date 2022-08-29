@@ -71,28 +71,28 @@ function Home() {
 
                             <div className="col-lg-3 col-md-6">
                                 <div className="stats-item text-center w-100 h-100">
-                                    <span id="span-one" data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" className="purecounter"></span>
-                                    <p>Number of Users</p>
+                                    <p className="stat-counter">1,453</p>
+                                    <p className="stat-text">Number of Users</p>
                                 </div>
                             </div>
 
                             <div className="col-lg-3 col-md-6">
                                 <div className="stats-item text-center w-100 h-100">
-                                    <span id="span-two" data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" className="purecounter"></span>
-                                    <p>Pins Placed</p>
+                                    <p className="stat-counter">20,377</p>
+                                    <p className="stat-text">Pins Placed</p>
                                 </div>
                             </div>
 
                             <div className="col-lg-3 col-md-6">
                                 <div className="stats-item text-center w-100 h-100">
-                                    <span id="span-three" data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" className="purecounter"></span>
-                                    <p>Trips Completed</p>
+                                    <p className="stat-counter">7,259</p>
+                                    <p className="stat-text">Trips Completed</p>
                                 </div>
                             </div>
                             <div className="col-lg-3 col-md-6">
                                 <div className="stats-item text-center w-100 h-100">
-                                    <span id="span-four" data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" className="purecounter"></span>
-                                    <p>Google Rating</p>
+                                    <p className="stat-counter">4.9⭐</p>
+                                    <p className="stat-text">Google Rating</p>
                                 </div>
                             </div>
 

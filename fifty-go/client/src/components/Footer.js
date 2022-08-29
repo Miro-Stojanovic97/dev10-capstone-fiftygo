@@ -11,12 +11,10 @@ function Footer() {
             <section className="footer-outer">
                 <footer className="text-center text-white app-footer">
                     <div className="register-text">
-                        <section className="">
                             <p className="justify-content-center align-items-center">
                                 <span className="reg-message">Your next adventure awaits!</span>
                                 <a href="/register" className="btn btn-outline-light btn-rounded reg-btn" role="button" aria-pressed="true">Sign Up Today</a>
                             </p>
-                        </section>
                     </div>
                     <div className="copyright-text">
                         © 2022: OPERATION ALKEMI
