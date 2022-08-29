@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
+import { scryRenderedComponentsWithType } from 'react-dom/test-utils';
 import { Link, useHistory, useParams } from 'react-router-dom';
 
 import AuthContext from '../contexts/AuthContext';
@@ -16,6 +17,7 @@ const PIN_DEFAULT = {
       stateAbr: "",
     },
     type: {
+      typeId: 0,
       typeName: "",
     },
     userId: 0
@@ -24,6 +26,11 @@ const PIN_DEFAULT = {
 function PinForm() {
   const [pin, setPin] = useState(PIN_DEFAULT);
   const [errors, setErrors] = useState([]);
+  const [types, setTypes] = useState([]);
+  const [type, setType] = useState({});
+  const [stateChoice, setStateChoice] = useState("");
+  const [cities, setCities] = useState(stateChoice);
+  const [city, setCity] = useState({});
 
   const auth = useContext(AuthContext);
 
@@ -36,19 +43,40 @@ function PinForm() {
   // Using destructuring...
   const { id } = useParams();
 
+  const initGET = {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${auth.user.token}`
+        }
+      }
+
+  useEffect(() => { // get all the types and store data in types via setTypes
+    fetch("http://localhost:8080/fiftygo/type", initGET)
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        return Promise.reject(`Unexpected status code: ${response.status}`);
+      }
+    })
+    .then(data => setTypes(data))
+    .catch(console.log);
+  }, []);
+
   useEffect(() => {
     // Make sure that we have an "id" value...
     if (id) {
 
-      const init = {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${auth.user.token}`
-        },
-      };
+      // const init = {
+      //   method: 'GET',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Authorization': `Bearer ${auth.user.token}`
+      //   },
+      // };
 
-      fetch(`http://localhost:8080/fiftygo/pin/${id}`, init)
+      fetch(`http://localhost:8080/fiftygo/pin/${id}`, initGET)
         .then(response => {
           if (response.status === 200) {
             return response.json();
@@ -62,31 +90,63 @@ function PinForm() {
     }
   }, [id]); // Hey React... please call my arrow function every time the "id" route parameter changes value
 
-  const handleChange = level => (event) => {
-     // Make a copy of the object.
-    if (!level) {
-      if (event.target.type === 'checkbox') {
-            setPin({
-              ...pin, [event.target.name] : event.target.checked
-            })
-            
-          } else {
-            setPin({
-              ...pin, [event.target.name] : event.target.value
-            })
-          } 
-    } else {
-      setPin({
-        ...pin,
-        [level]: {
-          ...pin[level], [event.target.name] : event.target.value
+  const handleChangeType = async (event) => {
+    const type = await fetch(`http://localhost:8080/fiftygo/type/${event.target.value}`, initGET)
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return Promise.reject(`Unexpected status code: ${response.status}`);
         }
       })
-    }
+      // .then(data => setType(data))
+      // .then(console.log(type))
+      .catch(console.log);
+  
+      const newPin = {...pin}
+    console.log(type);
+    newPin.type = type;
+    console.log(newPin);
+    setPin(newPin);
+  }
+
+  useEffect(() => {
+    // if the US state name changes in the form, get a different list of cities based on that state.
+    fetch(`http://localhost:8080/fiftygo/city/state/${stateChoice}`, initGET)
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return Promise.reject(`Unexpected status code: ${response.status}`);
+        }
+      })
+      .then(data => setCities(data))
+      // .then(console.log(pin))
+      .catch(console.log);
+  }, [stateChoice]); // hey react, do this whenever stateChoice changes?
+
+  const handleChangeState = (event) => {
+    setStateChoice(event.target.value);
+  }
+  const handleChangeCity = (event) => {
+    const newCity = { ...city}
+    newCity[event.target.name] = event.target.value;
+    setCity(newCity);
+  }
+
+  const handleChange = (event) => {
+    // Make a copy of the object.
+    const newPin = { ...pin };
+
     // Update the value of the property that just changed.
     // We can "index" into the object using square brackets (just like we can do with arrays).
-    
-    console.log(pin);
+    if (event.target.type === 'checkbox') {
+      newPin[event.target.name] = event.target.checked;
+    } else {
+      newPin[event.target.name] = event.target.value;
+    }
+
+    setPin(newPin);
   };
 
   const handleSubmit = (event) => {
@@ -219,7 +279,7 @@ function PinForm() {
         <div className="form-group">
           <label htmlFor="pinDescription">Description:</label>
           <input id="pinDescription" name="pinDescription" type="text" className="form-control"
-            value={pin.pinDescription} onChange={handleChange()} />
+            value={pin.pinDescription} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label htmlFor="typeName">Type:</label>
@@ -228,62 +288,31 @@ function PinForm() {
             name="typeName"
             type="text"
             className="form-control"
-            defaultValue={pin.type.typeName} onChange={handleChange('type')}>
-              <option value={pin.type = {typeId: 1, typeName: "bike"}}>bike</option>
-              <option value={pin.type}>hike</option>
-              <option value={pin.type}>kayak</option>
-              <option value={pin.type}>walk</option>
-              <option value={pin.type}>visit a museum</option>
-              <option value={pin.type}>go swimming</option>
-              <option value={pin.type}>go climbing</option>
-              <option value={pin.type}>go shopping</option>
-              <option value={pin.type}>wing it</option>
-              <option value={pin.type}>adventure</option>
-              <option value={pin.type}>sing</option>
-              <option value={pin.type}>skate</option>
-              <option value={pin.type}>ice skate</option>
-              <option value={pin.type}>barhop</option>
-              <option value={pin.type}>eat</option>
-              <option value={pin.type}>watch a sport</option>
-              <option value={pin.type}>camp</option>
-              <option value={pin.type}>go to an amusement park</option>
-              <option value={pin.type}>go to a spa</option>
-              <option value={pin.type}>find shells</option>
-              <option value={pin.type}>find fossils</option>
-              <option value={pin.type}>find rocks</option>
-              <option value={pin.type}>take a class</option>
-              <option value={pin.type}>dance</option>
-              <option value={pin.type}>bowl</option>
-              <option value={pin.type}>ski</option>
-              <option value={pin.type}>snowboard</option>
-              <option value={pin.type}>go tubing</option>
-              <option value={pin.type}>visit a theme park</option>
-              <option value={pin.type}>see some sights</option>
-              <option value={pin.type}>visit a national park</option>
-              <option value={pin.type}>visit a state park</option>
-              <option value={pin.type}>visit a county park</option>
-              <option value={pin.type}>stargaze</option>
+            defaultValue={pin.type.typeName} onChange={handleChangeType}>
+              {types.map(type => (
+                <option key={type.typeId} value={type.typeId}>{type.typeName}</option>
+              ))}
             </select>
         </div>
         <div className="form-group">
           <label htmlFor="pinDate">Date:</label>
           <input id="pinDate" name="pinDate" type="date" className="form-control"
-            value={pin.pinDate} onChange={handleChange()} />
+            value={pin.pinDate} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label htmlFor="pinPriority">Priority:</label>
           <input id="pinPriority" name="pinPriority" type="number" className="form-control"
-            value={pin.pinPriority} onChange={handleChange()} />
+            value={pin.pinPriority} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label className="form-check-label" htmlFor="pinDidIt">Did It?:</label>
           <input id="pinDidIt" name="pinDidIt" type="checkbox" className="form-check-input"
-            checked={pin.pinDidIt} onChange={handleChange()} />
+            checked={pin.pinDidIt} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="stateAbr">State:</label>
-          <select id="stateAbr" name="city.stateAbr" className="form-control"
-            defaultValue={pin.city.stateAbr} onChange={handleChange('city')}>
+          <label htmlFor="stateChoice">State:</label>
+          <select id="stateChoice" name="stateChoice" className="form-control"
+            value={stateChoice} onChange={handleChangeState}>
               <option value="AL">Alabama</option>
               <option value="AK">Alaska</option>
               <option value="AZ">Arizona</option>
@@ -338,10 +367,13 @@ function PinForm() {
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="city.cityName">City:</label>
-          <select id="city.cityName" name="city.cityName" className="form-control"
-            defaultValue={pin.city.cityName} onChange={handleChange('city')} >
-              <CityList stateAbr={pin.city.stateAbr} />
+          <label htmlFor="cityName">City:</label>
+          <select id="cityName" name="cityName" className="form-control"
+            defaultValue={pin.city.cityName} onChange={handleChangeCity} >
+              {console.log(cities)}
+              {cities.map(city => (
+                <option key={city.cityId} value={city.cityId}>{city.cityName}</option>
+              ))}
           </select>
         </div>
         <div className="mt-4">
