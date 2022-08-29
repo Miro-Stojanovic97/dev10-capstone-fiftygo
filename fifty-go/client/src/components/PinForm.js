@@ -186,7 +186,7 @@ function PinForm() {
       .then(data => {
         if (!data) {
           // Send the user back to the list route.
-          history.push('/pins');
+          history.push('/pinlist');
         } else {
           setErrors(data);
         }
