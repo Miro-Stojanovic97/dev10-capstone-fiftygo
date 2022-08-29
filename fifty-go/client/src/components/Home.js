@@ -23,9 +23,9 @@ function Home() {
             <main id="homeMain">
                 <section id="about" className="about">
                             <div className="col-lg-1"> </div>
-                            <div className="col-lg-10" content order-last  order-lg-first>
+                            <div className="container col-lg-10" content order-last  order-lg-first>
                                 <h3>About Us</h3>
-                                {/* <img src="../LogoAlk.jpg" className="img-fluid" alt="" /> */}
+                                {/* <img src="../images/HomePage-IMG.jpg" className="img-fluid" alt="Travel_Milwaukee" /> */}
                                 <p>
                                 Carefully crafted by a team of fresh developers with a fresh vision for travel. 
                                 FiftyGO is your favorite travel journal and travel companion all in one. No matter where you've been, where you want to go, or what you want to do; FiftyGO will help you to get there. An Operation Alkemi product. 

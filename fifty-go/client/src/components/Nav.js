@@ -13,7 +13,7 @@ function Nav() {
                     <nav className="navbar navbar-expand navbar-light">
                         <div className="container-fluid">
                             <a className="navbar-brand" href="/">
-                                FiftyGO
+                                {/* <img src="../images/fiftyGO3.png" alt="FiftyGO"/> */}
                             </a>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav">
