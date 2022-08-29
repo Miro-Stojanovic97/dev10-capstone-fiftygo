@@ -83,9 +83,9 @@ function MapView() {
                                         scrollWheelZoom={true}
                                         zoomControl={false}
                                         doubleClickZoom={true}
-                                        minZoom={4}
+                                        minZoom={3}
                                         dragging={true}
-                                        maxBounds={[[20, -60],[55, -130]]}
+                                        maxBounds={[[10, -30],[72, -175]]}
                                         > 
             {/* TileLayer allows you to add/overlay map layers */}
             <TileLayer
