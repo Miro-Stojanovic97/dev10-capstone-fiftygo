@@ -1,4 +1,5 @@
 import React from "react";
+import L from "leaflet";
 import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon, GeoJSON, ZoomControl } from "react-leaflet";
 import { statesData } from '../us-states';
 import { click } from "@testing-library/user-event/dist/click";
@@ -40,23 +41,13 @@ function MapView() {
         var feature = event.target;
         feature.setStyle(clearStyle);
     }
-
-    // todo: snap zoom to state on click. Currently unable to find proper
-    // keywords to make fitBounds/getBounds do what I want 
-    // function zoomToFeature(event) {
-    //     TileLayer.fitBounds(event.target.getBounds());
-    // //     var feature = event.target;
-    // //    var featureBounds = feature.getBounds;
-    // //     fitBounds(featureBounds);
-    //  }
+   
 
     //maps through each state, finding its name
     var onEachFeature = function(feature, layer) {
         const stateName = feature.properties.name;
         // layer.bindPopup(stateName); //appends popup with state name. TODO: Do something cooler
         //changes style of state based on mouse events
-            // const stateBounds = layer.target.getBounds();
-            // console.log(stateBounds);
         layer.on({
             mouseover: highlightFeatureOn,
             mouseout: highlightFeatureOff,
@@ -64,20 +55,23 @@ function MapView() {
         });
     }
 
-    // mapContainerCenter() {
-    //     const mainCenter = [39, -96];
-    //     const mainZoom = 4;
-    //     let newCenter = features.geometry 
-    //     onclick.feature: return newCenter;
-    // }
+
+    function getIcon(iconSizer) {
+        return L.icon({
+            iconUrl: require("../images/fiftyGO3.png"), 
+            iconSize: [iconSizer]
+        })
+    }
+
+    //positions can be the latitude/longitude of the Pins. size is like priority
+    let pins = [
+        {"name": "west", "position": [39,-96], "size": 40},
+        {"name": "east", "position": [35,-93], "size": 50},
+        {"name": "north", "position": [45,-90], "size": 60}]
 
     return (
         <>
-        {/* TODO: make functional buttons w/ seperate map view zoom */}
-        <button className="map-button main">Home</button>
-        <button className="map-button">HI</button>
-        <button className="map-button">AK</button>
-        {/* 39, -96 zoom-4 is center of USA */}
+    
         {/* Map container defines the map, and its attributes */}
         <MapContainer center={[39, -96]} zoom={4}
                                         scrollWheelZoom={true}
@@ -104,7 +98,16 @@ function MapView() {
                 data={statesData.features} 
                 //on each feature (states), call function to map through them 
                 onEachFeature={onEachFeature}
-            />           
+            />  
+            { pins.map((pins) => (
+                <Marker position={pins.position} icon={getIcon(pins.size)}>
+                    <Popup>
+                        {pins.name}
+                    </Popup>
+                </Marker>
+            ))}
+            
+
         </MapContainer>
         <p className="map-text">MapView ©</p>
         </>
