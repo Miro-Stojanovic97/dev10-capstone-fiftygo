@@ -20,7 +20,7 @@ function Nav() {
                             {/* TODO: Get the picture to the top-left corner */}
                             <div className="col-lg-1">
                             <a className="logo d-flex align-items-center" href="/">
-                                <img src={fiftyGoLogo} alt="FiftyGo"/>
+                                <img src={fiftyGoLogo} alt="FiftyGo" height="40"/>
                             </a>
                             </div>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">

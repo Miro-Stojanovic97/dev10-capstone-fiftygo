@@ -29,7 +29,7 @@ function Home() {
                             <div className="col-lg-6 position-relative align-self-start order-lg-last order-first">
                                 <img src={mkeViews} className="img-fluid" alt="Travel_Milwaukee" />
                             </div>
-                            <div className="col-lg-6 content order-last order-lg-first">
+                            <div className="col-lg-6 content order-last order-lg-first container">
                                 <h3>About Us</h3>
                                 <p>
                                 Carefully crafted by a team of fresh developers with a fresh vision for travel. 
@@ -38,21 +38,21 @@ function Home() {
                                 <ul>
                                     <li data-aos="fade-up" data-aos-delay="100">
                                         <i className="bi bi-diagram-3"></i>
-                                        <div>
+                                        <div className="home-points">
                                             <h5>For Adventurers, By Adventurers</h5>
                                             <p>Pins allow you to precisely craft your adventures!</p>
                                         </div>
                                     </li>
                                     <li data-aos="fade-up" data-aos-delay="200">
                                         <i className="bi bi-fullscreen-exit"></i>
-                                        <div>
+                                        <div className="home-points">
                                             <h5>Blah blah</h5>
                                             <p>Blah Blah</p>
                                         </div>
                                     </li>
                                     <li data-aos="fade-up" data-aos-delay="300">
                                         <i className="bi bi-broadcast"></i>
-                                        <div>
+                                        <div className="home-points">
                                             <h5>Blah Blah</h5>
                                             <p>Blah Blah</p>
                                         </div>
