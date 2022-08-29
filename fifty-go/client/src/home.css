@@ -9,7 +9,7 @@
 /* Currently if you uncomment this, the page looks nicer, but the footer drops off.
 If its commented, the footer is in its normal position. TODO: Figure that out. */
 section {
-  margin: 80px 0;
+  padding: 80px 0;
   overflow: hidden;
 }
 
