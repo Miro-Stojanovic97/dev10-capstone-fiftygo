@@ -1,10 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
-import React from 'react';
+import React, { useContext } from 'react';
 import fiftyGoLogo from '../images/fiftyGO3.png';
+import { authenticate } from "../services/AuthApi";
+import AuthContext from "../contexts/AuthContext";
 
 //TODO: Implement responsive design using Bootstrap.
 //Nav links shouldn't collapse into eachother. Flex/float?
 function Nav() {
+
+    const auth = useContext(AuthContext);
 
     return (
         //potentially add 'fixed-top' if we have to scroll a lot w/ pins/trips
@@ -36,9 +40,17 @@ function Nav() {
                                 </ul>
                             </div>
                             <ul className="navbar-nav">
-                                <li className="nav-item">
-                                <a href="/login" className="btn btn-outline-light btn-rounded nav-login" role="button" aria-pressed="true">Login</a>
+                                {!auth.user && (
+                                    <li className="nav-item">
+                                <Link to="/login" className="btn btn-outline-light btn-rounded nav-login" role="button" aria-pressed="true">Login</Link>
                                 </li>
+                                )}
+                                {auth.user && (
+                                    <li className="nav-item">
+                                    <button onClick={() => auth.logout()} className="btn btn-outline-light btn-rounded nav-login" role="button" aria-pressed="true">Logout</button>
+                                    </li>
+                                )}
+                                
                             </ul>
                         </div>
                     </nav>
