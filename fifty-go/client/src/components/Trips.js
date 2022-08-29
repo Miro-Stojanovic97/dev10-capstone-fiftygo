@@ -235,41 +235,41 @@ function Trips() {
                         </div>
                     )}
 
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group">
+                    <form className="container" onSubmit={handleSubmit}>
+                        <div className="form-group mt-3">
                             <label htmlFor="trip-description">Description:</label>
                             <input id="trip-description" name="trip-description" type="text" className="form-control"
                                 value={trip.tripDescription} onChange={handleChange} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group mt-3">
                             <label htmlFor="start-date">Start Date:</label>
                             <select id="start-date" name="start-date" type="date" className="form-control"
                                 value={trip.tripStartDate} onChange={handleChange}>
                             </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group mt-3">
                             <label htmlFor="end-date">End Date:</label>
                             <select id="end-date" name="end-date" type="date" className="form-control"
                                 value={trip.tripEndDate} onChange={handleChange}>
                             </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group mt-3">
                             <label htmlFor="transportation">Transportation:</label>
-                            <input id="transportation" name="transportation" type="pin-date" className="form-control"
+                            <input id="transportation" name="transportation" type="text" className="form-control"
                                 value={trip.tripTransportation} onChange={handleChange} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group mt-3">
                             <label htmlFor="trip-priority">Priority [1-5]:</label>
                             <input id="trip-priority" name="trip-priority" type="number" className="form-control"
                                 value={trip.tripPriority} onChange={handleChange} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group mt-3">
                             <label htmlFor="trip-did-it">Did It:</label>
                             <input id="trip-did-it" name="trip-did-it" type="number" className="form-control"
                                 value={trip.tripDidIt} onChange={handleChange} />
                         </div>
                         <div className="mt-4">
-                            <button className="btn btn-success mr-2" type="submit">
+                            <button className="btn btn-success" type="submit">
                                 <i className="bi bi-file-earmark-check"></i> {editTripId > 0 ? 'Update Trip' : 'Add Trip'}
                             </button>
                             <button className="btn btn-warning" type="button" onClick={resetState}>
@@ -284,6 +284,7 @@ function Trips() {
             {/* Temporary to see if trips can render, then swtich from table to card collection */}
             {currentView === 'Cards' && (
                 <>
+                <div className="container">
                     <h2 className="mb-4">Trips</h2>
                     <button className="btn btn-primary my-4" onClick={() => setCurrentView('Add')}>
                         <i className="bi bi-plus-circle"></i> Add Trip
@@ -322,6 +323,39 @@ function Trips() {
                             ))}
                         </tbody>
                     </table>
+                    </div>
+
+                    {/* card view */}
+                    <div className="container">
+                        <div className="row">
+                            {trips.map(trip => {
+                                <div className="col-4">
+                                    <div key={trip.tripId + "-key"} className="card mb-5">
+                                        <div className="card-body">
+                                            <h5 className="card-title mb-3">{trip.tripDescription}</h5>
+                                            <div className="col-12">
+                                                <h6 className="card-subtitle mb-2 text-muted">{trip.tripStartDate + "-" + trip.tripEndDate}</h6>
+                                            </div>
+                                            <div className="col-6">
+                                                <h6 className="card-subtitle mb-2">Priority: {trip.tripPriority}</h6>
+                                            </div>
+                                            <div className="col-6">
+                                                <h6 className="card-subtitle mb-2">Completed?: {trip.tripDidIt}</h6>
+                                            </div>
+                                            <div className="col-12">
+                                                <button className="btn btn-primary btn-sm mr-2" onClick={() => handleEditTrip(trip.id)}>
+                                                    <i className="bi bi-pencil-square"></i> Edit
+                                                </button>
+                                                <button className="btn btn-danger btn-sm" onClick={() => handleDeleteTrip(trip.id)}>
+                                                    <i className="bi bi-trash"></i> Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>   
+                            })}
+                        </div>
+                    </div>
                 </>
             )}
 

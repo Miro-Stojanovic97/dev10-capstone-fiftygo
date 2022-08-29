@@ -87,7 +87,8 @@ function TripForm() {
 //     // Update the value of the property that just changed.
 //     // We can "index" into the object using square brackets (just like we can do with arrays).
     
-    console.log(pin);
+// TODO for adding a pin
+    // console.log(pin);
   };
 
 
@@ -209,7 +210,6 @@ function TripForm() {
             tripDidIt: 0,
             //...
 }; */}
-
        <form onSubmit={handleSubmit}>
          <div className="form-group">
            <label htmlFor="tripDescription">Description:</label>

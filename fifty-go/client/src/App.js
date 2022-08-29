@@ -13,8 +13,10 @@ import Pins from "./components/Pins";
 import PinList from "./components/PinList";
 import Register from "./components/Register";
 import Trips from "./components/Trips";
+import TripCards from "./components/TripCards";
 import AuthContext from "./contexts/AuthContext";
 import { refreshToken } from "./services/AuthApi";
+import TripForm from "./components/TripForm";
 
 
 const LOCAL_STORAGE_TOKEN_KEY = 'fiftyGoToken';
@@ -142,12 +144,22 @@ function App() {
                 <Redirect to="/login" />
               )}
             </Route>
-             
-             <Route path="/trips">
+            <Route path="/tripcards">
+                {console.log("in routes", auth)}
+                {auth.user ? (<TripCards />) : (<Redirect to="/login" />)}
+            </Route>
+             {/* <Route path="/trips">
                {auth.user ? (
                  <Trips /> ) : (
                    <Redirect to="/login" /> 
                  )}
+             </Route> */}
+             <Route path={['/trip/add', '/trip/edit/:id']}>
+               {auth.user ? (
+                 <TripForm />
+               ) : (
+                 <Redirect to="/login" />
+               )}
              </Route>
              <Route path="/map">
                {auth.user ? (
