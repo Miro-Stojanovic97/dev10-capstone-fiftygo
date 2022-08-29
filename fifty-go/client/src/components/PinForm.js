@@ -5,18 +5,24 @@ import AuthContext from '../contexts/AuthContext';
 import Errors from './Errors';
 
 const PIN_DEFAULT = {
+    pinId: 0,
     pinDescription: "",
-    pinType: "",
     pinDate: "",
     pinPriority: 0,
-    pinDidIt: 0,
+    pinDidIt: false,
     city: {
+      cityId: 0,
       cityName: "",
       stateAbr: "",
+      stateName: "",
+      cityLatitude: "1.0000",
+      cityLongitude: "1.0000"
     },
     type: {
+      typeId: 0,
       typeName: ""
-    }
+    },
+    userId: 0
 };
 
 function PinForm() {
@@ -55,6 +61,7 @@ function PinForm() {
           }
         })
         .then(data => setPin(data))
+        // .then(console.log(pin))
         .catch(console.log);
     }
   }, [id]); // Hey React... please call my arrow function every time the "id" route parameter changes value
@@ -72,12 +79,14 @@ function PinForm() {
     }
 
     setPin(newPin);
+    //console.log(pin);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     if (id) {
+      //console.log(pin);
       updatePin();
     } else {
       addPin();
@@ -94,7 +103,7 @@ function PinForm() {
       body: JSON.stringify(pin)
     };
 
-    fetch('http://localhost:8080/api/oin', init)
+    fetch('http://localhost:8080/fiftygo/pin', init)
       .then(response => {
         if (response.status === 201 || response.status === 400) {
           return response.json();
@@ -146,7 +155,8 @@ function PinForm() {
 
   const updatePin = () => {
     // assign an ID (this is probably needed anymore)
-    pin.id = id;
+    pin.pinId = id;
+    //console.log(pin);
 
     const init = {
       method: 'PUT',
@@ -157,7 +167,7 @@ function PinForm() {
       body: JSON.stringify(pin)
     };
   
-    fetch(`http://localhost:8080/api/pin/${id}`, init)
+    fetch(`http://localhost:8080/fiftygo/pin/${id}`, init)
       .then(response => {
         if (response.status === 204) {
           return null;
@@ -200,39 +210,39 @@ function PinForm() {
           }; */}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="description">Description:</label>
-          <input id="description" name="description" type="text" className="form-control"
-            value={pin.pinDescription} onChange={handleChange} />
+          <label htmlFor="pinDescription">Description:</label>
+          <input id="pinDescription" name="pinDescription" type="text" className="form-control"
+            defaultValue={pin.pinDescription} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="type">Type:</label>
-          <input id="type" name="type" type="text" className="form-control"
-            value={pin.type.typeName} onChange={handleChange} />
+          <label htmlFor="type.typeName">Type:</label>
+          <input id="type.typeName" name="type.typeName" type="text" className="form-control"
+            defaultValue={pin.type.typeName} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="date">Date:</label>
-          <input id="date" name="date" type="date" className="form-control"
-            value={pin.pinDate} onChange={handleChange} />
+          <label htmlFor="pinDate">Date:</label>
+          <input id="pinDate" name="pinDate" type="date" className="form-control"
+            defaultValue={pin.pinDate} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="priority">Priority:</label>
-          <input id="priority" name="priority" type="number" className="form-control"
-            value={pin.pinPriority} onChange={handleChange} />
+          <label htmlFor="pinPriority">Priority:</label>
+          <input id="pinPriority" name="pinPriority" type="number" className="form-control"
+            defaultValue={pin.pinPriority} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label className="form-check-label" htmlFor="didIt">Did It?:</label>
-          <input id="didIt" name="didIt" type="checkbox" className="form-check-input"
+          <label className="form-check-label" htmlFor="pinDidIt">Did It?:</label>
+          <input id="pinDidIt" name="pinDidIt" type="checkbox" className="form-check-input"
             checked={pin.pinDidIt} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="state">State:</label>
-          <input id="state" name="dstate" className="form-control"
-            value={pin.city.stateAbr ? pin.city.stateAbr : "State"} onChange={handleChange} />
+          <label htmlFor="city.stateAbr">State:</label>
+          <input id="city.stateAbr" name="city.stateAbr" className="form-control"
+            defaultValue={pin.city.stateAbr} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="city">City:</label>
-          <input id="city" name="city" className="form-control"
-            value={pin.city.cityName} onChange={handleChange} />
+          <label htmlFor="city.cityName">City:</label>
+          <input id="city.cityName" name="city.cityName" className="form-control"
+            defaultValue={pin.city.cityName} onChange={handleChange} />
         </div>
         <div className="mt-4">
           <button className="btn btn-success mr-2" type="submit">
