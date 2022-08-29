@@ -12,18 +12,8 @@ const PIN_DEFAULT = {
     pinDate: "",
     pinPriority: 0,
     pinDidIt: false,
-    city: {
-      cityId: 0,
-      cityName: "",
-      stateAbr: "",
-      stateName: "",
-      latitude: 10.0001,
-      longitude: 10.0001
-    },
-    type: {
-      typeId: 0,
-      typeName: "",
-    },
+    cityId: 0,
+    typeId: 0,
     appUserId: 0
 };
 
@@ -242,8 +232,9 @@ function PinForm() {
 
   const updatePin = () => {
     // assign an ID (this is probably needed anymore)
-    pin.pinId = id;
-    //console.log(pin);
+    pin.pinId = id * 1;
+    console.log(pin);
+    console.log(JSON.stringify(pin));
 
     const init = {
       method: 'PUT',
@@ -308,7 +299,7 @@ function PinForm() {
             name="typeName"
             type="text"
             className="form-control"
-            defaultValue={pin.type.typeName} onChange={handleChangeType}>
+             onChange={handleChangeType}>
               {types.map(type => (
                 <option key={type.typeId} value={type.typeId}>{type.typeName}</option>
               ))}
@@ -389,7 +380,7 @@ function PinForm() {
         <div className="form-group">
           <label htmlFor="cityName">City:</label>
           <select id="cityName" name="cityName" className="form-control"
-            onChange={handleChangeCity} >
+             onChange={handleChangeCity} >
               {/* {console.log(cities)} */}
               {cities.map(city => (
                 <option key={city.cityId} value={city.cityId}>{city.cityName}</option>

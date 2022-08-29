@@ -114,16 +114,6 @@ class PinServiceTest {
     }
 
     @Test
-    void shouldNotUpdateInvalidCity() {
-        Pin arg = makePin();
-        arg.setPinId(1);
-        arg.setCity(null);
-
-        Result<Pin> result = service.update(arg);
-        assertEquals(ResultType.INVALID, result.getResultType());
-    }
-
-    @Test
     void shouldNotUpdateInvalidUserId() {
         Pin arg = makePin();
         arg.setPinId(0);

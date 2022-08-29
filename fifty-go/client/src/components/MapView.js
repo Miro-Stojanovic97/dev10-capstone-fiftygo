@@ -1,9 +1,9 @@
-import React from "react";
+import { useEffect, useState, useContext } from 'react';
 import L from "leaflet";
 import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon, GeoJSON, ZoomControl } from "react-leaflet";
 import { statesData } from '../us-states';
 import { click } from "@testing-library/user-event/dist/click";
-
+import AuthContext from '../contexts/AuthContext';
 
 function MapView() {
 
@@ -63,7 +63,40 @@ function MapView() {
         })
     }
 
+    // const [pins, setPins] = useState([]);
+    // const auth = useContext(AuthContext);
+
+    // const init = {
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': `Bearer ${auth.user.token}`
+    //     },
+    //   };
+
+    // const fetchPins = () => {
+    //     fetch(`http://localhost:8080/fiftygo/pin/user/${auth.user.appUserId}`, init)
+    //         .then(response => {
+    //           if (response.status === 200) {
+    //             return response.json();
+    //           } else {
+    //             return Promise.reject(`Unexpected status code: ${response.status}`);
+    //           }
+    //         })
+    //         .then(data => setPins(data));
+    //     }
+
+    // // const pinCoordinates = () => {
+    // //     pins.map
+    // // }
+
+    // useEffect(() => {
+    //     fetchPins();
+    // }, []);
+    
+    
     //positions can be the latitude/longitude of the Pins. size is like priority
+
     let pins = [
         {"name": "west", "position": [39,-96], "size": 40},
         {"name": "east", "position": [35,-93], "size": 50},

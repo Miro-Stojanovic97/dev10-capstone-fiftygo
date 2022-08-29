@@ -37,7 +37,7 @@ class PinJdbcTemplateRepositoryTest {
         try {
             City city = new City(1840014730, "Columbia", "SC", "South Carolina",new BigDecimal("34.0378"),	new BigDecimal("-80.9036"));
             Type type = new Type(11, "sing");
-            Pin expected = new Pin(3, "Suspendisse potenti.", LocalDate.of(2023, 8, 3), 5, false, city, type, 2);
+            Pin expected = new Pin(3, "Suspendisse potenti.", LocalDate.of(2023, 8, 3), 5, false, city, type, 1840014730, 11, 2);
             List<Pin> pins = repository.findAll();
 
             assertTrue(pins.contains(expected));
@@ -76,7 +76,7 @@ class PinJdbcTemplateRepositoryTest {
     void shouldFindPinByExistingId() {
         City city = new City(1840014730, "Columbia", "SC", "South Carolina",new BigDecimal("34.0378"),	new BigDecimal("-80.9036"));
         Type type = new Type(11, "sing");
-        Pin expected = new Pin(3, "Suspendisse potenti.", LocalDate.of(2023, 8,3), 5, false, city, type, 2);
+        Pin expected = new Pin(3, "Suspendisse potenti.", LocalDate.of(2023, 8,3), 5, false, city, type, 1840014730, 11, 2);
 
         Pin result = null;
         try {
@@ -164,6 +164,8 @@ class PinJdbcTemplateRepositoryTest {
         Type type = new Type(11, "sing");
         Pin pin = new Pin();
         pin.setPinDescription("Testing Pin.");
+        pin.setTypeId(11);
+        pin.setCityId(1840014730);
         pin.setPinDate(LocalDate.of(2023, 8,3));
         pin.setPinPriority(5);
         pin.setPinDidIt(false);
