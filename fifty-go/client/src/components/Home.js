@@ -1,5 +1,5 @@
 import '../home.css';
-
+import mkeViews from '../images/HomePage-IMG.jpg';
 
 //Was trying something that would make our stats cycle from 0
 //up to the number as a visual but I gave up quickly.
@@ -21,11 +21,16 @@ function Home() {
         <>
            
             <main id="homeMain">
+
+
                 <section id="about" className="about">
-                            <div className="col-lg-1"> </div>
-                            <div className="container col-lg-10" content order-last  order-lg-first>
+                    <div className="container">
+                        <div className="row gy-4">
+                            <div className="col-lg-6 position-relative align-self-start order-lg-last order-first">
+                                <img src={mkeViews} className="img-fluid" alt="Travel_Milwaukee" />
+                            </div>
+                            <div className="col-lg-6 content order-last order-lg-first">
                                 <h3>About Us</h3>
-                                {/* <img src="../images/HomePage-IMG.jpg" className="img-fluid" alt="Travel_Milwaukee" /> */}
                                 <p>
                                 Carefully crafted by a team of fresh developers with a fresh vision for travel. 
                                 FiftyGO is your favorite travel journal and travel companion all in one. No matter where you've been, where you want to go, or what you want to do; FiftyGO will help you to get there. An Operation Alkemi product. 
@@ -54,8 +59,11 @@ function Home() {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="col-lg-1"> </div>
+                        </div>
+                    </div>
                 </section>
+
+
                 <section id="stats-counter" className="stats-counter pt-0">
                     <div className="container" data-aos="fade-up">
 

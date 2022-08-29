@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 
 //TODO: figure out exactly what needs to be in here
 const TRIP_DEFAULT = {
+    tripId: 0,
     tripDescription: "",
     tripStartDate: "",
     tripEndDate: "",
-    tripTransportation: 0,
+    tripTransportation: "",
     tripPriority: 0,
     tripDidIt: 0,
 };

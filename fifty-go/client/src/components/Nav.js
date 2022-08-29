@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import React from 'react';
+import fiftyGoLogo from '../images/fiftyGO3.png';
 
 //TODO: Implement responsive design using Bootstrap.
 //Nav links shouldn't collapse into eachother. Flex/float?
@@ -12,9 +13,12 @@ function Nav() {
                 <div className="menu-bar">
                     <nav className="navbar navbar-expand navbar-light">
                         <div className="container-fluid">
-                            <a className="navbar-brand" href="/">
-                                {/* <img src="../images/fiftyGO3.png" alt="FiftyGO"/> */}
+                            {/* TODO: Get the picture to the top-left corner */}
+                            <div className="col-lg-1">
+                            <a className="logo d-flex align-items-center" href="/">
+                                <img src={fiftyGoLogo} alt="FiftyGo"/>
                             </a>
+                            </div>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav">
                                     <li className="nav-item">
