@@ -63,6 +63,26 @@ function MapView() {
         })
     }
 
+    // const init = {
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': `Bearer ${auth.user.token}`
+    //     },
+    //   };
+
+    //     fetch(`http://localhost:8080/fiftygo/pin/user/${auth.user.appUserId}`, init)
+    //       .then(response => {
+    //         if (response.status === 200) {
+    //           return response.json();
+    //         } else {
+    //           return Promise.reject(`Unexpected status code: ${response.status}`);
+    //         }
+    //       })
+    //       .then(data => setPins(data))
+    //       .catch(console.log);
+    //   }, []); // An empty dependency array tells to run our side effect once when the component is initially loaded.
+
     //positions can be the latitude/longitude of the Pins. size is like priority
     let pins = [
         {"name": "west", "position": [39,-96], "size": 40},
