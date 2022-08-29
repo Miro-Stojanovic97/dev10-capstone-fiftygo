@@ -13,24 +13,28 @@ const PIN_DEFAULT = {
     pinPriority: 0,
     pinDidIt: false,
     city: {
+      cityId: 0,
       cityName: "",
       stateAbr: "",
+      stateName: "",
+      latitude: 10.0001,
+      longitude: 10.0001
     },
     type: {
       typeId: 0,
       typeName: "",
     },
-    userId: 0
+    appUserId: 0
 };
 
 function PinForm() {
   const [pin, setPin] = useState(PIN_DEFAULT);
   const [errors, setErrors] = useState([]);
   const [types, setTypes] = useState([]);
-  const [type, setType] = useState({});
+  // const [type, setType] = useState({});
   const [stateChoice, setStateChoice] = useState("");
-  const [cities, setCities] = useState(stateChoice);
-  const [city, setCity] = useState({});
+  const [cities, setCities] = useState([]);
+  // const [city, setCity] = useState({});
 
   const auth = useContext(AuthContext);
 
@@ -128,10 +132,25 @@ function PinForm() {
   const handleChangeState = (event) => {
     setStateChoice(event.target.value);
   }
-  const handleChangeCity = (event) => {
-    const newCity = { ...city}
-    newCity[event.target.name] = event.target.value;
-    setCity(newCity);
+  const handleChangeCity = async (event) => { // uses cityId to fetch specifice city
+    
+    const city = await fetch(`http://localhost:8080/fiftygo/city/${event.target.value}`, initGET)
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        return Promise.reject(`Unexpected status code: ${response.status}`);
+      }
+    })
+    // .then(data => console.log(data))
+    // .then(console.log(pin))
+    .catch(console.log);
+  
+    pin.city = city;
+    console.log(pin);
+    // const newCity = { ...city}
+    // newCity[event.target.name] = event.target.value;
+    // setCity(newCity);
   }
 
   const handleChange = (event) => {
@@ -151,6 +170,7 @@ function PinForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(pin);
 
     if (id) {
       //console.log(pin);
@@ -369,8 +389,8 @@ function PinForm() {
         <div className="form-group">
           <label htmlFor="cityName">City:</label>
           <select id="cityName" name="cityName" className="form-control"
-            defaultValue={pin.city.cityName} onChange={handleChangeCity} >
-              {console.log(cities)}
+            onChange={handleChangeCity} >
+              {/* {console.log(cities)} */}
               {cities.map(city => (
                 <option key={city.cityId} value={city.cityId}>{city.cityName}</option>
               ))}

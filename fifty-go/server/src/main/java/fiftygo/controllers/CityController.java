@@ -48,7 +48,9 @@ public class CityController {
         return service.searchCities(sequence);
     }
 
-    @GetMapping("/{pinId}")
+
+
+    @GetMapping("/{cityId}")
     public City findById(@PathVariable int cityId) {
         return service.findById(cityId);
     }
