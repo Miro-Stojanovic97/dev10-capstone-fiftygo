@@ -75,12 +75,13 @@ function TripCards() {
                     <div className="container">
                         <div className="row">
                             {trips.map(trip => {
-                                <div className="col-4">
+                                <div className="col-12">
                                     <div key={trip.tripId + "-key"} className="card mb-5">
+                                        <div className="row no-gutters">
                                         <div className="card-body">
                                             <h5 className="card-title mb-3">{trip.tripDescription}</h5>
                                             <div className="col-12">
-                                                <h6 className="card-subtitle mb-2 text-muted">{trip.tripStartDate + "-" + trip.tripEndDate}</h6>
+                                                <h6 className="card-subtitle mb-2">{trip.tripStartDate + "-" + trip.tripEndDate}</h6>
                                             </div>
                                             <div className="col-6">
                                                 <h6 className="card-subtitle mb-2">Priority: {trip.tripPriority}</h6>
@@ -100,6 +101,7 @@ function TripCards() {
                                                 </button>
                                                 )}
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>   

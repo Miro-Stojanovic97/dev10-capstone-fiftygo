@@ -331,6 +331,7 @@ function Trips() {
                             {trips.map(trip => {
                                 <div className="col-4">
                                     <div key={trip.tripId + "-key"} className="card mb-5">
+                                    <div className="row no-gutters">
                                         <div className="card-body">
                                             <h5 className="card-title mb-3">{trip.tripDescription}</h5>
                                             <div className="col-12">
@@ -350,6 +351,7 @@ function Trips() {
                                                     <i className="bi bi-trash"></i> Delete
                                                 </button>
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>   
