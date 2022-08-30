@@ -1,7 +1,7 @@
 # file for testing HTTP requests!
 
 @base_url = http://localhost:8080/fiftygo
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImFwcFVzZXJJZCI6MSwiZmlyc3ROYW1lIjoiSm9obiIsImxhc3ROYW1lIjoiU21pdGgiLCJleHAiOjE2NjE4NzI0ODl9.ilJUwUxM92_UhFnE_seT39ak939pbU30KsbOPyAipHs
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImFwcFVzZXJJZCI6MSwiZmlyc3ROYW1lIjoiSm9obiIsImxhc3ROYW1lIjoiU21pdGgiLCJleHAiOjE2NjE4NzEwNDh9.HEU13fZPmqiRmhTs4jVG9I25_oquegB0iFmC4RO9H2M
 
 
 ### technically, get an authorization JWT token (basically, log in)
@@ -94,7 +94,7 @@ Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
 ### GET all trips by userId, using authorization
-GET {{base_url}}/trip/1 HTTP/1.1
+GET {{base_url}}/trip/user/1 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
@@ -110,7 +110,7 @@ Authorization: Bearer {{jwt}}
     "transportation": "car",
     "tripPriority": 1,
     "tripDidIt": "false",
-    "userId": 1
+    "appUserId": 1
 }
 
 ### GET all cities, using authorization

@@ -105,6 +105,9 @@ function TripForm() {
 
 
   const addTrip = () => {
+    console.log(trip);
+    auth.user.appUserId ? trip.appUserId = auth.user.appUserId : setErrors("Need a userId!");
+
     const init = {
       method: 'POST',
       headers: {
@@ -123,7 +126,7 @@ function TripForm() {
         }
       })
       .then(data => {
-        if (data.id) {
+        if (data.tripId) {
           /*
 
           On the happy path, "data" is an object that looks this:
@@ -146,7 +149,7 @@ function TripForm() {
           */
 
           // Send the user back to the list route.
-          history.push('/trip');
+          history.push('/tripcards');
         } else {
           /*
           On the unhappy path, 
