@@ -72,8 +72,7 @@ function TripCards() {
                     <div className="container">
                         <div className="row">
                             {trips.map(trip => (
-                                <div key={trip.tripId + "-key"} className="col-12">
-                                    <div  className="card mb-5">
+                                <div key={trip.tripId + "-key"} className="col-10 offset-1 card mb-5">
                                         <div className="card-body">
                                             <h5 className="card-title mb-3">{trip.tripDescription}</h5>
                                             <div className="col-12">
@@ -86,12 +85,12 @@ function TripCards() {
                                             <div className="col-6">
                                                 <h6 className="card-subtitle mb-2">{trip.tripDidIt ? 'Completed this trip!' : 'Have not completed this trip.'}</h6>
                                             </div>
-                                            <div className="col-6 pt-4">
+                                            <div className="col-12 pt-4">
                                                 <h6 className="card-text mb-2">There are {trip.pins.length} Pins in this Trip:</h6>
                                                 <ul className="list-group list-group-flush">
                                                 {trip.pins.map(pin => (
                                                     <li key={pin.pinId} className="list-group-item">
-                                                      <h6>{pin.type.typeName}: {pin.pinDescription}</h6>
+                                                      <h6><strong>{pin.type.typeName}:</strong> {pin.pinDescription}</h6>
                                                       <p>{pin.pinDate}</p>
                                                     <Link className="btn btn-primary btn-sm mr-2 mb-1" to={`/pins/edit/${pin.pinId}`}>
                                                       <i className="bi bi-pencil-square"></i> Edit Pin
@@ -113,10 +112,8 @@ function TripCards() {
                                                 </button>
                                                 )}
                                               </div>
-                                            </div>
-                                            
+                                            </div> 
                                         </div>
-                                    </div>
                                 </div>   
                             ))}
                         </div>
