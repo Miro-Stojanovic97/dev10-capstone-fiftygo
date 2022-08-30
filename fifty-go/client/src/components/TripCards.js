@@ -96,7 +96,7 @@ function TripCards() {
                                             </div>
                                             <div className="col-12">
                                                 {auth.user && auth.user.appUserId && (
-                                                <Link className="btn btn-primary btn-sm mr-2" to={`/pins/edit/${trip.tripId}`}>
+                                                <Link className="btn btn-primary btn-sm mr-2" to={`/trip/edit/${trip.tripId}`}>
                                                     <i className="bi bi-pencil-square"></i> Edit
                                                 </Link>
                                                 )}
