@@ -107,7 +107,8 @@ public class TripJdbcTemplateRepository implements TripRepository{
     public boolean update(Trip trip) throws DataAccessException {
         final String sql = "update trip set trip_description = ?, " +
                 "trip_start_date = ?, trip_end_date = ?, transportation = ?, " +
-                "trip_priority = ?, trip_did_it = ?;";
+                "trip_priority = ?, trip_did_it = ? " +
+                "where trip_id = ?;";
 
         return jdbcTemplate.update(sql,
                 trip.getTripDescription(),
@@ -115,7 +116,8 @@ public class TripJdbcTemplateRepository implements TripRepository{
                 trip.getTripEndDate(),
                 trip.getTransportation(),
                 trip.getTripPriority(),
-                trip.isTripDidIt()) > 0;
+                trip.isTripDidIt(),
+                trip.getTripId()) > 0;
     }
 
     @Override

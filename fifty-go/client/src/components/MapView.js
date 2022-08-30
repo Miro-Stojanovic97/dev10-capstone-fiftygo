@@ -63,41 +63,41 @@ function MapView() {
         })
     }
 
-    // const [pins, setPins] = useState([]);
-    // const auth = useContext(AuthContext);
+    const [pins, setPins] = useState([]);
+    const auth = useContext(AuthContext);
 
-    // const init = {
-    //     method: 'GET',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Authorization': `Bearer ${auth.user.token}`
-    //     },
-    //   };
+    const init = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${auth.user.token}`
+        },
+      };
 
-    // const fetchPins = () => {
-    //     fetch(`http://localhost:8080/fiftygo/pin/user/${auth.user.appUserId}`, init)
-    //         .then(response => {
-    //           if (response.status === 200) {
-    //             return response.json();
-    //           } else {
-    //             return Promise.reject(`Unexpected status code: ${response.status}`);
-    //           }
-    //         })
-    //         .then(data => setPins(data));
-    //     }
+    const fetchPins = () => {
+        fetch(`http://localhost:8080/fiftygo/pin/user/${auth.user.appUserId}`, init)
+            .then(response => {
+              if (response.status === 200) {
+                return response.json();
+              } else {
+                return Promise.reject(`Unexpected status code: ${response.status}`);
+              }
+            })
+            .then(data => setPins(data));
+        }
 
-    // // const pinCoordinates = () => {
-    // //     pins.map
-    // // }
+    // const pinCoordinates = () => {
+    //     pins.map
+    // }
 
-    // useEffect(() => {
-    //     fetchPins();
-    // }, []);
+    useEffect(() => {
+        fetchPins();
+    }, []);
     
     
     //positions can be the latitude/longitude of the Pins. size is like priority
 
-    let pins = [
+    let pinsLiteral = [
         {"name": "west", "position": [39,-96], "size": 40},
         {"name": "east", "position": [35,-93], "size": 50},
         {"name": "north", "position": [45,-90], "size": 60}]
@@ -132,10 +132,10 @@ function MapView() {
                 //on each feature (states), call function to map through them 
                 onEachFeature={onEachFeature}
             />  
-            { pins.map((pins) => (
-                <Marker position={pins.position} icon={getIcon(pins.size)}>
+            { pinsLiteral.map((pinsLiteral) => (
+                <Marker position={pinsLiteral.position} icon={getIcon(pinsLiteral.size)}>
                     <Popup>
-                        {pins.name}
+                        {pinsLiteral.name}
                     </Popup>
                 </Marker>
             ))}
