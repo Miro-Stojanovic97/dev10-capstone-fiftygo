@@ -64,8 +64,8 @@ function TripCards() {
     return (
         <>
                 <div className="container">
-                    <h2 className="mb-4">Trips</h2>
-                    <button className="btn btn-primary mt-4" onClick={() => history.push('/trip/add')}>
+                    <h2 className="mt-4">Trips</h2>
+                    <button className="btn btn-primary my-4" onClick={() => history.push('/trip/add')}>
                         <i className="bi bi-plus-circle"></i> Add Trip
                     </button>
                     </div>
@@ -77,35 +77,44 @@ function TripCards() {
                                         <div className="card-body">
                                             <h5 className="card-title mb-3">{trip.tripDescription}</h5>
                                             <div className="col-12">
-                                                <h6 className="card-subtitle mb-2">{trip.tripStartDate + "-" + trip.tripEndDate}</h6>
+                                                <h6 className="card-subtitle mb-2">Start date: {trip.tripStartDate}</h6>
+                                                <h6 className="card-subtitle mb-2">End date: {trip.tripEndDate}</h6>
                                             </div>
                                             <div className="col-6">
                                                 <h6 className="card-subtitle mb-2">Priority: {trip.tripPriority}</h6>
                                             </div>
                                             <div className="col-6">
-                                                <h6 className="card-subtitle mb-2">Completed?: {trip.tripDidIt}</h6>
+                                                <h6 className="card-subtitle mb-2">{trip.tripDidIt ? 'Completed this trip!' : 'Have not completed this trip.'}</h6>
                                             </div>
-                                            <div className="col-6">
-                                                <h6 className="card-text mb-2">Pins: could go here! was casusing an error due to calling all pins.</h6>
+                                            <div className="col-6 pt-4">
+                                                <h6 className="card-text mb-2">There are {trip.pins.length} Pins in this Trip:</h6>
+                                                <ul className="list-group list-group-flush">
                                                 {trip.pins.map(pin => (
-                                                  <>
-                                                  <h6>{pin.type.typeName}: {pin.pinDescription}</h6>
-                                                  <p>{pin.pinDate}</p>
-                                                  </>
-                                                ))}
+                                                    <li class="list-group-item">
+                                                      <h6>{pin.type.typeName}: {pin.pinDescription}</h6>
+                                                      <p>{pin.pinDate}</p>
+                                                    <Link className="btn btn-primary btn-sm mr-2 mb-1" to={`/pins/edit/${pin.pinId}`}>
+                                                      <i className="bi bi-pencil-square"></i> Edit Pin
+                                                    </Link>
+                                                    </li>
+                                                  ))}
+                                                </ul>
                                             </div>
-                                            <div className="col-12">
+                                            <div className='card-footer'>
+                                              <div className="col-12 py-1">
                                                 {auth.user && auth.user.appUserId && (
-                                                <Link className="btn btn-primary btn-sm mr-2" to={`/trip/edit/${trip.tripId}`}>
-                                                    <i className="bi bi-pencil-square"></i> Edit
+                                                <Link className="btn btn-primary btn-sm me-1" to={`/trip/edit/${trip.tripId}`}>
+                                                    <i className="bi bi-pencil-square"></i> Edit Trip
                                                 </Link>
                                                 )}
                                                 {auth.user && auth.user.hasRole('ROLE_ADMIN') && (
                                                 <button className="btn btn-danger btn-sm" onClick={() => handleDeleteTrip(trip.id)}>
-                                                    <i className="bi bi-trash"></i> Delete
+                                                    <i className="bi bi-trash"></i> Delete Trip
                                                 </button>
                                                 )}
+                                              </div>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>   

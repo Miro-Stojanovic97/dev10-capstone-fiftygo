@@ -95,7 +95,7 @@ function PinList() {
                 <td>
                   <div className="float-right mr-2">
                     {auth.user && auth.user.appUserId && (
-                      <Link className="btn btn-primary btn-sm mr-2 mb-1" to={`/pins/edit/${pin.pinId}`}>
+                      <Link className="btn btn-primary btn-sm me-1 mb-1" to={`/pins/edit/${pin.pinId}`}>
                         <i className="bi bi-pencil-square"></i> Edit
                       </Link>
                     )}

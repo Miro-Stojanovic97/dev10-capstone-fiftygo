@@ -1,5 +1,4 @@
 import { useEffect, useState, useContext } from 'react';
-import { scryRenderedComponentsWithType } from 'react-dom/test-utils';
 import { Link, useHistory, useParams } from 'react-router-dom';
 
 import AuthContext from '../contexts/AuthContext';
@@ -317,11 +316,14 @@ useEffect(() => { // get the current pin we'd like to edit
           </select>
         </div>
         <div className="mt-4">
-          <button className="btn btn-success mr-2" type="submit">
+          <button className="btn btn-success me-2" type="submit">
             <i className="bi bi-file-earmark-check"></i> {id ? 'Update Pin' : 'Add Pin'}
           </button>
-          <Link className="btn btn-warning" to="/pins">
+          <Link className="btn btn-warning me-2" to="/pinlist">
             <i className="bi bi-stoplights"></i> Cancel
+          </Link>
+          <Link className="btn btn-warning" to="/tripcards">
+            <i className="bi bi-stoplights"></i> View Trips
           </Link>
         </div>
       </form>
