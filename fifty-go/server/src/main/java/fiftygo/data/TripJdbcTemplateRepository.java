@@ -116,7 +116,7 @@ public class TripJdbcTemplateRepository implements TripRepository{
 
 
     private void addPins(Trip trip){
-        final String sql = "select p.pin_id, p.pin_description, p.pin_date, p.pin_priority, p.pin_did_it, p.user_id " +
+        final String sql = "select p.pin_id, p.pin_description, p.city_id, p.type_id, p.pin_date, p.pin_priority, p.pin_did_it, p.user_id " +
                 "from pin p " +
                 "inner join pin_trip on p.pin_id = pin_trip.pin_id " +
                 "inner join trip on pin_trip.trip_id = trip.trip_id " +

@@ -28,9 +28,9 @@ public class TripService {
         }
     }
 
-    public List<Trip> findByUserId(int userId) {
+    public List<Trip> findByUserId(int appUserId) {
         try {
-            return repository.findByUserId(userId);
+            return repository.findByUserId(appUserId);
         } catch (fiftygo.data.DataAccessException e) {
             throw new RuntimeException(e);
         }
