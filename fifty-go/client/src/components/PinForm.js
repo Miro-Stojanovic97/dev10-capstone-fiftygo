@@ -44,6 +44,7 @@ function PinForm() {
   const history = useHistory();
   const { id } = useParams();
 
+
   const initGET = {
         method: "GET",
         headers: {
@@ -52,8 +53,24 @@ function PinForm() {
         }
       }
 
+
+// const getPinType = () => { // get the current pin's type and store data in type via setType??
+//     fetch(`http://localhost:8080/fiftygo/type/${pin.typeId}`, initGET)
+//     .then(response => {
+//       if (response.status === 200) {
+//         return response.json();
+//       } else {
+//         return Promise.reject(`Unexpected status code: ${response.status}`);
+//       }
+//     })
+//     .then(data => setPinType(data))
+//     .catch(console.log);
+//   } // want to set type so we can have it in the form...
+
+
 useEffect(() => { // get the current pin we'd like to edit
     // Make sure that we have an "id" value...
+    //console.log(pin);
     if (id) {
       fetch(`http://localhost:8080/fiftygo/pin/${id}`, initGET)
         .then(response => {
@@ -64,10 +81,11 @@ useEffect(() => { // get the current pin we'd like to edit
           }
         })
         .then(data => setPin(data))
+        //.then(getPinType()) // would really like to get the type....
         .catch(console.log);
-    
     }
   }, [id]); // Hey React... please call my arrow function every time the "id" route parameter changes value
+
 
   useEffect(() => { // get all the types and store data in types via setTypes
     fetch("http://localhost:8080/fiftygo/type", initGET)
@@ -79,35 +97,23 @@ useEffect(() => { // get the current pin we'd like to edit
       }
     })
     .then(data => setTypes(data))
-    .then((pin) => getPinType(pin)) // maybe how I can get type to update what we see if the form field??? TODO!
+    //.then(() => getPinType({pin})) // maybe how I can get type to update what we see if the form field??? TODO!
     .catch(console.log);
   }, []); // only do this when the page loads
 
-  const getPinType = () => { // get the current pin's type and store data in type via setType??
-    fetch(`http://localhost:8080/fiftygo/type/${pin.typeId}`, initGET)
-    .then(response => {
-      if (response.status === 200) {
-        return response.json();
-      } else {
-        return Promise.reject(`Unexpected status code: ${response.status}`);
-      }
-    })
-    .then(data => setPinType(data))
-    .catch(console.log);
-  }// TODO: do this when the pin is set, but stopped working...??
 
-  useEffect(() => { // get the current pin's city and store data in city via setCity
-    fetch(`http://localhost:8080/fiftygo/city/${pin.cityId}`, initGET)
-    .then(response => {
-      if (response.status === 200) {
-        return response.json();
-      } else {
-        return Promise.reject(`Unexpected status code: ${response.status}`);
-      }
-    })
-    .then(data => setCity(data))
-    .catch(console.log);
-  }, [pin]); // TODO: do this when pin is set, but not really working....??
+  // useEffect(() => { // get the current pin's city and store data in city via setCity
+  //   fetch(`http://localhost:8080/fiftygo/city/${pin.cityId}`, initGET)
+  //   .then(response => {
+  //     if (response.status === 200) {
+  //       return response.json();
+  //     } else {
+  //       return Promise.reject(`Unexpected status code: ${response.status}`);
+  //     }
+  //   })
+  //   .then(data => setCity(data))
+  //   .catch(console.log);
+  // }, [pin.cityId]); // TODO: do this when pin is set, but not really working....??
 
   
   useEffect(() => {
@@ -125,9 +131,11 @@ useEffect(() => { // get the current pin we'd like to edit
       .catch(console.log);
   }, [stateChoice]); // hey react, do this fetch and stuff whenever stateChoice changes!
 
+
   const handleChangeState = (event) => {
     setStateChoice(event.target.value);
   }
+
 
   const handleChange = (event) => {
     // Make a copy of the object.
@@ -140,8 +148,8 @@ useEffect(() => { // get the current pin we'd like to edit
     }
 
     setPin(newPin);
-    
   };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -152,6 +160,7 @@ useEffect(() => { // get the current pin we'd like to edit
       addPin();
     }
   };
+
 
   const addPin = () => {
     const init = {
@@ -181,6 +190,7 @@ useEffect(() => { // get the current pin we'd like to edit
       })
       .catch(console.log);
   };
+
 
   const updatePin = () => {
 
@@ -213,6 +223,7 @@ useEffect(() => { // get the current pin we'd like to edit
       })
       .catch(console.log);
   };
+
 
   return (
     <>
@@ -308,7 +319,7 @@ useEffect(() => { // get the current pin we'd like to edit
         <div className="form-group">
           <label htmlFor="cityId">City:</label>
           <select id="cityId" name="cityId" className="form-control"
-               onChange={handleChange} >
+              defaultValue={city.cityName} onChange={handleChange} >
               {/* {console.log(cities)} */}
               {cities.map(city => (
                 <option key={city.cityId} value={city.cityId}>{city.cityName}</option>

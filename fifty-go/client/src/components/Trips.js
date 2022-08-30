@@ -72,7 +72,7 @@ function Trips() {
 
 
     const handleDeleteTrip = (tripId) => {
-        const trip = trip.find(trip => trip.id === tripId);
+        const trip = trips.find(trip => trip.id === tripId);
 
         if (window.confirm(`Delete this Trip?: ${trip.tripDescription}`)) {
             const init = {
@@ -329,7 +329,7 @@ function Trips() {
                     {/* card view */}
                     <div className="container">
                         <div className="row">
-                            {trips.map(trip => {
+                            {trips.map(trip => (
                                 <div className="col-4">
                                     <div key={trip.tripId + "-key"} className="card mb-5">
                                     <div className="row no-gutters">
@@ -359,7 +359,7 @@ function Trips() {
                                         </div>
                                     </div>
                                 </div>   
-                            })}
+                            ))}
                         </div>
                     </div>
                 </>

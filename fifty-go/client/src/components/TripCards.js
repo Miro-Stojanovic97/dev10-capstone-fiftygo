@@ -31,7 +31,7 @@ function TripCards() {
             })
             .then(data => setTrips(data))
             .catch(console.log);
-        }, []); // An empty dependency array tells to run our side effect once when the component is initially loaded.
+        }, [auth.user.appUserId, auth.user.token]); // An empty dependency array tells to run our side effect once when the component is initially loaded.
 
     const handleDeleteTrip = (tripId) => {
         const trip = trips.find(trip => trip.tripId === tripId);
@@ -90,7 +90,7 @@ function TripCards() {
                                                 <h6 className="card-text mb-2">There are {trip.pins.length} Pins in this Trip:</h6>
                                                 <ul className="list-group list-group-flush">
                                                 {trip.pins.map(pin => (
-                                                    <li class="list-group-item">
+                                                    <li key={pin.pinId} className="list-group-item">
                                                       <h6>{pin.type.typeName}: {pin.pinDescription}</h6>
                                                       <p>{pin.pinDate}</p>
                                                     <Link className="btn btn-primary btn-sm mr-2 mb-1" to={`/pins/edit/${pin.pinId}`}>

@@ -29,13 +29,13 @@ function PinList() {
           })
           .then(data => setPins(data))
           .catch(console.log);
-      }, []); // An empty dependency array tells to run our side effect once when the component is initially loaded.    
+      }, [auth.user.appUserId, auth.user.token]); // An empty dependency array tells to run our side effect once when the component is initially loaded.    
   
     const handleDeletePin = (pinId) => {
       const pin = pins.find(pin => pin.pinId === pinId);
   
-      //TODO: Are pinDescription / pinCity callable here?
-      if (window.confirm(`Delete pin ${pin.pinDescription} in ${pin.pinCity}?`)) {
+      //TODO: maybe imporve message
+      if (window.confirm(`Delete this pin?\n${pin.pinDescription}`)) {
         const init = {
           method: 'DELETE',
           headers: {
@@ -52,6 +52,7 @@ function PinList() {
   
               // update the pins state variable
               setPins(newPins);
+              window.location.reload();
             } else {
               return Promise.reject(`Unexpected status code: ${response.status}`);
             }
