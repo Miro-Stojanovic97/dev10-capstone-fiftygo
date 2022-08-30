@@ -63,7 +63,7 @@ function MapView() {
         })
     }
 
-    const [pins, setPins] = useState([]);
+    const [pin, setPin] = useState([]);
     const auth = useContext(AuthContext);
 
     const init = {
@@ -74,7 +74,7 @@ function MapView() {
         },
       };
 
-    const fetchPins = () => {
+    useEffect(() => {
         fetch(`http://localhost:8080/fiftygo/pin/user/${auth.user.appUserId}`, init)
             .then(response => {
               if (response.status === 200) {
@@ -83,24 +83,25 @@ function MapView() {
                 return Promise.reject(`Unexpected status code: ${response.status}`);
               }
             })
-            .then(data => setPins(data));
-        }
+            .then(data => setPin(data))
+            .then(console.log(pin));
+        }, []);
 
-    // const pinCoordinates = () => {
-    //     pins.map
-    // }
 
-    useEffect(() => {
-        fetchPins();
-    }, []);
+    console.log(pin);
+    // const pinsCoordinates = [pins.city.latitude, pins.city.longitude];
+
+    // useEffect(() => {
+    //     fetchPins();
+    // }, []);
     
     
     //positions can be the latitude/longitude of the Pins. size is like priority
 
-    let pinsLiteral = [
-        {"name": "west", "position": [39,-96], "size": 40},
-        {"name": "east", "position": [35,-93], "size": 50},
-        {"name": "north", "position": [45,-90], "size": 60}]
+    // let pinsLiteral = [
+    //     {"name": "west", "position": [39,-96], "size": 40},
+    //     {"name": "east", "position": [35,-93], "size": 50},
+    //     {"name": "north", "position": [45,-90], "size": 60}]
 
     return (
         <>
@@ -132,10 +133,10 @@ function MapView() {
                 //on each feature (states), call function to map through them 
                 onEachFeature={onEachFeature}
             />  
-            { pinsLiteral.map((pinsLiteral) => (
-                <Marker position={pinsLiteral.position} icon={getIcon(pinsLiteral.size)}>
+            { pin.map((pin) => (
+                <Marker position={[pin.city.latitude, pin.city.longitude]} icon={getIcon(pin.pinPriority * 10)}>
                     <Popup>
-                        {pinsLiteral.name}
+                        {pin.pinDescription}
                     </Popup>
                 </Marker>
             ))}
