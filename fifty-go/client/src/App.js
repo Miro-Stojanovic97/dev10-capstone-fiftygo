@@ -17,6 +17,7 @@ import TripCards from "./components/TripCards";
 import AuthContext from "./contexts/AuthContext";
 import { refreshToken } from "./services/AuthApi";
 import TripForm from "./components/TripForm";
+import UpgradeForm from "./components/UpgradeForm";
 
 
 const LOCAL_STORAGE_TOKEN_KEY = 'fiftyGoToken';
@@ -172,6 +173,9 @@ function App() {
              </Route>
              <Route path="/register">
                <Register />
+             </Route>
+             <Route path="/upgrade">
+              <UpgradeForm />
              </Route>
            </Switch>
          </div>

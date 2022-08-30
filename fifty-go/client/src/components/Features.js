@@ -1,12 +1,11 @@
 import '../features.css';
 
-
-//if user upgrades to premium, remove "featured" class from free plan pricing-item 
-// and move to premium plan
-
-
-
 function Features() {
+
+  const handleSubmit = (event) => {
+    window.confirm("Your message has been sent to the Operation Alkemi Team!");
+  }
+
     return (
         <>
  
@@ -21,7 +20,7 @@ function Features() {
         <div className="row gy-4">
 
           <div className="col-lg-6">
-            <div className="pricing-item featured">
+            <div className="pricing-item">
               <h3>Free Plan</h3>
               <h4><sup>$</sup>0<span> / month</span></h4>
               <ul>
@@ -33,7 +32,7 @@ function Features() {
           </div> 
 
           <div className="col-lg-6" data-aos-delay="200">
-            <div className="pricing-item">
+            <div className="pricing-item featured">
               <h3>Premium Plan</h3>
               <h4><sup>$</sup>10<span> / month</span></h4>
               <ul>
@@ -41,7 +40,7 @@ function Features() {
                 <li><i className="bi bi-check"></i> Unlimited Pins</li>
                 <li><i className="bi bi-check"></i> <span>View Trips and Pins on the Map</span></li>
               </ul>
-              <a href="/register" className="btn btn-primary">Upgrade Now</a>
+              <a href="/upgrade" className="btn btn-primary">Upgrade Now</a>
             </div>
           </div>
 
@@ -95,29 +94,7 @@ function Features() {
           </div>
 
           <div className="col-lg-8">
-            {/* <form action="forms/contact.php" method="post" role="form" className="php-email-form">
-              <div className="row">
-                <div className="col-md-6 form-group">
-                  <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" required/>
-                </div>
-                <div className="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" required/>
-                </div>
-              </div>
-              <div className="form-group mt-3">
-                <input type="text" className="form-control" name="subject" id="subject" placeholder="Subject" required/>
-              </div>
-              <div className="form-group mt-3">
-                <textarea className="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-              </div>
-              <div className="my-3">
-                <div className="loading">Loading</div>
-                <div className="error-message"></div>
-                <div className="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div className="text-center"><button type="submit">Send Message</button></div>
-            </form> */}
-            <form>
+            <form onSubmit={handleSubmit}>
          <div className="form-group mt-3">
            <label htmlFor="contactName">Your Name:</label>
            <input id="contactName" name="contactName" type="text" className="form-control"/>
@@ -132,7 +109,7 @@ function Features() {
          </div>
          <div className="form-group mt-3">
            <label htmlFor="contactMessage">Message:</label>
-           <textarea className="form-control" name="message" rows="5" required></textarea>
+           <textarea className="form-control" name="message" rows="5" ></textarea>
          </div>
          <div className="mt-4">
            <button className="btn btn-primary mr-2" type="submit">
