@@ -186,7 +186,7 @@ function TripForm() {
       .then(data => {
         if (!data) {
           // Send the user back to the cards route.
-          history.push('/trips');
+          history.push('/tripcards');
         } else {
           setErrors(data);
         }
@@ -246,7 +246,7 @@ function TripForm() {
            <button className="btn btn-success mr-2" type="submit">
              <i className="bi bi-file-earmark-check"></i> {id ? 'Update Trip' : 'Add Trip'}
            </button>
-           <Link className="btn btn-warning" to="/trips">
+           <Link className="btn btn-warning" to="/tripcards">
              <i className="bi bi-stoplights"></i> Cancel
            </Link>
          </div>
