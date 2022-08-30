@@ -126,7 +126,7 @@ function TripForm() {
         }
       })
       .then(data => {
-        if (data.id) {
+        if (data.tripId) {
           /*
 
           On the happy path, "data" is an object that looks this:
