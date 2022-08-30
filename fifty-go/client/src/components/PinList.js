@@ -63,39 +63,70 @@ function PinList() {
   
     return (
       <>
-        <h2 className="mb-4">Pins</h2>
+      <div className='container'>
+        <h2 className="mt-4">Pins</h2>
         <button className="btn btn-primary my-4" onClick={() => history.push('/pins/add')}>
           <i className="bi bi-plus-circle"></i> Add Pin
         </button>
         {/* <Link className="btn btn-primary my-4" to="/pins/add">
           <i className="bi bi-plus-circle"></i> Add Pin
         </Link> */}
-        <table className="table table-striped table-hover table-sm">
-          <thead className="thead-dark">
+        <table className="table table-striped table-hover table-sm" id='pinlist-table'>
+          <thead>
             <tr>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Date</th>
-                <th>Priority</th>
-                <th>Did It</th>
-                <th>City</th>
-                <th>State</th>
-                <th>&nbsp;</th>
+                <th scope="col">
+                  <div className='p-1'>Description</div>
+                </th>
+                <th scope="col">
+                  <div className='p-1'>Type</div> 
+                </th>
+                <th scope="col">
+                  <div className='p-1'>Date</div> 
+                </th>
+                <th scope="col">
+                  <div className='p-1'>Priority</div> 
+                </th>
+                <th scope="col">
+                  <div className='p-1'>Completed</div> 
+                </th>
+                <th scope="col">
+                  <div className='p-1'>City</div>
+                </th>
+                <th scope="col">
+                  <div className='p-1 me-1'>State</div> 
+                </th>
+                <th scope="col">
+                  <div className='p-1'></div> 
+                </th>
             </tr>
           </thead>
           <tbody>
             {pins.map(pin => (
               <tr key={pin.pinId}>
-                <td>{pin.pinDescription}</td>
-                <td>{pin.type.typeName}</td>
-                <td>{pin.pinDate}</td>
-                <td>{pin.pinPriority}</td>
-                <td>{pin.pinDidIt ? 'Yes' : 'No'}</td>
-                <td>{pin.city.cityName}</td>
-                <td>{pin.city.stateAbr}</td>
                 <td>
-                  <div className="float-right mr-2">
-                    {auth.user && auth.user.appUserId && (
+                  <div className='p-1'>{pin.pinDescription}</div> 
+                </td>
+                <td>
+                  <div className='p-1'>{pin.type.typeName}</div> 
+                </td>
+                <td>
+                  <div className='p-1'>{pin.pinDate}</div> 
+                </td>
+                <td>
+                  <div className='p-1'>{pin.pinPriority}</div> 
+                </td>
+                <td>
+                  <div className='p-1'>{pin.pinDidIt ? 'Did it!' : 'Not Yet'}</div> 
+                </td>
+                <td>
+                  <div className='p-1'>{pin.city.cityName}</div> 
+                </td>
+                <td>
+                  <div className='p-1'>{pin.city.stateAbr}</div> 
+                </td>
+                <td>
+                  <div className="row align-self-center p-1 me-1">
+                      {auth.user && auth.user.appUserId && (
                       <Link className="btn btn-primary btn-sm me-1 mb-1" to={`/pins/edit/${pin.pinId}`}>
                         <i className="bi bi-pencil-square"></i> Edit
                       </Link>
@@ -112,6 +143,8 @@ function PinList() {
             ))}
           </tbody>
         </table>
+      </div>
+        
       </>
     );
   }
