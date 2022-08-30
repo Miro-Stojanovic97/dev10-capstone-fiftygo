@@ -1,7 +1,7 @@
 # file for testing https requests for trips and types
 
 @base_url = http://localhost:8080/fiftygo
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoiYWdlaWdlciIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiYXBwVXNlcklkIjo0LCJmaXJzdE5hbWUiOiJBbGxpIiwibGFzdE5hbWUiOiJHZWlnZXIiLCJleHAiOjE2NjE4MDcxOTV9.tDYnRLb_1yznSjUQS7_dZH3TDPGdVzr5e8VvVjVY8pg
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoiYWdlaWdlciIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiYXBwVXNlcklkIjo0LCJmaXJzdE5hbWUiOiJBbGxpIiwibGFzdE5hbWUiOiJHZWlnZXIiLCJleHAiOjE2NjE4MTA4ODd9.MeYhSJZPPWPZaBpHxSEhgeJefJh2VvXuc6ktXzyajA8
 
 
 ### create an account. If it worked, then "login" below
