@@ -4,6 +4,7 @@ import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon, GeoJSON,
 import { statesData } from '../us-states';
 import { click } from "@testing-library/user-event/dist/click";
 import AuthContext from '../contexts/AuthContext';
+import { specialCharMap } from '@testing-library/user-event/dist/keyboard';
 
 function MapView() {
 
@@ -58,7 +59,7 @@ function MapView() {
 
     function getIcon(iconSizer) {
         return L.icon({
-            iconUrl: require("../images/fiftyGO3.png"), 
+            iconUrl: require("../images/pin.png"), 
             iconSize: [iconSizer]
         })
     }
@@ -103,6 +104,10 @@ function MapView() {
     //     {"name": "east", "position": [35,-93], "size": 50},
     //     {"name": "north", "position": [45,-90], "size": 60}]
 
+    // let pinFilter = getComputedStyle().getPropertyValue('filter');
+    // console.log(pinFilter);
+
+
     return (
         <>
     
@@ -134,8 +139,10 @@ function MapView() {
                 onEachFeature={onEachFeature}
             />  
             { pin.map((pin) => (
-                <Marker position={[pin.city.latitude, pin.city.longitude]} icon={getIcon(pin.pinPriority * 10)}>
+                //icon={getIcon(pin.pinPriority * 5)}
+                <Marker className="leafletPin" position={[pin.city.latitude, pin.city.longitude]}>
                     <Popup>
+                        Pin Description:
                         {pin.pinDescription}
                     </Popup>
                 </Marker>
