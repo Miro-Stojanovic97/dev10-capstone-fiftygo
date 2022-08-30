@@ -202,3 +202,12 @@ a.nav-link {
 .home-points {
   margin-left: 20px;
 }
+
+#pinlist-table thead {
+  background-color:#c4cebe
+}
+
+#pinlist-table th {
+  width: auto !important;
+}
+

@@ -163,6 +163,7 @@ useEffect(() => { // get the current pin we'd like to edit
 
 
   const addPin = () => {
+    pin.appUserId = auth.user.appUserId;
     const init = {
       method: 'POST',
       headers: {
@@ -181,7 +182,7 @@ useEffect(() => { // get the current pin we'd like to edit
         }
       })
       .then(data => {
-        if (data.id) {
+        if (data.pinId) {
           // Send the user back to the list route.
           history.push('/pinlist');
         } else {
