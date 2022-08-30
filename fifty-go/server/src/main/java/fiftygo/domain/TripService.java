@@ -1,5 +1,6 @@
 package fiftygo.domain;
 
+import fiftygo.data.DataAccessException;
 import fiftygo.data.TripRepository;
 import fiftygo.models.Trip;
 import org.springframework.stereotype.Service;
@@ -90,6 +91,28 @@ public class TripService {
             result.addErrorMessage("Something went wrong.", ResultType.NOT_FOUND);
             return result;
         }
+
+        result.setPayload(trip);
+        return result;
+    }
+
+    public Result<Trip> addPinToTrip(int pinId, int tripId) throws DataAccessException {
+
+
+        Result<Trip> result = new Result<>();
+
+        boolean success = false;
+        try {
+            success = repository.addPinToTrip(pinId, tripId);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
+        if(!success) {
+            result.addErrorMessage("Something went wrong.", ResultType.NOT_FOUND);
+            return result;
+        }
+
+        Trip trip = repository.findById(tripId);
 
         result.setPayload(trip);
         return result;
