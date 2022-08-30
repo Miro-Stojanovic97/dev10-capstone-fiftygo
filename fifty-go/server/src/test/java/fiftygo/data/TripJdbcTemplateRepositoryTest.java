@@ -121,6 +121,20 @@ class TripJdbcTemplateRepositoryTest {
     }
 
     @Test
+    void shouldAddPinToTrip() {
+
+        Pin pin = makePinList().get(0);
+
+        boolean result = false;
+        try {
+            result = repository.addPinToTrip(pin.getPinId(), 6);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
+        assertTrue(result);
+    }
+
+    @Test
     void shouldUpdate() {
         Trip updatedTrip = makeTrip();
         updatedTrip.setTripDescription("updated description");
@@ -160,11 +174,11 @@ class TripJdbcTemplateRepositoryTest {
         newTrip.setTripPriority(1);
         newTrip.setTripDidIt(false);
         newTrip.setAppUserId(1);
-        newTrip.setPins(makePin());
+        newTrip.setPins(makePinList());
         return newTrip;
     }
 
-    private List<Pin> makePin() {
+    private List<Pin> makePinList() {
         City city = new City(1840014730, "Columbia", "SC", "South Carolina",new BigDecimal("34.0378"),	new BigDecimal("-80.9036"));
         Type type = new Type(11, "sing");
         List<Pin> pins = new ArrayList<>();

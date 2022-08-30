@@ -1,5 +1,6 @@
 package fiftygo.controllers;
 
+import fiftygo.data.DataAccessException;
 import fiftygo.domain.Result;
 import fiftygo.domain.ResultType;
 import fiftygo.domain.TripService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/fiftygo/trip")
@@ -43,6 +45,19 @@ public class TripController {
     public ResponseEntity<?> add(@RequestBody Trip trip){
         Result<Trip> result = service.add(trip);
         if(!result.isSuccess()) {
+            return new ResponseEntity<>(result.getErrorMessages(), HttpStatus.BAD_REQUEST); //400
+        }
+        return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED); //201
+    }
+
+    @PostMapping("/addpin")
+    public ResponseEntity<?> addPinToTrip(@RequestBody Map<String, Integer> pinTrip) throws DataAccessException {
+        int pinId = pinTrip.get("pinId");
+        int tripId = pinTrip.get("tripId");
+
+        Result<Trip> result = service.addPinToTrip(pinId, tripId);
+
+        if (!result.isSuccess()) {
             return new ResponseEntity<>(result.getErrorMessages(), HttpStatus.BAD_REQUEST); //400
         }
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED); //201

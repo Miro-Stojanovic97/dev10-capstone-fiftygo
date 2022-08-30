@@ -281,8 +281,6 @@ function Trips() {
                 </>
             )}
 
-
-            {/* Temporary to see if trips can render, then swtich from table to card collection */}
             {currentView === 'Cards' && (
                 <>
                 <div className="container">
@@ -290,40 +288,6 @@ function Trips() {
                     <button className="btn btn-primary my-4" onClick={() => setCurrentView('Add')}>
                         <i className="bi bi-plus-circle"></i> Add Trip
                     </button>
-                    {/* <table className="table table-striped table-hover table-sm">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th>Description</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Transportation</th>
-                                <th>Priority</th>
-                                <th>Did It</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {trips.map(trip => (
-                                <tr key={trip.tripId}>
-                                    <td>{trip.tripDescription}</td>
-                                    <td>{trip.tripStartDate}</td>
-                                    <td>{trip.tripEndDate}</td>
-                                    <td>{trip.tripPriority}</td>
-                                    <td>{trip.tripDidIt}</td>
-                                    <td>
-                                        <div className="float-right mr-2">
-                                            <button className="btn btn-primary btn-sm mr-2" onClick={() => handleEditTrip(trip.id)}>
-                                                <i className="bi bi-pencil-square"></i> Edit
-                                            </button>
-                                            <button className="btn btn-danger btn-sm" onClick={() => handleDeleteTrip(trip.id)}>
-                                                <i className="bi bi-trash"></i> Delete
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table> */}
                     </div>
 
                     {/* card view */}

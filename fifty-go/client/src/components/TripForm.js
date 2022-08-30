@@ -164,7 +164,7 @@ function TripForm() {
 
   const updateTrip = () => {
     // assign an ID (this is probably needed anymore)
-    trip.tripId = id;
+    // trip.tripId = id;
     //console.log(trip);
 
     const init = {

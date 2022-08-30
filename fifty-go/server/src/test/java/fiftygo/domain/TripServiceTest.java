@@ -1,5 +1,6 @@
 package fiftygo.domain;
 
+import fiftygo.data.DataAccessException;
 import fiftygo.data.TripRepository;
 import fiftygo.models.City;
 import fiftygo.models.Pin;
@@ -97,6 +98,18 @@ class TripServiceTest {
 
         Result<Trip> result = service.update(arg);
         assertEquals(ResultType.INVALID, result.getResultType());
+    }
+
+    @Test
+    void shouldAddPinToTrip() throws DataAccessException {
+
+        try {
+            when(repository.addPinToTrip(1, 3)).thenReturn(true);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
+        Result<Trip> result = service.addPinToTrip(1, 3);
+        assertEquals(ResultType.SUCCESS, result.getResultType());
     }
 
     private Trip makeTrip() {
