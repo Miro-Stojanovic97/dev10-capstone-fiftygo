@@ -1,7 +1,7 @@
 # file for testing https requests for trips and types
 
 @base_url = http://localhost:8080/fiftygo
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoiYWdlaWdlciIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiYXBwVXNlcklkIjo0LCJmaXJzdE5hbWUiOiJBbGxpIiwibGFzdE5hbWUiOiJHZWlnZXIiLCJleHAiOjE2NjE4MTA4ODd9.MeYhSJZPPWPZaBpHxSEhgeJefJh2VvXuc6ktXzyajA8
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoiYWdlaWdlciIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiYXBwVXNlcklkIjo0LCJmaXJzdE5hbWUiOiJBbGxpIiwibGFzdE5hbWUiOiJHZWlnZXIiLCJleHAiOjE2NjE4NzYyODN9.ETvMCFSdWf93_d8iKp7fhRnBGk9twHeT69Zpth985a4
 
 
 ### create an account. If it worked, then "login" below
@@ -75,7 +75,8 @@ Authorization: Bearer {{jwt}}
         "type": {
             "typeId": 26,
             "typeName": "ski"
-        }
+        },
+        "appUserId": "1"   
     }
 }
 
