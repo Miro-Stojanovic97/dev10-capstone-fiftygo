@@ -133,29 +133,6 @@ a.nav-link {
   background-color: transparent;
 }
 
-.map-button {
-  margin-right: 5px;
-  margin-bottom: 2px;
-  border-radius: 20%;
-  border-width: 1px;
-  border-color: #266DD3;
-  border-style: solid;
-  background-color: white;
-  color: #266DD3;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
-}
-
-.map-button.main {
-  border-radius: 0%;
-  margin-top: 2%;
-  margin-right: 10px;
-  margin-left: 5%;
-  border-color: #266DD3;
-  background-color: #266DD3;
-  color: white;
-  
-}
-
 .map-text {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: xx-large;
@@ -168,8 +145,36 @@ a.nav-link {
   /* margin-top: -10%; */
 }
 
-.leaflet-pane {
-  color: #266DD3;
+.leaflet-marker-icon {
+  margin-left: -12px;
+  margin-top: -41px; 
+  width: 24px;
+  height: 41px;
+  transform: translate3d(35px, 200px, 0px);
+  z-index: 200;
+  filter: hue-rotate(30deg) saturate(3);
+}
+
+.leaflet-marker-icon:hover {
+  margin-left: -12px;
+  margin-top: -41px; 
+  width: 24px;
+  height: 41px;
+  transform: translate3d(35px, 200px, 0px);
+  z-index: 200;
+  filter: hue-rotate(150deg) saturate(3);
+}
+
+.leaflet-interactive {
+  /* color: black;
+  background-color: black;
+  size: 10px;
+  height: 50px; */
+}
+
+.leaflet-zoom-animated {
+  /* color: black; */
+  /* background-color: black; */
 }
 
 /* .leaflet-popup-content-wrapper {
