@@ -33,10 +33,10 @@ function TripCards() {
             .catch(console.log);
         }, [auth.user.appUserId, auth.user.token]); // An empty dependency array tells to run our side effect once when the component is initially loaded.
 
-    const handleDeleteTrip = (tripId) => {
-        const trip = trips.find(trip => trip.tripId === tripId);
+    const handleDeleteTrip = (trip) => {
+        //const trip = trips.find(trip => trip.tripId === tripId);
         
-        if (window.confirm(`Delete trip ${trip.tripDescription} from ${trip.tripStartDate} to ${trip.tripEndDate}?`)) {
+        if (window.confirm(`Delete this trip?\n${trip.tripDescription}\nFrom ${trip.tripStartDate} to ${trip.tripEndDate}?`)) {
             const init = {
             method: 'DELETE',
             headers: {
@@ -44,12 +44,12 @@ function TripCards() {
             },
             };
         
-            fetch(`http://localhost:8080/fiftygo/trip/${tripId}`, init)
+            fetch(`http://localhost:8080/fiftygo/trip/${trip.tripId}`, init)
             .then(response => {
                 if (response.status === 204) {
                     // create a copy of the trips array
                     // remove the trip that we need to delete
-                    const newTrips = trips.filter(trip => trip.id !== tripId);
+                    const newTrips = trips.filter(t => trip.tripId !== t.tripId);
         
                     // update the trips state variable
                     setTrips(newTrips);
@@ -108,7 +108,7 @@ function TripCards() {
                                                 </Link>
                                                 )}
                                                 {auth.user && auth.user.hasRole('ROLE_ADMIN') && (
-                                                <button className="btn btn-danger btn-sm" onClick={() => handleDeleteTrip(trip.id)}>
+                                                <button className="btn btn-danger btn-sm" onClick={() => handleDeleteTrip(trip)}>
                                                     <i className="bi bi-trash"></i> Delete Trip
                                                 </button>
                                                 )}
