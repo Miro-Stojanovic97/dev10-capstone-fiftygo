@@ -5,13 +5,18 @@
 function Features() {
     return (
         <>
-        <h1 className="display-1">Features🌍</h1>
+        <h1 className="display-2">Features🌍</h1>
         <h5>Features </h5>
         <h5>Contacts Us </h5>
         <h5>TODO: Fill out Features page </h5>
         
         <section id="pricing" className="pricing">
       <div className="container">
+
+      <div className="section-header">
+          <span>Memberships</span>
+          <h2>Memberships</h2>
+      </div>
 
         <div className="row gy-4">
 
