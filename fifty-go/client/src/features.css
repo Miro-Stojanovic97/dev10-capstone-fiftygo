@@ -5,3 +5,7 @@
 .pricing-item ul li {
     text-align: center;
 }
+
+.window {
+    border-radius: 5px;
+}

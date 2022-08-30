@@ -1,4 +1,5 @@
 import '../features.css';
+import planeWindow from '../images/window.jpg';
 
 function Features() {
 
@@ -19,7 +20,7 @@ function Features() {
 
         <div className="row gy-4">
 
-          <div className="col-lg-6">
+          <div className="col-lg-4">
             <div className="pricing-item">
               <h3>Free Plan</h3>
               <h4><sup>$</sup>0<span> / month</span></h4>
@@ -31,7 +32,11 @@ function Features() {
             </div>
           </div> 
 
-          <div className="col-lg-6" data-aos-delay="200">
+          <div className="col-12 offset-1 col-lg-4 offset-lg-0">
+          <img src={planeWindow} className="img-fluid window" alt="Travel" />
+          </div>
+
+          <div className="col-lg-4" data-aos-delay="200">
             <div className="pricing-item featured">
               <h3>Premium Plan</h3>
               <h4><sup>$</sup>10<span> / month</span></h4>
