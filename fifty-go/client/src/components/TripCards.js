@@ -71,10 +71,9 @@ function TripCards() {
                     </div>
                     <div className="container">
                         <div className="row">
-                            {trips.map(trip => {
-                              {console.log(trip)}
-                                <div className="col-12">
-                                    <div key={trip.tripId + "-key"} className="card mb-5">
+                            {trips.map(trip => (
+                                <div key={trip.tripId + "-key"} className="col-12">
+                                    <div  className="card mb-5">
                                         <div className="card-body">
                                             <h5 className="card-title mb-3">{trip.tripDescription}</h5>
                                             <div className="col-12">
@@ -87,7 +86,13 @@ function TripCards() {
                                                 <h6 className="card-subtitle mb-2">Completed?: {trip.tripDidIt}</h6>
                                             </div>
                                             <div className="col-6">
-                                                <h6 className="card-text mb-2">Pins: {trip.pins}</h6>
+                                                <h6 className="card-text mb-2">Pins: could go here! was casusing an error due to calling all pins.</h6>
+                                                {trip.pins.map(pin => (
+                                                  <>
+                                                  <h6>{pin.type.typeName}: {pin.pinDescription}</h6>
+                                                  <p>{pin.pinDate}</p>
+                                                  </>
+                                                ))}
                                             </div>
                                             <div className="col-12">
                                                 {auth.user && auth.user.appUserId && (
@@ -104,7 +109,7 @@ function TripCards() {
                                         </div>
                                     </div>
                                 </div>   
-                            })}
+                            ))}
                         </div>
                     </div>
         </>
