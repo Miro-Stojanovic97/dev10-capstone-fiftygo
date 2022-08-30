@@ -100,7 +100,7 @@ function PinList() {
                       </Link>
                     )}
         {/* TODO: Determine how we want to handle our roles here */}
-                    {auth.user && auth.user.hasRole('ROLE_ADMIN') && (
+                    {auth.user && ( auth.user.hasRole('ROLE_ADMIN') || auth.user.hasRole('ROLE_USER') || auth.user.hasRole('ROLE_PREMIUM') ) && (
                       <button className="btn btn-danger btn-sm" onClick={() => handleDeletePin(pin.pinId)}>
                         <i className="bi bi-trash"></i> Delete
                       </button>
