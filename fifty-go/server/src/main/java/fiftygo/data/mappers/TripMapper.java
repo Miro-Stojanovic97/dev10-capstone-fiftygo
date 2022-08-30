@@ -18,7 +18,7 @@ public class TripMapper implements RowMapper<Trip> {
         trip.setTransportation(resultSet.getString("transportation"));
         trip.setTripPriority(resultSet.getInt("trip_priority"));
         trip.setTripDidIt(resultSet.getBoolean("trip_did_it"));
-        trip.setUserId(resultSet.getInt("user_id"));
+        trip.setAppUserId(resultSet.getInt("user_id"));
         return trip;
     }
 }
