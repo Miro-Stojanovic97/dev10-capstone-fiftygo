@@ -211,3 +211,7 @@ a.nav-link {
   width: auto !important;
 }
 
+#pinlist-table td {
+  vertical-align: middle;
+}
+
