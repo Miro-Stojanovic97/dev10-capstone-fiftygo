@@ -6,20 +6,36 @@ import AuthContext from '../contexts/AuthContext';
 import Errors from './Errors';
 
 const PIN_DEFAULT = {
-    pinId: 0,
+    pinId: 1,
     pinDescription: "",
     pinDate: "",
     pinPriority: 0,
     pinDidIt: false,
-    cityId: 0,
+    cityId: 1,
     typeId: 0,
     appUserId: 0
 };
 
-const STATE_DEFAULT = "AK";
+const TYPE_DEFAULT = {
+  typeId: 1,
+  typeName: ""
+}
+
+const CITY_DEFAULT = {
+  cityId: 1840003046,
+  cityName: "Milwaukee",
+  stateAbr: "WI",
+  stateName: "Wisconsin",
+  latitude: 43.0642,
+  longitude: -87.9675
+}
+
+const STATE_DEFAULT = CITY_DEFAULT.stateAbr;
 
 function PinForm() {
   const [pin, setPin] = useState(PIN_DEFAULT);
+  const [pinType, setPinType] = useState(TYPE_DEFAULT);
+  const [city, setCity] = useState(CITY_DEFAULT);
   const [errors, setErrors] = useState([]);
   const [types, setTypes] = useState([]);
   const [stateChoice, setStateChoice] = useState(STATE_DEFAULT);
@@ -37,20 +53,7 @@ function PinForm() {
         }
       }
 
-  useEffect(() => { // get all the types and store data in types via setTypes
-    fetch("http://localhost:8080/fiftygo/type", initGET)
-    .then(response => {
-      if (response.status === 200) {
-        return response.json();
-      } else {
-        return Promise.reject(`Unexpected status code: ${response.status}`);
-      }
-    })
-    .then(data => setTypes(data))
-    .catch(console.log);
-  }, []); // only do this once when the page loads.
-
-  useEffect(() => {
+useEffect(() => { // get the current pin we'd like to edit
     // Make sure that we have an "id" value...
     if (id) {
       fetch(`http://localhost:8080/fiftygo/pin/${id}`, initGET)
@@ -62,11 +65,52 @@ function PinForm() {
           }
         })
         .then(data => setPin(data))
-        // .then(console.log(pin))
         .catch(console.log);
+    
     }
   }, [id]); // Hey React... please call my arrow function every time the "id" route parameter changes value
 
+  useEffect(() => { // get all the types and store data in types via setTypes
+    fetch("http://localhost:8080/fiftygo/type", initGET)
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        return Promise.reject(`Unexpected status code: ${response.status}`);
+      }
+    })
+    .then(data => setTypes(data))
+    .then((pin) => getPinType(pin)) // maybe how I can get type to update what we see if the form field??? TODO!
+    .catch(console.log);
+  }, []); // only do this when the page loads
+
+  const getPinType = () => { // get the current pin's type and store data in type via setType??
+    fetch(`http://localhost:8080/fiftygo/type/${pin.typeId}`, initGET)
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        return Promise.reject(`Unexpected status code: ${response.status}`);
+      }
+    })
+    .then(data => setPinType(data))
+    .catch(console.log);
+  }// TODO: do this when the pin is set, but stopped working...??
+
+  useEffect(() => { // get the current pin's city and store data in city via setCity
+    fetch(`http://localhost:8080/fiftygo/city/${pin.cityId}`, initGET)
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        return Promise.reject(`Unexpected status code: ${response.status}`);
+      }
+    })
+    .then(data => setCity(data))
+    .catch(console.log);
+  }, [pin]); // TODO: do this when pin is set, but not really working....??
+
+  
   useEffect(() => {
     // if the US state name changes in the form, get a different list of cities based on that state.
     fetch(`http://localhost:8080/fiftygo/city/state/${stateChoice}`, initGET)
@@ -97,6 +141,7 @@ function PinForm() {
     }
 
     setPin(newPin);
+    
   };
 
   const handleSubmit = (event) => {
@@ -183,12 +228,7 @@ function PinForm() {
         </div>
         <div className="form-group">
           <label htmlFor="typeName">Type:</label>
-          <select
-            id="typeId"
-            name="typeId"
-            type="text"
-            className="form-control"
-             onChange={handleChange}>
+          <select id="typeId" name="typeId" type="text" className="form-control" defaultValue={pinType.typeName} onChange={handleChange}>
               {types.map(type => (
                 <option key={type.typeId} value={type.typeId}>{type.typeName}</option>
               ))}
@@ -269,7 +309,7 @@ function PinForm() {
         <div className="form-group">
           <label htmlFor="cityId">City:</label>
           <select id="cityId" name="cityId" className="form-control"
-              onChange={handleChange} >
+               onChange={handleChange} >
               {/* {console.log(cities)} */}
               {cities.map(city => (
                 <option key={city.cityId} value={city.cityId}>{city.cityName}</option>
