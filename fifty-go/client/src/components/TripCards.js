@@ -130,10 +130,10 @@ function TripCards() {
                                                     <li key={pin.pinId} className="list-group-item">
                                                       <h6><strong>{pin.type.typeName}:</strong> {pin.pinDescription}</h6>
                                                       <p>{pin.pinDate}</p>
-                                                    <Link className="btn btn-primary btn-sm mr-2 mb-1" to={`/pins/edit/${pin.pinId}`}>
+                                                    <Link className="btn btn-primary btn-sm me-2 mb-1" to={`/pins/edit/${pin.pinId}`}>
                                                       <i className="bi bi-pencil-square"></i> Edit Pin
                                                     </Link>
-                                                    <button onClick={() => removePinFromTrip(pin.pinId, trip.tripId)} className="btn btn-primary btn-sm">Remove this from the Trip</button>
+                                                    <button onClick={() => removePinFromTrip(pin.pinId, trip.tripId)} className="btn btn-danger btn-sm me-2 mb-1">Remove this from the Trip</button>
                                                     </li>
                                                   ))}
                                                 </ul>
