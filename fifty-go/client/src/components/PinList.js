@@ -2,10 +2,12 @@ import { useEffect, useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import AuthContext from '../contexts/AuthContext';
+import Errors from './Errors';
 
 function PinList() {
     const [pins, setPins] = useState([]);
-    const [trips, setTrips] = useState([])
+    const [trips, setTrips] = useState([]);
+    const [errors, setErrors] = useState([]);
   
     const auth = useContext(AuthContext);
   
@@ -87,11 +89,48 @@ function PinList() {
     const addPinToTrip = ( pinId, tripId ) => {
       // use pin Id and Trip Id in requestBody to make http request like: 
 
-      // ### GET that trip by ID to check, using authorization
-      // GET {{base_url}}/trip/3 HTTP/1.1
+      // ### add a pin(5) to a trip(3)
+      // POST {{base_url}}/trip/addpin HTTP/1.1
       // Content-Type: application/json
       // Authorization: Bearer {{jwt}}
 
+      // {
+      //     "pinId": 5,
+      //     "tripId": 3
+      // }
+
+      const init = {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${auth.user.token}`
+        },
+        body: {
+          'pinId': `${pinId}`,
+          'tripId': `${tripId}`
+        }
+      }
+
+      fetch("http:localhost:8080/fiftygo/trip/addpin", init)
+      .then(response => {
+        if (response.status === 204) {
+          return null;
+        } else if (response.status === 400) {
+          return response.json();
+        } else {
+          return Promise.reject(`Unexpected status code: ${response.status}`);
+        }
+      })
+      .then(data => {
+        if (!data) {
+          // Send the user back to the list route.
+          
+          history.push('/pinlist');
+        } else {
+          setErrors(data);
+        }
+      })
+      .catch(console.log);
       console.log(pinId, tripId);
     }
 
@@ -112,27 +151,41 @@ function PinList() {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Add Pin to a Trip:</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <h4 className="modal-title">Choose a trip for your Pin:</h4>
+                <button type="button" className="close btn" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div className="modal-body">
-                <p>Modal body text goes here.</p>
-
                 <ul className="list-group list-group-flush">
-                {trips.map(trip => (
-                  <li key={"pin-" + pin.pinId + "-to-trip-" + trip.tripId} className="list-group-item">
-                    <p>{trip.tripDescription} ({trip.tripStartDate} to {trip.tripEndDate})</p>
-                    <button>Add to this Trip</button>
+                  <li className="list-group-item">
+                    <h5>Your pin:</h5>
+                <p>{pin.pinDescription}</p>
                   </li>
-                ))}
+                  <li className="list-group-item">
+                  <h5>Your trips:</h5>
+                  </li>
                 </ul>
+                
+                <div className='container'>
+                  <ul className="list-group list-group-flush">
+                  {trips.map(trip => (
+                    <li key={"pin-" + pin.pinId + "-to-trip-" + trip.tripId} className="list-group-item">
+                      <p>{trip.tripDescription} ({trip.tripStartDate} to {trip.tripEndDate})</p>
+                      <button onClick={addPinToTrip(pin.pinId, trip.tripId)} className="btn btn-primary btn-sm">Add your Pin to this Trip</button>
+                    </li>
+                  ))}
+                  </ul>
+                </div>
+                
           
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary">Save changes</button>
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <p>Don't see a good trip for this Pin? Head to the Trips page to start a new Trip!</p>
+                {/* <Link className="btn btn-warning" data-dismiss="modal" target="_blank" to="/tripcards" >
+                  <i className="bi bi-stoplights"></i> View Trips
+                </Link> */}
+                {/* Strugglin to get this link to both redirect AND close the modal. seems to be one or the other, so omitting it for now. */}
               </div>
             </div>
           </div>
@@ -210,16 +263,16 @@ function PinList() {
                   <div className='p-1'>{pin.city.stateAbr}</div> 
                 </td>
                 <td className='vert-center'>
-                  <div className="row align-self-center p-1 me-1">
+                  <div className="row align-self-center p-1 m-1">
                       {auth.user && auth.user.appUserId && (
-                      <Link className="btn btn-primary btn-sm me-1 mb-1" to={`/pins/edit/${pin.pinId}`}>
+                      <Link className="btn btn-primary btn-sm mb-2" to={`/pins/edit/${pin.pinId}`}>
                         <i className="bi bi-pencil-square"></i> Edit
                       </Link>
                     )}
                     {auth.user && auth.user.appUserId && (
                       <button   type='button'
                                 // id={pin.pinId + "-pin-to-trip"} 
-                                className="btn btn-success btn-sm me-1 mb-1" 
+                                className="btn btn-success btn-sm mb-2" 
                                 data-toggle="modal" 
                                 data-target={"#" + pin.pinId + "-modal"} 
                                 //onClick={() => handleAddPinToTrip(pin.pinId)}
