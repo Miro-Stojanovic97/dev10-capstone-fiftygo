@@ -32,10 +32,6 @@ function Features() {
             </div>
           </div> 
 
-          <div className="col-12 offset-1 col-lg-4 offset-lg-0">
-          <img src={planeWindow} className="img-fluid window" alt="Travel" />
-          </div>
-
           <div className="col-lg-4" data-aos-delay="200">
             <div className="pricing-item featured">
               <h3>Premium Plan</h3>
@@ -47,6 +43,10 @@ function Features() {
               </ul>
               <a href="/upgrade" className="btn btn-primary">Upgrade Now</a>
             </div>
+          </div>
+
+          <div className="col-12 offset-1 col-lg-4 offset-lg-0">
+          <img src={planeWindow} className="img-fluid window" alt="Travel" />
           </div>
 
         </div>

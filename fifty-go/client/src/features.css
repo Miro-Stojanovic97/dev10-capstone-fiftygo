@@ -1,5 +1,6 @@
 .pricing-item {
     text-align: center;
+    border-radius: 100px !important;
 }
 
 .pricing-item ul li {
@@ -7,5 +8,5 @@
 }
 
 .window {
-    border-radius: 5px;
+    border-radius: 100px;
 }

@@ -27,10 +27,10 @@ function Home() {
                     <div className="container">
                         <div className="row gy-4">
                             <div className="col-lg-6 position-relative align-self-start order-lg-last order-first">
-                                <img src={mkeViews} className="img-fluid" alt="Travel_Milwaukee" />
+                                <img src={mkeViews} className="img-fluid home-img" alt="Travel_Milwaukee" />
                             </div>
                             <div className="col-lg-6 content order-last order-lg-first container mt-3">
-                                
+
                                 <div className="section-header">
                                     <span>About Us</span>
                                      <h2>About Us</h2>
