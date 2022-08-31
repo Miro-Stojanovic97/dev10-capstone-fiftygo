@@ -119,6 +119,8 @@ function PinList() {
       .then(response => {
         if (response.status === 204) {
           return null;
+        } else if (response.status === 500) {
+          setErrors("Can't add a duplicate pin to trip.")
         } else if (response.status === 400) {
           return response.json();
         } else {

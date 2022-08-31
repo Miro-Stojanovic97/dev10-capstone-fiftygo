@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -157,6 +158,17 @@ class AppUserJdbcTemplateRepositoryTest {
         }
         assertTrue(result);
     }
+
+//    @Test
+//    void shouldGetRolesByUsername() {
+//        List<String> expected = new ArrayList<>();
+//        String role = "ADMIN";
+//        expected.add(role);
+//
+//        List<String> actual = repository.getRolesByUsername("jsmith1");
+//
+//        assertEquals(expected, actual);
+//    }
 
     private AppUser makeAppUser() {
         AppUser appUser = new AppUser(
