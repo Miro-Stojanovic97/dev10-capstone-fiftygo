@@ -111,7 +111,8 @@ function PinList() {
         }
       }
 
-      fetch("http:localhost:8080/fiftygo/trip/addpin", init)
+      if (pinId && tripId ) {
+        fetch(`http:localhost:8080/fiftygo/trip/addpin`, init)
       .then(response => {
         if (response.status === 204) {
           return null;
@@ -131,7 +132,7 @@ function PinList() {
         }
       })
       .catch(console.log);
-      console.log(pinId, tripId);
+      }
     }
 
     const makeAddPinToTripModals = (pinId) => {
@@ -172,7 +173,7 @@ function PinList() {
                   {trips.map(trip => (
                     <li key={"pin-" + pin.pinId + "-to-trip-" + trip.tripId} className="list-group-item">
                       <p>{trip.tripDescription} ({trip.tripStartDate} to {trip.tripEndDate})</p>
-                      <button onClick={addPinToTrip(pin.pinId, trip.tripId)} className="btn btn-primary btn-sm">Add your Pin to this Trip</button>
+                      <button onClick={() => addPinToTrip(pin.pinId, trip.tripId)} className="btn btn-primary btn-sm">Add your Pin to this Trip</button>
                     </li>
                   ))}
                   </ul>

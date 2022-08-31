@@ -1,7 +1,7 @@
 # file for testing HTTP requests!
 
 @base_url = http://localhost:8080/fiftygo
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImFwcFVzZXJJZCI6MSwiZmlyc3ROYW1lIjoiSm9obiIsImxhc3ROYW1lIjoiU21pdGgiLCJleHAiOjE2NjE5MjI5MzB9.vkIUzY84ez4SRDw3zYOzaNHXWZrmfanP6_ILP9cTRws
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmaWZ0eWdvIiwic3ViIjoianNtaXRoMSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImFwcFVzZXJJZCI6MSwiZmlyc3ROYW1lIjoiSm9obiIsImxhc3ROYW1lIjoiU21pdGgiLCJleHAiOjE2NjE5Mjc1NzN9.sTCJouA4B_86TtdhjQ7zE3LUQbdHf0fH_g9dcd8YG0Q
 
 
 ### technically, get an authorization JWT token (basically, log in)
@@ -12,6 +12,11 @@ Content-Type: application/json
     "username": "jsmith1",
     "password": "P@ssw0rd!"
 }
+
+### resfresh_token
+POST http://localhost:8080/refresh_token HTTP/1.1
+Authorization: Bearer {{jwt}}
+
 
 ### create an account. If it worked, then "login" below
 POST http://localhost:8080/create_account HTTP/1.1
