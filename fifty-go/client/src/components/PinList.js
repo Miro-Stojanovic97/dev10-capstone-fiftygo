@@ -5,6 +5,7 @@ import AuthContext from '../contexts/AuthContext';
 
 function PinList() {
     const [pins, setPins] = useState([]);
+    const [trips, setTrips] = useState([])
   
     const auth = useContext(AuthContext);
   
@@ -29,7 +30,29 @@ function PinList() {
           })
           .then(data => setPins(data))
           .catch(console.log);
-      }, [auth.user.appUserId, auth.user.token]); // An empty dependency array tells to run our side effect once when the component is initially loaded.    
+      }, [auth.user.appUserId, auth.user.token]); // An empty dependency array tells to run our side effect once when the component is initially loaded.   
+      
+    useEffect(() => {
+      const init = {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${auth.user.token}`
+        }
+      }
+
+      fetch(`http://localhost:8080/fiftygo/trip/user/${auth.user.appUserId}`, init)
+        .then(response => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            return Promise.reject(`Unexpected status code: ${response.status}`);
+          }
+        })
+        //.then(data => console.log(data))
+        .then((data) => setTrips(data))
+        .catch(console.log);
+    }, []);
   
     const handleDeletePin = (pinId) => {
       const pin = pins.find(pin => pin.pinId === pinId);
@@ -60,6 +83,68 @@ function PinList() {
           .catch(console.log);
       }
     };
+
+    const addPinToTrip = ( pinId, tripId ) => {
+      // use pin Id and Trip Id in requestBody to make http request like: 
+
+      // ### GET that trip by ID to check, using authorization
+      // GET {{base_url}}/trip/3 HTTP/1.1
+      // Content-Type: application/json
+      // Authorization: Bearer {{jwt}}
+
+      console.log(pinId, tripId);
+    }
+
+    const makeAddPinToTripModals = (pinId) => {
+      // show trips in a pop-up with buttons on each trip, include a cancel button to back out back to /pinlist
+      console.log("trips", trips);
+       // return a modal with trips on it with buttons for "add to this trip"
+
+      const pinsArr = pins.map(pin => (
+        <div  key={pin.pinId} 
+              id={pin.pinId + "-modal"} 
+              className="modal fade" 
+              tabIndex={-1}
+              role="dialog"
+              aria-labelledby="exampleModalLabel" 
+              aria-hidden="true"
+              >
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Add Pin to a Trip:</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <p>Modal body text goes here.</p>
+
+                <ul className="list-group list-group-flush">
+                {trips.map(trip => (
+                  <li key={"pin-" + pin.pinId + "-to-trip-" + trip.tripId} className="list-group-item">
+                    <p>{trip.tripDescription} ({trip.tripStartDate} to {trip.tripEndDate})</p>
+                    <button>Add to this Trip</button>
+                  </li>
+                ))}
+                </ul>
+          
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-primary">Save changes</button>
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      ))
+      return pinsArr;
+    }
+
+    const handleAddPinToTrip = (pinId) => {
+// or does this button just need to be connected to the modal???
+    }
   
     return (
       <>
@@ -131,6 +216,17 @@ function PinList() {
                         <i className="bi bi-pencil-square"></i> Edit
                       </Link>
                     )}
+                    {auth.user && auth.user.appUserId && (
+                      <button   type='button'
+                                // id={pin.pinId + "-pin-to-trip"} 
+                                className="btn btn-success btn-sm me-1 mb-1" 
+                                data-toggle="modal" 
+                                data-target={"#" + pin.pinId + "-modal"} 
+                                //onClick={() => handleAddPinToTrip(pin.pinId)}
+                                >Connect this pin to a Trip
+                        {/* <i className="bi bi-pencil-square"></i> */}
+                      </button>
+                    )}
         {/* TODO: Determine how we want to handle our roles here */}
                     {auth.user && ( auth.user.hasRole('ROLE_ADMIN') || auth.user.hasRole('ROLE_USER') || auth.user.hasRole('ROLE_PREMIUM') ) && (
                       <button className="btn btn-danger btn-sm" onClick={() => handleDeletePin(pin.pinId)}>
@@ -144,7 +240,8 @@ function PinList() {
           </tbody>
         </table>
       </div>
-        
+      {makeAddPinToTripModals(pins)}
+      
       </>
     );
   }
