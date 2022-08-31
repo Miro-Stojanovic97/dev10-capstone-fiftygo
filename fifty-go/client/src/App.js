@@ -18,6 +18,8 @@ import AuthContext from "./contexts/AuthContext";
 import { refreshToken } from "./services/AuthApi";
 import TripForm from "./components/TripForm";
 import UpgradeForm from "./components/UpgradeForm";
+import UserList from "./components/UserList";
+import NoUserNav from "./components/NoUserNav";
 
 
 const LOCAL_STORAGE_TOKEN_KEY = 'fiftyGoToken';
@@ -117,66 +119,67 @@ function App() {
 
        <div id="outer-cont">
          <div id="main">
-           <Nav />
+           {auth.user ? (
+              <Nav />
+           ) : (
+             <NoUserNav />
+           )}
            <div className="row">
              <div className="col"></div>
              <div className="col-11"></div>
              <div className="col"></div>
            </div>
            <Switch>
+             
              <Route exact path="/">
                <Home />
              </Route>
+
              <Route exact path="/features">
                <Features />
              </Route>
+
+             <Route path="/userlist">
+               <UserList />
+             </Route>
+
              <Route path="/pinlist">
               {console.log("in routes", auth)}
-              {auth.user ? (<PinList />) : (<Redirect to="/login" />)}
+              <PinList />
              </Route>
-             {/* <Route path="/pins">
-              {console.log("in routes", auth)}
-              {auth.user ? (<Pins />) : (<Redirect to="/login" />)}
-             </Route> */}
+
              <Route path={['/pins/add', '/pins/edit/:id']}>
-              {auth.user ? (
                 <PinForm />
-              ) : (
-                <Redirect to="/login" />
-              )}
             </Route>
+
             <Route path="/tripcards">
                 {console.log("in routes", auth)}
-                {auth.user ? (<TripCards />) : (<Redirect to="/login" />)}
+                <TripCards />
             </Route>
-             {/* <Route path="/trips">
-               {auth.user ? (
-                 <Trips /> ) : (
-                   <Redirect to="/login" /> 
-                 )}
-             </Route> */}
+
              <Route path={['/trip/add', '/trip/edit/:id']}>
-               {auth.user ? (
                  <TripForm />
-               ) : (
-                 <Redirect to="/login" />
-               )}
              </Route>
+
              <Route path="/map">
-               {auth.user ? (
-                 <MapView /> ) : (
-                   <Redirect to="/login" />
+             {auth.user && auth.user.hasRole('PREMIUM') ? (
+                 <MapView/> ) : (
+                   <Redirect to="/upgrade" />
                )}
              </Route>
+
              <Route path="/login">
                <Login />
              </Route>
+
              <Route path="/register">
                <Register />
              </Route>
+
              <Route path="/upgrade">
               <UpgradeForm />
              </Route>
+
            </Switch>
          </div>
        </div>

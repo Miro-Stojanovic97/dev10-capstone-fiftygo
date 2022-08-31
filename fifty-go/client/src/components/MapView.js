@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import L from "leaflet";
 import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon, GeoJSON, ZoomControl } from "react-leaflet";
 import { statesData } from '../us-states';
@@ -65,6 +66,7 @@ function MapView() {
     }
 
     const [pin, setPin] = useState([]);
+    const [trip, setTrip] = useState([]);
     const auth = useContext(AuthContext);
 
     const init = {
@@ -88,8 +90,21 @@ function MapView() {
             .then(console.log(pin));
         }, []);
 
+        useEffect(() => {
+            fetch(`http://localhost:8080/fiftygo/trip/user/${auth.user.appUserId}`, init)
+                .then(response => {
+                  if (response.status === 200) {
+                    return response.json();
+                  } else {
+                    return Promise.reject(`Unexpected status code: ${response.status}`);
+                  }
+                })
+                .then(data => setTrip(data))
+                .then(console.log(trip));
+            }, []);
 
     console.log(pin);
+    console.log(trip);
     // const pinsCoordinates = [pins.city.latitude, pins.city.longitude];
 
     // useEffect(() => {
@@ -142,8 +157,27 @@ function MapView() {
                 //icon={getIcon(pin.pinPriority * 5)}
                 <Marker className="leafletPin" position={[pin.city.latitude, pin.city.longitude]}>
                     <Popup>
-                        Pin Description:
-                        {pin.pinDescription}
+                        <p> {pin.city.cityName}, {pin.city.stateAbr} </p>
+                        <p> {pin.pinDescription} </p>
+                        <p> {pin.pinDate} </p>
+                        <p> {pin.pinDidIt ? 'Completed!' : 'Not Completed Yet!'} </p>
+                        
+                    </Popup>
+                </Marker>
+            ))}
+
+            { trip.map((trip) => (
+                //icon={getIcon(pin.pinPriority * 5)}
+                <Marker className="leafletPin" position={[trip.pins[1].city.latitude, trip.pins[1].city.longitude]}>
+                    <Popup>
+                        <p> {trip.pins[1].city.cityName}, {trip.pins[1].city.stateAbr} </p>
+                        <p> {trip.tripDescription} </p>
+                        <p> {trip.tripStartDate} </p>
+                        <p> {trip.tripEndDate} </p>
+                        <p> {trip.tripDidIt ? 'Completed!' : 'Not Completed Yet!'} </p>
+                        {/* <Link className="btn btn-primary btn-sm mb-2" to={`/pins/edit/${pin.pinId}`}>
+                        <i className="bi bi-pencil-square"></i> Edit
+                        </Link> */}
                     </Popup>
                 </Marker>
             ))}

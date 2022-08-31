@@ -28,7 +28,7 @@ function Features() {
               <ul>
                 <li><i className="bi bi-check"></i> 10 Trips</li>
                 <li><i className="bi bi-check"></i> 50 Pins</li>
-                <li className="na"><i className="bi bi-x"></i> <span>View Trips and Pins on the Map</span></li>
+                <li className="na"><i className="bi bi-x"></i> <span>MapView </span></li>
               </ul>
             </div>
           </div> 
@@ -40,7 +40,7 @@ function Features() {
               <ul>
                 <li><i className="bi bi-check"></i> Unlimited Trips</li>
                 <li><i className="bi bi-check"></i> Unlimited Pins</li>
-                <li><i className="bi bi-check"></i> <span>View Trips and Pins on the Map</span></li>
+                <li><i className="bi bi-check"></i> <span>MapView</span></li>
               </ul>
               <a href="/upgrade" className="btn btn-primary">Upgrade Now</a>
             </div>
