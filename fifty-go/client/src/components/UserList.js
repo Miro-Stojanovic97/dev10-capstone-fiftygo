@@ -4,9 +4,35 @@ import AuthContext from '../contexts/AuthContext';
 function UserList() {
 
     const [users, setUsers] = useState([]);
+    const [roles, setRoles ] = useState([]);
 
     const auth = useContext(AuthContext);
 
+    useEffect(() => {
+        if(auth.user.hasRole('ROLE_ADMIN')) {
+
+        const init = {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${auth.user.token}`
+          },
+        };
+
+          fetch(`http://localhost:8080/user`, init)
+            .then(response => {
+              if (response.status === 200) {
+                return response.json();
+              } else {
+                return Promise.reject(`Unexpected status code: ${response.status}`);
+              }
+            })
+            
+            .then(data => setUsers(data))
+            .catch(console.log);
+        }
+        }, [auth.user.token]); // An empty dependency array tells to run our side effect once when the component is initially loaded.   
+    
     return (
         <>
         <div className='container'>
@@ -27,10 +53,7 @@ function UserList() {
                   <div className='p-1'>Username</div> 
                 </th>
                 <th scope="col">
-                  <div className='p-1'>Password</div> 
-                </th>
-                <th scope="col">
-                  <div className='p-1'>Membership Status</div> 
+                  <div className='p-1'>User Status</div> 
                 </th>
                 <th scope="col">
                   <div className='p-1'></div> 
@@ -39,24 +62,22 @@ function UserList() {
           </thead>
           <tbody>
             {users.map(user => (
-              <tr key={user.userId}>
+              <tr key={auth.user.appUserId + "-key"}>
                 <td>
-                  <div className='p-1'>{auth.user.appUserId}</div> 
+                  <div className='p-1'>{user.appUserId}</div> 
                 </td>
                 <td>
-                  <div className='p-1'>{auth.user.firstName}</div> 
+                  <div className='p-1'>{user.firstName}</div> 
                 </td>
                 <td>
-                  <div className='p-1'>{auth.user.lastName}</div> 
+                  <div className='p-1'>{user.lastName}</div> 
                 </td>
                 <td>
-                  <div className='p-1'>{auth.user.username}</div> 
+                  <div className='p-1'>{user.username}</div> 
                 </td>
                 <td>
-                  <div className='p-1'>{auth.user.password}</div> 
-                </td>
-                <td>
-                  <div className='p-1'>{auth.user.roles}</div> 
+                  <div className='p-1'>{user.roles}</div> 
+                  {console.log(user)}
                 </td>
                 <td className='vert-center'>
                   <div className="row align-self-center p-1 m-1">

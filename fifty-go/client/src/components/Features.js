@@ -15,8 +15,8 @@ function Features() {
       <div className="container">
 
       <div className="section-header mt-5">
-          <span>Memberships</span>
-          <h2>Memberships</h2>
+          <span>Upgrades</span>
+          <h2>Upgrades</h2>
       </div>
 
         <div className="row gy-4">
