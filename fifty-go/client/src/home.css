@@ -201,8 +201,14 @@ section.footer-outer {
 
 .about .content p:last-child {
   margin-bottom: 0;
+}
 
+.home-img {
+  border-radius: 10px;
+}
 
+.member {
+  border-radius: 5px;
 }
 /*--------------------------------------------------------------
 # Services Section
