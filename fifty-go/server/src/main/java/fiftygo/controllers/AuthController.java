@@ -68,8 +68,10 @@ public class AuthController {
 
 //    @PostMapping("/refresh_token")
 //    public ResponseEntity<Map<String, String>> refreshToken(UsernamePasswordAuthenticationToken principal) {
-//        AppUser appUser = new AppUser(principal.get, principal.getName(), principal.getName(), principal.getAuthorities());
-//        String jwtToken = jwtConverter.getTokenFromUser(appUser);
+//
+//        AppUser appUser = new AppUser(jwtConverter.getUserFromToken());
+//        String jwtToken = jwtConverter.getTokenFromUser(user);
+//        // causing problem because AppUser has more fields than User?
 //
 //        HashMap<String, String> map = new HashMap<>();
 //        map.put("jwt_token", jwtToken);

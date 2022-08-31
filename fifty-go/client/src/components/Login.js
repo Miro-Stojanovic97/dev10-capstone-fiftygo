@@ -47,31 +47,6 @@ export default function Login() {
       }
     };
 
-    //   fetch('http://localhost:8080/authenticate', init)
-    //     .then(response => {
-    //       if(response.status === 200) {
-    //         return response.json();
-    //       } else if (response.status === 403) {
-    //         return null;
-    //       } else {
-    //         return Promise.reject(`Unexpected status code: ${response.status}`);
-    //       }
-    //     })
-    //     .then(data => {
-    //       if (data) {
-    //         auth.login(data.jwt_token);
-    //         history.push('/');
-    //       } else {
-    //         setErrors(['login failure']);
-    //       }
-    //     })
-    //     .catch(console.log);
-    // }
-
-    // const handleUsernameChange = (event) => {
-    //     setUsername(event.target.value);
-    //   };
-
     return (
     <>
     <div className="container">

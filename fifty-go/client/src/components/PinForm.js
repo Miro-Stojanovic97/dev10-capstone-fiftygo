@@ -115,20 +115,20 @@ useEffect(() => { // get the current pin we'd like to edit
     .catch(console.log);
   }, []); // only do this when the page loads. This list doesn't need to be reloaded.
 
-  useEffect(() => { //if stateChoice changes, please update currentCity
-    fetch(`http://localhost:8080/fiftygo/city/state/${stateChoice}`, initGET)
-    .then(response => {
-      if (response.status === 200) {
-        return response.json();
-      } else {
-        return Promise.reject(`Unexpected status code: ${response.status}`);
-      }
-    })
-    .then(data => setCurrentCity(data))
-    .catch(console.log);
+  // useEffect(() => { //if stateChoice changes, please update currentCity
+  //   fetch(`http://localhost:8080/fiftygo/city/state/${stateChoice}`, initGET)
+  //   .then(response => {
+  //     if (response.status === 200) {
+  //       return response.json();
+  //     } else {
+  //       return Promise.reject(`Unexpected status code: ${response.status}`);
+  //     }
+  //   })
+  //   .then(data => setCurrentCity(data))
+  //   .catch(console.log);
 
 
-  }, [stateChoice])
+  // }, [stateChoice])
 
 
   // make a useEffect to get currentState? use {currentCity.stateAbr}
@@ -146,8 +146,9 @@ useEffect(() => { // get the current pin we'd like to edit
   
   // useEffect(() => {
   //   // if the US state name changes in the form, get a different list of cities based on that state.
-  //   if (currentState) {
+  //   if (currentState || stateChoice) {
   //     //console.log("currentState", currentState);
+  //     console.log(initGET);
   //     fetch(`http://localhost:8080/fiftygo/city/state/${stateChoice}`, initGET)
   //     .then(response => {
   //       if (response.status === 200) {
@@ -159,7 +160,7 @@ useEffect(() => { // get the current pin we'd like to edit
   //     .then(data => setCities(data))
   //     .catch(console.log);
   //   } else {
-  //     setErrors("uh oh no cities loaded.")
+  //     //setErrors("uh oh no cities loaded.");
   //   }
     
   // }, [stateChoice]); // if the currentState changes, gimme a new list of cities.

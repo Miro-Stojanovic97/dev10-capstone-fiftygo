@@ -98,6 +98,7 @@ function PinList() {
       //     "pinId": 5,
       //     "tripId": 3
       // }
+      console.log("pinId: ", pinId, "tripId: ", tripId)
 
       const init = {
         method: "POST",
@@ -111,7 +112,8 @@ function PinList() {
         }
       }
 
-      fetch("http:localhost:8080/fiftygo/trip/addpin", init)
+      if (pinId != 0 && tripId != 0 ) {
+        fetch(`http:localhost:8080/fiftygo/trip/addpin`, init)
       .then(response => {
         if (response.status === 204) {
           return null;
@@ -131,7 +133,7 @@ function PinList() {
         }
       })
       .catch(console.log);
-      console.log(pinId, tripId);
+      }
     }
 
     const makeAddPinToTripModals = (pinId) => {
@@ -172,7 +174,7 @@ function PinList() {
                   {trips.map(trip => (
                     <li key={"pin-" + pin.pinId + "-to-trip-" + trip.tripId} className="list-group-item">
                       <p>{trip.tripDescription} ({trip.tripStartDate} to {trip.tripEndDate})</p>
-                      <button onClick={addPinToTrip(pin.pinId, trip.tripId)} className="btn btn-primary btn-sm">Add your Pin to this Trip</button>
+                      <button onClick={() => addPinToTrip(pin.pinId, trip.tripId)} className="btn btn-primary btn-sm">Add your Pin to this Trip</button>
                     </li>
                   ))}
                   </ul>
@@ -264,7 +266,7 @@ function PinList() {
                 </td>
                 <td className='vert-center'>
                   <div className="row align-self-center p-1 m-1">
-                      {auth.user && auth.user.appUserId && (
+                      {auth.user && auth.user.appUserId && (pins.length <= 10) && (
                       <Link className="btn btn-primary btn-sm mb-2" to={`/pins/edit/${pin.pinId}`}>
                         <i className="bi bi-pencil-square"></i> Edit
                       </Link>
