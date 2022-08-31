@@ -139,31 +139,31 @@ useEffect(() => { // get the current pin we'd like to edit
   }, [currentCity]) // when there's a current city, or if current city changes, gimme a new current state.
 
   useEffect(() => {
-    if (currentState) {
-      setStateChoice(currentState.stateAbr);
+    if (stateChoice) {
+      setCurrentState(stateChoice);
     }
-  }, [currentState])
+  }, [stateChoice])
   
-  // useEffect(() => {
-  //   // if the US state name changes in the form, get a different list of cities based on that state.
-  //   if (currentState || stateChoice) {
-  //     //console.log("currentState", currentState);
-  //     console.log(initGET);
-  //     fetch(`http://localhost:8080/fiftygo/city/state/${stateChoice}`, initGET)
-  //     .then(response => {
-  //       if (response.status === 200) {
-  //         return response.json();
-  //       } else {
-  //         return Promise.reject(`Unexpected status code: ${response.status}`);
-  //       }
-  //     })
-  //     .then(data => setCities(data))
-  //     .catch(console.log);
-  //   } else {
-  //     //setErrors("uh oh no cities loaded.");
-  //   }
+  useEffect(() => {
+    // if the US state name changes in the form, get a different list of cities based on that state.
+    if (currentState) {
+      //console.log("currentState", currentState);
+      //console.log(initGET);
+      fetch(`http://localhost:8080/fiftygo/city/state/${currentState}`, initGET)
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return Promise.reject(`Unexpected status code: ${response.status}`);
+        }
+      })
+      .then(data => setCities(data))
+      .catch(console.log);
+    } else {
+      //setErrors("uh oh no cities loaded.");
+    }
     
-  // }, [stateChoice]); // if the currentState changes, gimme a new list of cities.
+  }, [currentState]); // if the currentState changes, gimme a new list of cities.
 
 
   const handleChangeState = (event) => {
@@ -308,26 +308,26 @@ useEffect(() => { // get the current pin we'd like to edit
     // use the stateChoice to setCities(stateChoice)
     // then do the method where we rearrange the List<City> to have the current pin's city at the top as the default.
 
-  const cityMapper = (currentCityId) => { // pass in pin.cityId
-    if (currentCityId != 0) {
-      console.log("currentState", currentState);
-      console.log("currentCityId: ", currentCityId) //make sure we are getting the cityId. We are.
-      console.log("currentCity before if: ", currentCity)
-      if (currentCity.stateAbr == stateChoice && cities.length > 0) {// only actually do this if we really have a current City in state
-        console.log("currentCity inside if:", currentCity); // make sure we still get the right city (we aren't getting anything!! >:( )
-        const newCitiesArr = cities.filter(city => city.stateAbr !== currentCity.stateAbr)
-        console.log("cities", cities);
+  const cityMapper = () => { // pass in pin.cityId
+    // if (currentCityId != 0) {
+    //   console.log("currentState", currentState);
+    //   console.log("currentCityId: ", currentCityId) //make sure we are getting the cityId. We are.
+    //   console.log("currentCity before if: ", currentCity)
+    //   if (currentCity.stateAbr == stateChoice && cities.length > 0) {// only actually do this if we really have a current City in state
+    //     console.log("currentCity inside if:", currentCity); // make sure we still get the right city (we aren't getting anything!! >:( )
+    //     const newCitiesArr = cities.filter(city => city.stateAbr !== currentCity.stateAbr)
+    //     console.log("cities", cities);
       
-        newCitiesArr.unshift(cities.filter(city => city.stateAbr === currentCity.stateAbr)[0]);
+    //     newCitiesArr.unshift(cities.filter(city => city.stateAbr == currentCity.stateAbr)[0]);
 
-        console.log("newCitiesArr", newCitiesArr);
+    //     console.log("newCitiesArr", newCitiesArr);
         
-        const citiesArr = newCitiesArr.map(city => <option key={city.cityId} value={city.cityId}>{city.cityName}</option> )
+    //     const citiesArr = newCitiesArr.map(city => <option key={city.cityId} value={city.cityId}>{city.cityName}</option> )
         
-        return citiesArr;
-      } else { //currentCity doesn't match stateChoice, just give me cities
+    //     return citiesArr;
+    //   } else { //currentCity doesn't match stateChoice, just give me cities
         return cities.map(city => <option key={city.cityId} value={city.cityId}>{city.cityName}</option> );
-      }
+      
 
       // then if we had a cityObj, we'd use its stateAbr to get all cities from that state
       
@@ -341,7 +341,7 @@ useEffect(() => { // get the current pin we'd like to edit
       
       
       // return citiesArr;
-    }
+    
   }
 
   return (
@@ -380,14 +380,14 @@ useEffect(() => { // get the current pin we'd like to edit
         <div className="form-group">
           <label htmlFor="stateChoice">State:</label>
           <select id="stateChoice" name="stateChoice" className="form-control" onChange={handleChangeState}>
-              {stateMapper(currentCity.stateAbr)}
+              {stateMapper(currentCity.stateAbr ? currentCity.stateAbr : "")}
           </select>
         </div>
         <div className="form-group">
           <label htmlFor="cityId">City:</label>
           <select id="cityId" name="cityId" className="form-control"
               onChange={handleChange} >
-              {cityMapper(currentCity.cityId)}
+              {cityMapper()}
           </select>
         </div>
         <div className="mt-4">
