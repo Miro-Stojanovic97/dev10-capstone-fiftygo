@@ -90,18 +90,18 @@ function MapView() {
             .then(console.log(pin));
         }, []);
 
-        useEffect(() => {
-            fetch(`http://localhost:8080/fiftygo/trip/user/${auth.user.appUserId}`, init)
-                .then(response => {
-                  if (response.status === 200) {
-                    return response.json();
-                  } else {
-                    return Promise.reject(`Unexpected status code: ${response.status}`);
-                  }
-                })
-                .then(data => setTrip(data))
-                .then(console.log(trip));
-            }, []);
+        // useEffect(() => {
+        //     fetch(`http://localhost:8080/fiftygo/trip/user/${auth.user.appUserId}`, init)
+        //         .then(response => {
+        //           if (response.status === 200) {
+        //             return response.json();
+        //           } else {
+        //             return Promise.reject(`Unexpected status code: ${response.status}`);
+        //           }
+        //         })
+        //         .then(data => setTrip(data))
+        //         .then(console.log(trip));
+        //     }, []);
 
     console.log(pin);
     console.log(trip);
@@ -114,10 +114,10 @@ function MapView() {
     
     //positions can be the latitude/longitude of the Pins. size is like priority
 
-    // let pinsLiteral = [
-    //     {"name": "west", "position": [39,-96], "size": 40},
-    //     {"name": "east", "position": [35,-93], "size": 50},
-    //     {"name": "north", "position": [45,-90], "size": 60}]
+    let pinsLiteral = [
+        {"name": "west", "position": [39,-96], "size": 40},
+        {"name": "east", "position": [35,-93], "size": 50},
+        {"name": "north", "position": [45,-90], "size": 60}]
 
     // let pinFilter = getComputedStyle().getPropertyValue('filter');
     // console.log(pinFilter);
@@ -161,25 +161,29 @@ function MapView() {
                         <p> {pin.pinDescription} </p>
                         <p> {pin.pinDate} </p>
                         <p> {pin.pinDidIt ? 'Completed!' : 'Not Completed Yet!'} </p>
-                        
+                        <Link className="btn btn-primary btn-sm mb-2" to={`/pins/edit/${pin.pinId}`}>
+                        <i className="bi bi-pencil-square"></i> Edit Pin
+                        </Link>
                     </Popup>
                 </Marker>
             ))}
 
             { trip.map((trip) => (
+                <Polygon color="green" weight={10} opacity={0.8} positions={pinsLiteral.position} />
+                
                 //icon={getIcon(pin.pinPriority * 5)}
-                <Marker className="leafletPin" position={[trip.pins[1].city.latitude, trip.pins[1].city.longitude]}>
-                    <Popup>
-                        <p> {trip.pins[1].city.cityName}, {trip.pins[1].city.stateAbr} </p>
-                        <p> {trip.tripDescription} </p>
-                        <p> {trip.tripStartDate} </p>
-                        <p> {trip.tripEndDate} </p>
-                        <p> {trip.tripDidIt ? 'Completed!' : 'Not Completed Yet!'} </p>
-                        {/* <Link className="btn btn-primary btn-sm mb-2" to={`/pins/edit/${pin.pinId}`}>
-                        <i className="bi bi-pencil-square"></i> Edit
-                        </Link> */}
-                    </Popup>
-                </Marker>
+                // <Marker className="leafletPin" position={[trip.pins[1].city.latitude, trip.pins[1].city.longitude]}>
+                //     <Popup>
+                //         <p> {trip.pins[1].city.cityName}, {trip.pins[1].city.stateAbr} </p>
+                //         <p> {trip.tripDescription} </p>
+                //         <p> {trip.tripStartDate} </p>
+                //         <p> {trip.tripEndDate} </p>
+                //         <p> {trip.tripDidIt ? 'Completed!' : 'Not Completed Yet!'} </p>
+                //         {/* <Link className="btn btn-primary btn-sm mb-2" to={`/pins/edit/${pin.pinId}`}>
+                //         <i className="bi bi-pencil-square"></i> Edit
+                //         </Link> */}
+                //     </Popup>
+                // </Marker>
             ))}
             
 
