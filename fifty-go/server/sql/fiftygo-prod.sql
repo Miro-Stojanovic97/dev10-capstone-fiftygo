@@ -10158,6 +10158,9 @@ INSERT INTO pin (pin_description, pin_date, pin_priority, pin_did_it, type_id, c
 	('Visiting Michael in San Fransisco.', '2023-01-04', 5, 0, 10, 1840021543, 2),
 	('Seeing the Cody, WY Rodeo outside of Yellowstone.', '2022-07-16', 5, 1, 16, 1840018595, 2),
 	('Going to a Colorado Rockies baseball game.', '2022-07-19', 2, 1, 16, 1840018789, 2),
+	('Touring Boston with Jamie.', '2022-10-17', 3, 0, 30, 1840000455, 2),
+	('Visiting New York for the 1st time!', '2022-10-20', 4, 0, 30, 1840034016, 2),
+	('Going to Acadia National Park with Jamie.', '2022-10-24', 4, 0, 31, 1840000281, 2),
 	('Going to a Milwaukee Bucks playoff game.', '2022-05-18', 2, 1, 16, 1840003046, 3),
 	('Exploring Chicago.', '2022-05-19', 2, 1, 30, 1840000494, 3),
 	('Visiting Chris in Indianapolis.', '2022-05-22', 3, 1, 9, 1840030084, 3),
@@ -10168,7 +10171,8 @@ INSERT INTO pin (pin_description, pin_date, pin_priority, pin_did_it, type_id, c
 INSERT INTO trip (trip_description, trip_start_date, trip_end_date, transportation, trip_priority, trip_did_it, user_id)
 	values
     ('West coast friend-visiting road trip!', '2022-12-12', '2023-01-08', 'car', 5, 0, 2),
-	('Yellowstone and Colorado skiing trip!', '2022-07-16', '2022-07-20', 'rental car', 3, 1, 2),
+	('Yellowstone and Colorado trip!', '2022-07-16', '2022-07-20', 'rental car', 3, 1, 2),
+	('NYC trip with Jamie!:)', '2022-10-16', '2022-10-27', 'bus', 3, 0, 2),
 	('Midwest to Nashville Road trip with friends.', '2022-05-17', '2022-05-30', 'car', 5, 1, 3),
 	('Taking the train to never land!', '2023-02-04', '2023-02-12', 'trains', 3, 0, 3);
     
@@ -10181,6 +10185,9 @@ insert into pin_trip (pin_id, trip_id)
 	(5, 3),
 	(6, 3),
 	(7, 3),
-	(8, 3),
+	(8, 4),
 	(9, 4),
-	(10, 4);
+	(10, 4),
+	(11, 4),
+	(12, 5),
+	(13, 5);

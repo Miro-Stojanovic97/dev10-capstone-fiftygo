@@ -45,7 +45,7 @@ function Nav() {
                             <ul className="navbar-nav">
                                 {auth.user && (
                                     <li className="nav-item">
-                                    <button onClick={() => auth.logout()} className="btn btn-outline-light btn-rounded nav-login" role="button" aria-pressed="true">Logout</button>
+                                    <Link to="/" onClick={() => auth.logout()} className="btn btn-outline-light btn-rounded nav-login" role="button" aria-pressed="true">Logout</Link>
                                     </li>
                                 )}
                                 

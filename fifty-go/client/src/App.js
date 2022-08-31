@@ -162,7 +162,7 @@ function App() {
              </Route>
 
              <Route path="/map">
-             {auth.user && auth.user.hasRole('PREMIUM') ? (
+             {auth.user && auth.user.hasRole('ROLE_PREMIUM') ? (
                  <MapView/> ) : (
                    <Redirect to="/upgrade" />
                )}
