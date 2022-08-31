@@ -1,5 +1,6 @@
 import '../features.css';
 import planeWindow from '../images/window.jpg';
+import greenWindow from '../images/windowGREEN.jpg'
 
 function Features() {
 
@@ -46,7 +47,7 @@ function Features() {
           </div>
 
           <div className="col-12 offset-1 col-lg-4 offset-lg-0">
-          <img src={planeWindow} className="img-fluid window" alt="Travel" />
+          <img src={greenWindow} className="img-fluid window" alt="Travel" />
           </div>
 
         </div>
