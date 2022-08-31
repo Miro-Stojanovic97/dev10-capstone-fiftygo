@@ -53,9 +53,6 @@ function UserList() {
                   <div className='p-1'>Username</div> 
                 </th>
                 <th scope="col">
-                  <div className='p-1'>User Status</div> 
-                </th>
-                <th scope="col">
                   <div className='p-1'></div> 
                 </th>
             </tr>
@@ -74,10 +71,6 @@ function UserList() {
                 </td>
                 <td>
                   <div className='p-1'>{user.username}</div> 
-                </td>
-                <td>
-                  <div className='p-1'>{user.roles}</div> 
-                  {console.log(user)}
                 </td>
                 <td className='vert-center'>
                   <div className="row align-self-center p-1 m-1">
