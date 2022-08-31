@@ -54,7 +54,7 @@ public class TripController {
     public ResponseEntity<?> addPinToTrip(@RequestBody Map<String, Integer> pinTrip) throws DataAccessException {
         int pinId = pinTrip.get("pinId");
         int tripId = pinTrip.get("tripId");
-
+        System.out.println("pinId: " + pinId + " tripId: " + tripId);
         Result<Trip> result = service.addPinToTrip(pinId, tripId);
 
         if (!result.isSuccess()) {
