@@ -202,7 +202,7 @@ function PinList() {
     return (
       <>
       <div className='container'>
-        <h2 className="mt-4">Pins</h2>
+        <h2 className="mt-4">{auth.user.firstName}'s Pins</h2>
         <button className="btn btn-primary my-4" onClick={() => history.push('/pins/add')}>
           <i className="bi bi-plus-circle"></i> Add Pin
         </button>

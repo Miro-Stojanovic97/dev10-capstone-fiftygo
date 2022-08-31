@@ -64,7 +64,7 @@ function TripCards() {
     return (
         <>
                 <div className="container">
-                    <h2 className="mt-4">Trips</h2>
+                    <h2 className="mt-4">{auth.user.firstName}'s Trips</h2>
                     <button className="btn btn-primary my-4" onClick={() => history.push('/trip/add')}>
                         <i className="bi bi-plus-circle"></i> Add Trip
                     </button>
