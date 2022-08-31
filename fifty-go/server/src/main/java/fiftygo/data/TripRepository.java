@@ -17,6 +17,8 @@ public interface TripRepository {
 
     boolean addPinToTrip(int pinId, int tripId) throws DataAccessException;
 
+    boolean deletePinFromTrip(int pinId, int tripId) throws DataAccessException;
+
     boolean update(Trip trip) throws DataAccessException;
 
     @Transactional

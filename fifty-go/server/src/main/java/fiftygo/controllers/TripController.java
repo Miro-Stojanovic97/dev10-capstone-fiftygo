@@ -50,10 +50,10 @@ public class TripController {
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED); //201
     }
 
-    @PostMapping("/addpin")
+    @PostMapping(value = "/addpin")
     public ResponseEntity<?> addPinToTrip(@RequestBody Map<String, Integer> pinTrip) throws DataAccessException {
-        int pinId = pinTrip.get("pinId");
-        int tripId = pinTrip.get("tripId");
+        int pinId = (int) pinTrip.get("pinId");
+        int tripId = (int) pinTrip.get("tripId");
         System.out.println("pinId: " + pinId + " tripId: " + tripId);
         Result<Trip> result = service.addPinToTrip(pinId, tripId);
 
@@ -63,6 +63,18 @@ public class TripController {
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED); //201
     }
 
+    @DeleteMapping(value = "/removepin")
+    public ResponseEntity<?> deletePinFromTrip(@RequestBody Map<String, Integer> pinTrip) throws DataAccessException {
+        int pinId = (int) pinTrip.get("pinId");
+        int tripId = (int) pinTrip.get("tripId");
+        System.out.println("pinId: " + pinId + " tripId: " + tripId);
+        Result<Trip> result = service.deletePinFromTrip(pinId, tripId);
+
+        if (!result.isSuccess()) {
+            return new ResponseEntity<>(result.getErrorMessages(), HttpStatus.BAD_REQUEST); //400
+        }
+        return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED); //201
+    }
     @PutMapping("/{tripId}")
     public ResponseEntity<?> update(@PathVariable int tripId, @RequestBody Trip trip){
         if(tripId != trip.getTripId()){

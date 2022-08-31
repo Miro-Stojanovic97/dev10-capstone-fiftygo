@@ -117,6 +117,27 @@ public class TripService {
         result.setPayload(trip);
         return result;
     }
+    public Result<Trip> deletePinFromTrip(int pinId, int tripId) throws DataAccessException {
+
+
+        Result<Trip> result = new Result<>();
+
+        boolean success = false;
+        try {
+            success = repository.deletePinFromTrip(pinId, tripId);
+        } catch (fiftygo.data.DataAccessException e) {
+            throw new RuntimeException(e);
+        }
+        if(!success) {
+            result.addErrorMessage("Something went wrong.", ResultType.NOT_FOUND);
+            return result;
+        }
+
+        Trip trip = repository.findById(tripId);
+
+        result.setPayload(trip);
+        return result;
+    }
 
     public Result<Trip> deleteById(int tripId) {
         Result<Trip> result = new Result<>();

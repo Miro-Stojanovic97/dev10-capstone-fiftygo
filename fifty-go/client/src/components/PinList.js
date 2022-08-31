@@ -100,20 +100,22 @@ function PinList() {
       // }
       console.log("pinId: ", pinId, "tripId: ", tripId)
 
+      const pinTrip = {
+        'pinId': `${pinId}`,
+        'tripId': `${tripId}`
+      }
       const init = {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${auth.user.token}`
         },
-        body: {
-          'pinId': `${pinId}`,
-          'tripId': `${tripId}`
-        }
+        body: JSON.stringify(pinTrip)
       }
+      console.log("init add pin", init);
 
       if (pinId != 0 && tripId != 0 ) {
-        fetch(`http:localhost:8080/fiftygo/trip/addpin`, init)
+        fetch(`http://localhost:8080/fiftygo/trip/addpin`, init)
       .then(response => {
         if (response.status === 204) {
           return null;

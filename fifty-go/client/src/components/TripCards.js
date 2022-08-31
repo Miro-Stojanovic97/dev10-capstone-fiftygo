@@ -2,10 +2,12 @@ import { useEffect, useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import AuthContext from '../contexts/AuthContext';
+import Errors from './Errors';
 
 
 function TripCards() {
     const [trips, setTrips] = useState([]);
+    const [errors, setErrors] = useState([]);
 
     const auth = useContext(AuthContext);
 
@@ -59,7 +61,43 @@ function TripCards() {
                 })
                 .catch(console.log);
             }
-          };
+      };
+
+  const removePinFromTrip = ( pinId, tripId ) => {
+
+
+    const pinTrip = {
+      'pinId': `${pinId}`,
+      'tripId': `${tripId}`
+    }
+    const init = {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${auth.user.token}`
+      },
+      body: JSON.stringify(pinTrip)
+    }
+    console.log("init remove pin", init);
+
+    if (pinId != 0 && tripId != 0 ) {
+      if (window.confirm(`Delete the pin from the trip?`)) {
+        fetch(`http://localhost:8080/fiftygo/trip/removepin`, init)
+        .then(response => {
+          if (response.status === 201) {
+            return(window.location.reload());
+          } else if (response.status === 400) {
+            return response.json();
+          } else {
+            return Promise.reject(`Unexpected status code: ${response.status}`);
+          }
+        })
+        .catch(console.log);
+        }
+      }
+      
+  }
+
 
     return (
         <>
@@ -95,6 +133,7 @@ function TripCards() {
                                                     <Link className="btn btn-primary btn-sm mr-2 mb-1" to={`/pins/edit/${pin.pinId}`}>
                                                       <i className="bi bi-pencil-square"></i> Edit Pin
                                                     </Link>
+                                                    <button onClick={() => removePinFromTrip(pin.pinId, trip.tripId)} className="btn btn-primary btn-sm">Remove this from the Trip</button>
                                                     </li>
                                                   ))}
                                                 </ul>

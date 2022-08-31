@@ -104,6 +104,12 @@ public class TripJdbcTemplateRepository implements TripRepository{
     }
 
     @Override
+    public boolean deletePinFromTrip(int pinId, int tripId) throws DataAccessException {
+        final String sql = "delete from pin_trip where pin_id = ? and trip_id = ?;";
+        return jdbcTemplate.update(sql, pinId, tripId) > 0;
+    }
+
+    @Override
     public boolean update(Trip trip) throws DataAccessException {
         final String sql = "update trip set trip_description = ?, " +
                 "trip_start_date = ?, trip_end_date = ?, transportation = ?, " +
