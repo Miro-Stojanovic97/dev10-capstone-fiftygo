@@ -220,26 +220,10 @@ function PinForm() {
       newStatesArr.unshift(states.filter(state => state.stateAbr === currentStateAbr)[0]);
       
       const statesArr = newStatesArr.map(state => <option key={state.stateAbr} value={state.stateAbr}>{state.stateName}</option> )
-      //console.log(statesArr);
+      
       return statesArr;
     }
   }
-
-  useEffect(() => {
-    if (pin.cityId != 0) {
-
-      fetch(`http://localhost:8080/fiftygo/city/${pin.cityId}`, initGET)
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          return Promise.reject(`Unexpected status code: ${response.status}`);
-        }
-      })
-      .then(data => setCityChoice(data))
-      .catch(console.log);
-    }
-  }, [pin])
 
   const cityMapper = () => { // pass in pin.cityId
     if (cities.length > 0) {
