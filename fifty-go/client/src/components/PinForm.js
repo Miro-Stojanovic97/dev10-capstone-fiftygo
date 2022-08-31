@@ -10,18 +10,18 @@ const PIN_DEFAULT = {
     pinDate: "",
     pinPriority: 0,
     pinDidIt: false,
-    cityId: 1,
+    cityId: 0,
     typeId: 0,
     appUserId: 0
 };
 
 const TYPE_DEFAULT = {
-  typeId: 1,
+  typeId: 0,
   typeName: ""
 }
 
 const CITY_DEFAULT = {
-  cityId: 1840003046,
+  cityId: 0,
   cityName: "Milwaukee",
   stateAbr: "WI",
   stateName: "Wisconsin",
@@ -34,11 +34,14 @@ const STATE_DEFAULT = CITY_DEFAULT.stateAbr;
 function PinForm() {
   const [pin, setPin] = useState(PIN_DEFAULT);
   const [pinType, setPinType] = useState(TYPE_DEFAULT);
-  const [city, setCity] = useState(CITY_DEFAULT);
+  //const [city, setCity] = useState(CITY_DEFAULT);
   const [errors, setErrors] = useState([]);
   const [types, setTypes] = useState([]);
-  const [stateChoice, setStateChoice] = useState(STATE_DEFAULT);
+  const [states, setStates] = useState([]);
+  const [stateChoice, setStateChoice] = useState({});
   const [cities, setCities] = useState([]);
+  const [currentCity, setCurrentCity] = useState({});
+  const [currentState, setCurrentState] = useState({});
 
   const auth = useContext(AuthContext);
   const history = useHistory();
@@ -81,7 +84,6 @@ useEffect(() => { // get the current pin we'd like to edit
           }
         })
         .then(data => setPin(data))
-        //.then(getPinType()) // would really like to get the type....
         .catch(console.log);
     }
   }, [id]); // Hey React... please call my arrow function every time the "id" route parameter changes value
@@ -97,39 +99,70 @@ useEffect(() => { // get the current pin we'd like to edit
       }
     })
     .then(data => setTypes(data))
-    //.then(() => getPinType({pin})) // maybe how I can get type to update what we see if the form field??? TODO!
     .catch(console.log);
   }, []); // only do this when the page loads
 
+  useEffect(() => { // get all the States and store data in states via setStates?
+    fetch("http://localhost:8080/fiftygo/city/states", initGET)
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        return Promise.reject(`Unexpected status code: ${response.status}`);
+      }
+    })
+    .then(data => setStates(data))
+    .catch(console.log);
+  }, []); // only do this when the page loads. This list doesn't need to be reloaded.
 
-  // useEffect(() => { // get the current pin's city and store data in city via setCity
-  //   fetch(`http://localhost:8080/fiftygo/city/${pin.cityId}`, initGET)
-  //   .then(response => {
-  //     if (response.status === 200) {
-  //       return response.json();
-  //     } else {
-  //       return Promise.reject(`Unexpected status code: ${response.status}`);
-  //     }
-  //   })
-  //   .then(data => setCity(data))
-  //   .catch(console.log);
-  // }, [pin.cityId]); // TODO: do this when pin is set, but not really working....??
-
-  
-  useEffect(() => {
-    // if the US state name changes in the form, get a different list of cities based on that state.
+  useEffect(() => { //if stateChoice changes, please update currentCity
     fetch(`http://localhost:8080/fiftygo/city/state/${stateChoice}`, initGET)
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          return Promise.reject(`Unexpected status code: ${response.status}`);
-        }
-      })
-      .then(data => setCities(data))
-      // .then(console.log(pin))
-      .catch(console.log);
-  }, [stateChoice]); // hey react, do this fetch and stuff whenever stateChoice changes!
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        return Promise.reject(`Unexpected status code: ${response.status}`);
+      }
+    })
+    .then(data => setCurrentCity(data))
+    .catch(console.log);
+
+
+  }, [stateChoice])
+
+
+  // make a useEffect to get currentState? use {currentCity.stateAbr}
+  useEffect(() => {
+    if (currentCity) {
+    setCurrentState(currentCity.stateAbr);
+    }
+  }, [currentCity]) // when there's a current city, or if current city changes, gimme a new current state.
+
+  useEffect(() => {
+    if (currentState) {
+      setStateChoice(currentState.stateAbr);
+    }
+  }, [currentState])
+  
+  // useEffect(() => {
+  //   // if the US state name changes in the form, get a different list of cities based on that state.
+  //   if (currentState) {
+  //     //console.log("currentState", currentState);
+  //     fetch(`http://localhost:8080/fiftygo/city/state/${stateChoice}`, initGET)
+  //     .then(response => {
+  //       if (response.status === 200) {
+  //         return response.json();
+  //       } else {
+  //         return Promise.reject(`Unexpected status code: ${response.status}`);
+  //       }
+  //     })
+  //     .then(data => setCities(data))
+  //     .catch(console.log);
+  //   } else {
+  //     setErrors("uh oh no cities loaded.")
+  //   }
+    
+  // }, [stateChoice]); // if the currentState changes, gimme a new list of cities.
 
 
   const handleChangeState = (event) => {
@@ -225,9 +258,94 @@ useEffect(() => { // get the current pin we'd like to edit
       .catch(console.log);
   };
 
+  const typeMapper = (currentTypeId) => {
+    if (currentTypeId != 0) {
+      const newTypesArr = types.filter(type => type.typeId !== currentTypeId);
+      newTypesArr.unshift(types.filter(type => type.typeId === currentTypeId)[0]);
+
+      const typesArr = newTypesArr.map(type => <option key={type.typeId} value={type.typeId}>{type.typeName}</option>)
+      
+      return typesArr;
+    } 
+  }
+
+// need a way to get teh current state based on the currentCity.stateAbr
+// currentState == currentCity.stateAbr
+
+  const stateMapper = (currentStateAbr) => {
+    if (currentStateAbr) {
+
+      const newStatesArr = states.filter(state => state.stateAbr !== currentStateAbr)
+      
+      newStatesArr.unshift(states.filter(state => state.stateAbr === currentStateAbr)[0]);
+      
+      const statesArr = newStatesArr.map(state => <option key={state.stateAbr} value={state.stateAbr}>{state.stateName}</option> )
+      //console.log(statesArr);
+      return statesArr;
+    }
+  }
+
+  useEffect(() => {
+    if (pin.cityId != 0) {
+
+      fetch(`http://localhost:8080/fiftygo/city/${pin.cityId}`, initGET)
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return Promise.reject(`Unexpected status code: ${response.status}`);
+        }
+      })
+      .then(data => setCurrentCity(data))
+      .catch(console.log);
+    }
+  }, [pin])
+
+  // What I'd LIKE to have happen:
+    // use pin.cityId to get a whole cityObj.
+    // use that cityObj to setStateChoice(cityObj.stateAbr)
+    // use the stateChoice to setCities(stateChoice)
+    // then do the method where we rearrange the List<City> to have the current pin's city at the top as the default.
+
+  const cityMapper = (currentCityId) => { // pass in pin.cityId
+    if (currentCityId != 0) {
+      console.log("currentState", currentState);
+      console.log("currentCityId: ", currentCityId) //make sure we are getting the cityId. We are.
+      console.log("currentCity before if: ", currentCity)
+      if (currentCity.stateAbr == stateChoice && cities.length > 0) {// only actually do this if we really have a current City in state
+        console.log("currentCity inside if:", currentCity); // make sure we still get the right city (we aren't getting anything!! >:( )
+        const newCitiesArr = cities.filter(city => city.stateAbr !== currentCity.stateAbr)
+        console.log("cities", cities);
+      
+        newCitiesArr.unshift(cities.filter(city => city.stateAbr === currentCity.stateAbr)[0]);
+
+        console.log("newCitiesArr", newCitiesArr);
+        
+        const citiesArr = newCitiesArr.map(city => <option key={city.cityId} value={city.cityId}>{city.cityName}</option> )
+        
+        return citiesArr;
+      } else { //currentCity doesn't match stateChoice, just give me cities
+        return cities.map(city => <option key={city.cityId} value={city.cityId}>{city.cityName}</option> );
+      }
+
+      // then if we had a cityObj, we'd use its stateAbr to get all cities from that state
+      
+          // The rest fails because we aren't getting a city...
+      
+      //const newCitiesArr = cities.filter(city => city.cityId != currentCityId);
+      //console.log(newCitiesArr);
+      //newCitiesArr.unshift(cities.filter(city => city.cityId == currentCityId)[0]);
+
+      //const citiesArr = newCitiesArr.map(city => <option key={city.cityId} value={city.cityId}>{city.cityName}</option> )
+      
+      
+      // return citiesArr;
+    }
+  }
 
   return (
     <>
+    <div className='container my-2'>
       <h2 className="mb-4">{id ? 'Update Pin' : 'Add Pin'}</h2>
 
       <Errors errors={errors} />
@@ -239,10 +357,8 @@ useEffect(() => { // get the current pin we'd like to edit
         </div>
         <div className="form-group">
           <label htmlFor="typeName">Type:</label>
-          <select id="typeId" name="typeId" type="text" className="form-control" defaultValue={pinType.typeName} onChange={handleChange}>
-              {types.map(type => (
-                <option key={type.typeId} value={type.typeId}>{type.typeName}</option>
-              ))}
+          <select id="typeId" name="typeId" type="text" className="form-control" onChange={handleChange}>
+              {typeMapper(pin.typeId)}
             </select>
         </div>
         <div className="form-group">
@@ -262,69 +378,15 @@ useEffect(() => { // get the current pin we'd like to edit
         </div>
         <div className="form-group">
           <label htmlFor="stateChoice">State:</label>
-          <select id="stateChoice" name="stateChoice" className="form-control"
-            value={stateChoice} onChange={handleChangeState}>
-              <option value="AL">Alabama</option>
-              <option value="AK">Alaska</option>
-              <option value="AZ">Arizona</option>
-              <option value="AR">Arkansas</option>
-              <option value="CA">California</option>
-              <option value="CO">Colorado</option>
-              <option value="CT">Connecticut</option>
-              <option value="DE">Delaware</option>
-              <option value="DC">District Of Columbia</option>
-              <option value="FL">Florida</option>
-              <option value="GA">Georgia</option>
-              <option value="HI">Hawaii</option>
-              <option value="ID">Idaho</option>
-              <option value="IL">Illinois</option>
-              <option value="IN">Indiana</option>
-              <option value="IA">Iowa</option>
-              <option value="KS">Kansas</option>
-              <option value="KY">Kentucky</option>
-              <option value="LA">Louisiana</option>
-              <option value="ME">Maine</option>
-              <option value="MD">Maryland</option>
-              <option value="MA">Massachusetts</option>
-              <option value="MI">Michigan</option>
-              <option value="MN">Minnesota</option>
-              <option value="MS">Mississippi</option>
-              <option value="MO">Missouri</option>
-              <option value="MT">Montana</option>
-              <option value="NE">Nebraska</option>
-              <option value="NV">Nevada</option>
-              <option value="NH">New Hampshire</option>
-              <option value="NJ">New Jersey</option>
-              <option value="NM">New Mexico</option>
-              <option value="NY">New York</option>
-              <option value="NC">North Carolina</option>
-              <option value="ND">North Dakota</option>
-              <option value="OH">Ohio</option>
-              <option value="OK">Oklahoma</option>
-              <option value="OR">Oregon</option>
-              <option value="PA">Pennsylvania</option>
-              <option value="RI">Rhode Island</option>
-              <option value="SC">South Carolina</option>
-              <option value="SD">South Dakota</option>
-              <option value="TN">Tennessee</option>
-              <option value="TX">Texas</option>
-              <option value="UT">Utah</option>
-              <option value="VT">Vermont</option>
-              <option value="VA">Virginia</option>
-              <option value="WA">Washington</option>
-              <option value="WV">West Virginia</option>
-              <option value="WI">Wisconsin</option>
-              <option value="WY">Wyoming</option>
+          <select id="stateChoice" name="stateChoice" className="form-control" onChange={handleChangeState}>
+              {stateMapper(currentCity.stateAbr)}
           </select>
         </div>
         <div className="form-group">
           <label htmlFor="cityId">City:</label>
           <select id="cityId" name="cityId" className="form-control"
-              defaultValue={city.cityName} onChange={handleChange} >
-              {/* {console.log(cities)} */}
-              {cities.map(city => (
-                <option key={city.cityId} value={city.cityId}>{city.cityName}</option>
-              ))}
+              onChange={handleChange} >
+              {cityMapper(currentCity.cityId)}
           </select>
         </div>
         <div className="mt-4">
@@ -339,6 +401,8 @@ useEffect(() => { // get the current pin we'd like to edit
           </Link>
         </div>
       </form>
+    </div>
+      
     </>
   );
 }

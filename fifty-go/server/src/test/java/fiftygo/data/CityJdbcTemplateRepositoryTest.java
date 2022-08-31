@@ -33,7 +33,7 @@ class CityJdbcTemplateRepositoryTest {
             throw new RuntimeException(e);
         }
         assertNotNull(cities);
-        assertEquals(500, cities.size());
+        assertEquals(10000, cities.size());
     }
 
     @Test

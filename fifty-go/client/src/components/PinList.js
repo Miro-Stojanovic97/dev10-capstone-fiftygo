@@ -124,7 +124,7 @@ function PinList() {
                 <td>
                   <div className='p-1'>{pin.city.stateAbr}</div> 
                 </td>
-                <td>
+                <td className='vert-center'>
                   <div className="row align-self-center p-1 me-1">
                       {auth.user && auth.user.appUserId && (
                       <Link className="btn btn-primary btn-sm me-1 mb-1" to={`/pins/edit/${pin.pinId}`}>

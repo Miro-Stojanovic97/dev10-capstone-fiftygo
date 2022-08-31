@@ -2,11 +2,10 @@ package fiftygo.controllers;
 
 import fiftygo.domain.CityService;
 import fiftygo.models.City;
+import fiftygo.models.State;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -26,16 +25,17 @@ public class CityController {
     }
 
     @GetMapping("/states")
-    public List<String> findAllStates() {
+    public List<State> findAllStates() {
         List<City> cities = service.findAll();
-        List<String> states = new ArrayList<>();
+        List<State> states = new ArrayList<>();
         for (City c : cities) {
-            if (!states.contains(c.getStateName())) {
-                states.add(c.getStateName());
+            State state = new State(c.getStateAbr(), c.getStateName());
+            if (!states.contains(state)) {
+                states.add(state);
             }
         }
-        return states.stream().sorted(
-                Comparator.comparing(n -> n)).collect(Collectors.toList());
+
+        return states.stream().sorted(Comparator.comparing(State::getStateName)).collect(Collectors.toList());
     }
 
     @GetMapping("/state/{stateAbr}")
@@ -47,8 +47,6 @@ public class CityController {
     public List<City> searchCities(@PathVariable String sequence) {
         return service.searchCities(sequence);
     }
-
-
 
     @GetMapping("/{cityId}")
     public City findById(@PathVariable int cityId) {
