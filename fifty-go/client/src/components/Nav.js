@@ -17,7 +17,6 @@ function Nav() {
                 <div className="menu-bar">
                     <nav className="navbar navbar-expand navbar-light">
                         <div className="container-fluid">
-                            {/* TODO: Get the picture to the top-left corner */}
                             <div className="col-lg-1">
                             <a className="logo d-flex align-items-center" href="/">
                                 <img src={fiftyGoLogo} alt="FiftyGo" height="40"/>
@@ -26,7 +25,11 @@ function Nav() {
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav">
                                     <li className="nav-item">
-                                        <a className="navbar-brand nav-link" aria-current="page" href="/features">Features</a>
+                                        {auth.user.hasRole('ROLE_ADMIN') ? (
+                                            <a className="navbar-brand nav-link" aria-current="page" href="/userlist">Users</a>
+                                        ) : (
+                                            <a className="navbar-brand nav-link" aria-current="page" href="/features">Features</a>
+                                        )}
                                     </li>
                                     <li className="nav-item">
                                         <a className="navbar-brand nav-link" aria-current="page" href="/pinlist">Pins</a>
@@ -40,11 +43,6 @@ function Nav() {
                                 </ul>
                             </div>
                             <ul className="navbar-nav">
-                                {!auth.user && (
-                                    <li className="nav-item">
-                                <Link to="/login" className="btn btn-outline-light btn-rounded nav-login" role="button" aria-pressed="true">Login</Link>
-                                </li>
-                                )}
                                 {auth.user && (
                                     <li className="nav-item">
                                     <button onClick={() => auth.logout()} className="btn btn-outline-light btn-rounded nav-login" role="button" aria-pressed="true">Logout</button>
