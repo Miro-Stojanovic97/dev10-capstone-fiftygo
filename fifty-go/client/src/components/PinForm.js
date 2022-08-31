@@ -387,6 +387,7 @@ useEffect(() => { // get the current pin we'd like to edit
           <label htmlFor="cityId">City:</label>
           <select id="cityId" name="cityId" className="form-control"
               onChange={handleChange} >
+                <option></option>
               {cityMapper()}
           </select>
         </div>
