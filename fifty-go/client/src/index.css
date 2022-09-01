@@ -4,6 +4,21 @@
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
 
+.btn-primary {
+  border-color: #4083e2;
+  background-color: #1e54a0;
+}
+
+.btn-success {
+  border-color:#7CA982;
+  background-color:#2e4e44;
+}
+
+.btn-danger {
+  border-color:#bb4b4b;
+  background-color: #971818;
+}
+
 /* div.col {
   padding-left: 10%;
 } 
@@ -285,17 +300,3 @@ a.nav-link {
   text-align: center;
 }
 
-.btn-primary {
-  border-color: #4083e2;
-  background-color: #1e54a0;
-}
-
-.btn-success {
-  border-color:#7CA982;
-  background-color:#2e4e44;
-}
-
-.btn-danger {
-  border-color:#bb4b4b;
-  background-color: #971818;
-}
