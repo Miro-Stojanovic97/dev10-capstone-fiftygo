@@ -54,8 +54,8 @@ public class AppUserService implements UserDetailsService {
 
         Result<AppUser> result = new Result<>();
 
-        validate(username);
-        validatePassword(password);
+        result = validate(username);
+        result = validatePassword(password);
 
         password = encoder.encode(password);
 
@@ -72,6 +72,10 @@ public class AppUserService implements UserDetailsService {
             return result;
         }
 
+        if (!result.isSuccess()) {
+            return result;
+        }
+
         try {
             result.setPayload(repository.createAccount(appUser));
         } catch (fiftygo.data.DataAccessException e) {
@@ -83,8 +87,8 @@ public class AppUserService implements UserDetailsService {
     public Result<AppUser> update(int appUserId, String firstName, String lastName, String username, String password) {
         Result<AppUser> result = new Result<>();
 
-        validate(username);
-        validatePassword(password);
+        result = validate(username);
+        result = validatePassword(password);
 
         password = encoder.encode(password);
 
@@ -132,6 +136,10 @@ public class AppUserService implements UserDetailsService {
         if (username.length() > 50) {
             result.addErrorMessage("username must be less than 50 characters",
                     ResultType.INVALID);
+        }
+
+        if (username.length() < 9) {
+            result.addErrorMessage("Username must be at least 8 characters", ResultType.INVALID);
         }
         return result;
     }

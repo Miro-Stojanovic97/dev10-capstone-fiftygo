@@ -137,7 +137,7 @@ function Home() {
                                 <div className="member">
                                     <img src={keliePic} className="img-fluid headshot" alt="" />
                                     <div className="row">
-                                    <div className='col-sm'>
+                                    <div >
                                     <div className="member-content">
                                         Kelie Berendt
                                         <p>Full-Stack Developer</p>
@@ -146,12 +146,10 @@ function Home() {
                                     <div className='col-sm'>
                                     <div className="row">
                                     <div className='col-sm'>
-                                    <img src={dev10Pic} className="img-fluid" alt="" />
+                                    <img src={dev10Pic} className="img-fluid dev-logo" alt="" />
                                     </div>
-                                    </div>
-                                    <div className="row">
                                     <div className='col-sm'>
-                                    <img src={kelieCollegePic} className="img-fluid" alt="" />
+                                    <img src={kelieCollegePic} className="img-fluid logos" alt="" />
                                     </div>
                                     </div>
                                     </div>
@@ -164,7 +162,7 @@ function Home() {
                                 <div className="member">
                                     <img src={alliPic} className="img-fluid headshot" alt="" />
                                     <div className="row">
-                                    <div className='col-sm'>
+                                    <div>
                                     <div className="member-content">
                                         Allison Geiger
                                         <p>Full-Stack Developer</p>
@@ -173,12 +171,10 @@ function Home() {
                                     <div className='col-sm'>
                                     <div className="row">
                                     <div className='col-sm'>
-                                    <img src={dev10Pic} className="img-fluid" alt="" />
+                                    <img src={dev10Pic} className="img-fluid dev-logo" alt="" />
                                     </div>
-                                    </div>
-                                    <div className="row">
                                     <div className='col-sm'>
-                                    <img src={alliCollegePic} className="img-fluid" alt="" />
+                                    <img src={alliCollegePic} className="img-fluid logos" alt="" />
                                     </div>
                                     </div>
                                     </div>
@@ -191,7 +187,7 @@ function Home() {
                                 <div className="member">
                                     <img src={miroPic} className="img-fluid headshot" alt="" />
                                     <div className="row">
-                                    <div className='col-sm'>
+                                    <div>
                                     <div className="member-content">
                                         Miro Stojanovic
                                         <p>Full-Stack Developer</p>
@@ -200,12 +196,10 @@ function Home() {
                                     <div className='col-sm'>
                                     <div className="row">
                                     <div className='col-sm'>
-                                    <img src={dev10Pic} className="img-fluid" alt="" />
+                                    <img src={dev10Pic} className="img-fluid dev-logo" alt="" />
                                     </div>
-                                    </div>
-                                    <div className="row">
                                     <div className='col-sm'>
-                                    <img src={miroCollegePic} className="img-fluid" alt="" />
+                                    <img src={miroCollegePic} className="img-fluid logos" alt="" />
                                     </div>
                                     </div>
                                     </div>

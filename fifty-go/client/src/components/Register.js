@@ -19,6 +19,7 @@ function Register() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    
     // Make sure that the user didn't make a mistake in entering their password.
     if (password !== confirmPassword) {
       setErrors(['your passwords don\'t match']);
@@ -46,7 +47,7 @@ function Register() {
       lastName
     };
     
-    const init = {
+    const initCreateAccount = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -54,68 +55,54 @@ function Register() {
       body: JSON.stringify(appUser)
     };
     
-    fetch('http://localhost:8080/api/appuser', init)
-      .then(response => {
-        if (response.status === 201 || response.status === 400) {
-          return response.json();
-        } else {
-          return Promise.reject(`Unexpected status code: ${response.status}`);
+    fetch('http://localhost:8080/create_account', initCreateAccount)
+      .then((response) => {
+        if (response.status !== 201) {
+          return Promise.reject("Registration failed. Please ensure that no fields are blank, password is more than 8 charcters, and U=username may be in use, so please try another.");
         }
+        return response.json();
       })
-      .then(data => {
-        if (data.appUserId) {
-
-          // HAPPY PATH :)
-
-          // Option 1: Send the user to the Home page... or a "Success" page
-
-          // Option 2: We can log them in automatically
-
-          const authAttempt = {
-            username,
-            password
-          };
-          
-          const init = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(authAttempt)
-          };
-          
-          fetch('http://localhost:8080/authenticate', init)
-            .then(response => {
-              if (response.status === 200) {
-                return response.json();
-              } else if (response.status === 403) {
-                return null;
-              } else {
-                return Promise.reject(`Unexpected status code: ${response.status}`);
-              }
-            })
-            .then(data => {
-              if (data) {
-                auth.login(data.jwt_token);
-                history.push('/');
-              } else {
-                // we have error messages
-                setErrors(['login failure']);
-              }
-            })
-            .catch(console.log);
-      
-        } else {
-          // UNHAPPY PATH :(
-          setErrors(data);
-        }
+      //.then(data => console.log(data))
+      .then((data) => authenticate(data))
+      .then(() => {
+        history.push("/");
       })
-      .catch(console.log);
+      .catch((data) => {
+        setErrors([data, "Login failed."]);;
+      });
   };
+
+  const authenticate = async () => {
+    console.log(username)
+    const response = await fetch("http://localhost:8080/authenticate", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            username,
+            password,
+        }),
+    });
+
+    // This code executes if the request is successful
+    if (response.status === 200) {
+        const { jwt_token } = await response.json();
+        console.log(jwt_token);
+        // NEW: login!
+        auth.login(jwt_token);
+        history.push("/");
+    } else if (response.status === 403) {
+        setErrors(["Login failed."]);
+    } else {
+        setErrors(["Unknown error."]);
+    }
+  }
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
+
 
   return (
     <>
@@ -123,7 +110,7 @@ function Register() {
         <h1 className="display-3">Register 🌍</h1>
     </div>
 
-      <Errors errors={errors} />
+      {errors.length > 0 ? <Errors errors={errors} /> : ""}
     <div className="container">
       <form onSubmit={handleSubmit}>
       <div className="col-6 col-lg-4 offset-lg-4 offset-3 mt-5 form-group">

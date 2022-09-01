@@ -73,7 +73,7 @@ public class AppUser extends User {
         return super.getPassword();
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
         return super.getAuthorities();
@@ -91,7 +91,7 @@ public class AppUser extends User {
         return super.isAccountNonExpired();
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return super.isAccountNonLocked();
