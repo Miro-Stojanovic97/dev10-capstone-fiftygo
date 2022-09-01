@@ -1,7 +1,7 @@
 
 function Errors({ errors }) {
-    if (!errors || errors.length === 0) {
-      return null;
+    if (!errors || errors.length == 0) {
+      return [];
     }
   
     return (

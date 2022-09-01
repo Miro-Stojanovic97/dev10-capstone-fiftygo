@@ -1,13 +1,16 @@
 package fiftygo.controllers;
 
+import fiftygo.App;
 import fiftygo.domain.Result;
 import fiftygo.domain.ResultType;
 import fiftygo.models.AppUser;
 import fiftygo.security.AppUserService;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ValidationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +31,24 @@ public class AppUserController {
 
     @PostMapping("/create_account")
     public ResponseEntity<Object> createAccount(@RequestBody Map<String, String> userData) {
-        Result<AppUser> result = service.createAccount(userData.get("firstName"), userData.get("lastName"), userData.get("username"), userData.get("password"));
+        Result<AppUser> result = new Result<>();
+        //Result<AppUser> result = service.createAccount(userData.get("firstName"), userData.get("lastName"), userData.get("username"), userData.get("password"));
+
+        try {
+            String firstName = userData.get("firstName");
+            String lastName = userData.get("lastName");
+            String username = userData.get("username");
+            String password = userData.get("password");
+            result = service.createAccount(firstName, lastName, username, password);
+        } catch (ValidationException ex) {
+            return new ResponseEntity<>(List.of(ex.getMessage()), HttpStatus.BAD_REQUEST);
+        } catch (DuplicateKeyException ex) {
+            return new ResponseEntity<>(List.of("The provided username already exists"), HttpStatus.BAD_REQUEST);
+        }
+
         if (result.isSuccess()) {
             HashMap<String, Integer> map = new HashMap<>();
-            map.put("id", result.getPayload().getAppUserId());
+            map.put("appUserId", result.getPayload().getAppUserId());
             return new ResponseEntity<>(map, HttpStatus.CREATED); // 201
         }
         return new ResponseEntity<>(result.getErrorMessages(), HttpStatus.BAD_REQUEST); // 400
