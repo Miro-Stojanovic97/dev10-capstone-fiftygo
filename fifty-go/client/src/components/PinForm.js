@@ -10,7 +10,7 @@ const PIN_DEFAULT = {
   pinPriority: 0,
   pinDidIt: false,
   city: {
-    stateAbr: "NJ",
+    stateAbr: "AL",
     cityName: "Trenton",
   },
   typeId: 0,
@@ -205,7 +205,9 @@ function PinForm() {
           <option key={type.typeId} value={type.typeId}>
             {type.typeName}
           </option>
+          
         ));
+        typesArr.unshift(<option key={"no-type"}></option>);
         return typesArr;
       }
   };
@@ -223,6 +225,14 @@ function PinForm() {
         </option>
       ));
       return statesArr;
+    } else {
+      const statesArr = states.map((state) => (
+        <option key={state.stateAbr} value={state.stateAbr}>
+          {state.stateName}
+        </option>
+      ));
+      statesArr.unshift(<option key={"no-state"}></option>);
+      return statesArr;
     }
   };
   const cityMapper = () => {
@@ -232,6 +242,7 @@ function PinForm() {
             {city.cityName}
           </option>
         ));
+        citiesArr.unshift(<option key={"no-city!"}></option>);
         return citiesArr;
     }
   };
@@ -307,6 +318,7 @@ function PinForm() {
               className="form-control"
               onChange={handleChangeState}
             >
+              {pin ? <option></option> : ""}
               {stateMapper(pin.city.stateAbr)}
             </select>
           </div>
