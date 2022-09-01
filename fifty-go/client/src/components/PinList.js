@@ -1,17 +1,37 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import AuthContext from '../contexts/AuthContext';
 import Errors from './Errors';
+import Messages from './Messages';
 
 function PinList() {
     const [pins, setPins] = useState([]);
     const [trips, setTrips] = useState([]);
-    const [errors, setErrors] = useState([]);
+    const [error, setError] = useState([]);
+    const [message, setMessage] = useState([]);
   
     const auth = useContext(AuthContext);
-  
     const history = useHistory();
+    const ref = useRef(null);
+
+    const delay = ms => new Promise(
+      resolve => setTimeout(resolve, ms)
+    );
+
+    // const clear = async event => {
+    //     await delay(5000);
+    //     setError();
+    //     setMessage();
+    // };
+
+    useEffect(() => {
+      setError("");
+    }, []);
+
+    useEffect(() => {
+      setMessage("");
+    }, []);
   
     useEffect(() => {
       const init = {
@@ -48,6 +68,7 @@ function PinList() {
           if (response.status === 200) {
             return response.json();
           } else {
+            setError("Something went wrong, sorry about that!")
             return Promise.reject(`Unexpected status code: ${response.status}`);
           }
         })
@@ -86,7 +107,8 @@ function PinList() {
       }
     };
 
-    const addPinToTrip = ( pinId, tripId ) => {
+    const addPinToTrip = ( event, pinId, tripId ) => {
+      event.currentTarget.disabled = true;
       // use pin Id and Trip Id in requestBody to make http request like: 
 
       // ### add a pin(5) to a trip(3)
@@ -98,7 +120,8 @@ function PinList() {
       //     "pinId": 5,
       //     "tripId": 3
       // }
-      console.log("pinId: ", pinId, "tripId: ", tripId)
+      //console.log("pinId: ", pinId, "tripId: ", tripId);
+      console.log(event.target.id);
 
       const pinTrip = {
         'pinId': `${pinId}`,
@@ -119,8 +142,12 @@ function PinList() {
       .then(response => {
         if (response.status === 204) {
           return null;
+        } else if (response.status === 201) {
+          const successMsg = "Your pin was added to this trip!";
+          //newMsgs = messages.push(msg);
+          return successMsg;
         } else if (response.status === 500) {
-          setErrors("Can't add a duplicate pin to trip.")
+          return Promise.reject("Can't add pin to same trip twice.")
         } else if (response.status === 400) {
           return response.json();
         } else {
@@ -132,22 +159,27 @@ function PinList() {
           // Send the user back to the list route.
           
           history.push('/pinlist');
-        } else {
-          setErrors(data);
+        } else{
+          history.push('/pinlist');
         }
       })
       .catch(console.log);
       }
+
+      const btnId = `PT-btn-${pinId}-${tripId}`;
+      //disableBtn(btnId);
     }
 
-    const makeAddPinToTripModals = (pinId) => {
+
+
+    const makeAddPinToTripModals = () => {
       // show trips in a pop-up with buttons on each trip, include a cancel button to back out back to /pinlist
-      console.log("trips", trips);
+      //console.log("trips", trips);
        // return a modal with trips on it with buttons for "add to this trip"
 
       const pinsArr = pins.map(pin => (
         <div  key={pin.pinId} 
-              id={pin.pinId + "-modal"} 
+              id={"modal-" + pin.pinId} 
               className="modal fade" 
               tabIndex={-1}
               role="dialog"
@@ -156,6 +188,8 @@ function PinList() {
               >
           <div className="modal-dialog" role="document">
             <div className="modal-content">
+                <div id={"modal-" + pin.pinId + "-error"}></div>
+                <div id={"modal-" + pin.pinId + "-messsage"}></div>
               <div className="modal-header">
                 <h4 className="modal-title">Choose a trip for your Pin:</h4>
                 <button type="button" className="close btn" data-dismiss="modal" aria-label="Close">
@@ -174,14 +208,22 @@ function PinList() {
                 </ul>
                 
                 <div className='container'>
-                  <ul className="list-group list-group-flush">
+                  
                   {trips.map(trip => (
-                    <li key={"pin-" + pin.pinId + "-to-trip-" + trip.tripId} className="list-group-item">
-                      <p>{trip.tripDescription} ({trip.tripStartDate} to {trip.tripEndDate})</p>
-                      <button onClick={() => addPinToTrip(pin.pinId, trip.tripId)} className="btn btn-primary btn-sm">Add your Pin to this Trip</button>
-                    </li>
+                    // thinking that we have a pin id for each modal, then trips, and each trip has pins attached.
+                    // if trip.pins has a pin with pinId == pin.pinId, disable the button or something
+                    <div key={"pin-" + pin.pinId + "-to-trip-" + trip.tripId} className='card mb-2'>
+
+                      <div className='card-body'>
+                        <h5 className='card-title'>{trip.tripDescription}</h5>
+                        <p className='card-text'>{trip.tripDescription} ({trip.tripStartDate} to {trip.tripEndDate})</p>
+                      </div>
+                      <div className='card-footer'>
+                        {trip.pins.find(p => p.pinId == pin.pinId) ? <p className='mb-0'>Your pin is on this trip already!"</p> : <button id={'PT-btn-' + pin.pinId + '-' + trip.tripId} onClick={(event) => addPinToTrip(event, pin.pinId, trip.tripId)} className="btn btn-primary btn-sm">Add your Pin to this Trip!</button>}
+                      </div>
+                    </div>
                   ))}
-                  </ul>
+                  
                 </div>
                 
           
@@ -209,6 +251,8 @@ function PinList() {
       <>
       <div className='container'>
         <h2 className="mt-4">{auth.user.firstName}'s Pins</h2>
+        <Errors />
+        <Messages />
         <button className="btn btn-primary my-4" onClick={() => history.push('/pins/add')}>
           <i className="bi bi-plus-circle"></i> Add Pin
         </button>
@@ -280,7 +324,7 @@ function PinList() {
                                 // id={pin.pinId + "-pin-to-trip"} 
                                 className="btn btn-success btn-sm mb-2" 
                                 data-toggle="modal" 
-                                data-target={"#" + pin.pinId + "-modal"} 
+                                data-target={"#modal-" + pin.pinId} 
                                 //onClick={() => handleAddPinToTrip(pin.pinId)}
                                 >Connect this pin to a Trip
                         {/* <i className="bi bi-pencil-square"></i> */}
