@@ -206,14 +206,6 @@ section.footer-outer {
 .home-img {
   border-radius: 10px;
 }
-
-.member {
-  border-radius: 5px;
-}
-
-.headshot {
-  height: 250px
-}
 /*--------------------------------------------------------------
 # Services Section
 --------------------------------------------------------------*/
@@ -580,11 +572,7 @@ margin-right: 10%;
   margin: auto;
   vertical-align: middle;
   text-align: center;
-  padding-left: 10%;
-  /* padding-right: 25%; */
-  padding-top: 20%;
-  /* align-content: center; */
-  font-size: 40px;
+  font-size: 20px;
   font-weight: 700;
 }
 
@@ -602,11 +590,22 @@ margin-right: 10%;
 }
 
 .team .member p {
-  padding-top: 20px;
-  font-size: 20px;
   font-style: italic;
   font-weight: 700;
   color: #F6AE2D;
+}
+
+.member {
+  border-radius: 5px;
+  height: 400px
+}
+
+.headshot {
+  height: 250px
+}
+
+.logos {
+  height: 80px;
 }
 
 /*--------------------------------------------------------------
