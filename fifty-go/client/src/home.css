@@ -305,12 +305,12 @@ section.footer-outer {
 # Pricing Section
 --------------------------------------------------------------*/
 .plan-text {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 500;
   color: black;
 }
 .plan-text-na {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 500;
   text-decoration: line-through;
   color: gray;
@@ -328,12 +328,14 @@ section.footer-outer {
 .pricing h3 {
   font-weight: 600;
   margin-bottom: 15px;
-  font-size: 20px;
-  color: var(--color-secondary);
+  font-size: 36px;
+  font-style: italic;
+  color: black;
+  text-decoration: underline;
 }
 
 .pricing h4 {
-  font-size: 48px;
+  font-size: 64px;
   color: var(--color-primary);
   font-weight: 400;
   font-family: var(--font-primary);
