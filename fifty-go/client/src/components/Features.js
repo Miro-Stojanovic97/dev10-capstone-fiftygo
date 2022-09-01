@@ -99,7 +99,7 @@ function Features() {
 
           </div>
 
-          <div className="col-lg-8">
+          <div className="col-lg-7">
             <form onSubmit={handleSubmit}>
          <div className="form-group mt-3">
            <label htmlFor="contactName">Your Name:</label>
