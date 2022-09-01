@@ -102,20 +102,15 @@ function TripCards() {
     return (
         
     
-      <div className='container offset-1 p-5'>
-        <div className='container p-3'>
-          <h2>{auth.user.firstName}'s Trips</h2>
-        <button className="btn btn-primary my-4 col-1" onClick={() => history.push('/trip/add')}>
-            <i className="bi bi-plus-circle"></i> Add Trip
+      <div className='col-10 offset-1 p-5'>
+        <div className='container center mb-3 py-4 title-bar'>
+          <h2 className='py-4'>{auth.user.firstName}'s Trips</h2>
+        <button className="btn btn-primary mb-2" onClick={() => history.push('/trip/add')}>
+            <i className="bi bi-plus-circle"></i> Add a new Trip
         </button>
         </div>
-        
-      
-        
-            
-              
                 {trips.map(trip => (
-                    <div key={trip.tripId + "-key"} className="col-10 card mb-5">
+                    <div key={trip.tripId + "-key"} className="card mb-5">
                             <div className="card-body">
                                 <h5 className="card-title mb-3">{trip.tripDescription}</h5>
                                 <div className="col-12">

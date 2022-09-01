@@ -262,11 +262,14 @@ a.nav-link {
 }
 
 #pinlist-table thead {
-  background-color:#c4cebe
+  background-color:#2e4e44
+  border
 }
 
-#pinlist-table th {
-  width: auto !important;
+.title-bar {
+  background-color:#2e4e44;
+  color: white;
+  border-radius: 6px;
 }
 
 #pinlist-table td {
@@ -275,4 +278,19 @@ a.nav-link {
 
 .edit-trip {
   text-align: center;
+}
+
+.btn-primary {
+  border-color: #4083e2;
+  background-color: #1e54a0;
+}
+
+.btn-success {
+  border-color:#7CA982;
+  background-color:#2e4e44;
+}
+
+.btn-danger {
+  border-color:#bb4b4b;
+  background-color: #971818;
 }

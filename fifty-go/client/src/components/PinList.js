@@ -249,59 +249,63 @@ function PinList() {
   
     return (
       <>
-      <div className='container'>
-        <h2 className="mt-4">{auth.user.firstName}'s Pins</h2>
+      <div className='col-10 offset-1 p-5'>
+        <div className='container center mb-3 py-4 title-bar'>
+          <h2 className="py-4">{auth.user.firstName}'s Pins</h2>
         <Errors />
         <Messages />
-        <button className="btn btn-primary my-4" onClick={() => history.push('/pins/add')}>
-          <i className="bi bi-plus-circle"></i> Add Pin
+        <button className="btn btn-primary mb-2" onClick={() => history.push('/pins/add')}>
+          <i className="bi bi-plus-circle"></i> Add a new Pin
         </button>
+        </div>
+        
         {/* <Link className="btn btn-primary my-4" to="/pins/add">
           <i className="bi bi-plus-circle"></i> Add Pin
         </Link> */}
-        <table className="table table-striped table-hover table-sm" id='pinlist-table'>
+        
+          <table className="table table-striped table-hover table-sm p-3" id='pinlist-table'>
           <thead>
-            <tr>
-                <th scope="col">
+            <tr className='row-12 text-center'>
+                <th className="col-3 text-start ps-4">
                   <div className='p-1'>Description</div>
                 </th>
-                <th scope="col">
+                <th className="col-1">
                   <div className='p-1'>Type</div> 
                 </th>
-                <th scope="col">
+                <th className="col-2">
                   <div className='p-1'>Date</div> 
                 </th>
-                <th scope="col">
+                <th className="col-1">
                   <div className='p-1'>Priority</div> 
                 </th>
-                <th scope="col">
+                <th className="col-1">
                   <div className='p-1'>Completed</div> 
                 </th>
-                <th scope="col">
+                <th className="col-1">
                   <div className='p-1'>City</div>
                 </th>
-                <th scope="col">
+                <th className="col-1">
                   <div className='p-1 me-1'>State</div> 
                 </th>
-                <th scope="col">
+                <th className="col-2">
                   <div className='p-1'></div> 
                 </th>
             </tr>
           </thead>
           <tbody>
             {pins.map(pin => (
-              <tr key={pin.pinId}>
+              <tr className='text-center' key={pin.pinId}>
                 <td>
-                  <div className='p-1'>{pin.pinDescription}</div> 
+                  <div className='p-4'>{pin.pinDescription}</div> 
                 </td>
                 <td>
                   <div className='p-1'>{pin.type.typeName}</div> 
                 </td>
                 <td>
-                  <div className='p-1'>{pin.pinDate}</div> 
+                  <div className='p-1 text-center'>{pin.pinDate}</div> 
                 </td>
                 <td>
-                  <div className='p-1'>{pin.pinPriority}</div> 
+                  <div className='p-1 text-center'>{pin.pinPriority}</div> 
                 </td>
                 <td>
                   <div className='p-1'>{pin.pinDidIt ? 'Did it!' : 'Not Yet'}</div> 
@@ -313,7 +317,7 @@ function PinList() {
                   <div className='p-1'>{pin.city.stateAbr}</div> 
                 </td>
                 <td className='vert-center'>
-                  <div className="row align-self-center p-1 m-1">
+                  <div className="row align-self-center p-3 m-1">
                       {auth.user && auth.user.appUserId && (pins.length <= 10) && (
                       <Link className="btn btn-primary btn-sm mb-2" to={`/pins/edit/${pin.pinId}`}>
                         <i className="bi bi-pencil-square"></i> Edit
@@ -343,6 +347,7 @@ function PinList() {
           </tbody>
         </table>
       </div>
+        
       {makeAddPinToTripModals(pins)}
       
       </>
