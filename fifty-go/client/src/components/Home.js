@@ -313,7 +313,7 @@ function Home() {
                                         </h3>
                                         <div id="faq-content-3" className="accordion-collapse collapse" data-bs-parent="#faqlist">
                                             <div className="accordion-body">
-                                                Our app is completely free for most users! For some users who prefer to have more than 50pins and 10 trips at one time, we do offer Premium access for only $10 per month.
+                                                Our app is completely free for most users! For some users who prefer to have more than 50 pins and 10 trips at one time, we do offer Premium access for only $10 per month.
                                             </div>
                                         </div>
                                     </div>
