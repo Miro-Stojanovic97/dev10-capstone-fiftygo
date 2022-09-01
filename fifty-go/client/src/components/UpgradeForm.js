@@ -13,7 +13,7 @@ function UpgradeForm() {
           <span>Upgrade Membership</span>
           <h2>Upgrade Membership</h2>
       </div>
-
+          <div className="col-6 col-lg-4 offset-lg-4 offset-3">
              <form onSubmit={handleSubmit}>
          <div className="form-group mt-3">
            <label htmlFor="upgradeUsername">Username:</label>
@@ -38,12 +38,13 @@ function UpgradeForm() {
            <input id="upgradeExp" name="upgradeExp" type="text" className="form-control"/>
          </div>
          </div>
-         <div className="mt-4">
+         <div className="mt-4 center">
             <button className="btn btn-primary mr-2" type="submit">
                 <i className="bi bi-file-earmark-check"></i> Submit
             </button>
          </div>
        </form>
+       </div>
        </div>
         </>
     )

@@ -611,7 +611,12 @@ margin-right: 10%;
 
 .member {
   border-radius: 5px;
-  height: 400px
+  height: 400px;
+}
+
+.members {
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .headshot {

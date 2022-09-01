@@ -33,22 +33,21 @@ function Home() {
                 <section id="about" className="about">
                     <div className="container">
                         <div className="row gy-4">
-                            <div className="col-lg-6 position-relative align-self-start order-lg-last order-first">
-                                <img src={mkeViews} className="img-fluid home-img" alt="Travel_Milwaukee" />
-                            </div>
-                            <div className="col-lg-6 content order-last order-lg-first container mt-3">
+                            <div className="col-12 content order-last order-lg-first container mt-3">
 
                                 <div className="section-header">
                                     <span>About Us</span>
                                      <h2>About Us</h2>
                                 </div>
 
-                                <p>
+                                <p className="pb-5">
                                 FiftyGO was carefully crafted by a team of fresh developers with a fresh vision for travel. 
                                 The FiftyGO team is motivated to become the greatest resource to our fellow travelers. 
                                 No matter where you've been, where you want to go, or what you want to do; FiftyGO will help 
                                 you get your adventures under way. An Operation Alkemi product. 
                                 </p>
+                                <div className="row">
+                                <div className="col-6">
                                 <ul>
                                     <li data-aos="fade-up" data-aos-delay="100">
                                         <i className="bi bi-diagram-3"></i>
@@ -80,6 +79,11 @@ function Home() {
                                         </div>
                                     </li>
                                 </ul>
+                                </div>
+                                <div className="col-lg-6 position-relative align-self-start order-lg-last order-first pt-4">
+                                <img src={mkeViews} className="img-fluid home-img" alt="Travel_Milwaukee" />
+                            </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -89,7 +93,7 @@ function Home() {
                 <section id="stats-counter" className="pt-0">
                     <div className="container stats-counter">
 
-                        <div className="row gy-4">
+                        <div className="row gy-4 pt-2">
 
                             <div className="col-lg-3 col-md-6">
                                 <div className="stats-item text-center w-100 h-100">
@@ -131,7 +135,7 @@ function Home() {
 
                         </div>
 
-                        <div className="row" data-aos="fade-up" data-aos-delay="100">
+                        <div className="row members" data-aos="fade-up" data-aos-delay="100">
 
                             <div className="col-lg-4 col-md-6 d-flex">
                                 <div className="member">
@@ -266,7 +270,7 @@ function Home() {
                         </div>
 
                         <div className="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
-                            <div className="col-lg-10">
+                            <div className="col-lg-11">
 
                                 <div className="accordion accordion-flush" id="faqlist">
 
