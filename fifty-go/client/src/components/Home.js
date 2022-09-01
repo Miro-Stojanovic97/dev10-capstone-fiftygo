@@ -3,7 +3,7 @@ import mkeViews from '../images/HomePage-IMG.jpg';
 import dev10Pic from '../images/Dev10-logo.webp'; 
 import miroPic from '../images/miroPic.jpg';
 import miroCollegePic from '../images/msoeLogo.jpg';
-// import keliePic from '../images/Dev10-logo.webp';
+import keliePic from '../images/k-berendt.JPG';
 import kelieCollegePic from '../images/uwmLogo.webp';
 import alliPic from '../images/AlliPhoto.jpg';
 import alliCollegePic from '../images/maryLogo.png';
@@ -135,7 +135,7 @@ function Home() {
 
                             <div className="col-lg-4 col-md-6 d-flex">
                                 <div className="member">
-                                    {/* <img src={keliePic} className="img-fluid headshot" alt="" /> */}
+                                    <img src={keliePic} className="img-fluid headshot" alt="" />
                                     <div className="row">
                                     <div className='col-sm'>
                                     <div className="member-content">
