@@ -200,7 +200,14 @@ function PinForm() {
         </option>
       ));
       return typesArr;
-    }
+      } else {
+        const typesArr = types.map((type) => (
+          <option key={type.typeId} value={type.typeId}>
+            {type.typeName}
+          </option>
+        ));
+        return typesArr;
+      }
   };
   const stateMapper = (currentStateAbr) => {
     if (currentStateAbr && states.length > 0) {
