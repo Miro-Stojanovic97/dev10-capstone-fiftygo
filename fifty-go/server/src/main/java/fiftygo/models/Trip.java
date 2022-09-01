@@ -23,7 +23,7 @@ public class Trip {
     @NotNull(message = "Please mark if this trip is completed or not.")
     private boolean tripDidIt;
     private int appUserId;
-    private Type type;
+    //private Type type;
 
     private List<Pin> pins;
 
@@ -107,13 +107,13 @@ public class Trip {
         this.appUserId = appUserId;
     }
 
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
+//    public Type getType() {
+//        return type;
+//    }
+//
+//    public void setType(Type type) {
+//        this.type = type;
+//    }
 
     public List<Pin> getPins() {
         return pins;
@@ -127,14 +127,25 @@ public class Trip {
         if (this ==o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Trip trip = (Trip) o;
+
+        if (pins != null) {
+            return tripId == trip.tripId &&
+                    tripDescription.equalsIgnoreCase(trip.tripDescription) &&
+                    tripStartDate.equals(trip.tripStartDate) &&
+                    tripEndDate.equals(trip.tripEndDate) &&
+                    transportation.equalsIgnoreCase(trip.transportation) &&
+                    tripPriority == trip.tripPriority &&
+                    tripDidIt == trip.tripDidIt &&
+                    pins.equals(trip.pins);
+        }
         return tripId == trip.tripId &&
                 tripDescription.equalsIgnoreCase(trip.tripDescription) &&
                 tripStartDate.equals(trip.tripStartDate) &&
                 tripEndDate.equals(trip.tripEndDate) &&
                 transportation.equalsIgnoreCase(trip.transportation) &&
                 tripPriority == trip.tripPriority &&
-                tripDidIt == trip.tripDidIt &&
-                pins.equals(trip.pins);
+                tripDidIt == trip.tripDidIt;
+
     }
 
     @Override
