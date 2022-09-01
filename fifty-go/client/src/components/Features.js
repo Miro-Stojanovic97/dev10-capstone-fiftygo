@@ -26,9 +26,9 @@ function Features() {
               <h3>Free Plan</h3>
               <h4><sup>$</sup>0<span> / month</span></h4>
               <ul>
-                <li><i className="bi bi-check"></i> 10 Trips</li>
-                <li><i className="bi bi-check"></i> 50 Pins</li>
-                <li className="na"><i className="bi bi-x"></i> <span>MapView </span></li>
+                <li><p className="plan-text">10 Trips</p></li>
+                <li><p className="plan-text">50 Pins</p></li>
+                <li><p className="plan-text-na">MapView</p></li>
               </ul>
             </div>
           </div> 
@@ -38,9 +38,9 @@ function Features() {
               <h3>Premium Plan</h3>
               <h4><sup>$</sup>10<span> / month</span></h4>
               <ul>
-                <li><i className="bi bi-check"></i> Unlimited Trips</li>
-                <li><i className="bi bi-check"></i> Unlimited Pins</li>
-                <li><i className="bi bi-check"></i> <span>MapView</span></li>
+                <li><p className="plan-text">Unlimited Trips</p></li>
+                <li><p className="plan-text">Unlimited Pins</p></li>
+                <li><p className="plan-text">MapView</p></li>
               </ul>
               <a href="/upgrade" className="btn btn-primary">Upgrade Now</a>
             </div>
