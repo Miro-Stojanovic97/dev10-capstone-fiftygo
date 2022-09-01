@@ -43,7 +43,7 @@ class TripJdbcTemplateRepositoryTest {
         }
         assertNotNull(trips);
 
-        assertTrue(trips.size() >= 6 && trips.size() >= 8);
+        assertTrue(trips.size() >= 6 && trips.size() <= 8);
     }
 
     @Test
