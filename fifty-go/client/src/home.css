@@ -312,6 +312,18 @@ section.footer-outer {
 /*--------------------------------------------------------------
 # Pricing Section
 --------------------------------------------------------------*/
+.plan-text {
+  font-size: 24px;
+  font-weight: 500;
+  color: black;
+}
+.plan-text-na {
+  font-size: 24px;
+  font-weight: 500;
+  text-decoration: line-through;
+  color: gray;
+}
+
 .pricing .pricing-item {
   padding: 60px 40px;
   box-shadow: 0 3px 20px -2px rgba(108, 117, 125, 0.15);
@@ -353,11 +365,11 @@ section.footer-outer {
   line-height: 20px;
 }
 
-.pricing ul li {
+/* .pricing ul li {
   padding: 10px 0;
   display: flex;
   align-items: center;
-}
+} */
 
 .pricing ul i {
   color: #059652;
