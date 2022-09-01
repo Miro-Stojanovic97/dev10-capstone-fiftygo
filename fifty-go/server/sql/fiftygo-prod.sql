@@ -10161,6 +10161,8 @@ INSERT INTO pin (pin_description, pin_date, pin_priority, pin_did_it, type_id, c
 	('Touring Boston with Jamie.', '2022-10-17', 3, 0, 30, 1840000455, 2),
 	('Visiting New York for the 1st time!', '2022-10-20', 4, 0, 30, 1840034016, 2),
 	('Going to Acadia National Park with Jamie.', '2022-10-24', 4, 0, 31, 1840000281, 2),
+	('Going to a Milwaukee Brewers game.', '2023-07-18', 1, 0, 16, 1840003046, 2),
+	('Swimming along Miami Beach! <3.', '2023-08-16', 2, 0, 20, 1840015150, 2),
 	('Going to a Milwaukee Bucks playoff game.', '2022-05-18', 2, 1, 16, 1840003046, 3),
 	('Exploring Chicago.', '2022-05-19', 2, 1, 30, 1840000494, 3),
 	('Visiting Chris in Indianapolis.', '2022-05-22', 3, 1, 9, 1840030084, 3),

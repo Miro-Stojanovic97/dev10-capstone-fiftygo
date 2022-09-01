@@ -1,7 +1,7 @@
 * {
   margin: 0px;
   padding: 0px;
-  font-family: 'Nunito', sans-serif;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
 
 /* div.col {
@@ -152,18 +152,71 @@ a.nav-link {
   height: 41px;
   transform: translate3d(35px, 200px, 0px);
   z-index: 200;
-  filter: hue-rotate(30deg) saturate(3);
+}
+
+.leafletPin-5 {
+  filter: grayscale(0%) hue-rotate(30deg) saturate(6);
+}
+.leafletPin-4 {
+  filter: grayscale(20%) hue-rotate(30deg) saturate(5);
+}
+.leafletPin-3 {
+  filter: grayscale(45%) hue-rotate(30deg) saturate(4);
+}
+.leafletPin-2 {
+  filter: grayscale(70%) hue-rotate(30deg) saturate(4);
+}
+.leafletPin-1 {
+  filter: grayscale(85%) hue-rotate(30deg) saturate(4);
+}
+
+@keyframes iconAnimate {
+  from {width: 24px;}
+  to {width: 32px;}
 }
 
 .leaflet-marker-icon:hover {
-  margin-left: -12px;
-  margin-top: -41px; 
-  width: 24px;
-  height: 41px;
-  transform: translate3d(35px, 200px, 0px);
-  z-index: 200;
-  filter: hue-rotate(150deg) saturate(3);
+  filter: hue-rotate(340deg) saturate(4) invert(1);
+  animation-name: iconAnimate;
+  animation-duration: 150ms;
 }
+
+.pop-head {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 18px;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.pop-txt {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.map-pin-btn {
+  background-color: white;
+  border-color: black;
+  border-width: 2px;
+}
+
+.map-trip-btn {
+  background-color: white;
+  border-color: black;
+  border-width: 2px;
+}
+
+.leaflet-popup-content-wrapper {
+  background-image: url(./images/TravelingJournal.jpg);
+  width: 315px;
+  border: solid;
+  border-right: black;
+  border-bottom: black;
+  border-top: black;
+  border-width: 18px;
+  border-radius: 4px;
+}
+
 
 .leaflet-interactive {
   /* color: black;

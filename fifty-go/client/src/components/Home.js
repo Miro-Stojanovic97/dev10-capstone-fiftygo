@@ -1,5 +1,12 @@
 import '../home.css';
 import mkeViews from '../images/HomePage-IMG.jpg';
+import dev10Pic from '../images/Dev10-logo.webp'; 
+import miroPic from '../images/miroPic.jpg';
+import miroCollegePic from '../images/msoeLogo.jpg';
+// import keliePic from '../images/Dev10-logo.webp';
+import kelieCollegePic from '../images/uwmLogo.webp';
+// import alliPic from '../images/Dev10-logo.webp';
+import alliCollegePic from '../images/maryLogo.png';
 
 //Was trying something that would make our stats cycle from 0
 //up to the number as a visual but I gave up quickly.
@@ -37,29 +44,39 @@ function Home() {
                                 </div>
 
                                 <p>
-                                Carefully crafted by a team of fresh developers with a fresh vision for travel. 
-                                FiftyGO is your favorite travel journal and travel companion all in one. No matter where you've been, where you want to go, or what you want to do; FiftyGO will help you to get there. An Operation Alkemi product. 
+                                FiftyGO was carefully crafted by a team of fresh developers with a fresh vision for travel. 
+                                The FiftyGO team is motivated to become the greatest resource to our fellow travelers. 
+                                No matter where you've been, where you want to go, or what you want to do; FiftyGO will help 
+                                you get your adventures under way. An Operation Alkemi product. 
                                 </p>
                                 <ul>
                                     <li data-aos="fade-up" data-aos-delay="100">
                                         <i className="bi bi-diagram-3"></i>
                                         <div className="home-points">
-                                            <h5>For Adventurers, By Adventurers</h5>
-                                            <p>Pins allow you to precisely craft your adventures!</p>
+                                            <h5>For Adventurers, By Adventurers.</h5>
+                                            <p> FiftyGO was first made by our team to solve the problems we faced in our own traveling experience.
+                                                The adventurers spirit lives inside of every employee of FiftyGO, and we are passionate about
+                                                giving our users the greatest ability to tap into theirs.
+                                            </p>
                                         </div>
                                     </li>
                                     <li data-aos="fade-up" data-aos-delay="200">
                                         <i className="bi bi-fullscreen-exit"></i>
                                         <div className="home-points">
-                                            <h5>Blah blah</h5>
-                                            <p>Blah Blah</p>
+                                            <h5>A Traveler's Best Friend.</h5>
+                                            <p>No stone has gone unturned to create a one of a kind travel planning experience!
+                                                Easily keep track of what you want to do all over these great states, the FiftyGO 
+                                                database supports trip planning of any scale.</p>
                                         </div>
                                     </li>
                                     <li data-aos="fade-up" data-aos-delay="300">
                                         <i className="bi bi-broadcast"></i>
                                         <div className="home-points">
-                                            <h5>Blah Blah</h5>
-                                            <p>Blah Blah</p>
+                                            <h5>Constant Innovation.</h5>
+                                            <p>From the seamless interaction between Pin and Trip planning, to the brand new MapView,
+                                                FiftyGO is in a constant state of innovation. We are constantly engaged in feedback from travelers, to continue improving our product
+                                                from the ground up.
+                                            </p>
                                         </div>
                                     </li>
                                 </ul>
@@ -118,40 +135,82 @@ function Home() {
 
                             <div className="col-lg-4 col-md-6 d-flex">
                                 <div className="member">
-                                    <img src="assets/img/team/team-1.jpg" className="img-fluid" alt="" />
+                                    {/* <img src={keliePic} className="img-fluid" alt="" /> */}
+                                    <div className="row">
+                                    <div className='col-sm'>
                                     <div className="member-content">
-                                        <h4>Kelie Berendt</h4>
-                                        <span>Full-Stack Developer</span>
-                                        <p>
-                                            Magni qui quod omnis unde et eos fuga et exercitationem. Odio veritatis perspiciatis quaerat qui aut aut aut
-                                        </p>
+                                        Kelie Berendt
+                                        <p>Full-Stack Developer</p>
                                     </div>
+                                    </div>
+                                    <div className='col-sm'>
+                                    <div className="row">
+                                    <div className='col-sm'>
+                                    <img src={dev10Pic} className="img-fluid" alt="" />
+                                    </div>
+                                    </div>
+                                    <div className="row">
+                                    <div className='col-sm'>
+                                    <img src={kelieCollegePic} className="img-fluid" alt="" />
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
 
                             <div className="col-lg-4 col-md-6 d-flex">
                                 <div className="member">
-                                    <img src="assets/img/team/team-2.jpg" className="img-fluid" alt="" />
+                                    {/* <img src={alliPic} className="img-fluid" alt="" /> */}
+                                    <div className="row">
+                                    <div className='col-sm'>
                                     <div className="member-content">
-                                        <h4>Allison Geiger</h4>
-                                        <span>Full-Stack Developer</span>
-                                        <p>
-                                            Repellat fugiat adipisci nemo illum nesciunt voluptas repellendus. In architecto rerum rerum temporibus
-                                        </p>
+                                        Allison Geiger
+                                        <p>Full-Stack Developer</p>
                                     </div>
+                                    </div>
+                                    <div className='col-sm'>
+                                    <div className="row">
+                                    <div className='col-sm'>
+                                    <img src={dev10Pic} className="img-fluid" alt="" />
+                                    </div>
+                                    </div>
+                                    <div className="row">
+                                    <div className='col-sm'>
+                                    <img src={alliCollegePic} className="img-fluid" alt="" />
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
 
                             <div className="col-lg-4 col-md-6 d-flex">
                                 <div className="member">
-                                    <img src="assets/img/team/team-3.jpg" className="img-fluid" alt="" />
+                                    <img src={miroPic} className="img-fluid" alt="" />
+                                    <div className="row">
+                                    <div className='col-sm'>
                                     <div className="member-content">
-                                        <h4>Miro Stojanovic</h4>
-                                        <span>Full-Stack Developer</span>
-                                        <p>
-                                            Voluptas necessitatibus occaecati quia. Earum totam consequuntur qui porro et laborum toro des clara
-                                        </p>
+                                        Miro Stojanovic
+                                        <p>Full-Stack Developer</p>
                                     </div>
+                                    </div>
+                                    <div className='col-sm'>
+                                    <div className="row">
+                                    <div className='col-sm'>
+                                    <img src={dev10Pic} className="img-fluid" alt="" />
+                                    </div>
+                                    </div>
+                                    <div className="row">
+                                    <div className='col-sm'>
+                                    <img src={miroCollegePic} className="img-fluid" alt="" />
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
 
