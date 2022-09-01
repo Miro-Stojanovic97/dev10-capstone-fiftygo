@@ -5,7 +5,7 @@ import miroPic from '../images/miroPic.jpg';
 import miroCollegePic from '../images/msoeLogo.jpg';
 // import keliePic from '../images/Dev10-logo.webp';
 import kelieCollegePic from '../images/uwmLogo.webp';
-// import alliPic from '../images/Dev10-logo.webp';
+import alliPic from '../images/AlliPhoto.jpg';
 import alliCollegePic from '../images/maryLogo.png';
 
 //Was trying something that would make our stats cycle from 0
@@ -135,7 +135,7 @@ function Home() {
 
                             <div className="col-lg-4 col-md-6 d-flex">
                                 <div className="member">
-                                    {/* <img src={keliePic} className="img-fluid" alt="" /> */}
+                                    {/* <img src={keliePic} className="img-fluid headshot" alt="" /> */}
                                     <div className="row">
                                     <div className='col-sm'>
                                     <div className="member-content">
@@ -162,7 +162,7 @@ function Home() {
 
                             <div className="col-lg-4 col-md-6 d-flex">
                                 <div className="member">
-                                    {/* <img src={alliPic} className="img-fluid" alt="" /> */}
+                                    <img src={alliPic} className="img-fluid headshot" alt="" />
                                     <div className="row">
                                     <div className='col-sm'>
                                     <div className="member-content">
@@ -189,7 +189,7 @@ function Home() {
 
                             <div className="col-lg-4 col-md-6 d-flex">
                                 <div className="member">
-                                    <img src={miroPic} className="img-fluid" alt="" />
+                                    <img src={miroPic} className="img-fluid headshot" alt="" />
                                     <div className="row">
                                     <div className='col-sm'>
                                     <div className="member-content">
