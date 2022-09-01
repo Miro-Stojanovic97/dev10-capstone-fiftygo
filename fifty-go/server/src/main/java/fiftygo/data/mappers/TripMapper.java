@@ -13,8 +13,12 @@ public class TripMapper implements RowMapper<Trip> {
 
         trip.setTripId(resultSet.getInt("trip_id"));
         trip.setTripDescription(resultSet.getString("trip_description"));
-        trip.setTripStartDate(resultSet.getDate("trip_start_date").toLocalDate());
-        trip.setTripEndDate(resultSet.getDate("trip_end_date").toLocalDate());
+        if (resultSet.getDate("trip_start_date") != null) {
+            trip.setTripStartDate(resultSet.getDate("trip_start_date").toLocalDate());
+        }
+        if (resultSet.getDate("trip_end_date") != null) {
+            trip.setTripEndDate(resultSet.getDate("trip_end_date").toLocalDate());
+        }
         trip.setTransportation(resultSet.getString("transportation"));
         trip.setTripPriority(resultSet.getInt("trip_priority"));
         trip.setTripDidIt(resultSet.getBoolean("trip_did_it"));

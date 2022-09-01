@@ -34,16 +34,11 @@ class TripJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindAll() {
-        List<Trip> trips = null;
-        try {
-            trips = repository.findAll();
-        } catch (DataAccessException e) {
-            throw new RuntimeException(e);
-        }
-        assertNotNull(trips);
+    void shouldFindAll() throws DataAccessException {
+        List<Trip> trips = repository.findAll();
 
-        assertTrue(trips.size() >= 6 && trips.size() >= 8);
+        assertNotNull(trips);
+        assertTrue(trips.size() >= 5 && trips.size() <= 8);
     }
 
     @Test
@@ -54,7 +49,7 @@ class TripJdbcTemplateRepositoryTest {
         } catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
-        assertEquals(4, trips.size());
+        assertEquals(2, trips.size());
     }
 
     @Test
@@ -137,6 +132,7 @@ class TripJdbcTemplateRepositoryTest {
     @Test
     void shouldUpdate() {
         Trip updatedTrip = makeTrip();
+        updatedTrip.setTripId(1);
         updatedTrip.setTripDescription("updated description");
         updatedTrip.setTripStartDate(LocalDate.of(2023,10,15));
         updatedTrip.setTripEndDate(LocalDate.of(2023,10,20));
@@ -150,7 +146,7 @@ class TripJdbcTemplateRepositoryTest {
     @Test
     void deleteById() {
         try {
-            assertTrue(repository.deleteById(3));
+            assertTrue(repository.deleteById(5));
         } catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
@@ -173,7 +169,7 @@ class TripJdbcTemplateRepositoryTest {
         newTrip.setTransportation("bus");
         newTrip.setTripPriority(1);
         newTrip.setTripDidIt(false);
-        newTrip.setAppUserId(1);
+        newTrip.setAppUserId(2);
         newTrip.setPins(makePinList());
         return newTrip;
     }
