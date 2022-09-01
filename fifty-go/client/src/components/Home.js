@@ -6,7 +6,7 @@ import miroCollegePic from '../images/msoeLogo.jpg';
 import keliePic from '../images/k-berendt.JPG';
 import kelieCollegePic from '../images/uwmLogo.webp';
 import alliPic from '../images/AlliPhoto.jpg';
-import alliCollegePic from '../images/maryLogo.png';
+import alliCollegePic from '../images/Edgewood.png';
 
 //Was trying something that would make our stats cycle from 0
 //up to the number as a visual but I gave up quickly.
