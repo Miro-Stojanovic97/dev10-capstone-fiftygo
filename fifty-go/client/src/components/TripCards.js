@@ -139,7 +139,7 @@ function TripCards() {
                                                 </ul>
                                             </div>
                                             <div className='card-footer'>
-                                              <div className="col-6 offset-4 py-1">
+                                              <div className="edit-trip py-1">
                                                 {auth.user && auth.user.appUserId && (
                                                 <Link className="btn btn-primary btn-sm me-1" to={`/trip/edit/${trip.tripId}`}>
                                                     <i className="bi bi-pencil-square"></i> Edit Trip
