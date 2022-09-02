@@ -4,8 +4,12 @@ To run the App, FiftyGO, you will need to:
 
    1. Open a docker container
    2. Open the file `fiftygo/server/sql/fiftygo-prod.sql` in mySQL Workbench. Run it.
+      1. Optional, but we also highly encourage opening `fiftygo/server/sql/fiftygo-test.sql` 
+      2. Run it. 
    3. Open the `fiftygo/server` folder in IntelliJ or the like.
       1. Build the project
+         - Optional but highly encourage running all tests:
+            - right-click `server/src/test/java` and RunAllTests. If all pass, move along to running the App. If not, make sure you have run `fiftygo/server/sql/fiftygo-prod.sql` and `fiftygo/server/sql/fiftygo-test.sql`, and that Maven dependencies are loaded. They may need a refreshing. Then try again. If tests still fail, try running the App anyway, but contact an administrator if you cannot get the App running.
       2. Run the App.
       3. Possibly reload Maven dependencies if App failed to start.
    4. Open the `fiftygo/client` folder in VSCode or the like.
