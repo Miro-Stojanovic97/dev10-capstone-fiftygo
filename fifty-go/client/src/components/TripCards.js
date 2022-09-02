@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import AuthContext from '../contexts/AuthContext';
-import Errors from './Errors';
 
 
 function TripCards() {

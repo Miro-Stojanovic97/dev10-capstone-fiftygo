@@ -487,7 +487,7 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
                  * [ ] generate userService.deleteById()
                  * [ ] return ResponseEntity.ok().build();
                      
-   * [x] Create mysql schemas (test/prod)
+   * [x] Create mysql schemas (test/prod) (4 hours)
        * [x] create sql folder in project folder
        * [x] create fiftygo-test.sql
        * [x] create fiftygo-prod.sql
@@ -567,8 +567,8 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
              * [x] (copy all inserts from prod)
          * [x] at end of test schema call set_known_good_state();
 
-   * [ ] Create React Front-End
-       * [ ] From the terminal, inside of your Java application
+   * [x] Create React Front-End
+       * [x] From the terminal, inside of your Java application
            * [x] `npx create-react-app client`
            * [x] `cd client`
            * [x] `code .` [optional - open in VSCode]
@@ -614,32 +614,32 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
                * [ ] `import { BrowserRouter } from 'react-router-dom';`
                * [ ] Change `<React.StrictMode>` to `<BrowserRouter>`
                * [ ] Change `</React.StrictMode>` to `</BrowserRouter>`
-       * [ ] Build out base Home component
-           * [ ] Functional component, don't forget to export!
+       * [x] Build out base Home component (3 hours)
+           * [x] Functional component, don't forget to export!
        * [ ] Build out base Welcome component
            * [ ] Functional component, don't forget to export!
-       * [ ] Add `<Home />` to App.js
-           * [ ] `import Home from "./Home";`
-           * [ ] Add flavor-text to ground ourselves
+       * [x] Add `<Home />` to App.js
+           * [x] `import Home from "./Home";`
+           * [x] Add flavor-text to ground ourselves
        * [ ] Add `<Welcome />` to Home.js
            * [ ] `import Welcome from "./Welcome";`
            * [ ] Add flavor-text to ground ourselves
-       * [ ] Add `<Nav />` to App.js
-           * [ ] `import Nav from "./Nav";`
-           * [ ] Add flavor-text to ground ourselves
-       * [ ] Begin implementing Routes in App.js
-           * [ ] `import { Routes, Route } from 'react-router-dom';`
-           * [ ] `<Routes>`
-               * [ ] `<Route path="/" element={<Home />} />`
-               * [ ] `// ^^ Home Page Route, at base dot-com URL`
-           * [ ] `</Routes>`
-       * [ ] Begin implementing Links in Nav.js
-           * [ ] `import { Link } from 'react-router-dom';`
-           * [ ] `<Link to="/">Home</Link>`
+       * [x] Add `<Nav />` to App.js
+           * [x] `import Nav from "./Nav";`
+           * [x] Add flavor-text to ground ourselves
+       * [x] Begin implementing Routes in App.js
+           * [x] `import { Routes, Route } from 'react-router-dom';`
+           * [x] `<Routes>`
+               * [x] `<Route path="/" element={<Home />} />`
+               * [x] `// ^^ Home Page Route, at base dot-com URL`
+           * [x] `</Routes>`
+       * [x] Begin implementing Links in Nav.js
+           * [x] `import { Link } from 'react-router-dom';`
+           * [x] `<Link to="/">Home</Link>`
        * [ ] Add `<Todos />` component to Home.js
            * [ ] `import Todos from "./Todos";`
        * [ ] In Trips.js...
-           * [ ] Create State to store public todos
+           * [x] Create State to store public todos
                * [ ] `import { useState } from 'react';`
                    * [ ] `const [pubTodos, setPubTodos] = useState([]);`
            * [ ] Implement `useEffect()` hook for setting state on fetch
@@ -670,8 +670,22 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
                            * [ ] `{tripFactory()}`
                        * [ ] `</>`
                    * [ ] `)`
-           * [ ] Build out the base `<Todo />` component
+           * [ ] Build out the base `<PinList />` component (3 hours)
+           * [x] Build out the base `<PinForm />` component (4 hours ... jk, like 12, wow)
+             * [x] fix errors
+             * [x] fix errors
+             * [x] fix errors `(OMG so many problems!)`
+             * [x] it's PERFECT!
                * [ ] Functional component, don't forget to export
+          * [x] Build out the base `<TripCards />` component (3 hours)
+          * [ ] Build out the base `<MapView />` component (3 hours)
+          * [ ] Build out the base `<UpgradeForm />` component (3 hours)
+          * [ ] Build out the base `<TripForm />` component (3 hours)
+          * [ ] Build out the base `<Register />` component (1 hours)
+          * [ ] Build out the base `<TripCards />` component (3 hours)
+          * [ ] 
+             
+    
            * [ ] Use `props.todoObj` to access the todo and display in Todo.js
                * [ ] Destructure the properties of my todoObj into variables
                    * [ ] const { text, userId, createDate } = props.todoObj;
@@ -745,11 +759,11 @@ FiftyGO is here to supply a safe place for your plans so you can spend your trip
                    * [ ] `})`
                    * [ ] `.catch(rejection => alert(rejection))`
                * [ ] `}`
-           * [ ] Update App.js with new Login route
-               * [ ] `import Login from "./Login";`
-               * [ ] `<Route path="/login" element={<Login />} />`
-           * [ ] Update Nav.js with new Login link
-               * [ ] `import { useConte  xt } from 'react';`
-               * [ ] `import AuthContext from './AuthContext';`
-               * [ ] `const [userStatus, setUserStatus] = useContext(AuthContext);`
+           * [x] Update App.js with new Login route
+               * [x] `import Login from "./Login";`
+               * [x] `<Route path="/login" element={<Login />} />`
+           * [x] Update Nav.js with new Login link
+               * [x] `import { useConte  xt } from 'react';`
+               * [x] `import AuthContext from './AuthContext';`
+               * [ ] `const auth = useContext(AuthContext);`
   

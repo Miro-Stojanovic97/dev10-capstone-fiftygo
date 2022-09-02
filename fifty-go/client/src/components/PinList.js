@@ -3,7 +3,6 @@ import { Link, useHistory } from 'react-router-dom';
 
 import AuthContext from '../contexts/AuthContext';
 import Errors from './Errors';
-import Messages from './Messages';
 
 function PinList() {
     const [pins, setPins] = useState([]);
@@ -19,12 +18,6 @@ function PinList() {
     const delay = ms => new Promise(
       resolve => setTimeout(resolve, ms)
     );
-
-    // const clear = async event => {
-    //     await delay(5000);
-    //     setError();
-    //     setMessage();
-    // };
 
     useEffect(() => {
       setError("");
@@ -110,18 +103,6 @@ function PinList() {
 
     const addPinToTrip = ( event, pinId, tripId ) => {
       event.currentTarget.disabled = true;
-      // use pin Id and Trip Id in requestBody to make http request like: 
-
-      // ### add a pin(5) to a trip(3)
-      // POST {{base_url}}/trip/addpin HTTP/1.1
-      // Content-Type: application/json
-      // Authorization: Bearer {{jwt}}
-
-      // {
-      //     "pinId": 5,
-      //     "tripId": 3
-      // }
-      //console.log("pinId: ", pinId, "tripId: ", tripId);
       console.log(event.target.id);
 
       const pinTrip = {
@@ -157,8 +138,6 @@ function PinList() {
       })
       .then(data => {
         if (!data) {
-          // Send the user back to the list route.
-          
           history.push('/pinlist');
         } else{
           history.push('/pinlist');
@@ -166,9 +145,7 @@ function PinList() {
       })
       .catch(console.log);
       }
-
       const btnId = `PT-btn-${pinId}-${tripId}`;
-      //disableBtn(btnId);
     }
 
     useEffect(() => {
@@ -226,10 +203,6 @@ function PinList() {
     }
 
     const makeAddPinToTripModals = () => {
-      // show trips in a pop-up with buttons on each trip, include a cancel button to back out back to /pinlist
-      //console.log("trips", trips);
-       // return a modal with trips on it with buttons for "add to this trip"
-
       const pinsArr = pins.map(pin => (
         <div  key={pin.pinId} 
               id={"modal-" + pin.pinId} 
@@ -259,14 +232,9 @@ function PinList() {
                   <h5>Your trips:</h5>
                   </li>
                 </ul>
-                
                 <div className='container'>
-                  
                   {trips.map(trip => (
-                    // thinking that we have a pin id for each modal, then trips, and each trip has pins attached.
-                    // if trip.pins has a pin with pinId == pin.pinId, disable the button or something
                     <div key={"pin-" + pin.pinId + "-to-trip-" + trip.tripId} className='card mb-2'>
-
                       <div className='card-body'>
                         <h5 className='card-title'>{trip.tripDescription}</h5>
                         <p className='card-text'>{trip.tripDescription} ({trip.tripStartDate} to {trip.tripEndDate})</p>
@@ -276,22 +244,14 @@ function PinList() {
                       </div>
                     </div>
                   ))}
-                  
                 </div>
-                
-          
               </div>
               <div className="modal-footer">
                 <p>Don't see a good trip for this Pin? Head to the Trips page to start a new Trip!</p>
-                {/* <Link className="btn btn-warning" data-dismiss="modal" target="_blank" to="/tripcards" >
-                  <i className="bi bi-stoplights"></i> View Trips
-                </Link> */}
-                {/* Strugglin to get this link to both redirect AND close the modal. seems to be one or the other, so omitting it for now. */}
               </div>
             </div>
           </div>
         </div>
-        
       ))
       return pinsArr;
     }
@@ -299,11 +259,11 @@ function PinList() {
     return (
       <>
       <div className='col-10 offset-1 p-5'>
+
         <div className='row center mb-3 py-4 title-bar'>
           <div className='col'>
             <div className="h1 py-4 m-4">{auth.user.firstName}'s Pins</div>
             <Errors />
-            <Messages />
             <button className="btn btn-primary" onClick={() => history.push('/pins/add')}>
               <i className="bi bi-plus-circle"></i> Add a new Pin
             </button>
@@ -318,16 +278,8 @@ function PinList() {
                 </ul>
               </div>
           </div>
-          
         </div>
 
-        
-        
-
-        {/* <Link className="btn btn-primary my-4" to="/pins/add">
-          <i className="bi bi-plus-circle"></i> Add Pin
-        </Link> */}
-        
           <table className="table table-striped table-hover table-sm p-3" id='pinlist-table'>
           <thead>
             <tr className='row-12 text-center'>
@@ -390,16 +342,12 @@ function PinList() {
                     )}
                     {auth.user && auth.user.appUserId && (
                       <button   type='button'
-                                // id={pin.pinId + "-pin-to-trip"} 
                                 className="btn btn-success btn-sm mb-2" 
                                 data-toggle="modal" 
                                 data-target={"#modal-" + pin.pinId} 
-                                //onClick={() => handleAddPinToTrip(pin.pinId)}
                                 >Connect this pin to a Trip
-                        {/* <i className="bi bi-pencil-square"></i> */}
                       </button>
                     )}
-        {/* TODO: Determine how we want to handle our roles here */}
                     {auth.user && ( auth.user.hasRole('ROLE_ADMIN') || auth.user.hasRole('ROLE_USER') || auth.user.hasRole('ROLE_PREMIUM') ) && (
                       <button className="btn btn-danger btn-sm" onClick={() => handleDeletePin(pin.pinId)}>
                         <i className="bi bi-trash"></i> Delete
@@ -412,10 +360,7 @@ function PinList() {
           </tbody>
         </table>
       </div>
-        
       {makeAddPinToTripModals(pins)}
-      
-      
       </>
     );
   }

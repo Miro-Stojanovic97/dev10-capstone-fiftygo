@@ -24,9 +24,11 @@ function PinForm() {
   const [stateChoice, setStateChoice] = useState({});
   const [cities, setCities] = useState([]);
   const [cityChoice, setCityChoice] = useState({});
+
   const auth = useContext(AuthContext);
   const history = useHistory();
   const { id } = useParams();
+
   const initGET = {
     method: "GET",
     headers: {
@@ -34,6 +36,7 @@ function PinForm() {
       Authorization: `Bearer ${auth.user.token}`,
     },
   };
+
   useEffect(() => {
     if (id) {
       fetch(`http://localhost:8080/fiftygo/pin/${id}`, initGET)
@@ -51,6 +54,7 @@ function PinForm() {
         .catch(console.log);
     }
   }, [id]);
+
   useEffect(() => {
     fetch("http://localhost:8080/fiftygo/type", initGET)
       .then((response) => {
@@ -63,6 +67,7 @@ function PinForm() {
       .then((data) => setTypes(data))
       .catch(console.log);
   }, []);
+  
   useEffect(() => {
     fetch("http://localhost:8080/fiftygo/city/states", initGET)
       .then((response) => {
@@ -75,6 +80,7 @@ function PinForm() {
       .then((data) => setStates(data))
       .catch(console.log);
   }, []);
+
   useEffect(() => {
     getCitiesByState(pin.city.stateAbr);
   }, [stateChoice]);
@@ -90,17 +96,20 @@ function PinForm() {
       .then((data) => setCities(data))
       .catch(console.log);
   };
+
   const handleChangeState = (event) => {
     setStateHelper(event.target.value).then(() =>
       getCitiesByState(event.target.value)
     );
   };
+
   const setStateHelper = (stateAbbr) => {
     return new Promise((resolve) => {
       setStateChoice(stateAbbr);
       resolve();
     });
   };
+
   const handleChangeCity = (event) => {
     const selectedCityId = event.target.value;
     setCityChoice(selectedCityId);
@@ -112,10 +121,6 @@ function PinForm() {
     setPin(newPin);
   };
 
-  const getCityIdFromName = () => {
-    return cities.filter(city => city.cityName === cityChoice)[0];
-  }
-
   const handleChange = (event) => {
     const newPin = { ...pin };
     if (event.target.type === "checkbox") {
@@ -125,6 +130,7 @@ function PinForm() {
     }
     setPin(newPin);
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (id) {
@@ -133,6 +139,7 @@ function PinForm() {
       addPin();
     }
   };
+
   const addPin = () => {
     pin.appUserId = auth.user.appUserId;
     const init = {
@@ -160,6 +167,7 @@ function PinForm() {
       })
       .catch(console.log);
   };
+
   const updatePin = () => {
     const init = {
       method: "PUT",
@@ -169,6 +177,7 @@ function PinForm() {
       },
       body: JSON.stringify(pin),
     };
+
     fetch(`http://localhost:8080/fiftygo/pin/${id}`, init)
       .then((response) => {
         if (response.status === 204) {
@@ -188,6 +197,7 @@ function PinForm() {
       })
       .catch(console.log);
   };
+
   const typeMapper = (currentTypeId) => {
     if (currentTypeId != 0 && types.length > 0) {
       const newTypesArr = types.filter((type) => type.typeId != currentTypeId);
@@ -211,6 +221,7 @@ function PinForm() {
         return typesArr;
       }
   };
+
   const stateMapper = (currentStateAbr) => {
     if (currentStateAbr && states.length > 0) {
       const newStatesArr = states.filter(
@@ -235,6 +246,7 @@ function PinForm() {
       return statesArr;
     }
   };
+
   const cityMapper = () => {
     if (cities.length > 0) {
         const citiesArr = cities.map((city) => (
@@ -246,6 +258,7 @@ function PinForm() {
         return citiesArr;
     }
   };
+  
   return (
     <>
       <div className="container my-2">
