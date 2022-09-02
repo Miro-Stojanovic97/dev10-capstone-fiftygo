@@ -283,6 +283,7 @@ function PinForm() {
               name="typeId"
               type="text"
               className="form-control"
+              value={types ? types[0] : ""}
               onChange={handleChange}
             >
               {typeMapper(pin.typeId)}

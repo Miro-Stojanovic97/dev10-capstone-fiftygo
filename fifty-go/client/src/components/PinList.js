@@ -264,9 +264,16 @@ function PinList() {
           <div className='col'>
             <div className="h1 py-4 m-4">{auth.user.firstName}'s Pins</div>
             <Errors />
-            <button className="btn btn-primary" onClick={() => history.push('/pins/add')}>
-              <i className="bi bi-plus-circle"></i> Add a new Pin
-            </button>
+            {(auth.user && (
+              (auth.user.hasRole("ROLE_PREMIUM") || auth.user.hasRole("ROLE_ADMIN")) || (auth.user.hasRole("ROLE_USER") && (pins.length < 50))
+              ) ) ?
+              <button className="btn btn-primary" onClick={() => history.push('/pins/add')}>
+                <i className="bi bi-plus-circle"></i> Add a new Pin
+              </button>
+              : "You'll have to upgrade your Plan or remove a Pin before you can add more!"
+            }
+            {console.log(auth.user.roles)}
+            
           </div>
 
           <div className='col'>
@@ -335,7 +342,7 @@ function PinList() {
                 </td>
                 <td className='vert-center'>
                   <div className="row align-self-center p-3 m-1">
-                      {auth.user && auth.user.appUserId && (pins.length <= 10) && (
+                      {auth.user && auth.user.appUserId && (
                       <Link className="btn btn-primary btn-sm mb-2" to={`/pins/edit/${pin.pinId}`}>
                         <i className="bi bi-pencil-square"></i> Edit
                       </Link>

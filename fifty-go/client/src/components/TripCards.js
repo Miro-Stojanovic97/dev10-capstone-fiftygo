@@ -104,9 +104,14 @@ function TripCards() {
       <div className='col-10 offset-1 p-5'>
         <div className='container center mb-5 py-4 title-bar'>
           <h1 className='py-4'>{auth.user.firstName}'s Trips</h1>
-        <button className="btn btn-primary mb-2" onClick={() => history.push('/trip/add')}>
-            <i className="bi bi-plus-circle"></i> Add a new Trip
-        </button>
+          {(auth.user && (
+              (auth.user.hasRole("ROLE_PREMIUM") || auth.user.hasRole("ROLE_ADMIN")) || (auth.user.hasRole("ROLE_USER") && (trips.length < 10))
+              ) ) ? 
+            <button className="btn btn-primary mb-2" onClick={() => history.push('/trip/add')}>
+                <i className="bi bi-plus-circle"></i> Add a new Trip
+            </button>
+            : "You'll have to upgrade your plan or remove a trip before you can add more!"
+          }
         </div>
                 {trips.map(trip => (
                     <div key={trip.tripId + "-key"} className="card mb-5">
