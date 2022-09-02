@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useRef } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import AuthContext from '../contexts/AuthContext';
@@ -10,10 +10,11 @@ function PinList() {
     const [trips, setTrips] = useState([]);
     const [error, setError] = useState([]);
     const [message, setMessage] = useState([]);
+    const [statesGoing, setStatesGoing] = useState([]);
+    const [statesBeen, setStatesBeen] = useState([]);
   
     const auth = useContext(AuthContext);
     const history = useHistory();
-    const ref = useRef(null);
 
     const delay = ms => new Promise(
       resolve => setTimeout(resolve, ms)
@@ -170,7 +171,59 @@ function PinList() {
       //disableBtn(btnId);
     }
 
+    useEffect(() => {
+      console.log(pins);
+      let statesBeenTo = [];
+      for (let i = 0; i< pins.length; i++) {
+        if (pins[i].pinDidIt) {
+          statesBeenTo.push(pins[i].city.stateAbr);
+        }
+      }
+      const sB = [...new Set(statesBeenTo)].sort();
+      setStatesBeen(sB);
+    }, [pins]);
 
+    useEffect(() => {
+      console.log(pins);
+      let statesGoingTo = [];
+      for (let i = 0; i< pins.length; i++) {
+        if (!pins[i].pinDidIt) {
+          statesGoingTo.push(pins[i].city.stateAbr);
+        }
+      }
+      const sG = [...new Set(statesGoingTo)].sort();
+      setStatesGoing(sG);
+    }, [pins]);
+
+    const makeStatesBeenCounter = () => {
+      const statesBeenArr = statesBeen.map(s => (
+        <div key={s} className='col'>{s}</div>
+      ))
+
+      return (
+        <li id='states-been' className='list-group-item my-2'>
+          <p className=''>These are the states you've already been to!</p>
+            <div className='row'>
+              {statesBeenArr}
+            </div>
+        </li>
+      );
+    }
+
+    const makeStatesGoingCounter = () => {
+      const statesGoingArr = statesGoing.map(s => (
+        <div key={s} className='col'>{s}</div>
+      ))
+
+      return (
+        <li id='states-going' className='list-group-item my-2'>
+          <p className=''>These are the states you're planning to GO!</p>
+            <div className='row'>
+              {statesGoingArr}
+            </div>
+        </li>
+      );
+    }
 
     const makeAddPinToTripModals = () => {
       // show trips in a pop-up with buttons on each trip, include a cancel button to back out back to /pinlist
@@ -242,23 +295,35 @@ function PinList() {
       ))
       return pinsArr;
     }
-
-    const handleAddPinToTrip = (pinId) => {
-// or does this button just need to be connected to the modal???
-    }
   
     return (
       <>
       <div className='col-10 offset-1 p-5'>
-        <div className='container center mb-3 py-4 title-bar'>
-          <h2 className="py-4">{auth.user.firstName}'s Pins</h2>
-        <Errors />
-        <Messages />
-        <button className="btn btn-primary mb-2" onClick={() => history.push('/pins/add')}>
-          <i className="bi bi-plus-circle"></i> Add a new Pin
-        </button>
+        <div className='row center mb-3 py-4 title-bar'>
+          <div className='col'>
+            <div className="h1 py-4 m-4">{auth.user.firstName}'s Pins</div>
+            <Errors />
+            <Messages />
+            <button className="btn btn-primary" onClick={() => history.push('/pins/add')}>
+              <i className="bi bi-plus-circle"></i> Add a new Pin
+            </button>
+          </div>
+
+          <div className='col'>
+              <div id='states-tracking-card' className='card'>
+                <ul className='list-group list-group-flush'>
+                  {makeStatesBeenCounter()}
+                  {makeStatesGoingCounter()}
+                  <li id='pin-card-msg' className='list-group-item'>Add Pins in states you want to visit!</li>
+                </ul>
+              </div>
+          </div>
+          
         </div>
+
         
+        
+
         {/* <Link className="btn btn-primary my-4" to="/pins/add">
           <i className="bi bi-plus-circle"></i> Add Pin
         </Link> */}
@@ -349,6 +414,7 @@ function PinList() {
       </div>
         
       {makeAddPinToTripModals(pins)}
+      
       
       </>
     );

@@ -103,8 +103,8 @@ function TripCards() {
         
     
       <div className='col-10 offset-1 p-5'>
-        <div className='container center mb-3 py-4 title-bar'>
-          <h2 className='py-4'>{auth.user.firstName}'s Trips</h2>
+        <div className='container center mb-5 py-4 title-bar'>
+          <h1 className='py-4'>{auth.user.firstName}'s Trips</h1>
         <button className="btn btn-primary mb-2" onClick={() => history.push('/trip/add')}>
             <i className="bi bi-plus-circle"></i> Add a new Trip
         </button>

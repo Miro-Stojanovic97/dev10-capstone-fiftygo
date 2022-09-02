@@ -300,3 +300,11 @@ a.nav-link {
   text-align: center;
 }
 
+#states-tracking-card, #states-going, #states-been {
+  background-color: #14221d;
+  color:#7CA982;
+}
+
+#pin-card-msg {
+  background-color: #7CA982;
+}
