@@ -172,8 +172,8 @@ function MapView() {
                 children={
                 <Popup className='map-trip-pop'>
                     <p className="pop-head"> {trip.tripDescription} </p>
-                    <p className="pop-txt"> {trip.tripStartDate} </p>
-                    <p className="pop-txt"> {trip.tripEndDate} </p>
+                    <p className="pop-txt"> Starts on {trip.tripStartDate} </p>
+                    <p className="pop-txt"> Ends on {trip.tripEndDate} </p>
                     <p className="pop-txt"> Priority: {trip.tripPriority} </p>
                     <p className="pop-txt"> {trip.tripDidIt ? 'Completed!' : 'Not Completed Yet!'} </p>
                     <Link className="map-trip-btn btn btn-primary btn-sm mb-2" to={`/trip/edit/${trip.tripId}`}>
