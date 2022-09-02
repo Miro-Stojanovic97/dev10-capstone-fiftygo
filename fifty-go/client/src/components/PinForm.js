@@ -258,10 +258,10 @@ function PinForm() {
         return citiesArr;
     }
   };
-  
+
   return (
     <>
-      <div className="container my-2">
+      <div className="container col-5 mb-5 mt-5">
         <h2 className="mb-4">{id ? "Update Pin" : "Add Pin"}</h2>
         <Errors errors={errors} />
         <form onSubmit={handleSubmit}>
@@ -276,7 +276,7 @@ function PinForm() {
               onChange={handleChange}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group mt-3">
             <label htmlFor="typeName">Type:</label>
             <select
               id="typeId"
@@ -288,7 +288,7 @@ function PinForm() {
               {typeMapper(pin.typeId)}
             </select>
           </div>
-          <div className="form-group">
+          <div className="form-group mt-3">
             <label htmlFor="pinDate">Date:</label>
             <input
               id="pinDate"
@@ -299,7 +299,7 @@ function PinForm() {
               onChange={handleChange}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group mt-3">
             <label htmlFor="pinPriority">Priority:</label>
             <input
               id="pinPriority"
@@ -310,8 +310,8 @@ function PinForm() {
               onChange={handleChange}
             />
           </div>
-          <div className="form-group">
-            <label className="form-check-label" htmlFor="pinDidIt">
+          <div className="form-group mt-3">
+            <label className="form-check-label me-2" htmlFor="pinDidIt">
               Did It?:
             </label>
             <input
@@ -323,7 +323,7 @@ function PinForm() {
               onChange={handleChange}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group mt-3">
             <label htmlFor="stateChoice">State:</label>
             <select
               id="stateChoice"
@@ -335,7 +335,7 @@ function PinForm() {
               {stateMapper(pin.city.stateAbr)}
             </select>
           </div>
-          <div className="form-group">
+          <div className="form-group mt-3">
             <label htmlFor="cityId">City:</label>
             <select
               id="cityId"

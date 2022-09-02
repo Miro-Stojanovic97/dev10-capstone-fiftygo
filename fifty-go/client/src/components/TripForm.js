@@ -199,7 +199,7 @@ function TripForm() {
 
   return (
     <>
-    <div className="container">
+    <div className="container col-5 mb-2 mt-5">
       <h2 className="mt-4">{id ? 'Update Trip' : 'Add Trip'}</h2>
 
       <Errors errors={errors} />
@@ -236,7 +236,7 @@ function TripForm() {
              value={trip.tripPriority} onChange={handleChange()} />
          </div>
          <div className="form-group mt-3">
-           <label className="form-check-label" htmlFor="tripDidIt">Did It?:</label>
+           <label className="form-check-label me-2" htmlFor="tripDidIt">Did It?:</label>
            <input id="tripDidIt" name="tripDidIt" type="checkbox" className="form-check-input"
              checked={trip.tripDidIt} onChange={handleChange()} />
          </div>
@@ -246,7 +246,7 @@ function TripForm() {
 
 
          <div className="mt-4">
-           <button className="btn btn-success mr-2" type="submit">
+           <button className="btn btn-success me-2" type="submit">
              <i className="bi bi-file-earmark-check"></i> {id ? 'Update Trip' : 'Add Trip'}
            </button>
            <Link className="btn btn-warning" to="/tripcards">
