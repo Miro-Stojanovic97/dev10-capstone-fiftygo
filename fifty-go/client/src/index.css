@@ -19,18 +19,8 @@
   background-color: #971818;
 }
 
-/* div.col {
-  padding-left: 10%;
-} 
-
-div.col-6 {
-  padding-left: 5%;
-} */
-
 #root {
-  /* background-color: #F1F7ED; */
   overflow: off;
-  /* padding-bottom: 100px; */
 }
 
 html, body {
@@ -40,7 +30,6 @@ html, body {
 
 #main {
   background-color: #F1F7ED;
-  /* overflow: auto; */
   padding-bottom: 100px;
   min-height: 100vh;
 }
@@ -48,10 +37,6 @@ html, body {
 .outer-cont {
  min-height: 100%;
  min-height: 100vh;
-  /* background-color: #F1F7ED;
-  height: 100vh;
-  padding-top: 0px;
-  margin-top: 0px; */
 }
 
 .menu-bar {
@@ -86,16 +71,6 @@ padding-bottom: 20px;
 font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-/* footer {
-  background-color: navy;
-  position: relative;
-  height: 50px;
-  margin-top: -50px;
-  clear: both;
-  outline-style: solid;
-  outline-color: white;
-} */
-
 .nav-link {
   font-size: 16px;
   margin: 3px;
@@ -117,16 +92,6 @@ font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: large;
 }
 
-
-/* a.navbar-brand {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-weight: 1000;
-  font-size: xx-large;
-  color: white;
-  margin-left: 2%;
-  vertical-align: middle;
-} */
-
 a.nav-link {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-weight: 1000;
@@ -143,7 +108,6 @@ a.nav-link {
   padding: 0;
   margin-top: 2%;
   margin-right: 5%;
-  /* margin-bottom: 10%; */
   margin-left: 5%;
   width: 90%;
   height: 60vh;
@@ -162,7 +126,6 @@ a.nav-link {
   color: #266DD3;
   text-align: right;
   margin-bottom: 5%;
-  /* margin-top: -10%; */
 }
 
 .leaflet-marker-icon {
@@ -236,42 +199,6 @@ a.nav-link {
   border-width: 18px;
   border-radius: 4px;
 }
-
-
-.leaflet-interactive {
-  /* color: black;
-  background-color: black;
-  size: 10px;
-  height: 50px; */
-}
-
-.leaflet-zoom-animated {
-  /* color: black; */
-  /* background-color: black; */
-}
-
-/* .leaflet-popup-content-wrapper {
-  background-color: #266DD3;
-  height: 40px;
-  width: 110px;
-} */
-
-/* .leaflet-popup-tip {
-  background-color: navy;
-  outline-style: none;
-  outline-color: transparent;
-  outline-width: 0px; 
-} */
-
-/* .leaflet-popup-content {
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bolder;
-  background-color: NAVY;
-  font-size: x-small;
-  opacity: 1;
-} */
-
 
 .center {
   text-align: center;

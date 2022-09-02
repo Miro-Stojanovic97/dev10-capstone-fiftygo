@@ -10174,7 +10174,7 @@ INSERT INTO trip (trip_description, trip_start_date, trip_end_date, transportati
 	values
     ('West coast friend-visiting road trip!', '2022-12-12', '2023-01-08', 'car', 5, 0, 2),
 	('Yellowstone and Colorado trip!', '2022-07-16', '2022-07-20', 'rental car', 3, 1, 2),
-	('NYC trip with Jamie!:)', '2022-10-16', '2022-10-27', 'bus', 3, 0, 2),
+	('NYC trip with Jamie!:)', '2022-10-16', '2022-10-27', 'bus', 2, 0, 2),
 	('Midwest to Nashville Road trip with friends.', '2022-05-17', '2022-05-30', 'car', 5, 1, 3),
 	('Taking the train to never land!', '2023-02-04', '2023-02-12', 'trains', 3, 0, 3);
     
@@ -10187,9 +10187,9 @@ insert into pin_trip (pin_id, trip_id)
 	(5, 3),
 	(6, 3),
 	(7, 3),
-	(8, 4),
-	(9, 4),
 	(10, 4),
 	(11, 4),
-	(12, 5),
-	(13, 5);
+	(12, 4),
+	(13, 4),
+	(14, 5),
+	(15, 5);

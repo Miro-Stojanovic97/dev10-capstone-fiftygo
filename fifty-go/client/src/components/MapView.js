@@ -111,7 +111,7 @@ function MapView() {
     }
     //defines the color of the polylines based on tripPriority
     function getColor(tripPriority) {
-        let colors = ["red", "blue", "green", "black", "brown"];
+        let colors = ["brown", "purple", "green", "blue", "red"];
         let chosenColor = colors[tripPriority - 1];
         return chosenColor;
     }
@@ -172,8 +172,8 @@ function MapView() {
                 children={
                 <Popup className='map-trip-pop'>
                     <p className="pop-head"> {trip.tripDescription} </p>
-                    <p className="pop-txt"> {trip.tripStartDate} </p>
-                    <p className="pop-txt"> {trip.tripEndDate} </p>
+                    <p className="pop-txt"> Starts on {trip.tripStartDate} </p>
+                    <p className="pop-txt"> Ends on {trip.tripEndDate} </p>
                     <p className="pop-txt"> Priority: {trip.tripPriority} </p>
                     <p className="pop-txt"> {trip.tripDidIt ? 'Completed!' : 'Not Completed Yet!'} </p>
                     <Link className="map-trip-btn btn btn-primary btn-sm mb-2" to={`/trip/edit/${trip.tripId}`}>
@@ -188,16 +188,14 @@ function MapView() {
                             setTimeout(() => {
                                 e.target.setStyle({weight: (7 + t / 20)})
                             }, t); 
-                        }
-                        setTimeout(() => {
-                            for (let t = 0; t < 80; t++) {
-                                setTimeout(() => {
-                                    e.target.setStyle({"color": getColor(trip.tripPriority), weight: (12 - (t / 20))})
-                                }, t); 
-                            }  
-                        }, 160);
-                             
-                  }}}>
+                        }},
+                    mouseout: (e) => {
+                        for (let t = 0; t < 80; t++) {
+                            setTimeout(() => {
+                                e.target.setStyle({weight: (12 - (t / 20))})
+                            }, t); 
+                        } 
+                    }}}>
                 </Polyline>
 
                 // <legend 
