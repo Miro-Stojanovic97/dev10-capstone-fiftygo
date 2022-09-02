@@ -111,7 +111,7 @@ function MapView() {
     }
     //defines the color of the polylines based on tripPriority
     function getColor(tripPriority) {
-        let colors = ["red", "blue", "green", "black", "brown"];
+        let colors = ["red", "blue", "green", "purple", "brown"];
         let chosenColor = colors[tripPriority - 1];
         return chosenColor;
     }
@@ -188,16 +188,14 @@ function MapView() {
                             setTimeout(() => {
                                 e.target.setStyle({weight: (7 + t / 20)})
                             }, t); 
-                        }
-                        setTimeout(() => {
-                            for (let t = 0; t < 80; t++) {
-                                setTimeout(() => {
-                                    e.target.setStyle({"color": getColor(trip.tripPriority), weight: (12 - (t / 20))})
-                                }, t); 
-                            }  
-                        }, 160);
-                             
-                  }}}>
+                        }},
+                    mouseout: (e) => {
+                        for (let t = 0; t < 80; t++) {
+                            setTimeout(() => {
+                                e.target.setStyle({weight: (12 - (t / 20))})
+                            }, t); 
+                        } 
+                    }}}>
                 </Polyline>
 
                 // <legend 
