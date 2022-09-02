@@ -111,7 +111,7 @@ function MapView() {
     }
     //defines the color of the polylines based on tripPriority
     function getColor(tripPriority) {
-        let colors = ["red", "blue", "green", "purple", "brown"];
+        let colors = ["brown", "purple", "green", "blue", "red"];
         let chosenColor = colors[tripPriority - 1];
         return chosenColor;
     }
