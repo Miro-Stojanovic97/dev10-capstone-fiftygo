@@ -58,7 +58,7 @@ function Register() {
     fetch('http://localhost:8080/create_account', initCreateAccount)
       .then((response) => {
         if (response.status !== 201) {
-          return Promise.reject("Registration failed. Please ensure that no fields are blank, password is more than 8 charcters, and U=username may be in use, so please try another.");
+          return Promise.reject("Registration failed. Please ensure that no fields are blank, password is more than 8 charcters, and: username may be in use, so please try another.");
         }
         return response.json();
       })
